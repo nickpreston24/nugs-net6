@@ -3,3 +3,4 @@ wwwroot/lib
 .rest
 bin
 obj
+.migrations
