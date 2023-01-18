@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>nugsnet6</RootNamespace>
+    <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- The following should embed every .cypher query file into the assembly
+    Credit: https://stackoverflow.com/questions/69258345/add-all-files-in-folder-including-sub-dir-as-embedded-resource
+    -->
+    <!-- <EmbeddedResource Include="Pages\**\*.cypher" ></EmbeddedResource> -->
+    <EmbeddedResource Include="Pages\Sandbox\RecommendedNugs.cypher" ></EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ElectronNET.API" Version="13.5.1" />
+    <PackageReference Include="Htmx" Version="1.0.1" />
+    <PackageReference Include="Htmx.TagHelpers" Version="1.0.1" />
+    <PackageReference Include="Insight.Database" Version="6.3.11" />
+    <PackageReference Include="Neo4j.Driver" Version="5.4.0" />
+  </ItemGroup>
+
+</Project>

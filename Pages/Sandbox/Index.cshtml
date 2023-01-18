@@ -1,0 +1,43 @@
+@page
+@model IndexModel
+@{
+  // C# vars go here!
+}
+
+<form asp-action="post">
+    <div class="card p-5 mb-4 text-ocean-500">
+
+        <h1>Hello, there!</h1>
+        <div class="d-flex justify-content-between">
+
+            <div>
+                <button class="btn btn-primary"
+                        hx-post="@Url.Page("","Increment")"
+                        hx-target="#counter">
+                    Add
+                </button>
+                <button
+                hx-get="@Url.Page("","Stuff")"
+                hx-swap='outerHTML'
+                class="btn-accent btn"
+                >
+                Get Stuff
+                </button>
+
+                <button
+                class='btn-active btn'
+                hx-get="@Url.Page("","RecommendedNugs")"
+                hx-target="#recommendations"
+                >Get Nug Recommendations</button>
+            </div>
+            <div>
+                <h2 id="counter">
+                    <span>0</span>
+                </h2>
+
+                <section id="recommendations">
+                </section>
+            </div>
+        </div>
+    </div>
+</form>

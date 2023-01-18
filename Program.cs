@@ -1,9 +1,11 @@
 // using ElectronNET.API;
+using nugsnet6;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddTransient<IEmbeddedResourceQuery, EmbeddedResourceQuery>();
 
 // builder.UseElectron(args);
 // builder.UseStartup<Startup>();
