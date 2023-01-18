@@ -12,13 +12,15 @@ using System.Runtime.CompilerServices;
 
 namespace nugsnet6.Pages.Sandbox;
 
-public class IndexModel:PageModel {
+public class IndexModel : PageModel
+{
 
     private static int count = 0;
 
-    private IEmbeddedResourceQuery  embeddedResourceQuery;
+    private IEmbeddedResourceQuery embeddedResourceQuery;
 
-    public IndexModel(IEmbeddedResourceQuery embeddedResourceQuery) {
+    public IndexModel(IEmbeddedResourceQuery embeddedResourceQuery)
+    {
         this.embeddedResourceQuery = embeddedResourceQuery;
     }
 
@@ -34,11 +36,13 @@ public class IndexModel:PageModel {
         return Content($"<span>{++count}</span>", "text/html");
     }
 
-    public IActionResult OnGetStuff(){
+    public IActionResult OnGetStuff()
+    {
         return Content($"<b>Stuff for u!<br/> One lump, or 2?</b>");
     }
 
-    public async Task<IActionResult> OnGetRecommendedNugs() {
+    public async Task<IActionResult> OnGetRecommendedNugs()
+    {
         string contents = "bob";
 
         var assembly = typeof(IndexModel).Assembly;
@@ -53,15 +57,17 @@ public class IndexModel:PageModel {
         return Content($"{contents}");
     }
 
-    private async Task<string> ReadAllLinesFromStreamAsync(Stream stream) {
-        if (stream == null) {
+    private async Task<string> ReadAllLinesFromStreamAsync(Stream stream)
+    {
+        if (stream == null)
+        {
             return string.Empty;
         }
         using (StreamReader reader = new StreamReader(stream))
         {
             // Console.WriteLine("YA MADE IT!!");
             // System.Diagnostics.Debug.WriteLine("YA MADE IT!!");
-          string  contents = await reader.ReadToEndAsync();
+            string contents = await reader.ReadToEndAsync();
 
             return contents;
         }
@@ -72,7 +78,7 @@ public class IndexModel:PageModel {
     /// https://josef.codes/using-embedded-files-in-dotnet-core/
     // public string ReadLocalQuery(Assembly assembly,  string filename) {
 
-        
+
     //     using (var stream = assembly.GetManifestResourceStream(filename))
     //         {
     //             if(stream == null)
