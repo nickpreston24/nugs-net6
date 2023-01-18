@@ -1,0 +1,5 @@
+node_modules
+wwwroot/lib
+.rest
+bin
+obj
