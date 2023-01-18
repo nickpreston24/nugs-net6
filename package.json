@@ -4,18 +4,20 @@
     "build": "dotnet build",
     "restore": "dotnet restore",
     "buildcss:dev": "cross-env TAILWIND_MODE=build postcss ./Styles/app.css -o ./wwwroot/css/app.css",
-    "buildcss:release": "cross-env NODE_ENV=production postcss ./Styles/app.css -o ./wwwroot/css/app.css"
+    "buildcss:release": "cross-env NODE_ENV=production postcss ./Styles/app.css -o ./wwwroot/css/app.css",
+    "buildcss:linux": "npx tailwindcss -i ./Styles/app.css -o ./wwwroot/css/site.css",
+    "electron": "electronize-h5 start /watch"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3",
+    "@tailwindcss/typography": "^0.5.7",
     "autoprefixer": "^10.2.6",
-    "postcss": "^8.3.0",
+    "postcss": "^8.4.18",
     "postcss-cli": "^8.3.1",
-    "tailwindcss": "^2.1.4"
+    "tailwindcss": "^3.0.23"
   },
   "dependencies": {
     "alpinejs": "^3.11.1",
-    "daisyui": "^2.47.0",
+    "daisyui": "^2.6.0",
     "htmx.org": "^1.8.5"
   }
 }

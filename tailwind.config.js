@@ -13,12 +13,6 @@ module.exports = {
         header: "var(--header)",
         accent: "var(--accent)"
       },
-      keyframes: {
-        // wiggle: {
-        //   '0%, 100%': { transform: 'rotate(-3deg)' },
-        //   '50%': { transform: 'rotate(3deg)' },
-        // }
-      },
       borderRadius: {
         tiny: "3px",
         base: "4px",
@@ -293,6 +287,6 @@ module.exports = {
       opacity: ["disabled"]
     }
   },
-  // plugins: [require("daisyui")],
+  plugins: [require("daisyui")],
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"]
 };
