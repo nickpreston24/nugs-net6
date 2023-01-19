@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>nugsnet6</RootNamespace>
     <InvariantGlobalization>true</InvariantGlobalization>
-    <LangVersion>latest</LangVersion>
+    <!-- <LangVersion>latest</LangVersion> -->
   </PropertyGroup>
 
   <ItemGroup>

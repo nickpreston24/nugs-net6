@@ -56,12 +56,16 @@ public class IndexModel : PageModel
         query = await stream.ReadAllLinesFromStreamAsync();
 
         // This can also be a template
+
         return Content(
-            $"""
-            <div class='alert alert-primary'>
-                <p class='text-xl text-secondary text-sh'>{query}</p>
-            </div>
-            """);
+            $"<div class='alert alert-primary'><p class='text-xl text-secondary text-sh'>{query}</p></div>");
+            
+        // return Content(
+        //     $"""
+        //     <div class='alert alert-primary'>
+        //         <p class='text-xl text-secondary text-sh'>{query}</p>
+        //     </div>
+        //     """);
     }
 
 }
