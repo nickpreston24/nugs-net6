@@ -43,19 +43,18 @@ namespace nugsnet6
 
         internal Stream? ReadInternal(Assembly assembly, string resource)
         {
-            string[] names = assembly.GetManifestResourceNames(); 
-            Print(names);
 
-            string assembly_name = assembly.GetName().Name;
-            Console.WriteLine(assembly_name);
-            // Debug.WriteLine(assembly_name);
+            // Console.WriteLine("Resource: " + resource);
+            
+            string[] names = assembly.GetManifestResourceNames(); 
+            // Print(names);
+
             if (!_assemblyNames.ContainsKey(assembly))
             {
                 _assemblyNames[assembly] = assembly.GetName().Name!;
             }
-            string stream_path = $"{_assemblyNames[assembly]}.{resource}";
-            Console.WriteLine("STREAM: " + stream_path);
-            return assembly.GetManifestResourceStream(stream_path);
+
+            return assembly.GetManifestResourceStream(resource);
         }
 
         private void Print(params string [] values) {

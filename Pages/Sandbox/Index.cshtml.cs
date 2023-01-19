@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using CodeMechanic.Extensions;
 
 
 namespace nugsnet6.Pages.Sandbox;
@@ -17,7 +18,7 @@ public class IndexModel : PageModel
 
     private static int count = 0;
 
-    private IEmbeddedResourceQuery embeddedResourceQuery;
+    private readonly IEmbeddedResourceQuery embeddedResourceQuery;
 
     public IndexModel(IEmbeddedResourceQuery embeddedResourceQuery)
     {
@@ -43,39 +44,25 @@ public class IndexModel : PageModel
 
     public async Task<IActionResult> OnGetRecommendedNugs()
     {
-        string contents = "bob";
+        string contents = "...";
 
-        var assembly = typeof(IndexModel).Assembly;
+        // var assembly = typeof(IndexModel).Assembly;
 
-        string resource = "Pages.Sandbox.RecommendedNugs.cypher";
+        // string resource = "Pages.Sandbox.RecommendedNugs.cypher";
+        string resource = new StackTrace().GetCurrentResourcePath();
         // string assembly_name  = "nugsnet6";
 
         await using Stream stream = embeddedResourceQuery.Read<IndexModel>(resource);
 
-        contents = await ReadAllLinesFromStreamAsync(stream);
+        contents = await stream.ReadAllLinesFromStreamAsync();
+
 
         return Content($"{contents}");
     }
 
-    private async Task<string> ReadAllLinesFromStreamAsync(Stream stream)
-    {
-        if (stream == null)
-        {
-            return string.Empty;
-        }
-        using (StreamReader reader = new StreamReader(stream))
-        {
-            // Console.WriteLine("YA MADE IT!!");
-            // System.Diagnostics.Debug.WriteLine("YA MADE IT!!");
-            string contents = await reader.ReadToEndAsync();
+   
 
-            return contents;
-        }
-
-    }
-
-    /// Credit: https://gist.github.com/rflechner/fab685187f10b8eb9815c6af1f874d3d
-    /// https://josef.codes/using-embedded-files-in-dotnet-core/
+  
     // public string ReadLocalQuery(Assembly assembly,  string filename) {
 
 

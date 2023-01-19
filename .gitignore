@@ -4,3 +4,4 @@ wwwroot/lib
 bin
 obj
 .migrations
+.idea
