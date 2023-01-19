@@ -9,20 +9,25 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using CodeMechanic.Extensions;
-
+using CodeMechanic.RazorPages;
+using Neo4j.Driver;
 
 namespace nugsnet6.Pages.Sandbox;
 
-public class IndexModel : PageModel
+public class IndexModel : HighSpeedPageModel
 {
 
     private static int count = 0;
 
     private readonly IEmbeddedResourceQuery embeddedResourceQuery;
 
-    public IndexModel(IEmbeddedResourceQuery embeddedResourceQuery)
+    public IndexModel(
+    IEmbeddedResourceQuery embeddedResourceQuery
+    , IDriver driver)
+    :base(embeddedResourceQuery, driver)
     {
-        this.embeddedResourceQuery = embeddedResourceQuery;
+        // this.embeddedResourceQuery = embeddedResourceQuery;
+        // this.driver = driver;
     }
 
     public void OnGet()
@@ -55,11 +60,26 @@ public class IndexModel : PageModel
         // Reads the any file I tell it to as a query.
         query = await stream.ReadAllLinesFromStreamAsync();
 
-        // This can also be a template
 
+        // Run Neo4j query...
+        // IDriver driver = GraphDatabase.Driver("neo4j://localhost:7687", AuthTokens.Basic("username", "pasSW0rd"));
+        // IAsyncSession session = driver.AsyncSession(o => o.WithDatabase("neo4j"));
+        // try
+        // {
+        //     IResultCursor cursor = await session.RunAsync(query);
+        //     await cursor.ConsumeAsync();
+        // }
+        // finally
+        // {
+        //     await session.CloseAsync();
+        // }
+
+        await driver.CloseAsync();
+        
+        // This can also be a template
         return Content(
             $"<div class='alert alert-primary'><p class='text-xl text-secondary text-sh'>{query}</p></div>");
-            
+
         // return Content(
         //     $"""
         //     <div class='alert alert-primary'>
