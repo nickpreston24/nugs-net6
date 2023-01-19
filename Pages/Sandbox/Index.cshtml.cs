@@ -44,38 +44,24 @@ public class IndexModel : PageModel
 
     public async Task<IActionResult> OnGetRecommendedNugs()
     {
-        string contents = "...";
+        string query = "...";
 
-        // var assembly = typeof(IndexModel).Assembly;
-
-        // string resource = "Pages.Sandbox.RecommendedNugs.cypher";
+        // Magically infers that the current method name is referring to 'RecommendedNugs.cypher'
         string resource = new StackTrace().GetCurrentResourcePath();
-        // string assembly_name  = "nugsnet6";
 
+        // Reads from file system...
         await using Stream stream = embeddedResourceQuery.Read<IndexModel>(resource);
 
-        contents = await stream.ReadAllLinesFromStreamAsync();
+        // Reads the any file I tell it to as a query.
+        query = await stream.ReadAllLinesFromStreamAsync();
 
-
-        return Content($"{contents}");
+        // This can also be a template
+        return Content(
+            $"""
+            <div class='alert alert-primary'>
+                <p class='text-xl text-secondary text-sh'>{query}</p>
+            </div>
+            """);
     }
 
-   
-
-  
-    // public string ReadLocalQuery(Assembly assembly,  string filename) {
-
-
-    //     using (var stream = assembly.GetManifestResourceStream(filename))
-    //         {
-    //             if(stream == null)
-    //                 return "Stream could not be created for file " + filename;
-
-    //             using (var reader = new StreamReader(stream))
-    //             {
-    //                 var cypher = reader.ReadToEnd();
-    //                 return cypher;
-    //             }
-    //         }
-    // }
 }
