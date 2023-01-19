@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace nugsnet6
+namespace CodeMechanic.Extensions
 {
     public class EmbeddedFileProvider_EmbeddedResourceQuery : IEmbeddedResourceQuery
     {

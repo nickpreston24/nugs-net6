@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Reflection;
 
-namespace nugsnet6;
+namespace CodeMechanic.Extensions;
 
 public interface IEmbeddedResourceQuery
 {
