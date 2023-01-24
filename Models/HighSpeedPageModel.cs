@@ -30,17 +30,48 @@ public abstract class HighSpeedPageModel : PageModel
     protected readonly IDriver driver;
 
     public HighSpeedPageModel(
-    IEmbeddedResourceQuery embeddedResourceQuery
-    , IDriver driver
+        IEmbeddedResourceQuery embeddedResourceQuery
+        , IDriver driver
     )
     {
         this.embeddedResourceQuery = embeddedResourceQuery;
         this.driver = driver;
     }
 
+    public async Task<IList<IRecord>> NeoFind(string query, object parameters) 
+    {
+        var none = new List<IRecord>();
+        
+        if(parameters == null || string.IsNullOrWhiteSpace(query))
+            return none;
+
+        await using var session = driver
+            .AsyncSession();
+            // .AsyncSession(configBuilder => configBuilder
+            // .WithDatabase("nugs"));
+
+        try
+        {
+            var readResults = await session.ExecuteReadAsync(async tx =>
+            {
+                // var result = await tx.RunAsync(query, new { name = personName });
+                var result = await tx.RunAsync(query, parameters);
+                return await result.ToListAsync();
+            });
+
+            return readResults;
+        }
+        // Capture any errors along with the query and data for traceability
+        catch (Neo4jException ex)
+        {
+            Console.WriteLine($"{query} - {ex}");
+            throw;
+        }
+    }
+
     // public object NeoWrite(string query, IDictionary<string, object> neo4j_params) 
     // {
-    //     await using var session = _driver.AsyncSession(configBuilder => configBuilder.WithDatabase("neo4j"));
+    //     await using var session = driver.AsyncSession(configBuilder => configBuilder.WithDatabase("neo4j"));
 
     //     try
     //     {

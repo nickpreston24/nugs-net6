@@ -1,0 +1,43 @@
+@using Neo4j.Driver;
+@model IList<IRecord>
+
+@{
+  var keys = Model?[0].Keys;
+  var records_list = Model;
+}
+
+<ul>
+    @foreach (var key in keys)
+    {
+      <h1 class='text-secondary text-4xl'>@key</h1>
+
+      @foreach (var record in records_list)
+      {
+        <div class="overflow-x-auto">
+          <table class="table table-zebra w-full">
+            <thead>
+              <tr>
+                @foreach (var column in record.Keys)
+                {
+                    <th>@column</th>
+                }
+              </tr>
+            </thead>
+            <tbody>
+              @foreach (var row in record.Values)
+              {
+                <tr>
+                  <td>
+                    @row
+                  </td>
+                </tr>
+              }
+            
+            </tbody>
+          </table>
+        </div>
+      }
+
+    }
+    
+</ul>

@@ -1,0 +1,15 @@
+@model object
+
+@{
+  var properties = Model.GetType().GetProperties();
+}
+
+<tr>
+    @foreach (var prop in properties)
+    {
+
+      <td>@prop.Name</td>
+
+    }
+    
+</ul>

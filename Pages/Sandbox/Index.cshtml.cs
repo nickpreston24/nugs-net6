@@ -19,15 +19,11 @@ public class IndexModel : HighSpeedPageModel
 
     private static int count = 0;
 
-    private readonly IEmbeddedResourceQuery embeddedResourceQuery;
-
     public IndexModel(
-    IEmbeddedResourceQuery embeddedResourceQuery
-    , IDriver driver)
-    :base(embeddedResourceQuery, driver)
+        IEmbeddedResourceQuery embeddedResourceQuery
+        , IDriver driver) 
+    : base(embeddedResourceQuery, driver)
     {
-        // this.embeddedResourceQuery = embeddedResourceQuery;
-        // this.driver = driver;
     }
 
     public void OnGet()
@@ -49,36 +45,43 @@ public class IndexModel : HighSpeedPageModel
 
     public async Task<IActionResult> OnGetRecommendedNugs()
     {
+        /** Todo list
+
+        - [ ] Add a global error handler
+        - [ ] Add a special Daisy Toast for errors
+        - [ ] Log to Airtable a la LogRow.cs
+        - [ ] Add an Admin panel for viewing logs
+
+        **/
+        
+        var failure = Content(
+            $"<div class='alert alert-error'><p class='text-xl text-warning text-sh'>An Error Occurred...  But fret not! Our team of intelligent lab mice are on the job!</p></div>");
+
         string query = "...";
 
         // Magically infers that the current method name is referring to 'RecommendedNugs.cypher'
         string resource = new StackTrace().GetCurrentResourcePath();
+        if(embeddedResourceQuery == null) 
+            return failure;
 
+        // throw new Exception("d'oh!");
         // Reads from file system...
         await using Stream stream = embeddedResourceQuery.Read<IndexModel>(resource);
 
         // Reads the any file I tell it to as a query.
         query = await stream.ReadAllLinesFromStreamAsync();
 
+        var records = await NeoFind(query, new {});
 
-        // Run Neo4j query...
-        // IDriver driver = GraphDatabase.Driver("neo4j://localhost:7687", AuthTokens.Basic("username", "pasSW0rd"));
-        // IAsyncSession session = driver.AsyncSession(o => o.WithDatabase("neo4j"));
-        // try
-        // {
-        //     IResultCursor cursor = await session.RunAsync(query);
-        //     await cursor.ConsumeAsync();
-        // }
-        // finally
-        // {
-        //     await session.CloseAsync();
-        // }
 
-        await driver.CloseAsync();
+        // var graph = records.ToD3Graph();
+
+
+        return Partial("_RecordsTable", records);
         
         // This can also be a template
-        return Content(
-            $"<div class='alert alert-primary'><p class='text-xl text-secondary text-sh'>{query}</p></div>");
+        // return Content(
+        //     $"<div class='alert alert-primary'><p class='text-xl text-secondary text-sh'>{query}</p></div>");
 
         // return Content(
         //     $"""
@@ -89,3 +92,5 @@ public class IndexModel : HighSpeedPageModel
     }
 
 }
+
+

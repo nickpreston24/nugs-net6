@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace nugsnet6.Pages.Loadouts
+namespace nugsnet6.Pages.Guides
 {
     public class IndexModel : PageModel
     {
