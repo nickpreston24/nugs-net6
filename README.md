@@ -19,10 +19,10 @@ https://github.com/ElectronNET/Electron.NET/issues/704
 
 ## TODOS / Ideas
 
-- [ ] A Guides page
-- [ ] A Parts submission page
-- [ ] Searchable features field (Neo)
+- [x] A Guides page
+- [x] A Parts submission page
 - [ ] Omni-search should show stratifications (see Opticsplanet) and aid site navigation (Guides, Ammo, etc.)
+- [ ] [Global Error handling](https://code-maze.com/global-error-handling-aspnetcore/)
 
 # Goals
 
