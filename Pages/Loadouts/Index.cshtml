@@ -1,12 +1,29 @@
 ﻿@page
-@using Atoms
+@using Components.Atoms
 @model nugsnet6.Pages.IndexModel
 @{
     var yermum = 10;
 }
 
-<div>
+<div x-data='setup()' class='flex flex-col'>
     <h1>Hello, welcome to Loadouts!</h1>
+
+    <label>outer count</label>
+  <span x-text="count"></span>
+
+    <button class='btn btn-accent' @@click="count++">+++</button>
+
     <component type="typeof(Counter)" param-InitialValue="@yermum" render-mode="Server" />
-    <component type="typeof(EmployeeCard)" render-mode="Server" />
+    <component x-show='false' type="typeof(EmployeeCard)" render-mode="Server" />
 </div>
+ 
+
+<script type="text/javascript">
+    function setup() {
+        return {
+
+            count: -99
+        }
+
+    }
+</script>

@@ -17,7 +17,7 @@ builder.Services.AddTransient<IEmbeddedResourceQuery, EmbeddedResourceQuery>();
 
 
 
-builder.Services.AddServerSideBlazor();
+// builder.Services.AddServerSideBlazor();
 
 // This method gets called by the runtime. Use this method to add services to the container.
 void ConfigureServices(IServiceCollection services)
@@ -63,6 +63,6 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
-app.MapBlazorHub();
+// app.MapBlazorHub();
 
 app.Run();
