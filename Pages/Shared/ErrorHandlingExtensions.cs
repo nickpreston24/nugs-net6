@@ -26,8 +26,6 @@ namespace GlobalErrorHandling.Extensions
                         };
 
 
-
-
                 // Other stuff that apparently works only with http request errors (ewww):
 
                 // appError.Run(async context =>

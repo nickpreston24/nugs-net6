@@ -1,6 +1,9 @@
 ﻿<!DOCTYPE html>
-<html data-theme="synthwave" lang="en">
+<html data-theme="halloween" lang="en">
 <head>
+    <base href="~/" />
+    <!-- <component type="typeof(Microsoft.AspNetCore.Components.Web.HeadOutlet)" 
+        render-mode="ServerPrerendered" /> -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Lock-N-Loadout</title>
@@ -87,17 +90,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/routes.js" asp-append-version="true"></script>
 
-
-
-
-      <!-- <script>
-    function setup(){
-
-        console.log("Oh, my gosh, becky...");
-    }
-
-    </script> -->
-
+    <script src="_framework/blazor.server.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 
 

@@ -24,6 +24,7 @@
     <PackageReference Include="Insight.Database" Version="6.3.11" />
     <PackageReference Include="Neo4j.Driver" Version="5.4.0" />
     <PackageReference Include="dotenv.net" Version="3.0.0"/>
+    <!-- <PackageReference Include="Microsoft.AspNetCore.Blazor" ></PackageReference> -->
   </ItemGroup>
 
 </Project>

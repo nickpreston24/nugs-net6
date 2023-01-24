@@ -1,10 +1,12 @@
 ﻿@page
+@using Atoms
 @model nugsnet6.Pages.IndexModel
 @{
+    var yermum = 10;
 }
-
-
 
 <div>
     <h1>Hello, welcome to Loadouts!</h1>
+    <component type="typeof(Counter)" param-InitialValue="@yermum" render-mode="Server" />
+    <component type="typeof(EmployeeCard)" render-mode="Server" />
 </div>
