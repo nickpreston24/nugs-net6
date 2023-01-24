@@ -1,0 +1,362 @@
+@model MyStats
+
+
+
+<div
+  class="col-span-3 row-span-3 mx-2 flex w-72 flex-shrink-0 flex-col xl:mx-0 xl:w-full svelte-1n6ue57"
+>
+  <div class="dropdown">
+    <div tabindex="0" class="bg-opacity-100">
+      <div class="tabs w-full flex-grow-0">
+        <button class="tab tab-lifted tab-active tab-border-none tab-lg flex-1">
+          Stats
+        </button>
+        <button class="tab tab-lifted tab-border-none tab-lg flex-1">
+          Info
+        </button>
+        <button class="tab tab-lifted tab-border-none tab-lg flex-1">
+          Options
+        </button>
+      </div>
+    </div>
+    <div tabindex="0" class="dropdown-content py-2">
+      <div
+        class="card compact bg-neutral-focus text-neutral-content rounded-box w-72 shadow-xl"
+      >
+        <div class="card-body">
+          <h2 class="card-title font-extrabold capitalize">tab component</h2>
+          <p class="text-neutral-content text-sm text-opacity-80">
+            Beautiful tabs to switch between sections
+          </p>
+          <div class="mt-4 flex justify-end">
+            <a href="/components/tab" class="btn btn-primary btn-sm xl:btn-md"
+              >See component</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="bg-base-100 grid w-full flex-grow gap-3 rounded-xl rounded-tl-none p-6 shadow-xl"
+  >
+    <div class="flex items-center space-x-2">
+      <div class="dropdown">
+        <div tabindex="0">
+          <div class="online avatar">
+            <div
+              class="mask mask-hexagon bg-base-content h-16 w-16 bg-opacity-10 p-px"
+            >
+              <img
+                src="/tailwind-css-component-profile-5@56w.png"
+                alt="Avatar Tailwind CSS Component"
+                class="mask mask-hexagon"
+              />
+            </div>
+          </div>
+        </div>
+        <div tabindex="0" class="dropdown-content py-2">
+          <div
+            class="card compact bg-neutral-focus text-neutral-content rounded-box w-72 shadow-xl"
+          >
+            <div class="card-body">
+              <h2 class="card-title font-extrabold capitalize">
+                avatar component
+              </h2>
+              <p class="text-neutral-content text-sm text-opacity-80">
+                Use avatar component with any size
+              </p>
+              <div class="mt-4 flex justify-end">
+                <a
+                  href="/components/avatar"
+                  class="btn btn-primary btn-sm xl:btn-md"
+                  >See component</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="text-lg font-extrabold">Beatrice Thurman</div>
+        <div class="text-base-content/70 text-sm">220 Followers</div>
+      </div>
+    </div>
+    <div class="dropdown">
+      <div tabindex="0">
+        <div class="divider text-base-content/60 m-0">Reports</div>
+      </div>
+      <div tabindex="0" class="dropdown-content py-2">
+        <div
+          class="card compact bg-neutral-focus text-neutral-content rounded-box w-72 shadow-xl"
+        >
+          <div class="card-body">
+            <h2 class="card-title font-extrabold capitalize">
+              divider component
+            </h2>
+            <p class="text-neutral-content text-sm text-opacity-80">
+              User divider component to visually separate items
+            </p>
+            <div class="mt-4 flex justify-end">
+              <a
+                href="/components/divider"
+                class="btn btn-primary btn-sm xl:btn-md"
+                >See component</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-lg font-extrabold">Audience Report</div>
+    <div class="grid gap-3">
+      <div class="dropdown dropdown-top">
+        <div tabindex="0">
+          <div class="flex items-center p-1">
+            <span class="text-base-content/70 w-48 text-xs"
+              >Search Engines</span
+            >
+            <progress
+              max="100"
+              class="progress progress-success"
+              value="50"
+            ></progress>
+          </div>
+          <div class="flex items-center p-1">
+            <span class="text-base-content/70 w-48 text-xs">Direct</span>
+            <progress
+              max="100"
+              class="progress progress-primary"
+              value="30"
+            ></progress>
+          </div>
+          <div class="flex items-center p-1">
+            <span class="text-base-content/70 w-48 text-xs">Social Media</span>
+            <progress
+              max="100"
+              class="progress progress-secondary"
+              value="70"
+            ></progress>
+          </div>
+          <div class="flex items-center p-1">
+            <span class="text-base-content/70 w-48 text-xs">Emails</span>
+            <progress
+              max="100"
+              class="progress progress-accent"
+              value="90"
+            ></progress>
+          </div>
+          <div class="flex items-center p-1">
+            <span class="text-base-content/70 w-48 text-xs">Ad campaigns</span>
+            <progress
+              max="100"
+              class="progress progress-warning"
+              value="65"
+            ></progress>
+          </div>
+        </div>
+        <div tabindex="0" class="dropdown-content py-2">
+          <div
+            class="card compact bg-neutral-focus text-neutral-content rounded-box w-72 shadow-xl"
+          >
+            <div class="card-body">
+              <h2 class="card-title font-extrabold capitalize">
+                progress component
+              </h2>
+              <p class="text-neutral-content text-sm text-opacity-80">
+                Show progressbar, loadings or simple bar charts using progress
+                component
+              </p>
+              <div class="mt-4 flex justify-end">
+                <a
+                  href="/components/progress"
+                  class="btn btn-primary btn-sm xl:btn-md"
+                  >See component</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  class="col-span-3 row-span-3 mx-2 flex w-72 flex-shrink-0 flex-col xl:mx-0 xl:w-full svelte-1n6ue57"
+>
+  <div class="dropdown">
+    <div tabindex="0" class="bg-opacity-100">
+      <div class="tabs w-full flex-grow-0">
+        <button class="tab tab-lifted tab-active tab-border-none tab-lg flex-1">
+          Stats
+        </button>
+        <button class="tab tab-lifted tab-border-none tab-lg flex-1">
+          Info
+        </button>
+        <button class="tab tab-lifted tab-border-none tab-lg flex-1">
+          Options
+        </button>
+      </div>
+    </div>
+    <div tabindex="0" class="dropdown-content py-2">
+      <div
+        class="card compact bg-neutral-focus text-neutral-content rounded-box w-72 shadow-xl"
+      >
+        <div class="card-body">
+          <h2 class="card-title font-extrabold capitalize">tab component</h2>
+          <p class="text-neutral-content text-sm text-opacity-80">
+            Beautiful tabs to switch between sections
+          </p>
+          <div class="mt-4 flex justify-end">
+            <a href="/components/tab" class="btn btn-primary btn-sm xl:btn-md"
+              >See component</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="bg-base-100 grid w-full flex-grow gap-3 rounded-xl rounded-tl-none p-6 shadow-xl"
+  >
+    <div class="flex items-center space-x-2">
+      <div class="dropdown">
+        <div tabindex="0">
+          <div class="online avatar">
+            <div
+              class="mask mask-hexagon bg-base-content h-16 w-16 bg-opacity-10 p-px"
+            >
+              <img
+                src="/tailwind-css-component-profile-5@56w.png"
+                alt="Avatar Tailwind CSS Component"
+                class="mask mask-hexagon"
+              />
+            </div>
+          </div>
+        </div>
+        <div tabindex="0" class="dropdown-content py-2">
+          <div
+            class="card compact bg-neutral-focus text-neutral-content rounded-box w-72 shadow-xl"
+          >
+            <div class="card-body">
+              <h2 class="card-title font-extrabold capitalize">
+                avatar component
+              </h2>
+              <p class="text-neutral-content text-sm text-opacity-80">
+                Use avatar component with any size
+              </p>
+              <div class="mt-4 flex justify-end">
+                <a
+                  href="/components/avatar"
+                  class="btn btn-primary btn-sm xl:btn-md"
+                  >See component</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="text-lg font-extrabold">Beatrice Thurman</div>
+        <div class="text-base-content/70 text-sm">220 Followers</div>
+      </div>
+    </div>
+    <div class="dropdown">
+      <div tabindex="0">
+        <div class="divider text-base-content/60 m-0">Reports</div>
+      </div>
+      <div tabindex="0" class="dropdown-content py-2">
+        <div
+          class="card compact bg-neutral-focus text-neutral-content rounded-box w-72 shadow-xl"
+        >
+          <div class="card-body">
+            <h2 class="card-title font-extrabold capitalize">
+              divider component
+            </h2>
+            <p class="text-neutral-content text-sm text-opacity-80">
+              User divider component to visually separate items
+            </p>
+            <div class="mt-4 flex justify-end">
+              <a
+                href="/components/divider"
+                class="btn btn-primary btn-sm xl:btn-md"
+                >See component</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-lg font-extrabold">Audience Report</div>
+    <div class="grid gap-3">
+      <div class="dropdown dropdown-top">
+        <div tabindex="0">
+          <div class="flex items-center p-1">
+            <span class="text-base-content/70 w-48 text-xs"
+              >Search Engines</span
+            >
+            <progress
+              max="100"
+              class="progress progress-success"
+              value="50"
+            ></progress>
+          </div>
+          <div class="flex items-center p-1">
+            <span class="text-base-content/70 w-48 text-xs">Direct</span>
+            <progress
+              max="100"
+              class="progress progress-primary"
+              value="30"
+            ></progress>
+          </div>
+          <div class="flex items-center p-1">
+            <span class="text-base-content/70 w-48 text-xs">Social Media</span>
+            <progress
+              max="100"
+              class="progress progress-secondary"
+              value="70"
+            ></progress>
+          </div>
+          <div class="flex items-center p-1">
+            <span class="text-base-content/70 w-48 text-xs">Emails</span>
+            <progress
+              max="100"
+              class="progress progress-accent"
+              value="90"
+            ></progress>
+          </div>
+          <div class="flex items-center p-1">
+            <span class="text-base-content/70 w-48 text-xs">Ad campaigns</span>
+            <progress
+              max="100"
+              class="progress progress-warning"
+              value="65"
+            ></progress>
+          </div>
+        </div>
+        <div tabindex="0" class="dropdown-content py-2">
+          <div
+            class="card compact bg-neutral-focus text-neutral-content rounded-box w-72 shadow-xl"
+          >
+            <div class="card-body">
+              <h2 class="card-title font-extrabold capitalize">
+                progress component
+              </h2>
+              <p class="text-neutral-content text-sm text-opacity-80">
+                Show progressbar, loadings or simple bar charts using progress
+                component
+              </p>
+              <div class="mt-4 flex justify-end">
+                <a
+                  href="/components/progress"
+                  class="btn btn-primary btn-sm xl:btn-md"
+                  >See component</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

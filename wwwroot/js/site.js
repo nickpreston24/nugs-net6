@@ -1,4 +1,25 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿// const { readdir } = require('fs').promises;
 
-// Write your JavaScript code.
+// const getFileList = async (dirName) => {
+//     let files = [];
+//     const items = await readdir(dirName, { withFileTypes: true });
+
+//     for (const item of items) {
+//         if (item.isDirectory()) {
+//             files = [
+//                 ...files,
+//                 ...(await getFileList(`${dirName}/${item.name}`)),
+//             ];
+//         } else {
+//             files.push(`${dirName}/${item.name}`);
+//         }
+//     }
+
+//     return files;
+// };
+
+// getFileList('uploads').then((files) => {
+//     console.log(files);
+// });
+
+
