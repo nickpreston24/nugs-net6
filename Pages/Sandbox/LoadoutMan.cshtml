@@ -1,0 +1,12 @@
+@page 
+@model nugsnet6.Pages.Sandbox.LoadoutMan
+
+<div>
+    <h1>Yer Loadout</h1>
+    <button 
+        hx-get="@Url.Page("LoadoutMan", "Stuff")"
+        hx-swap='outerHTML'
+        hx-target="#stuff"
+    >Get stuff</button>
+    <div id='stuff'></div>
+</div> 
