@@ -54,13 +54,13 @@ public abstract class HighSpeedPageModel : PageModel
         {
             var readResults = await session.ExecuteReadAsync(async tx =>
             {
-                // var result = await tx.RunAsync(query, new { name = personName });
                 var result = await tx.RunAsync(query, parameters);
                 return await result.ToListAsync();
             });
 
             return readResults;
         }
+        
         // Capture any errors along with the query and data for traceability
         catch (Neo4jException ex)
         {

@@ -1,16 +1,16 @@
-// using ElectronNET.API;
 using nugsnet6;
 using CodeMechanic.Extensions;
 using Neo4j.Driver;
-using dotenv.net;
-using dotenv.net.Utilities;
-
+using DotEnv.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddTransient<IEmbeddedResourceQuery, EmbeddedResourceQuery>();
+
+
+new EnvLoader().Load();
 
 // builder.UseElectron(args);
 // builder.UseStartup<Startup>();
@@ -22,11 +22,10 @@ builder.Services.AddTransient<IEmbeddedResourceQuery, EmbeddedResourceQuery>();
 // This method gets called by the runtime. Use this method to add services to the container.
 void ConfigureServices(IServiceCollection services)
 {
-    var envVars = DotEnv.Read();
-    string uri = envVars["NEO4J_URI"];
-    string user = envVars["NEO4J_USER"];
-    string password = envVars["NEO4J_PASSWORD"];
-
+    var reader = new EnvReader();
+    string uri = reader["NEO4J_URI"];
+    string user = reader["NEO4J_USER"];
+    string password = reader["NEO4J_PASSWORD"];
 
     Console.WriteLine("URI :>> "+ uri);
     Console.WriteLine("User :>> "+ user);
