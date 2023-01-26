@@ -1,0 +1,33 @@
+@page
+@model GuideGrid
+@{
+
+}
+
+<div x-data="setup()">
+    <h1>Guides</h1>
+    
+    <div
+        hx-get='@Url.Page("","Stuff")'
+        hx-trigger='load'
+        hx-indicator="#indicator"
+     id="initial"></div>
+
+
+    <div 
+        id='indicator' 
+        class="htmx-indicator badge badge-lg badge-accent load"
+        >
+        Loading your guides...
+    </div>
+
+    <!-- <span x-text='color'></span> -->
+
+</div>
+<script>
+    function setup() {
+        return {
+            color:"red"
+        }
+    }
+</script>

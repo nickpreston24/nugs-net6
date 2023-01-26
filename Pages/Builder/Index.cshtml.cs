@@ -13,6 +13,8 @@ public class IndexModel : PageModel
 {
     private readonly IEmbeddedResourceQuery embeddedResourceQuery;
 
+    private static BuildStep current_step = BuildStep.Start;
+
     public IndexModel(IEmbeddedResourceQuery embeddedResourceQuery)
     {
         this.embeddedResourceQuery = embeddedResourceQuery;
@@ -32,4 +34,7 @@ public class IndexModel : PageModel
         return Content($"{query}");
     }
     
+
+    
+
 }

@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Airtable" Version="1.2.0" />
     <PackageReference Include="ElectronNET.API" Version="13.5.1" />
     <PackageReference Include="Htmx" Version="1.0.1" />
     <PackageReference Include="Htmx.TagHelpers" Version="1.0.1" />

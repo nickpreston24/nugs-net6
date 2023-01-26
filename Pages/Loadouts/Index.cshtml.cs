@@ -7,13 +7,6 @@ namespace nugsnet6.Pages.Loadouts
     {
         public void OnGet()
         {
-        }
-
-        public IActionResult OnGetFollowAnotherUser() 
-        {
-            string message = "Follow Success!";
-            
-            return Content($"<div class='alert alert-secondary'><p>{message}</p></div>");
-        }
+        }        
     }
 }

@@ -24,6 +24,15 @@ https://github.com/ElectronNET/Electron.NET/issues/704
 - [ ] Omni-search should show stratifications (see Opticsplanet) and aid site navigation (Guides, Ammo, etc.)
 - [ ] [Global Error handling](https://code-maze.com/global-error-handling-aspnetcore/)
 
+### Animation Ideas
+- [ ] What if my Forms could just be little Nodes that I click, a Card expands for submission and then a ghost arrow animates with a ghostie drop/textbox for the Relationship?  That would be cool!!!!
+- [ ] An custom hero carousel [picker](https://youtu.be/29IQwtXVYqA?t=185) where it wipes, tilts the image a bit and has a Thumbs up or Thumbs down button.
+- [ ] A ghostie [steps](https://daisyui.com/components/steps/)
+- [ ] Draggable expanding [menu](https://youtu.be/29IQwtXVYqA?t=310) for anything 
+
+More inspiration [HERE](https://freefrontend.com/)
+[25 animejs animations](https://www.youtube.com/watch?v=29IQwtXVYqA)
+
 # Goals
 
 1. Aid the average civilian consumer in making decisions for their Loadouts.

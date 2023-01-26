@@ -1,0 +1,156 @@
+@page
+@model object
+@{
+}
+
+<div class='flex flex-row' x-data='{
+        barrel_properties: [{
+                calibers: ["5.56 NATO", ".308 Win"],
+                lengths: [20, 18, 16, 14.5, 13.9, 12, 11, 10.5],
+                gasblocks: ["Fixed", "Adjustable"]
+        }],
+        picks: {
+            caliber: "",
+            length: "",
+            gas_block_type: "",
+        },
+
+        parts: [
+            {
+                name: "Tim The Tool Man Tailor",
+                image: {
+                     "url": "https://www.pewpewtactical.com/wp-content/uploads/2019/02/we-just-need-more-power-tool-time.jpg"
+                }
+            }
+        
+        ]
+'
+        >
+
+    <div id="barrel_picker">
+    <template x-for='props in barrel_properties'>    
+        <div
+            class="bg-base-100 rounded-box col-span-3 row-span-3 mx-2 flex w-72 flex-shrink-0 flex-col justify-center gap-4 p-4 shadow-xl xl:mx-0 xl:w-full svelte-1n6ue57"
+            >
+            <div class="px-6 pt-6">
+                <div class="text-xl font-extrabold">Barrel Properties</div>
+                <div class="text-base-content/70 my-4 text-md">
+                    What do you want to see in your barrel?
+                </div>
+                <div class="dropdown w-full flex-1">
+                <div tabindex="0">
+                     <div class="form-control">
+                        <ul class="menu bg-base-100 w-56 p-2 rounded-box">
+                            <template x-for="caliber in props.calibers" >
+                                <li>
+                                    <a>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+                                        <span x-text="caliber" />
+                                    </a>
+                                </li>                                    
+                            </template>
+                        </ul>
+                    </div>
+                    <div class="form-control">
+                        <label class="label cursor-pointer"
+                            ><span class="label-text">Enable teleportation</span>
+                            <input type="checkbox" class="toggle toggle-primary"
+                        /></label>
+                    </div>
+                   
+                    <div class="form-control">
+                        <label class="label cursor-pointer"
+                            ><span class="label-text">Suppressed (Silenced)</span>
+                            <input type="checkbox" class="toggle toggle-accent"
+                        /></label>
+                        </div>
+                        <div class="form-control">
+                            <label class="label cursor-pointer"
+                                ><span class="label-text">Enable immortality</span>
+                                <input type="checkbox" class="toggle"
+                            /></label>
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+            <div class="form-control">
+                <!-- <div class="dropdown dropdown-top dropdown-end"> -->
+                <div tabindex="0">
+                    <button class="btn btn-secondary btn-block space-x-2">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        class="h-6 w-6 stroke-current"
+                    >
+                        <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                    </svg>
+                    <span>Apply</span>
+                    </button>
+                </div>
+                <!-- <div tabindex="0" class="dropdown-content py-2">
+                    <div
+                    class="card compact bg-neutral-focus text-neutral-content rounded-box w-72 shadow-xl"
+                    >
+                    <div class="card-body">
+                        <h2 class="card-title font-extrabold capitalize">
+                        button component
+                        </h2>
+                        <p class="text-neutral-content text-sm text-opacity-80">
+                        Buttons come in various shapes, colors and sizes
+                        </p>
+                        <div class="mt-4 flex justify-end">
+                        <a
+                            href="/components/button"
+                            class="btn btn-primary btn-sm xl:btn-md"
+                            >See component</a
+                        >
+                        </div>
+                    </div>
+                    </div>
+                </div> -->
+                </div>
+            </div>
+        </div>
+    </template>
+    </div>
+
+   
+
+    <div id="barrel_picker_hero" >
+            <div class="hero min-h-screen bg-base-200">
+                <div class="hero-content text-center">
+                    <div class="max-w-md">
+                    <h1 class="text-5xl font-bold">Hello there</h1>
+                    <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+                    <button class="btn btn-primary">Get Started</button>
+                    
+                    <template x-for="part in parts">
+                        <div class="card w-96 bg-base-100 shadow-xl">
+                            <figure><img src="part.image.url" alt="Shoes" /></figure>
+                            <div class="card-body">
+                                <h2 class="card-title">Shoes!</h2>
+                                <p x-text='part.Notes'></p>
+                                <div class="card-actions justify-end">
+                                <button class="btn btn-primary">Buy Now</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <h2 x-text="img.height"></h2> -->
+                        <!-- <img  src="img.url" /> -->
+                    </template>
+
+
+                    </div>
+                </div>
+            </div>
+    </div>
+
+</div>
+

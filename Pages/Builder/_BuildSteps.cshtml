@@ -1,0 +1,25 @@
+
+@* Todos:
+    1. Track the selected Major Step
+    2. Color the current Step a different color
+*@
+
+<div class='flex flex-col'
+
+    x-data='{
+         build_steps: [
+                 "Caliber"
+                , "Barrel"
+                , "..."
+            ]
+    }'>
+    <ul class="steps">
+        <template x-for='step in build_steps'>
+            <li  
+                class="step step-secondary"
+                x-text='step'
+            >
+            </li>
+        </template>
+    </ul>
+</div>

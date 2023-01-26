@@ -1,0 +1,46 @@
+@model object
+
+@*
+
+    When putting your build together, you’ll need to decide on the following parts:
+
+    Caliber, barrel length, purpose?
+    Brace or stock?
+    Do you want your brace or stock to fold?
+    Ratcheting castle nut or staked castle nut?
+    What upper and lower receiver do you want?
+    Which trigger do you want or require?
+    Is your lower parts kit Mil-Spec or upgraded?
+    BCG.
+    Charging Handle (rear charging or side charging?).
+    Handguard preference?
+    Muzzle device?
+    Optics/Sights?
+    Pistol Grips/Foregrips
+    Barrel Takedown or Breakdown Kits
+    Cerakote choice (optional)
+
+*@
+
+<div x-data='setup()'>
+    <template x-for="post in posts">
+        <div class="card w-96 bg-neutral text-neutral-content">
+            <div class="card-body items-center text-center">
+                <h2 class="card-title">Charger</h2>
+                <p>Pick Your Charger</p>
+                <div class="card-actions justify-end">
+                <button class="btn btn-primary">Side</button>
+                <button class="btn btn-ghost">Rear</button>
+                </div>
+            </div>
+        </div>
+    </template>  
+<div>
+
+<script>
+f    function setup() {
+        return {
+            charger_type: "side"
+        }
+    }
+</script>
