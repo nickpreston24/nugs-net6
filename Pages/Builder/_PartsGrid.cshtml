@@ -1,0 +1,27 @@
+@using nugsnet6.Models;
+@model List<Part>
+@{
+    var parts = @Model;
+}
+
+<div x-data='{
+    parts: Array(2).fill({
+        name: "Tim The Tool Man Tailor",
+        notes: "Need more power!",
+        calibers: ["5.56 NATO", ".308 Win"],
+        image: {
+                "url": "https://www.pewpewtactical.com/wp-content/uploads/2019/02/we-just-need-more-power-tool-time.jpg"
+        }
+    })
+    
+}'>
+
+<div class="grid grid-cols-1 
+grid-rows-auto" >
+    <template x-for="part in parts" >
+        <!-- <partial name="_Part" model={@parts} /> -->
+    </template>
+</div>
+
+
+</div>

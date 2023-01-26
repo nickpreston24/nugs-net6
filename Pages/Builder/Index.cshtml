@@ -1,8 +1,44 @@
 @page
+@using nugsnet6.Models;
 @model IndexModel
 @{
-
+   
 }
+
+<div
+    class='flex flex-col items-center'
+    x-data='setup()'>
+    <partial name="_BuildSteps" />
+    
+    <div class="border-ghost border-l-4 border-r-2">
+        <div class='grid grid-cols-2 grid-rows-auto'>
+            <partial name="_BarrelPicker" />
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function setup() {
+        return {
+            steps: [
+                'Purpose',
+                'Caliber',
+                'Barrel',
+            ]
+        }        
+    }
+</script>
+
+<!-- <ul class="steps">
+        <template x-for='step in steps'>
+            <li  
+                class="step step-secondary"
+                x-text='step'
+            >
+            </li>
+        </template>
+    </ul> -->
 
 
 @*
@@ -26,35 +62,3 @@ Barrel Takedown or Breakdown Kits
 Cerakote choice (optional)
 
 *@
-
-<div
-    class='flex flex-col items-center'
- x-data='setup()'>
-    <partial name="_BuildSteps" />
-
-   <!-- <h1>Welcome to the Nug Builder!</h1> -->
-
-    <!-- <ul class="steps">
-        <template x-for='step in steps'>
-            <li  
-                class="step step-secondary"
-                x-text='step'
-            >
-                
-            </li>
-        </template>
-    </ul> -->
-    
-    <partial name="_BarrelPicker" />
-    <!-- <partial name="_RecommendationsPanel" /> -->
-
-</div>
-
-
-<script>
-    function setup() {
-        return {
-            
-        }
-    }
-</script>

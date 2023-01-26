@@ -12,10 +12,20 @@
     <script script src="https://unpkg.com/htmx.org@1.8.5"></script>
     <script src="//unpkg.com/alpinejs" defer></script>  
     <script src="~/lib/animejs/lib/anime.min.js" ></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 
+    @* IMPORTANT!!! Import your installed modules in your main.js or Razor won't find your node_modules or wwwroot/lib (thanks, Microsoft!) *@
+        
+    <script 
+        type="module" 
+        src="~/js/main.js" 
+        asp-append-version="true">
+    </script>
 
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.47.0/dist/full.css" rel="stylesheet" type="text/css" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
+
 
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
@@ -38,6 +48,9 @@
                             <ul class="p-2">
                                 <li><a href="/Sandbox/LoadoutMan">Loadout Man</a></li>
                                 <li><a href='/Sandbox/11ty'>11ty</a></li>
+                                <li><a href='/Sandbox/AirtableQueries'>Airtable Tests</a></li>
+                                <li><a href='/Sandbox/Animations'>Animations</a></li>
+
                             </ul>
                         </li>
                         <li><a href='/Courses'>Courses</a></li>
@@ -87,17 +100,7 @@
         </button>
     </div>
 
-
-    @* <script src="~/lib/htmx.org/dist/htmx.min.js"></script>
-    <script type="module" src="~/lib/alpinejs/dist/cdn.min.js"></script> *@
-        
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/js/routes.js" asp-append-version="true"></script>
-
-    <!-- <script src="_framework/blazor.server.js"></script> -->
     @await RenderSectionAsync("Scripts", required: false)
-
-
   
 </body>
 

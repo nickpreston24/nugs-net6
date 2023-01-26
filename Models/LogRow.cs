@@ -12,6 +12,7 @@
 */
 
 using Microsoft.Data.SqlClient;
+namespace CodeMechanic.Models;
 
 sealed class LogRow
 {

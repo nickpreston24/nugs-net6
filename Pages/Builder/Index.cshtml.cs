@@ -1,3 +1,4 @@
+
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -5,36 +6,53 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using CodeMechanic.Extensions;
+using CodeMechanic.RazorPages;
+using Neo4j.Driver;
 
-namespace nugsnet6.Pages.NugBuilder;
+namespace nugsnet6.Pages.Builder;
 
-public class IndexModel : PageModel
+public class IndexModel : HighSpeedPageModel
 {
-    private readonly IEmbeddedResourceQuery embeddedResourceQuery;
 
-    private static BuildStep current_step = BuildStep.Start;
+    private static int count = 0;
 
-    public IndexModel(IEmbeddedResourceQuery embeddedResourceQuery)
+    public IndexModel(
+        IEmbeddedResourceQuery embeddedResourceQuery
+        , IDriver driver) 
+    : base(embeddedResourceQuery, driver)
     {
-        this.embeddedResourceQuery = embeddedResourceQuery;
-        // this.assembly = typeof(IndexModel).Assembly;
     }
 
-    public async Task<IActionResult> OnGetRecommendedBuilds()
+    public void OnGet()
     {
-        string resource = "Pages.NugBuilder.RecommendedBuilds.cypher";
+        // reset on refresh
+        count = 0;
+    }
+    
+    public async Task<IActionResult> OnGetRecommendedBarrels()
+    {       
+        var failure = Content(
+            $"<div class='alert alert-error'><p class='text-xl text-warning text-sh'>An Error Occurred...  But fret not! Our team of intelligent lab mice are on the job!</p></div>");
+
+        string query = "...";
+
+        string resource = new StackTrace().GetCurrentResourcePath();
+        if(embeddedResourceQuery == null) 
+            return failure;
 
         await using Stream stream = embeddedResourceQuery.Read<IndexModel>(resource);
 
-        string query = await stream.ReadAllLinesFromStreamAsync();
+        query = await stream.ReadAllLinesFromStreamAsync();
 
-        query = new StackTrace().GetCurrentResourcePath();
+        var records = await NeoFind(query, new {});
+        // var graph = records.ToD3Graph();
 
-        return Content($"{query}");
+        return Partial("_PartsGrid", records);
     }
-    
-
-    
 
 }
+
+

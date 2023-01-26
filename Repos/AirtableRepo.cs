@@ -13,12 +13,12 @@ public interface IAirtableRepo {
         Task<List<AirtableRecord>> GetRecords(string table_name, string offset);
     }
 
-public abstract class AirtableRepo : IAirtableRepo {
+public class AirtableRepo : IAirtableRepo {
 
         protected string baseId = string.Empty;
         protected string appkey = string.Empty;
         
-        public AirtableRepo(string baseId, string appkey) {
+        public AirtableRepo(string baseId = "", string appkey = "") {
             this.baseId = baseId;
             this.appkey = appkey;
         }

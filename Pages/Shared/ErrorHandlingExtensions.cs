@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using System.Net;
 using System.Diagnostics;
+using CodeMechanic.Models;
 
-namespace GlobalErrorHandling.Extensions
+namespace CodeMechanic.GlobalErrorHandling.Extensions
 {
     public interface ILoggerManager {
         public void LogError(string e);

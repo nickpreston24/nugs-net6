@@ -27,9 +27,16 @@ void ConfigureServices(IServiceCollection services)
     string user = reader["NEO4J_USER"];
     string password = reader["NEO4J_PASSWORD"];
 
+    string airtable_api_key = reader["AIRTABLE_API_KEY"];
+    string airtable_bearer_token = reader["AIRTABLE_BEARER_TOKEN"];
+    string nugs_api_key = reader["NUGS_BASE_KEY"]; // 
+
     Console.WriteLine("URI :>> "+ uri);
     Console.WriteLine("User :>> "+ user);
     Console.WriteLine("Password :>> "+ password);
+    Console.WriteLine("airtable_api_key :>> "+ airtable_api_key);
+    Console.WriteLine("nugs_api_key :>> "+ nugs_api_key);
+    Console.WriteLine("airtable_bearer_token :>> "+ airtable_bearer_token);
 
     services.AddControllers();
     // services.AddScoped<IMovieRepository, MovieRepository>();
@@ -40,6 +47,10 @@ void ConfigureServices(IServiceCollection services)
             password
         )
     ));
+    services.AddSingleton<IAirtableRepo, AirtableRepo>(
+        
+
+    );
 }
 
 ConfigureServices(builder.Services);

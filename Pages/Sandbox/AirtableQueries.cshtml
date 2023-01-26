@@ -1,0 +1,19 @@
+@page
+@model nugsnet6.Pages.Sandbox.AirtableModel
+@{
+    var foo = "bar";
+}
+
+<div class='flex flex-col' x-data='setup()'>
+    <h1>Hello there!</h1>
+    <p>@foo</p>
+    <span x-text='value' />
+</div>
+
+<script>
+    function setup() {
+        return {
+            value: "foo"
+        }
+    }
+</script>
