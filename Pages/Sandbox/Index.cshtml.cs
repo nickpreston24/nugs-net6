@@ -45,14 +45,7 @@ public class IndexModel : HighSpeedPageModel
 
     public async Task<IActionResult> OnGetRecommendedNugs()
     {
-        /** Todo list
-
-        - [ ] Add a global error handler
-        - [ ] Add a special Daisy Toast for errors
-        - [ ] Log to Airtable a la LogRow.cs
-        - [ ] Add an Admin panel for viewing logs
-
-        **/
+        
         
         var failure = Content(
             $"<div class='alert alert-error'><p class='text-xl text-warning text-sh'>An Error Occurred...  But fret not! Our team of intelligent lab mice are on the job!</p></div>");

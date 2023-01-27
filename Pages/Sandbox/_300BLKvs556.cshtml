@@ -1,0 +1,20 @@
+@page
+@{
+    string foo = "bar";
+}
+
+<div class='flex flex-col' x-data='setup()'>
+    <i>In my opinion, if we use 5.56, we're screwed</i>
+    <img src="https://www.pewpewtactical.com/wp-content/uploads/2018/01/Terminal-Ballistics-556-vs-300-BLK.png"></img>
+
+    <p>@foo</p>
+</div>
+
+
+<script>
+    function setup() {
+        return {
+            value: "foo"
+        }
+    }
+</script>

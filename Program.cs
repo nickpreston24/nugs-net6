@@ -23,20 +23,22 @@ new EnvLoader().Load();
 void ConfigureServices(IServiceCollection services)
 {
     var reader = new EnvReader();
-    string uri = reader["NEO4J_URI"];
-    string user = reader["NEO4J_USER"];
-    string password = reader["NEO4J_PASSWORD"];
+    string uri = reader["NEO4J_URI"] ?? string.Empty;
+    string user = reader["NEO4J_USER"] ?? string.Empty;
+    string password = reader["NEO4J_PASSWORD"] ?? string.Empty;
 
-    string airtable_api_key = reader["AIRTABLE_API_KEY"];
-    string airtable_bearer_token = reader["AIRTABLE_BEARER_TOKEN"];
-    string nugs_api_key = reader["NUGS_BASE_KEY"]; // 
+    string airtable_api_key = reader["AIRTABLE_API_KEY"] ?? string.Empty;
+    string airtable_bearer_token = reader["AIRTABLE_BEARER_TOKEN"] ?? string.Empty;
+    string nugs_api_key = reader["NUGS_BASE_KEY"] ?? string.Empty;
 
-    Console.WriteLine("URI :>> "+ uri);
-    Console.WriteLine("User :>> "+ user);
-    Console.WriteLine("Password :>> "+ password);
-    Console.WriteLine("airtable_api_key :>> "+ airtable_api_key);
-    Console.WriteLine("nugs_api_key :>> "+ nugs_api_key);
-    Console.WriteLine("airtable_bearer_token :>> "+ airtable_bearer_token);
+    bool devmode = reader["DEVMODE"].ToBoolean();
+
+    // Console.WriteLine("URI :>> "+ uri);
+    // Console.WriteLine("User :>> "+ user);
+    // Console.WriteLine("Password :>> "+ password);
+    // Console.WriteLine("airtable_api_key :>> "+ airtable_api_key);
+    // Console.WriteLine("nugs_api_key :>> "+ nugs_api_key);
+    // Console.WriteLine("airtable_bearer_token :>> "+ airtable_bearer_token);
 
     services.AddControllers();
     // services.AddScoped<IMovieRepository, MovieRepository>();

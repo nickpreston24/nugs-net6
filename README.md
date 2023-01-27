@@ -21,14 +21,14 @@ https://github.com/ElectronNET/Electron.NET/issues/704
 
 - [x] A Guides page
 - [x] A Parts submission page
-- [ ] Omni-search should show stratifications (see Opticsplanet) and aid site navigation (Guides, Ammo, etc.)
+- [ ] Omni-search should show stratifications (see Opticsplanet) to aid site navigation (Guides, Ammo, etc.)
+- [ ] Rollup your folders into a nice automatically generated Navbar/Sidebar
 - [ ] [Global Error handling](https://code-maze.com/global-error-handling-aspnetcore/)
-
-
 - [ ] Add a global error handler
 - [ ] Add a special Daisy Toast for errors
 - [ ] Log to Airtable a la LogRow.cs
 - [ ] Add an Admin panel for viewing logs
+- [ ] Feature voting Poll (max 3)
 
 
 ### Animation Ideas
