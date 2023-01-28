@@ -1,3 +1,12 @@
+# Goals
+
+1. Aid the average civilian consumer in making decisions for their Loadouts.
+2. Make sourcing hard to find materials easier by scanning TacSwap, Gunbroker and others
+3. Prevent accidental "violations" to keep civilians safe as possible from tyranny.
+
+
+## Upgrading the app to a Desktop App
+
 
 For Issues with SDKs or Runtimes not running, try this:
 
@@ -6,6 +15,7 @@ https://github.com/theolivenbaum/Electron.NET/
 Or, try this:
 
 https://github.com/ElectronNET/Electron.NET/issues/704
+
 
 
 ## Upgrades 
@@ -29,6 +39,7 @@ https://github.com/ElectronNET/Electron.NET/issues/704
 - [ ] Log to Airtable a la LogRow.cs
 - [ ] Add an Admin panel for viewing logs
 - [ ] Feature voting Poll (max 3)
+- [ ] Let users verify something works with a "Proof" URL.  E.g. I found the [iRayMH25](https://youtu.be/ECGxVlh4kFY?t=1040) to be valid via Garand Thumb's video on Airsoft
 
 
 ### Animation Ideas
@@ -39,10 +50,5 @@ https://github.com/ElectronNET/Electron.NET/issues/704
 
 More inspiration [HERE](https://freefrontend.com/)
 [25 animejs animations](https://www.youtube.com/watch?v=29IQwtXVYqA)
-
-# Goals
-
-1. Aid the average civilian consumer in making decisions for their Loadouts.
-2. Make sourcing hard to find materials easier by scanning TacSwap, Gunbroker and others
-3. Prevent accidental "violations" to keep civilians safe as possible from tyranny.
+   - [ ] 2-Stage status button that animates the message "Sent!", then shows a progress bar or spinner.  See the 
 

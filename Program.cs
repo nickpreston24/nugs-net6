@@ -31,7 +31,7 @@ void ConfigureServices(IServiceCollection services)
     string airtable_bearer_token = reader["AIRTABLE_BEARER_TOKEN"] ?? string.Empty;
     string nugs_api_key = reader["NUGS_BASE_KEY"] ?? string.Empty;
 
-    bool devmode = reader["DEVMODE"].ToBoolean();
+    // bool devmode = reader["DEVMODE"].ToBoolean();
 
     // Console.WriteLine("URI :>> "+ uri);
     // Console.WriteLine("User :>> "+ user);
