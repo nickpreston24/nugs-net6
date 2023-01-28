@@ -29,6 +29,14 @@ https://github.com/ElectronNET/Electron.NET/issues/704
 
 ## TODOS / Ideas
 
+
+
+<!-- issueTable -->
+
+<!-- issueTable -->
+
+
+<!-- 
 - [x] A Guides page
 - [x] A Parts submission page
 - [ ] Omni-search should show stratifications (see Opticsplanet) to aid site navigation (Guides, Ammo, etc.)
@@ -39,7 +47,7 @@ https://github.com/ElectronNET/Electron.NET/issues/704
 - [ ] Log to Airtable a la LogRow.cs
 - [ ] Add an Admin panel for viewing logs
 - [ ] Feature voting Poll (max 3)
-- [ ] Let users verify something works with a "Proof" URL.  E.g. I found the [iRayMH25](https://youtu.be/ECGxVlh4kFY?t=1040) to be valid via Garand Thumb's video on Airsoft
+- [ ] Let users verify something works with a "Proof" URL.  E.g. I found the [iRayMH25](https://youtu.be/ECGxVlh4kFY?t=1040) to be valid via Garand Thumb's video on Airsoft -->
 
 
 ### Animation Ideas
