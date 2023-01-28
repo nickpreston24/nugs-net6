@@ -17,6 +17,7 @@ namespace nugsnet6.Pages.Builder;
 public class IndexModel : HighSpeedPageModel
 {
 
+    // 'caches' the count value, almost like a reacitve variable, but on the server side...
     private static int count = 0;
 
     public IndexModel(
@@ -28,12 +29,15 @@ public class IndexModel : HighSpeedPageModel
 
     public void OnGet()
     {
-        // reset on refresh
+        // reset on the page's refresh
         count = 0;
     }
     
     public async Task<IActionResult> OnGetRecommendedBarrels()
     {       
+        Console.WriteLine("@ Hello:>> ");
+        Debug.WriteLine("@ Hello:>> ");
+        
         var failure = Content(
             $"<div class='alert alert-error'><p class='text-xl text-warning text-sh'>An Error Occurred...  But fret not! Our team of intelligent lab mice are on the job!</p></div>");
 
@@ -50,7 +54,8 @@ public class IndexModel : HighSpeedPageModel
         var records = await NeoFind(query, new {});
         // var graph = records.ToD3Graph();
 
-        return Partial("_PartsGrid", records);
+        // return Partial("_PartsGrid", records);
+        return Content("<div class='alert alert-success shadow-lg'><div><span>Confirmed!</span></div></div>");
     }
 
 }
