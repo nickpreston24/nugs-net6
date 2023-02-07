@@ -1,0 +1,99 @@
+@page
+@model BallisticsChartModel
+@{
+  //var count = @Model.Count;
+}
+
+<form asp-action='post'>
+
+    <h3 x-text='bigfoo'></h3>
+
+  <table>
+
+    <tbody>
+      <tr class="border">
+        <th rowspan="5">Bullet</th>
+        <th class="secondary" colspan="2">Type</th>
+        <td class="type"><span>FMJ SUBSONIC</span></td>
+      </tr>
+      <tr>
+        <th class="secondary">Weight</th>
+        <th class="units">grs</th>
+        <td>200</td>
+      </tr>
+      <tr>
+        <th class="secondary">Diameter</th>
+        <th class="units">in</th>
+        <td>0<span class="dec">.308</span></td>
+      </tr>
+      <tr>
+        <th class="secondary">Sectional Density</th>
+        <th class="units">lb/in²</th>
+        <td>0<span class="dec">.301</span></td>
+      </tr>
+      <tr>
+        <th class="secondary" colspan="2">Material of jacket</th>
+        <td>CuZn 10</td>
+      </tr>
+      <tr class="border">
+        <th rowspan="2">Ballistic coefficient</th>
+        <th class="secondary" rowspan="2">
+          <a href="/en/products/ballistic-coefficient-calculation/"
+            >Calculation</a
+          >
+        </th>
+        <th class="units">G1</th>
+        <td>0<span class="dec">.558</span></td>
+      </tr>
+      <tr>
+        <th class="units">G7</th>
+        <td>0<span class="dec">.242</span></td>
+      </tr>
+      <tr class="border">
+        <th>Cartridge</th>
+        <th class="secondary">Length</th>
+        <th class="units">in</th>
+        <td>2<span class="dec">.205</span></td>
+      </tr>
+      <tr class="border">
+        <th colspan="2">Power Factor Estimated</th>
+        <th class="units">kgr·fps</th>
+        <td>212<span class="dec">.0</span></td>
+      </tr>
+      <tr class="border">
+        <th colspan="2">Test barrel length</th>
+        <th class="units">in</th>
+        <td>16</td>
+      </tr>
+      <tr class="border">
+        <th colspan="3">Suggested use</th>
+        <td class="wrap">Range, Match/Competition</td>
+      </tr>
+      <tr class="border">
+        <th colspan="3">Features</th>
+        <td class="wrap">
+          Reliable Functioning, Non-expanding, No Barrel Leading
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+ <button class='btn btn-active' 
+  hx-target='#count'
+  hx-post="@Url.Page("","IncrementBullets")">++ Count</button>
+ </button>
+
+  <span id='count'>
+
+<!-- 
+  <button id='foo'
+    hx-get='@Url.Page("BulletProperties","Bullets")'
+    hx-trigger='click'
+    hx-target='#replace-me'
+    hx-swap="innerHTML"
+  >
+    REPLACE STUFF
+  </button>
+  <span id='replace-me'>...replace me </span> -->
+
+</form>

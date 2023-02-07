@@ -43,6 +43,13 @@ public class IndexModel : HighSpeedPageModel
         return Content($"<b>Stuff for u!<br/> One lump, or 2?</b>");
     }
 
+    public IActionResult OnPostIncrementBullets()
+    {
+        Console.WriteLine("Gotcha!");
+        Debug.WriteLine("Gotcha!");
+        return Content($"<span>round count{++count}</span>", "text/html");
+    }
+
     public async Task<IActionResult> OnGetRecommendedNugs()
     {
         
@@ -70,11 +77,11 @@ public class IndexModel : HighSpeedPageModel
         // var graph = records.ToD3Graph();
 
 
-        return Partial("_RecordsTable", records);
+        // return Partial("_RecordsTable", records);
         
         // This can also be a template
-        // return Content(
-        //     $"<div class='alert alert-primary'><p class='text-xl text-secondary text-sh'>{query}</p></div>");
+        return Content(
+            $"<div class='alert alert-primary'><p class='text-xl text-secondary text-sh'>{query}</p></div>");
 
         // return Content(
         //     $"""

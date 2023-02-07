@@ -21,6 +21,43 @@
     </script>
 
 
+    <!-- todo: Fix the fallback... lefthand assignment error -->
+    <!-- 
+        asp-fallback-test="window.chartjs"
+          
+    
+    -->
+    <!-- <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.0/chart.min.js"
+        asp-fallback-src="./lib/chart.js/dist/chart.umd.js" 
+        type='module'
+    >
+    import Chart from './lib/chart.js/auto/auto.js';
+    window.Chart = Chart;
+    const myChart = new Chart(ctx, {});
+
+    </script> -->
+
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.0/dist/chart.umd.min.js"></script> -->
+
+    <script type='text/javascript'>
+        // const ctx = document.getElementById('none');
+        // const myChart = new Chart(ctx, {});
+
+        // import {Chart} from './lib/chart.js/dist/chart.umd.js'
+        // window.Chart = Chart;
+
+        // console.log('Chart :>> ', Chart);
+    </script>
+
+
+    <!-- <link rel="stylesheet" href="~/lib/chart.js/Chart.css" /> -->
+    <script src="~/lib/chart.js/dist/chart.umd.js" asp-append-version="true"></script>
+     <!-- <script src="~/lib/chart.js/auto/auto.js" asp-append-version="true"></script> -->
+
+
+
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.47.0/dist/full.css" rel="stylesheet" type="text/css" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
 
@@ -45,6 +82,7 @@
                             </a>
                             <ul class="p-2">
                                 <li><a href="/Sandbox/Index">Home</a></li>
+                                <li><a href="/Sandbox/BallisticsChart">Ballistics</a></li>
                                 <li><a href="/Sandbox/LoadoutMan">Loadout Man</a></li>
                                 <li><a href='/Sandbox/11ty'>11ty</a></li>
                                 <li><a href='/Sandbox/AirtableQueries'>Airtable Tests</a></li>

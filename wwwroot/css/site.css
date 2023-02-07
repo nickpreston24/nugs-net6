@@ -1788,3 +1788,7 @@ html {
     opacity: 1;
   }
 }
+
+.glowing {
+  text-shadow: 0px 1px 6px rgba(255, 0, 255, 0.7);
+}

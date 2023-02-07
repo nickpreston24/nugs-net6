@@ -1,0 +1,129 @@
+@page
+@model nugsnet6.Pages.Sandbox.BallisticsChartModel
+@{
+    var cachedvalue = @Model.CachedValue;
+}
+
+<div class='flex flex-col' x-data='setup()'>
+   
+    <!-- <h1 class='glowing text-8xl'>Test</h1> -->
+
+    <!-- <label class='glowing text-lg'> Here's a sample Ballistics chart that's really neat: </label>
+    <a class='link-accent' href='https://www.sellierbellot.us/products/rifle-ammunition/rifle-ammunition-fmj/detail/492/'></a> -->
+
+   <div class="chart-container" width="600" height="400">
+    <canvas id="myChart"></canvas>
+</div>
+
+<script>
+    const labels = Array.from({length:900}, (_,index)=>index + 20);
+
+    // const options = {
+    //   scales: {
+    //     y: {
+    //       title: {
+    //         display: true,
+    //         text: 'Your Title'
+    //       }
+    //     }
+    //   }     
+    // }
+    // const set1 = Array.from({length:7}, (_,index)=>index + 5);
+    // const set2 = Array.from({length:7}, (_,index)=>index + 3);
+
+    const data = {
+        datasets: [
+            {
+                label: 'Velocity [fps]',
+                data: [
+                {x: 0, y: 1060},
+                    {x: 100, y: 1013},
+                    {x: 200, y: 977},
+                    {x: 300, y: 944},
+                    {x: 400, y: 914},
+                ],
+                borderColor: 'rgb(0, 192, 0)',
+                backgroundColor: 'rgb(0, 192, 0, 0.5)',
+                yAxisID: 'y',
+                showLine: true
+            },
+            {
+                label: 'Energy [ft.lb]',
+                data: [
+                    {x: 0, y: 499},
+                    {x: 100, y: 456},
+                    {x: 200, y: 424},
+                    {x: 300, y: 396},
+                    {x: 400, y: 370},
+                ],
+                borderColor: 'rgb(192, 0, 75)',
+                backgroundColor: 'rgb(192, 0, 75, .5)',
+                yAxisID: 'y2',
+                showLine: true
+            },
+            {
+                label: 'Points of Impact (POI) [in]',
+                data: [
+                    {x: 50, y: 3.1},
+                    {x: 100, y: 0.0},
+                    {x: 200, y: -31.8},
+                    {x: 300, y: -100.1},
+                    {x: 400, y: -207.4},
+                ],
+                borderColor: 'rgb(192, 192, 75)',
+                backgroundColor: 'rgb(192, 192, 75, 0.5)',
+                yAxisID: 'y3',
+                showLine: true,
+                text: "YO"
+            }
+
+
+
+        ]
+        ,
+        // options: options
+    };
+    // const data = {
+    // labels: labels,
+    // datasets: [{
+    //     label: 'My First Dataset',
+    //     data: [65, 59, 80, 81, 56, 55, 40],
+    //     fill: false,
+    //     borderColor: 'rgb(75, 192, 192)',
+    //     tension: 0.1
+    // }]
+    // };
+
+    const config = {
+        type: 'scatter',
+        data: data,
+        options: {
+            scales: {
+                // x: {beginAtZero :true},
+                // y: {beginAtZero :true}
+            }
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+
+        var ctx = document.getElementById('myChart');
+        var myChart = new Chart(ctx, config );
+
+    });
+</script>
+        
+</div>
+
+
+<script>
+    // import Chart from '~/lib/chartjs/chart.js';
+    // const ctx = document.getElementById("chart").getContext('2d');
+    // const myChart = new Chart(ctx, {});
+
+    function setup() {
+        return {
+            value: "foo"
+        }
+    }
+</script>

@@ -4,18 +4,20 @@
   // C# vars go here!
 }
 
-<form asp-action="post">
+<form x-data='setup()' asp-action="post">
+
+    <h3 x-text='bigfoo'></h3>
     <div class="card p-5 mb-4 text-ocean-500">
 
         <!-- <h1>Hello, there!</h1> -->
 
-        <div x-data="{ open: false }">
+        <!-- <div x-data="{ open: false }">
             <button @@click="open = true">Expand</button>
         
             <span x-show="open">
             Content...
             </span>
-        </div>       
+        </div>        -->
 
         <div class="d-flex justify-content-between">
 
@@ -29,6 +31,9 @@
 
             <div id="recommendations">
             </div>
+
+
+            <partial name="BulletProperties" />
 
             
             <!-- Sample cards -->
@@ -82,3 +87,12 @@
         </div>
     </div>
 </form>
+
+<script>
+    function setup()
+    {
+        return {
+            bigfoo: "FOO"
+        }
+    }
+</script>

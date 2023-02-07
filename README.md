@@ -20,6 +20,8 @@ https://github.com/ElectronNET/Electron.NET/issues/704
 ## TODOS / Ideas
 
 
+https://github.com/chartjs/awesome
+
 <!-- issueTable -->
 
 <!-- issueTable -->

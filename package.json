@@ -1,7 +1,7 @@
 {
   "scripts": {
     "dev": "dotnet watch run --launch-profile hotreloadprofile",
-    "build": "yarn && npm i && dotnet build",
+    "build": "yarn && npm i && dotnet build -v q",
     "restore": "dotnet restore",
     "buildcss:dev": "cross-env TAILWIND_MODE=build postcss ./Styles/app.css -o ./wwwroot/css/app.css",
     "buildcss:release": "cross-env NODE_ENV=production postcss ./Styles/app.css -o ./wwwroot/css/app.css",
@@ -23,6 +23,8 @@
     "alpinejs": "^3.11.1",
     "animejs": "^3.2.1",
     "axios": "^1.2.4",
-    "htmx.org": "^1.8.5"
+    "chart.js": "^4.2.0",
+    "htmx.org": "^1.8.5",
+    "@cubejs-client/core": "^0.31.0"
   }
 }
