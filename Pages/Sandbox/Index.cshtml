@@ -1,4 +1,5 @@
 @page
+@using nugsnet6.Pages.Sandbox
 @model IndexModel
 @{
   // C# vars go here!
@@ -6,19 +7,9 @@
 
 <form x-data='setup()' asp-action="post">
 
-    <h3 x-text='bigfoo'></h3>
+    <h1 class='glowing text-8xl' x-text='title'></h1>
+
     <div class="card p-5 mb-4 text-ocean-500">
-
-        <!-- <h1>Hello, there!</h1> -->
-
-        <!-- <div x-data="{ open: false }">
-            <button @@click="open = true">Expand</button>
-        
-            <span x-show="open">
-            Content...
-            </span>
-        </div>        -->
-
         <div class="d-flex justify-content-between">
 
             <button>Search Airtable Base</button>
@@ -33,57 +24,11 @@
             </div>
 
 
-            <partial name="BulletProperties" />
-
-            
-            <!-- Sample cards -->
-            <div>
-
-                <!-- <div class='card'>
-                    <span class='card-title'>
-                        <h1>Card Title</h1>
-                    </span>
-                    <div>
-                        <div class="radial-progress" style="--value:0;">0%</div>
-                        <div class="radial-progress" style="--value:20;">20%</div>
-                        <div class="radial-progress" style="--value:60;">60%</div>
-                        <div class="radial-progress" style="--value:80;">80%</div>
-                       <div class="radial-progress" style="--value:100;">100%</div>
-                    </div>
-                    <div class='card-actions'>
-                        <button class='btn btn-primary'>P</button>
-                        <button class='btn btn-secondary'>S</button>
-                        <button class='btn btn-ghost'>G</button>
-                        <button class='btn btn-accent'>A</button>
-                    </div>
-                </div> -->
-
-            </div>
-
-            <!-- <div>
-                <button class="btn btn-primary"
-                        hx-post="@Url.Page("","Increment")"
-                        hx-target="#counter">
-                    Add
-                </button>
-                <button
-                    x-show='false'
-                    hx-get="@Url.Page("","Stuff")"
-                    hx-swap='outerHTML'
-                    class="btn-accent btn"
-                >
-                Get Stuff
-                </button>
-
-               
-            </div>
-            <div>
-                <h2 id="counter">
-                    <span>0</span>
-                </h2>
-
-               
-            </div> -->
+            <partial name="BulletProperties" model="null" />            
+            <!-- <partial name="BallisticsChart" model="null" />             -->
+          
+            <span id='count-me'>counter go hear</span>
+           
         </div>
     </div>
 </form>
@@ -92,7 +37,7 @@
     function setup()
     {
         return {
-            bigfoo: "FOO"
+            title: "Sandbox"
         }
     }
 </script>

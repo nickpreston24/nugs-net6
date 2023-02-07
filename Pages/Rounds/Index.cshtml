@@ -1,0 +1,20 @@
+@page
+@model nugsnet6.Pages.IndexModel
+@{
+}
+
+<div class='flex flex-col' x-data='setup()'>
+
+    <h1 class=''>Hello there!</h1>
+
+    <span x-text='value' />
+</div>
+
+
+<script>
+    function setup() {
+        return {
+            value: "foo"
+        }
+    }
+</script>

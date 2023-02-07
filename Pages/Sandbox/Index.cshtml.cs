@@ -47,7 +47,7 @@ public class IndexModel : HighSpeedPageModel
     {
         Console.WriteLine("Gotcha!");
         Debug.WriteLine("Gotcha!");
-        return Content($"<span>round count{++count}</span>", "text/html");
+        return Content($"<b>round count{++count}</b>", "text/html");
     }
 
     public async Task<IActionResult> OnGetRecommendedNugs()

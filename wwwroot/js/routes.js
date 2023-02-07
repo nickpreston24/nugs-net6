@@ -1,33 +1,60 @@
+'use strict';
+
+const fs = require('fs');
+const { readdirSync } = require('fs');
+const path=require('path');
 
 
-window.routes = [{
-    title: "Guides",
-    href: '/Guides'
-}];
+const getFileList =  (dirName) => {
+    let files = [];
+    const items =  readdirSync(dirName, { withFileTypes: true });
 
-console.log('routes :>> ', routes);
+    for (const item of items) {
+        if (item.isDirectory()) {
+            files = [
+                ...files,
+                ...( getFileList(`${dirName}/${item.name}`)),
+            ];
+        } else {
+            files.push(`${dirName}/${item.name}`);
+        }
+    }
+
+    return files;
+};
 
 
-// const { readdir } = require('fs').promises;
+const cwd = path.join(__dirname,'../../');
+// console.log('cwd :>> ', cwd);
+var files =  getFileList(cwd);
 
-// const getFileList = async (dirName) => {
-//     let files = [];
-//     const items = await readdir(dirName, { withFileTypes: true });
 
-//     for (const item of items) {
-//         if (item.isDirectory()) {
-//             files = [
-//                 ...files,
-//                 ...(await getFileList(`${dirName}/${item.name}`)),
-//             ];
-//         } else {
-//             files.push(`${dirName}/${item.name}`);
-//         }
-//     }
+const paths = files
+    .map((f,i)=> f
+        .replaceAll('../','')
+        .replaceAll('Pages/','')
+        .replaceAll(cwd,'')
+    )
 
-//     return files;
-// };
+    .filter(file => !file.includes("Shared/")
+        && !file.includes("/_")    
+        && !file.startsWith("_")
+        && file.endsWith(".cshtml")    
+    );
 
-// getFileList('uploads').then((files) => {
-//     console.log(files);
-// });
+const names = [...paths]
+    .map((nm,i)=> path.parse(nm).name
+        .trim()
+        )
+
+const routes = paths.map(function(path, i) {
+    return {path: path.replace('.cshtml',''), title: names[i]};
+});
+
+const data = JSON.stringify(routes)
+
+console.log('cwd :>> ', cwd);
+fs.writeFile(path.join(cwd, 'wwwroot', 'routes.json'), data, (err) => {
+    if (err) throw err;
+    console.log('Routes written to file');
+});

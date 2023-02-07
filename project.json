@@ -2,7 +2,8 @@
   "buildOptions": {
     "embed": {
       "include": [
-        "Pages/**/*.cypher"    
+        "Pages/**/*.cypher",    
+        "Pages/**/*.sql"    
       ]
     } 
   }

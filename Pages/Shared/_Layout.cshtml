@@ -20,51 +20,53 @@
             defer>
     </script>
 
-
-    <!-- todo: Fix the fallback... lefthand assignment error -->
-    <!-- 
-        asp-fallback-test="window.chartjs"
-          
-    
-    -->
-    <!-- <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.0/chart.min.js"
-        asp-fallback-src="./lib/chart.js/dist/chart.umd.js" 
-        type='module'
-    >
-    import Chart from './lib/chart.js/auto/auto.js';
-    window.Chart = Chart;
-    const myChart = new Chart(ctx, {});
-
-    </script> -->
-
-
-    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.0/dist/chart.umd.min.js"></script> -->
-
-    <script type='text/javascript'>
-        // const ctx = document.getElementById('none');
-        // const myChart = new Chart(ctx, {});
-
-        // import {Chart} from './lib/chart.js/dist/chart.umd.js'
-        // window.Chart = Chart;
-
-        // console.log('Chart :>> ', Chart);
-    </script>
-
-
-    <!-- <link rel="stylesheet" href="~/lib/chart.js/Chart.css" /> -->
     <script src="~/lib/chart.js/dist/chart.umd.js" asp-append-version="true"></script>
-     <!-- <script src="~/lib/chart.js/auto/auto.js" asp-append-version="true"></script> -->
-
-
-
+   
+   
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.47.0/dist/full.css" rel="stylesheet" type="text/css" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
 
 
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <script type='module'>
+
+            const routes = await (async () => {
+                let results = await import('./routes.json', {
+                    assert: {
+                        type: 'json'
+                    }
+                })
+
+                return results.default;
+            })()
+
+            localStorage.setItem('routes', JSON.stringify(routes));
+
+    </script>
+
+    <script>
+        // console.log("hello from setup()");
+
+        const stored_routes = JSON.parse(localStorage.getItem('routes'))
+                // .filter(r=> !r.includes('Index'))  // Exclude Indexes for now.
+        ;
+        console.log('stored_routes :>> ', stored_routes);
+
+        const non_index_routes = stored_routes.filter(r=>!r.path.includes('Index'))
+
+        function setup() {
+            return {
+                title: "Cold Brew",
+                routes: non_index_routes || []
+            }
+        }
+    </script>
+
+    
+   
 </head>
-<body>
+<body x-data='setup()'>
     <header>
 
         <div class="navbar bg-base-100">
@@ -80,7 +82,27 @@
                                 Sandbox
                                 <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
                             </a>
+
+                            <!-- <ul class='p-2'>
+                                <li><a href="/Sandbox/Index">Home</a></li>
+                            </ul> -->
+                            <!-- <pre x-text='routes.length'></pre> -->
+
                             <ul class="p-2">
+                               
+                                <template x-for="route in routes">
+                                    <li>
+                                        <a :href="route.path" x-bind:target="'_self'"
+                                        x-text="route.title"
+                                        >
+                                            
+                                        </a>
+                                    </li>
+                                      <!-- <h2 href='route' x-text="route"></h2> -->
+                                </template>
+                            </ul>
+
+                            <!-- <ul class="p-2">
                                 <li><a href="/Sandbox/Index">Home</a></li>
                                 <li><a href="/Sandbox/BallisticsChart">Ballistics</a></li>
                                 <li><a href="/Sandbox/LoadoutMan">Loadout Man</a></li>
@@ -88,7 +110,7 @@
                                 <li><a href='/Sandbox/AirtableQueries'>Airtable Tests</a></li>
                                 <li><a href='/Sandbox/Animations'>Animations</a></li>
 
-                            </ul>
+                            </ul> -->
                         </li>
                         <li><a href='/Courses'>Courses</a></li>
                         <li><a href='/Builder'>Builder</a></li>
@@ -118,6 +140,8 @@
             </div>
         </div>
 
+        <!-- <pre x-text='routes' ></pre> -->
+
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -138,7 +162,7 @@
     </div>
 
     @await RenderSectionAsync("Scripts", required: false)
-  
+
 </body>
 
 </html>

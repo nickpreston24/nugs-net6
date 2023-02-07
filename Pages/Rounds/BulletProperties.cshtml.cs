@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Diagnostics;
 
-namespace nugsnet6.Pages.Sandbox
+namespace nugsnet6.Pages.Rounds
 {
     public class BulletPropertiesModel : PageModel
     {

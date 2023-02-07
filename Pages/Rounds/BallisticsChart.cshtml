@@ -1,13 +1,12 @@
 @page
-@model nugsnet6.Pages.Sandbox.BallisticsChartModel
+@model BallisticsChartModel
 @{
-    var cachedvalue = @Model.CachedValue;
+    //var cachedvalue = @Model?.CachedValue;
 }
 
 <div class='flex flex-col' x-data='setup()'>
    
-    <!-- <h1 class='glowing text-8xl'>Test</h1> -->
-
+   
     <!-- <label class='glowing text-lg'> Here's a sample Ballistics chart that's really neat: </label>
     <a class='link-accent' href='https://www.sellierbellot.us/products/rifle-ammunition/rifle-ammunition-fmj/detail/492/'></a> -->
 
@@ -114,16 +113,3 @@
 </script>
         
 </div>
-
-
-<script>
-    // import Chart from '~/lib/chartjs/chart.js';
-    // const ctx = document.getElementById("chart").getContext('2d');
-    // const myChart = new Chart(ctx, {});
-
-    function setup() {
-        return {
-            value: "foo"
-        }
-    }
-</script>

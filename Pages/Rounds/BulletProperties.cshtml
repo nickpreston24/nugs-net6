@@ -6,7 +6,7 @@
 
 <form asp-action='post'>
 
-    <h3 x-text='bigfoo'></h3>
+    <!-- <h3 x-text='title'></h3> -->
 
   <table>
 
@@ -79,11 +79,10 @@
   </table>
 
  <button class='btn btn-active' 
-  hx-target='#count'
+  hx-target='#count-me'
   hx-post="@Url.Page("","IncrementBullets")">++ Count</button>
  </button>
 
-  <span id='count'>
 
 <!-- 
   <button id='foo'
