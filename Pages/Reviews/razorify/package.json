@@ -1,14 +1,22 @@
 {
   "name": "razorify",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "",
   "main": "index.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "patch-release": "npm version patch && npm publish && git push --follow-tags",
+    "git-commit": "git add -A . && git commit -a -m 'gh-pages update'",
+    "git-push": "git push origin gh-pages --force && git checkout master",
+    "deploy": "npm run build && npm run git-commit && npm run git-push",
+    "pub-major": "npm version major --force && npm publish",
+    "pub-minor": "npm version minor --force && npm publish"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "shelljs": "^0.8.5",
     "xregexp": "^5.1.1",
     "yargs": "^17.6.2"
   }

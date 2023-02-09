@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 const { readFileSync, writeFileSync } = require("fs");
 const path = require("path");
 
@@ -59,3 +60,7 @@ namespace ${appname}.Pages
 `;
 
 writeFileSync(razorcodebehind_filename, cs_html);
+
+module.exports = {
+
+}
