@@ -48,12 +48,12 @@
     <script>
         // console.log("hello from setup()");
 
-        const stored_routes = JSON.parse(localStorage.getItem('routes'))
+        const stored_routes = JSON.parse(localStorage.getItem('routes')) || []
                 // .filter(r=> !r.includes('Index'))  // Exclude Indexes for now.
         ;
         console.log('stored_routes :>> ', stored_routes);
 
-        const non_index_routes = stored_routes.filter(r=>!r.path.includes('Index'))
+        const non_index_routes = stored_routes?.filter(r=>!r.path.includes('Index'))
 
         function setup() {
             return {
@@ -62,8 +62,6 @@
             }
         }
     </script>
-
-    
    
 </head>
 <body x-data='setup()'>
@@ -83,11 +81,6 @@
                                 <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
                             </a>
 
-                            <!-- <ul class='p-2'>
-                                <li><a href="/Sandbox/Index">Home</a></li>
-                            </ul> -->
-                            <!-- <pre x-text='routes.length'></pre> -->
-
                             <ul class="p-2">
                                
                                 <template x-for="route in routes">
@@ -95,22 +88,11 @@
                                         <a :href="route.path" x-bind:target="'_self'"
                                         x-text="route.title"
                                         >
-                                            
                                         </a>
                                     </li>
-                                      <!-- <h2 href='route' x-text="route"></h2> -->
                                 </template>
                             </ul>
 
-                            <!-- <ul class="p-2">
-                                <li><a href="/Sandbox/Index">Home</a></li>
-                                <li><a href="/Sandbox/BallisticsChart">Ballistics</a></li>
-                                <li><a href="/Sandbox/LoadoutMan">Loadout Man</a></li>
-                                <li><a href='/Sandbox/11ty'>11ty</a></li>
-                                <li><a href='/Sandbox/AirtableQueries'>Airtable Tests</a></li>
-                                <li><a href='/Sandbox/Animations'>Animations</a></li>
-
-                            </ul> -->
                         </li>
                         <li><a href='/Courses'>Courses</a></li>
                         <li><a href='/Builder'>Builder</a></li>

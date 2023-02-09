@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html data-theme="halloween" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@2.50.0/dist/full.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <script src="https://unpkg.com/htmx.org@1.8.5"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="https://unpkg.com/xregexp/xregexp-all.js"></script>
+    <title>Sample Rifle Reviews Panel UX Design</title>
+  </head>
+  <body>
+    
+ 
+    <h1 class="text-4xl">Reviews</h1>
+    <div x-data="setup()" class="flex flex-col items-center justify-center">
+      <div class="flex flex-row">
+
+        <div>
+          <h2 class="text-3xl text-secondary">Positve</h2>
+        <template x-for="review in positive_reviews">
+          <div class="card w-96 bg-base-100 shadow-xl">
+            <h3
+              class="text-2xl text-green-500"
+              x-if="review.title"
+              x-if="review.title"
+              x-text="review.title"
+            ></h3>
+            <div class="card-body items-center text-center">
+              <iframe
+                :src="review.src"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+
+              <span x-show="review.show_transcript">
+                <p x-text="review.transcript"></p>
+              </span>
+
+              <div class="card-actions">
+                <button class="btn btn-primary">Go</button>
+                <div>
+                  <button
+                  x-show="review.has_transcript"
+                  class="btn btn-secondary"
+                    @click="review.show_transcript = !review.show_transcript"
+                  >
+                    <p x-text="review.show_transcript ? 'Hide Transcript' : 'Show Transcript'" ></p>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
+
+        </div>
+
+        <div>
+          <h2 class="text-3xl text-secondary">Negative</h2>
+          <template x-for="review in negative_reviews">
+            <div class="card w-96 bg-base-100 shadow-xl">
+              <h3
+                class="text-2xl text-red-300"
+                x-if="review.title"
+                x-if="review.title"
+                x-text="review.title"
+              ></h3>
+              <div class="card-body items-center text-center">
+                <iframe
+                  :src="review.src"
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                ></iframe>
+
+                <span x-show="review.show_transcript">
+                  <p x-text="review.transcript"></p>
+                </span>
+
+                <div class="card-actions">
+                  <button class="btn btn-primary">Go</button>
+                  <div>
+                    <button
+                      x-show="review.has_transcript"
+                      class="btn btn-secondary"
+                      @click="review.show_transcript = !review.show_transcript"
+                    >
+                      <p x-text="review.show_transcript ? 'Hide Transcript' : 'Show Transcript'" ></p>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+
+      </div>
+    </div>
+
+    <script>
+      function setup() {
+        const embed_pattern = /watch\?v=/gi;
+        return {
+          foo: "bar",
+          filters: {
+            positive: (review)=> {return review.is_positive},
+            negative: (review)=> {return !review.is_positive},
+            embeds: (item)=> {
+              console.log('item :>> ', item);
+              const next_src = item.src.replace(embed_pattern, "embed/");
+              // console.log('next_src :>> ', next_src);
+              return {
+                ...item,
+                src: next_src,
+              };
+            }
+          },          
+          get videos_as_embeds() {
+            return this.video_reviews.map(this.filters.embeds);
+          }, 
+          get positive_reviews() {
+            return this.videos_as_embeds.filter(this.filters.positive);
+          },
+          get negative_reviews() {
+            return this.videos_as_embeds.filter(this.filters.negative);
+          },
+          video_reviews: [
+            {
+              transcript: null,
+              title: "Pew Pew Tacticals review",
+              src: "https://www.youtube.com/watch?v=_iMgfCc4yPk",
+              is_positive: true,
+              show_transcript: false,
+              has_transcript: false,
+              get has_transcript () {
+                return !!this?.transcript
+              }
+            },
+            {
+              title: "Hoplopfiel's review",
+              transcript: "I don't like this...",
+              src: "https://www.youtube.com/embed/A2_xDOiZz7I?start=132",
+              is_positive: false,
+              show_transcript: false,
+              get has_transcript () {
+                return !!this?.transcript
+              }
+            },
+          ],
+        };
+      }
+    </script>
+  </body>
+</html>
