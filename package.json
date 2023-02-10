@@ -25,7 +25,6 @@
     "animejs": "^3.2.1",
     "axios": "^1.2.4",
     "chart.js": "^4.2.0",
-    "htmx.org": "^1.8.5",
-    "razorify": "file:Pages/Reviews/razorify"
+    "htmx.org": "^1.8.5"
   }
 }

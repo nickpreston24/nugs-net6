@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html data-theme="halloween" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@2.50.0/dist/full.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <script src="https://unpkg.com/htmx.org@1.8.5"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <title>Snippet</title>
+  </head>
+  <body>
+    <script>
+      function setup() {
+        return {
+          foo: "bar",
+          fetch_url: 'https://api.airtable.com/v0/app33DDBeyXEGRflo/Parts?maxRecords=3&view=Grid%20view',
+          add_url: ""
+        };
+      }
+    </script>
+    <div x-data="setup()" class="flex flex-col items-center justify-center h-screen">
+      <h1 class="text-white text-xl">Add part</h1>
+      <!-- hx-vals='{"Authorization": "abc123"}' -->
+      <form action="post"
+        hx-headers='{"Authorization": "Bearer myapikey"
+        , "Content-Type": "application/json"}'
+        hx-target="#results"
+        hx-patch="https://api.airtable.com/v0/app33DDBeyXEGRflo/Parts"
+
+        class="border-2 border-white w-60 h-1/2"
+      >
+
+        <span>content...</span>
+
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </form>
+
+      <span id="results"></span>
+    </div>
+  </body>
+</html>
