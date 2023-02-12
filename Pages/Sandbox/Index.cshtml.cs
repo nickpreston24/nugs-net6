@@ -71,26 +71,11 @@ public class IndexModel : HighSpeedPageModel
         // Reads the any file I tell it to as a query.
         query = await stream.ReadAllLinesFromStreamAsync();
 
-        // ./server
-        var repo = connection.Run<Part>(query);
-        var records = repo.GetParts(); // IPartsRepo
-
-
-
-
-        // var records = await NeoFind(query, new {});
-
-
-        // var graph = records.ToD3Graph();
-
-
-        // return Partial("_RecordsTable", records);
-        
         // This can also be a template
-        // return Content(
-        //     $"<div class='alert alert-primary'><p class='text-xl text-secondary text-sh'>{query}</p></div>");
+        return Content(
+            $"<div class='alert alert-primary'><p class='text-xl text-secondary text-sh'>{query}</p></div>");
 
-        return JsonResult(records); // mustache
+        // return JsonResult(records); // mustache
 
         // return Content(
         //     $"""
