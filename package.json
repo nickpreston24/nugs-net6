@@ -6,9 +6,9 @@
     "buildcss:dev": "cross-env TAILWIND_MODE=build postcss ./Styles/app.css -o ./wwwroot/css/app.css",
     "buildcss:release": "cross-env NODE_ENV=production postcss ./Styles/app.css -o ./wwwroot/css/app.css",
     "buildcss:linux": "npx tailwindcss -i ./Styles/app.css -o ./wwwroot/css/site.css",
-    "electron": "electronize-h5 start /watch",
+    "desktop": "electronize-h5 start /watch",
     "nuke": "rm -rf node_modules wwwroot/lib wwwroot/css",
-    "reinstall": "npm run nuke && yarn && npm i"
+    "reinstall": "npm run nuke && yarn && npm i && npm run  buildcss:linux"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.7",

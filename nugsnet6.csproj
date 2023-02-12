@@ -26,6 +26,8 @@
     <PackageReference Include="Insight.Database" Version="6.3.11" />
     <PackageReference Include="Neo4j.Driver" Version="5.4.0" />
     <PackageReference Include="DotEnv.Core" Version="2.3.2" />
+    <PackageReference Include="RestSharp" Version="108.0.3" />
+    
   </ItemGroup>
 
 </Project> 

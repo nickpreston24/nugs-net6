@@ -29,40 +29,7 @@
 
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
-    <script type='module'>
-
-            const routes = await (async () => {
-                let results = await import('./routes.json', {
-                    assert: {
-                        type: 'json'
-                    }
-                })
-
-                return results.default;
-            })()
-
-            localStorage.setItem('routes', JSON.stringify(routes));
-
-    </script>
-
-    <script>
-        // console.log("hello from setup()");
-
-        const stored_routes = JSON.parse(localStorage.getItem('routes')) || []
-                // .filter(r=> !r.includes('Index'))  // Exclude Indexes for now.
-        ;
-        console.log('stored_routes :>> ', stored_routes);
-
-        const non_index_routes = stored_routes?.filter(r=>!r.path.includes('Index'))
-
-        function setup() {
-            return {
-                title: "Cold Brew",
-                routes: non_index_routes || []
-            }
-        }
-    </script>
-   
+    
 </head>
 <body x-data='setup()'>
     <header>
@@ -147,4 +114,40 @@
 
 </body>
 
+
+
+<script type='module'>
+
+            const routes = await (async () => {
+                let results = await import('./routes.json', {
+                    assert: {
+                        type: 'json'
+                    }
+                })
+
+                return results.default;
+            })()
+
+            localStorage.setItem('routes', JSON.stringify(routes));
+
+    </script>
+
+    <script>
+        // console.log("hello from setup()");
+
+        const stored_routes = JSON.parse(localStorage.getItem('routes')) || []
+                // .filter(r=> !r.includes('Index'))  // Exclude Indexes for now.
+        ;
+        console.log('stored_routes :>> ', stored_routes);
+
+        const non_index_routes = stored_routes?.filter(r=>!r.path.includes('Index'))
+
+        function setup() {
+            return {
+                title: "Cold Brew",
+                routes: non_index_routes || []
+            }
+        }
+    </script>
+   
 </html>
