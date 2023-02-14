@@ -6,15 +6,14 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>nugsnet6</RootNamespace>
     <InvariantGlobalization>true</InvariantGlobalization>
-    <!-- <LangVersion>latest</LangVersion> -->
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <!-- The following should embed every .cypher query file into the assembly
     Credit: https://stackoverflow.com/questions/69258345/add-all-files-in-folder-including-sub-dir-as-embedded-resource
     -->
-    <!-- <EmbeddedResource Include="Pages\**\*.cypher" ></EmbeddedResource> -->
-    <EmbeddedResource Include="Pages\Sandbox\RecommendedNugs.cypher"></EmbeddedResource>
+    <EmbeddedResource Include="Pages\**\*.cypher" ></EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
