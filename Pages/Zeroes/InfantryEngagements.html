@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html data-theme="halloween" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- <script src="~/lib/chart.js/dist/chart.umd.js" asp-append-version="true"></script> -->
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@2.50.0/dist/full.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.umd.min.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.5"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <title>Engagement Distances</title>
+  </head>
+  <body>
+    <div x-data="setup()" class="flex flex-col items-center justify-center">
+
+        <h1 class="text-3xl" x-text="message"></h1>
+
+      <div class="chart-container" width="600" height="670">
+        <canvas id="engagement_distances_chart"></canvas>
+
+        <script>
+          function setup() {
+            return {
+              message: "Engagement Distances Chart",
+            };
+          }
+
+          const infantry_engagements = {
+            // TODO: compare any given Zero to the corresponding engagement distance.
+            urban: [
+                { x: 0.0, y: 0 },
+                { x: 0.0, y: 0 },
+                { x: 0.0, y: 0 },
+                { x: 0.0, y: 0 },
+            ],
+            jungle: [{ x: 0.0, y: 0 }],
+            rural: [{ x: 0.0, y: 0 }],
+            desert: [
+              { x: 0.0, y: 0 },
+              { x: 500.0, y: 92 },
+              { x: 600.0, y: 95 },
+            ],
+          };
+
+          const labels = Array.from({ length: 600 }, (_, index) => index + 100);
+
+          const data = {
+            datasets: [
+              {
+                label: "Desert",
+                data: infantry_engagements.desert,
+                borderColor: "rgb(0, 192, 0)",
+                backgroundColor: "rgb(0, 192, 0, 0.5)",
+                yAxisID: "y",
+                showLine: true,
+              },
+              {
+                label: "Jungle",
+                data: infantry_engagements.jungle,
+                borderColor: "rgb(192, 0, 75)",
+                backgroundColor: "rgb(192, 0, 75, .5)",
+                yAxisID: "y2",
+                showLine: true,
+              },
+              {
+                label: "Urban",
+                data: infantry_engagements.urban,
+                borderColor: "rgb(192, 192, 75)",
+                backgroundColor: "rgb(192, 192, 75, 0.5)",
+                yAxisID: "y3",
+                showLine: true,
+                // text: "YO",
+              },
+              {
+                label: "Rural",
+                data: infantry_engagements.rural,
+                borderColor: "rgb(192, 192, 75)",
+                backgroundColor: "rgb(55, 55, 75, 0.5)",
+                yAxisID: "y4",
+                showLine: true,
+                // text: "YO",
+              }
+            ],
+          };
+
+          const config = {
+            type: "scatter",
+            data: data,
+            options: {
+              scales: {},
+            },
+          };
+
+          document.addEventListener("DOMContentLoaded", (event) => {
+            var ctx = document.getElementById("engagement_distances_chart");
+            var engagement_distances_chart = new Chart(ctx, config);
+          });
+        </script>
+      </div>
+    </div>
+  </body>
+  <!-- <script>
+    function setup() {
+      return {
+        message: "Engagement Distances Chart",
+      };
+    }
+  </script> -->
+</html>

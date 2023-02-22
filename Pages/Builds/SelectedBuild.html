@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html data-theme="synthwave" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@2.50.0/dist/full.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <script src="https://unpkg.com/htmx.org@1.8.5"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <title>Submit a Build</title>
+  </head>
+  <body>
+    <div
+      x-data="setup()"
+      class="flex flex-col items-center bg-base-200/40 bg-gradient-to-t from-base-300/40 justify-center"
+    >
+      <div
+        class="card flex-shrink-0 w-full bg-base-100 max-w-lg lg:max-w-max card-side w-11/12 glass shadow-2xl drop-shadow-2xl card-bordered"
+      >
+        <div class="card-body">
+          <div
+            class="flex flex-center hero min-h-screen bg-base-200/20 rounded-xl"
+          >
+            <div class="hero-content flex-col lg:flex-row-reverse">
+              <div class="flex flex-col items-center justify-center gap-2">
+                <h1
+                  x-text="hero_header"
+                  class="text-5xl text-secondary font-bold"
+                ></h1>
+
+                <div width="420" height="746">
+                  <div class="flex flex-col items-center justify-center gap-2">
+                    <h2 class="text-lg text-secondary justify-center">
+                      Pros
+                      <svg
+                        viewBox="0 0 471 471"
+                        width="2rem"
+                        fill="#b1b"
+                        class="bg-transparent"
+                      >
+                        <g>
+                          <path
+                            d="M433.601,67.001c-24.7-24.7-57.4-38.2-92.3-38.2s-67.7,13.6-92.4,38.3l-12.9,12.9l-13.1-13.1
+c-24.7-24.7-57.6-38.4-92.5-38.4c-34.8,0-67.6,13.6-92.2,38.2c-24.7,24.7-38.3,57.5-38.2,92.4c0,34.9,13.7,67.6,38.4,92.3
+l187.8,187.8c2.6,2.6,6.1,4,9.5,4c3.4,0,6.9-1.3,9.5-3.9l188.2-187.5c24.7-24.7,38.3-57.5,38.3-92.4
+C471.801,124.501,458.301,91.701,433.601,67.001z M414.401,232.701l-178.7,178l-178.3-178.3c-19.6-19.6-30.4-45.6-30.4-73.3
+s10.7-53.7,30.3-73.2c19.5-19.5,45.5-30.3,73.1-30.3c27.7,0,53.8,10.8,73.4,30.4l22.6,22.6c5.3,5.3,13.8,5.3,19.1,0l22.4-22.4
+c19.6-19.6,45.7-30.4,73.3-30.4c27.6,0,53.6,10.8,73.2,30.3c19.6,19.6,30.3,45.6,30.3,73.3
+C444.801,187.101,434.001,213.101,414.401,232.701z"
+                          />
+                        </g>
+                      </svg>
+                    </h2>
+
+                    <div
+                      class="flex flex-row items-center justify-center gap-2"
+                    >
+                      <table class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                        <template x-for="pro in build.pros">
+                          <div class="text-lg badge border-success">
+                            <li x-text="pro"></li>
+                          </div>
+                        </template>
+                      </table>
+                    </div>
+
+                    <h2 class="text-lg text-secondary">Cons</h2>
+
+                    <div
+                      class="flex flex-row items-center justify-center gap-2"
+                    >
+                      <table class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                        <template x-for="con in build.cons">
+                          <div class="text-lg badge border-error">
+                            <li x-text="con"></li>
+                          </div>
+                        </template>
+                      </table>
+                    </div>
+
+                    <h2 class="text-lg text-secondary">Ideas</h2>
+                    <div
+                      class="flex flex-row items-center justify-center gap-2"
+                    >
+                      <table class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        <template x-for="idea in build.ideas">
+                          <span
+                            class="badge-ghost pt-2 text-xl text-secondary shadow-2xl badge"
+                          >
+                            <p class="mb-4" x-text="idea"></p>
+                          </span>
+                        </template>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex flex-row items-center justify-center gap-2">
+                  <template x-for="button in buttons">
+                    <button
+                      class="btn btn-primary hover:scale-115"
+                      x-text="button.label"
+                    ></button>
+                  </template>
+                </div>
+
+                <!-- <div class="stat stats-vertical shadow">
+                    <pre class="stat-value" x-text=""></pre>
+                    <pre class="stat-value" x-text="build.parts.length"></pre>
+                </div> -->
+                <!-- <a>
+                  <button
+                    x-on:click="show_star_wars = confirm('Ya like Jazz?')"
+                    class="btn btn-primary text-white"
+                  >
+                    Go
+                  </button>
+                </a> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-actions justify-start p-10 grid grid-cols-auto">
+          <div
+            class="stats bg-transparent stats-vertical shadow grid grid-cols-1"
+          >
+            <div class="stat">
+              <div class="stat-title">Cost</div>
+              <div class="stat-value" x-text="`$${total_cost}`">???</div>
+              <div class="stat-desc">total parts cost</div>
+            </div>
+
+            <div class="stat">
+              <div class="stat-title">Parts</div>
+              <div class="stat-value" x-text="build.parts.length">???</div>
+              <div class="stat-desc"># of parts</div>
+            </div>
+
+            <div class="stat">
+              <div class="stat-title">Budget</div>
+              <div class="stat-value" x-text="`$${budget}`">???</div>
+              <div class="stat-desc">total budget</div>
+            </div>
+
+            <div class="stat">
+              <div class="stat-title">Percent</div>
+              <!-- wraps and changes the color -->
+              <div
+                :class='percent_of_budget >= 100 ? "text-red-400" : "text-green-300"'
+              >
+                <div class="stat-value" x-text="`${percent_of_budget}%`">
+                  ???
+                </div>
+              </div>
+              <div class="stat-desc">% of budget</div>
+            </div>
+          </div>
+
+          <input
+            type="range"
+            min="300"
+            :max="max_budget"
+            :value="budget"
+            :class="`range ${range_color}`"
+            step="100"
+            x-on:change="budget_changed"
+          />
+          <!-- <div class="w-full flex justify-between text-xs px-2">
+          </div> -->
+
+          <div class="flex flex-row items-center justify-center gap-2">
+            <table>
+              <thead>
+                <template x-for="field in Object.keys(build.parts[0])">
+                  <th class="p-2 text-ghost" x-text="field"></th>
+                </template>
+              </thead>
+              <template x-for="part in build.parts">
+                <tr class="text-secondary">
+                  <td x-text="part.name" class="pr-2"></td>
+                  <td x-text="part.price" class="text-accent"></td>
+                </tr>
+              </template>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    function setup() {
+      const range_colors = {
+        too_high: "range-error",
+        warning: "range-warning",
+        alright: "range-info",
+        just_right: "range-success",
+      };
+
+      return {
+        hero_header: "The Minute Mann",
+        likes_jazz: null,
+        show_star_wars: true,
+        budget: 10000.0,
+        max_budget: 20000,
+        build: {
+          pros: [
+            "Adaptable",
+            "Concealable",
+            "Takedown",
+            "Folder",
+            "Backpack",
+            "Truck",
+            "PDW",
+          ],
+          cons: ["Pricey", "High Maintenance", "test", "test", "test"],
+          ideas: [
+            "zero your 9mm HSTs to your green dot",
+
+            "Smoke on the Water",
+            "A Fire in the Sky",
+            "RIS III",
+            "LMT 40mm",
+          ],
+          parts: [
+            { name: "Mark 6", price: 3500.0 },
+            { name: "Walker Titanium BCG 300 BLK / 5.56", price: 350.0 },
+            { name: "Proof 224 Valkyrie Barrel", price: 849.0 },
+            { name: "Dead Air Wolfman", price: 899.0 },
+            {
+              name: "Radian Raptor LT Gas Busting Charging Handle",
+              price: 150,
+            },
+            { name: "Titanium V-Seven LPK (combo, estimated)", price: 250 },
+            { name: "VTAC Sling", price: 50 },
+            { name: "Q Cherry Bomb", price: 100 * 3 },
+            { name: "Lower Reciever", price: 110 },
+            { name: "B.A.D. Lever", price: 29.95 },
+            { name: "FANG", price: 34.99 },
+            { name: "LMT 40mm", price: 3700.0 },
+            { name: "MP UBR II", price: 199.95 },
+            { name: "Fostech Sabre Grip", price: 29.99 },
+            { name: "Leo Takedown", price: 299.0 },
+            { name: "Law Tactical Folding Adapter", price: 250 },
+            { name: "Leo Takedown Plugs", price: 3 * 60 },
+            { name: "Literally the Best Trigger Ever Made", price: 350 },
+            { name: "Honey Badger Barrel", price: 425 },
+            { name: "Honey Badger Barrel Nut", price: 50 },
+            { name: "Honey Badger Turnbuckle", price: 40 },
+            { name: "Honey Badger Handguard", price: 225 },
+            { name: "Larue Tactical Stealth Barrel 12 in.", price: 276 },
+            { name: "V-Seven Magnesium Handguard, 10 in.", price: 339 },
+            { name: "SA Adjustable Gas Block", price: 99.0 * 2 },
+            { name: "Gas Tube", price: 10 * 2 },
+            { name: "Coda Evolution Handguard", price: 309 },
+          ],
+        },
+        buttons: [
+          {
+            label: "MPBR",
+            action: () => {
+              confirm("do the lala?");
+            },
+          },
+          {
+            label: "Energy",
+            action: () => {
+              confirm("do the lala?");
+            },
+          },
+        ],
+
+        budget_changed(element) {
+          let value = element.target.value;
+          console.log("new value :>> ", value);
+          this.budget = value;
+        },
+        get percent_of_budget() {
+          let result = (this.total_cost / this.budget) * 100.0;
+          var rounded = Math.round((result + Number.EPSILON) * 100) / 100;
+          return rounded;
+        },
+        get parts() {
+          return this.build.parts ?? [];
+        },
+        get total_cost() {
+          let result = this.build.parts.reduce((x, y) => {
+            // console.log("x :>> ", x);
+            return x + y.price;
+          }, 10);
+
+          // console.log(result);
+          return result;
+        },
+
+        between(actual = -1, first = 0.0, second = 0.0, inclusive = true) {
+          console.log("actual :>> ", actual);
+          let result = inclusive
+            ? actual >= first && actual < second
+            : actual > first && actual < second;
+
+          console.log("result :>> ", result);
+
+          return result;
+        },
+        get range_color() {
+          let percent = this.percent_of_budget;
+          let between = this.between;
+
+          // if (between(percent, 0, 1/3)) return range_colors.just_right;
+          // if (between(percent, 1/2, 2/3)) return range_colors.warning;
+          if (percent >= 100.0) return range_colors.too_high;
+          // if (percent >= 1/2) return range_colors.alright;
+          // if (percent < 1/2 && percent > 0) return range_colors.just_right;
+
+          return range_colors.just_right;
+        },
+      };
+    }
+  </script>
+</html>
