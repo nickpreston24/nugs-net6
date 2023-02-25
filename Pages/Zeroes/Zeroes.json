@@ -1,0 +1,138 @@
+{
+  "records": [
+    {
+      "id": "recpcfbch9dcf6gqu",
+      "createdTime": "2023-01-24T14:53:55.000Z",
+      "fields": {
+        "Id": 54,
+        "MPBR (16.5\" Torso)": 511,
+        "Rounds": ["recXCVK4rd0vs85Mr"],
+        "DF": "G1",
+        "Sight Height": 2.7,
+        "Target Size": "8",
+        "Constants": ["rec1Vhx2W4vKwZCGH"],
+        "MPBR (8\" head)": 387,
+        "MPBR (10\" Vitals Zone)": 421,
+        "Calculator": "https://shooterscalculator.com/point-blank-range.php?df=G1&bc=0.625&vi=3300&sh=2.7&ts=8",
+        "Grain": [142],
+        "Caliber": ["6mm ARC"],
+        "Created By": {
+          "id": "usriPAbo9LayDd6nA",
+          "email": "michael.n.preston@gmail.com",
+          "name": "Nicholas Preston"
+        },
+        "Created": "2023-01-24T14:53:55.000Z",
+        "Last Modified": "2023-02-15T06:55:01.000Z",
+        "Last Modified By": {
+          "id": "usriPAbo9LayDd6nA",
+          "email": "michael.n.preston@gmail.com",
+          "name": "Nicholas Preston"
+        },
+        "BallisticCoefficient": [0.625],
+        "Velocity (initial)": [3300],
+        "Base_Url": ["https://shooterscalculator.com/point-blank-range.php"],
+        "Base_Url_Key": ["shooterscalculator_base_url"],
+        "MPBR-DIFF": 124,
+        "MPBR_TO_BC_RATIO": 0.03131115459882583,
+        "MPBR-torso_TO_MV_RATIO": 0.15484848484848485,
+        "MV_TO_BC_RATIO": 0.048484848484848485,
+        "MPBR-head_TO_MV_RATIO": 0.11727272727272728,
+        "MPBR-Per-Inch (torso)": 0.00938475665748393,
+        "MPBR-Per-Inch (head)": 0.01465909090909091,
+        "MPBR (m) - 16.5": 467.2584,
+        "MPBR (m) - 8\"": 353.8728
+      }
+    },
+    {
+      "id": "reciBEiuY0WSRhnlX",
+      "createdTime": "2022-09-08T19:30:31.000Z",
+      "fields": {
+        "Id": 1,
+        "Notes": "1.  Zeroes at 36/300 are good\n2. 100 yard zero isn't enough\n3. MPBR is best to get the point and click \"set it and forget it\" for each rifle and cartridge and scope combo.\n4.  Knowing your holds is still great to know\n5. Chron not required, but strongly suggested to know your muzzle velocity",
+        "MPBR (16.5\" Torso)": 435,
+        "Rounds": ["recgGaEWw1BPfgBJI"],
+        "DF": "G1",
+        "Sight Height": 2.7,
+        "Target Size": "8",
+        "Constants": ["rec1Vhx2W4vKwZCGH"],
+        "Sight-In": 5.55,
+        "MPBR (8\" head)": 329,
+        "MPBR (10\" Vitals Zone)": 358,
+        "Calculator": "https://shooterscalculator.com/point-blank-range.php?df=G1&bc=0.356&vi=3100&sh=2.7&ts=8",
+        "Grain": [72],
+        "Caliber": [".224 Valkyrie"],
+        "Created By": {
+          "id": "usriPAbo9LayDd6nA",
+          "email": "michael.n.preston@gmail.com",
+          "name": "Nicholas Preston"
+        },
+        "Created": "2022-09-08T19:30:31.000Z",
+        "Last Modified": "2023-02-06T18:11:47.000Z",
+        "Last Modified By": {
+          "id": "usriPAbo9LayDd6nA",
+          "email": "michael.n.preston@gmail.com",
+          "name": "Nicholas Preston"
+        },
+        "BallisticCoefficient": [0.356],
+        "Velocity (initial)": [3100],
+        "Base_Url": ["https://shooterscalculator.com/point-blank-range.php"],
+        "Base_Url_Key": ["shooterscalculator_base_url"],
+        "MPBR-DIFF": 106,
+        "MPBR_TO_BC_RATIO": 0.06457445434586079,
+        "MPBR-torso_TO_MV_RATIO": 0.1403225806451613,
+        "MV_TO_BC_RATIO": 0.09061254077564336,
+        "MPBR-head_TO_MV_RATIO": 0.10612903225806451,
+        "MPBR-Per-Inch (torso)": 0.008504398826979473,
+        "MPBR-Per-Inch (head)": 0.013266129032258064,
+        "Price_Per_Round (from Rounds)": [2.549],
+        "MPBR (m) - 16.5": 397.764,
+        "MPBR (m) - 8\"": 300.8376
+      }
+    },
+    {
+      "id": "recRuWO9C9Mcx8mV9",
+      "createdTime": "2022-10-11T03:06:55.000Z",
+      "fields": {
+        "Id": 10,
+        "MPBR (16.5\" Torso)": 431,
+        "Rounds": ["recZWvcXHRTnZWp4K"],
+        "DF": "G1",
+        "Sight Height": 2.7,
+        "Target Size": "8",
+        "Constants": ["rec1Vhx2W4vKwZCGH"],
+        "Sight-In": 5.4,
+        "MPBR (8\" head)": 332,
+        "MPBR (10\" Vitals Zone)": 360,
+        "Calculator": "https://shooterscalculator.com/point-blank-range.php?df=G1&bc=0.265&vi=3300&sh=2.7&ts=8",
+        "Grain": [60],
+        "Caliber": [".224 Valkyrie"],
+        "Created By": {
+          "id": "usriPAbo9LayDd6nA",
+          "email": "michael.n.preston@gmail.com",
+          "name": "Nicholas Preston"
+        },
+        "Created": "2022-10-11T03:06:55.000Z",
+        "Last Modified": "2023-02-06T18:11:47.000Z",
+        "Last Modified By": {
+          "id": "usriPAbo9LayDd6nA",
+          "email": "michael.n.preston@gmail.com",
+          "name": "Nicholas Preston"
+        },
+        "BallisticCoefficient": [0.265],
+        "Velocity (initial)": [3300],
+        "Base_Url": ["https://shooterscalculator.com/point-blank-range.php"],
+        "Base_Url_Key": ["shooterscalculator_base_url"],
+        "MPBR-DIFF": 99,
+        "MPBR_TO_BC_RATIO": 0.08755417414525236,
+        "MPBR-torso_TO_MV_RATIO": 0.13060606060606061,
+        "MV_TO_BC_RATIO": 0.11435105774728416,
+        "MPBR-head_TO_MV_RATIO": 0.1006060606060606,
+        "MPBR-Per-Inch (torso)": 0.007915518824609735,
+        "MPBR-Per-Inch (head)": 0.012575757575757575,
+        "Price_Per_Round (from Rounds)": [1.5],
+        "MPBR (m) - 16.5": 394.1064,
+        "MPBR (m) - 8\"": 303.5808
+      }
+    }
+  ]
+}

@@ -1,0 +1,128 @@
+{
+  "records": [
+    {
+      "id": "recrCQxpU2aYpGEGd",
+      "createdTime": "2023-02-16T02:35:05.000Z",
+      "fields": {
+        "Name": "CGS Mod-9Sk - Silencer Shop",
+        "Attachments": [
+          {
+            "id": "attik90PIA2PsuP3j",
+            "width": 265,
+            "height": 265,
+            "url": "https://v5.airtableusercontent.com/v1/15/15/1677074400000/KZiFj4wE_QCcEGjrFoDilA/ScBGV4L30RE44sNPPpxgXYbbCWhnTZm2lDLiYzZT9hPdxKh1YC8mdG_O52ld1PbAz9yHRBlVNslNWjesVztwsqByMSa8L5LyYE2xqt9U2qPXF5WQDcI2ESEHm7HHpOUglVMPscuTrJVaE5Ikxyza8FMJccOMvm7wrdThRne86ww/ppTwiHnk7ZAidBpn_otBJJlqATXEmgTl755Z1xGoYg4",
+            "filename": "Social media image from www.silencershop.com on 2023-02-15 at 8.19.32 PM.jpeg",
+            "size": 6366,
+            "type": "image/jpeg",
+            "thumbnails": {
+              "small": {
+                "url": "https://v5.airtableusercontent.com/v1/15/15/1677074400000/KyBx1eHmYVXN_1orLVN4_A/Qvkj3YIG0Zei8mffMiljQ7RRP1BjQjRX4Hu7PrfIxVvR1nLLhnoGKE7y6hDPbdM8IuW80DQE-ML1_4_lmtA-Cw/dCUARFv37BSVUz3mBdSMNyyQeh3sptL5WqEivQBLavs",
+                "width": 36,
+                "height": 36
+              },
+              "large": {
+                "url": "https://v5.airtableusercontent.com/v1/15/15/1677074400000/28bXvhyGI49h7Q10pJ2MZQ/3tF5GraFSM378YgPeWgkWz-8gR3TNkXnrANes_FI1ihCgRvpYUFXyJrKqpElHXDpSGmvFfdQLGOTfeENKhJk5A/4ZWjclK_Uywq2o7T21-GcX4uR_omPCuqB4GvLjY7zKM",
+                "width": 265,
+                "height": 265
+              },
+              "full": {
+                "url": "https://v5.airtableusercontent.com/v1/15/15/1677074400000/4eNZBtBxgjlSUAMZ5026yA/g7hv6QNcgXRPXTXscx81V7QGjmsPrKUpdwugtrQx_i9efSqLL0A6CQlf4Sr-fAKJLR1ahkWcyKDj-mgHLJOVCA/R0r3uL4FlioFxNBUlm0QJtLfUf5QlaEln1GIZ5SAZOQ",
+                "width": 3000,
+                "height": 3000
+              }
+            }
+          }
+        ],
+        "URL": "https://www.silencershop.com/cgs-mod-9sk.html",
+        "Cost": 565,
+        "SKU": "CGS",
+        "Combo Cost": 0,
+        "Created By": {
+          "id": "usriPAbo9LayDd6nA",
+          "email": "michael.n.preston@gmail.com",
+          "name": "Nicholas Preston"
+        },
+        "Created": "2023-02-16T02:35:05.000Z",
+        "Last Modified By": {
+          "id": "usriPAbo9LayDd6nA",
+          "email": "michael.n.preston@gmail.com",
+          "name": "Nicholas Preston"
+        },
+        "Last Modified": "2023-02-16T02:35:05.000Z"
+      }
+    },
+    {
+      "id": "recPIBvGdz2x5hzjt",
+      "createdTime": "2023-01-28T13:22:27.000Z",
+      "fields": {
+        "Name": "6mm ARC Proof Research Barrel 18\"",
+        "Cost": 849,
+        "Builds": ["recs6RxM81giwOVWE"],
+        "Combo Cost": 0,
+        "Created By": {
+          "id": "usriPAbo9LayDd6nA",
+          "email": "michael.n.preston@gmail.com",
+          "name": "Nicholas Preston"
+        },
+        "Created": "2023-01-28T13:22:27.000Z",
+        "Last Modified By": {
+          "id": "usriPAbo9LayDd6nA",
+          "email": "michael.n.preston@gmail.com",
+          "name": "Nicholas Preston"
+        },
+        "Last Modified": "2023-02-16T02:14:49.000Z"
+      }
+    },
+    {
+      "id": "receMUO9VuJi3a7XU",
+      "createdTime": "2023-02-12T21:27:44.000Z",
+      "fields": {
+        "Name": "EOTECH Vudu® 5-25x50 FFP | EOTECH",
+        "Notes": "The TREMOR3 reticle is designed for speed and accuracy. It's combines a patented feature that gives users the capability of quickly and accurately estimating target ranges and compensate for drop & wind. Additionally it provides the user wind speed and drop correction information for fast and accurate second shot corrections.",
+        "Attachments": [
+          {
+            "id": "attUR2ymxqrIeH9zW",
+            "width": 265,
+            "height": 265,
+            "url": "https://v5.airtableusercontent.com/v1/15/15/1677074400000/IL_EAJYd93PPgckFi4zX1A/cn-90-4h6k5xVzNOR9DU1l8wEMNhZdI11hp9fQqkdqiKjnxNBQjYaO0lw3Igl-dMTNekM-B8cg-nSgkcRoHh6OZMgCpiAC44PcTDNjPzBJLWS4lRZSka8jXP7kY_Cub5GYXN3C2A1b1-T-p_ct9XgTPvkTwakfVd2k3kfNjm_nU/hmTeK_VOzna_kmp2Koo6tTbJ6v4dkM9SJLFJlsEiSsg",
+            "filename": "Social media image from www.eotechinc.com on 2023-02-12 at 3.27.15 PM.png",
+            "size": 25062,
+            "type": "image/png",
+            "thumbnails": {
+              "small": {
+                "url": "https://v5.airtableusercontent.com/v1/15/15/1677074400000/qVpm-97Rb_wWAH3NUGe7_Q/SDlhjvOdtH3OUFLXk5JYcQTzgBa3e8sGKYWgDNb313ZSaCuFWb6gId9kmjddU5aQw25VGoZfJ99crvRbPJhFMg/BnzhrbdYW5YI7ssxRRKbDlKZlL7Y_HpedFDAyQlYbDQ",
+                "width": 36,
+                "height": 36
+              },
+              "large": {
+                "url": "https://v5.airtableusercontent.com/v1/15/15/1677074400000/0BcjMR0Cxu9s0sWNf6UvYQ/_y_Ggq-zMhPtl8U35gKJ_dl1szzsJjPLujmOE8KqNZdu-80-VWjFMoKyWP5nbT48PGUWFtz_5DoHHu5PSchGOQ/bM5VvbJI_8D48QbFwJXhRunTxffni8caD11TsLblmuU",
+                "width": 265,
+                "height": 265
+              },
+              "full": {
+                "url": "https://v5.airtableusercontent.com/v1/15/15/1677074400000/6mqcG5wmmrkz5_VNJDO1BA/R4_q_HPNwhiBG9gzxIP-7BwtBxR4I6AJiXOxqA8NGQq2YtCgHIrBTfiGr40SCYLJe0yF57CNN_Bq3HU2mXyJqg/I9tp8fP3POmGTrbfpUMd-H5TG-vlY4lB6t-UAswsHZ8",
+                "width": 3000,
+                "height": 3000
+              }
+            }
+          }
+        ],
+        "URL": "https://www.eotechinc.com/eotech-vudu-5-25x50-ffp",
+        "Weight": 29.5,
+        "Combo Cost": 0,
+        "Created By": {
+          "id": "usriPAbo9LayDd6nA",
+          "email": "michael.n.preston@gmail.com",
+          "name": "Nicholas Preston"
+        },
+        "Created": "2023-02-12T21:27:44.000Z",
+        "Last Modified By": {
+          "id": "usriPAbo9LayDd6nA",
+          "email": "michael.n.preston@gmail.com",
+          "name": "Nicholas Preston"
+        },
+        "Last Modified": "2023-02-12T21:27:44.000Z"
+      }
+    }
+  ]
+}
