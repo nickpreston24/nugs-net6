@@ -10,4 +10,4 @@ const INGALS = {
 	]
 };
 
-export default INGALS;
+// export default INGALS;

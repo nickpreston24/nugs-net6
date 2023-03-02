@@ -1,5 +1,5 @@
-import conversions from 'pg-conversions';
-import drag from 'pg-drag';
+// import conversions from 'pg-conversions';
+// import drag from 'pg-drag';
 
 const ballistics = {
     getRangeData: (weather, target, firearm, round) => {
@@ -58,4 +58,4 @@ const ballistics = {
     }
 }
 
-export default ballistics;
+// export default ballistics;

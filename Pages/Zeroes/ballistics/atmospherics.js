@@ -68,4 +68,4 @@ const atmospherics = {
     }
 }
 
-export default atmospherics;
+// export default atmospherics;

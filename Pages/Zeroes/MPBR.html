@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-theme="halloween" lang="en">
+<html data-theme="night" lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -13,40 +13,267 @@
     <link
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css"
       rel="stylesheet"
+      aqua
       type="text/css"
     />
 
     <script src="https://unpkg.com/htmx.org@1.8.5"></script>
 
-    <script src="./drag.js" ></script>
+    <script type="text/javascript" src="./ballistics/ingals.data.js"></script>
+    <script type="text/javascript" src="./ballistics/atmospherics.js"></script>
+    <script type="text/javascript" src="./ballistics/drag.js"></script>
+    <script type="text/javascript" src="./ballistics/ballistics.js"></script>
 
-    <script src="//unpkg.com/alpinejs" defer></script>
+    <!-- <script type="module" src="./ballistics/drag.js">
+        import {test} from './ballistics/drag.js'
+        window.test = test
+    </script> -->
+
+    <script type="module" src="//unpkg.com/alpinejs" defer></script>
     <title>What's Taters, Precious?</title>
   </head>
-  <body>    
+  <body>
     <div x-data="setup()" class="flex flex-col items-center justify-center">
-
-      <div class="flex flex-center hero min-h-screen bg-base-200">
-        <div class="hero-content flex-col lg:flex-row-reverse">
-          <iframe width="420" height="746" src="https://www.youtube.com/embed/jOH3r2X_k7U" title="potato day" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
+      <div
+        class="border-2 border-green-100 flex flex-center justify-center items-center hero min-h-screen bg-base-200"
+      >
+        <div class="hero-content glass flex-col lg:flex-row-reverse">
           <div>
             <h1 x-text="message" class="text-5xl font-bold"></h1>
-            <p  class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
 
-            <a href="https://www.youtube.com/shorts/jOH3r2X_k7U">
-                <button class="btn btn-primary">🥔 Go</button>
-            </a>
+            <div
+              class="col-span-3 row-span-3 mx-2 flex w-72 flex-shrink-0 flex-col xl:mx-0 xl:w-full svelte-1n6ue57"
+            >
+              <div class="">
+                <div tabindex="0" class="bg-opacity-100">
+                  <div class="tabs w-full flex-grow-0">
+                    <button
+                      class="tab tab-lifted tab-active tab-border-none tab-lg flex-1"
+                    >
+                      Stats
+                    </button>
+                    <button
+                      class="tab tab-lifted tab-border-none tab-lg flex-1"
+                    >
+                      Info
+                    </button>
+                    <button
+                      class="tab tab-lifted tab-border-none tab-lg flex-1"
+                    >
+                      Options
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bg-base-100 grid w-full flex-grow gap-3 rounded-xl rounded-tl-none p-6 shadow-xl"
+              >
+                <div class="flex items-center space-x-2">
+                  <div class="">
+                    <div tabindex="0">
+                      <div class="online avatar">
+                        <div
+                          class="mask mask-hexagon bg-base-content h-16 w-16 bg-opacity-10 p-px"
+                        >
+                          <img class="mask mask-hexagon" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div x-text="round.name" class="text-lg font-extrabold">
+                      ???
+                    </div>
+                    <div class="text-base-content/70 text-sm">???</div>
+                  </div>
+                </div>
+                <div class="">
+                  <div tabindex="0">
+                    <div class="divider text-base-content/60 m-0">Stats</div>
+                  </div>
+                </div>
+                <div class="text-lg font-extrabold">Round Stats</div>
+                <div class="grid gap-3">
+                  <div class="">
+                    <div tabindex="0">
+                      <div class="flex items-center p-1">
+                        <span class="text-base-content/70 w-48 text-xs"
+                          >Wound</span
+                        >
+                        <progress
+                          max="100"
+                          value="50"
+                          class="progress progress-success"
+                        ></progress>
+                      </div>
+                      <div class="flex items-center p-1">
+                        <span class="text-base-content/70 w-48 text-xs"
+                          >Muzzle Energy</span
+                        >
+                        <progress
+                          max="100"
+                          value="30"
+                          class="progress progress-primary"
+                        ></progress>
+                      </div>
+                      <div class="flex items-center p-1">
+                        <span class="text-base-content/70 w-48 text-xs"
+                          >???</span
+                        >
+                        <progress
+                          max="100"
+                          value="70"
+                          class="progress progress-secondary"
+                        ></progress>
+                      </div>
+                      <div class="flex items-center p-1">
+                        <span class="text-base-content/70 w-48 text-xs"
+                          >???</span
+                        >
+                        <progress
+                          max="100"
+                          value="90"
+                          class="progress progress-accent"
+                        ></progress>
+                      </div>
+                      <div class="flex items-center p-1">
+                        <span class="text-base-content/70 w-48 text-xs"
+                          >???</span
+                        >
+                        <progress
+                          max="100"
+                          value="65"
+                          class="progress progress-warning"
+                        ></progress>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="stats shadow">
+              <div class="stat">
+                <div class="stat-figure text-secondary">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    class="inline-block w-8 h-8 stroke-current"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="stat-title">Far Zero</div>
+                <div x-text="maximum_point_blank_range" class="stat-value">
+                  ???
+                </div>
+                <div class="stat-desc">Max Point Blank Range</div>
+              </div>
+
+              <div x-show="true" class="stat">
+                <div class="stat-figure text-secondary">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    class="inline-block w-8 h-8 stroke-current"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="stat-title">MPBR</div>
+                <div x-text="maximum_point_blank_range_zero" class="stat-value">
+                  4,200
+                </div>
+                <div class="stat-desc">↗︎ 400 (22%)</div>
+              </div>
+
+              <div x-show="false" class="stat">
+                <div class="stat-figure text-secondary">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    class="inline-block w-8 h-8 stroke-current"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="stat-title">New Registers</div>
+                <div class="stat-value">1,200</div>
+                <div class="stat-desc">↘︎ 90 (14%)</div>
+              </div>
+            </div>
+
+            <!-- <button x-on:click="say(drag.gravity)" class="btn btn-primary">
+              🥔 Go
+            </button> -->
           </div>
         </div>
-      </div>   
-
+      </div>
     </div>
   </body>
   <script>
+    // function say(text = "hi") {
+    //   alert(text);
+    // }
     function setup() {
+      const initial_load = {
+        name: "Barnes Vor-TX 300 AAC Blackout",
+        shooters_calc:
+          "https://shooterscalculator.com/point-blank-range.php?df=G1&bc=0.3&vi=2350&sh=2.7&ts=8",
+        ballistic_coefficient: 0.3,
+        initial_velocity: 2350,
+        sight_height: 2.7, // height over bore (in.)
+        target_sizcalibere: 8.0, // diameter of target.
+      };
       return {
-        message: "Have a Potato Day! 🥔 ",
+        message: "",
+        round: initial_load,
+
+        ballisticCoefficient: initial_load.ballistic_coefficient || 0.0,
+        muzzleVelocityFPS: initial_load.initial_velocity || 0.0,
+        maximumOrdinate: initial_load.target_size / 2.0,
+
+        get maximum_point_blank_range() {
+          let result = drag.maximumPointBlankRange(
+            this.ballisticCoefficient,
+            this.muzzleVelocityFPS,
+            this.maximumOrdinate
+          );
+
+          // console.log("result :>> ", result);
+
+          return result || -9999.99;
+        },
+
+        get maximum_point_blank_range_zero() {
+          let result = drag.maximumPointBlankRangeZero(
+            this.ballisticCoefficient,
+            this.muzzleVelocityFPS,
+            this.maximumOrdinate
+          );
+
+          // console.log("result :>> ", result);
+
+          return result || -9999.99;
+        },
       };
     }
   </script>

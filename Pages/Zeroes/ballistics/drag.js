@@ -1,6 +1,6 @@
-import atmospherics from 'pg-atmospherics';
-import conversions from 'pg-conversions';
-import INGALS from './ingals.data';
+// import atmospherics from './atmospherics';
+// import conversions from './conversions';
+// import INGALS from './ingals.data';
 
 const drag = {
 	gravity: 32.176,     // Feet Per Second Per Second
@@ -114,6 +114,7 @@ const drag = {
 		return conversions.milesPerHourToInchesPerSecond(targetSpeedMPH) * currentTimeSeconds;
 	},
 	maximumPointBlankRange: (ballisticCoefficient, muzzleVelocityFPS, maximumOrdinate) => {
+		// console.log('maximumOrdinate :>> ', maximumOrdinate);
 		// Calculate the maximum range at which the user can shoot, without holdover or scope adjustment, while not exceeding a pre-determined maximum ordinate (target radius).
 		// Time (seconds)it takes to reach the range having a maximum ordinate supplied above
 		const timeToMaximumOrdinate = 0.25 * Math.pow(maximumOrdinate / 3, 0.5);
@@ -121,12 +122,16 @@ const drag = {
 		const velocityAtTimeToMaximumOrdinate = drag.velocityFromTime(ballisticCoefficient, muzzleVelocityFPS, timeToMaximumOrdinate);
 		// Drop (inches) of the bullet at the above given time and velocity***
 		const dropAtMaximumPointBlankRangeZero = drag.drop(muzzleVelocityFPS, velocityAtTimeToMaximumOrdinate, timeToMaximumOrdinate);
+
+		// console.log('dropAtMaximumPointBlankRangeZero :>> ', dropAtMaximumPointBlankRangeZero);
 		// The bullet may drop the radius of the target below zero at the true maximum point blank range
 		const dropAtMaximumPointBlankRange = dropAtMaximumPointBlankRangeZero - maximumOrdinate;
+		// console.log('dropAtMaximumPointBlankRange :>> ', dropAtMaximumPointBlankRange);
 		// Loop through dropping velocity until Drop = DropAtMaximumPointBlankRange to find the velocity at the true point blank range
 		let velocityAtMaximumPointBlankRange = velocityAtTimeToMaximumOrdinate;
 		while(drag.drop(muzzleVelocityFPS, velocityAtMaximumPointBlankRange, drag.time(ballisticCoefficient, muzzleVelocityFPS, velocityAtMaximumPointBlankRange)) > dropAtMaximumPointBlankRange) {
-		velocityAtMaximumPointBlankRange -= 0.1;
+			// console.log('velocityAtMaximumPointBlankRange :>> ', velocityAtMaximumPointBlankRange);
+			velocityAtMaximumPointBlankRange -= 0.1;
 		}
 		// Given the velocity at the point blank range, calculate the actual range
 		return drag.range(ballisticCoefficient, muzzleVelocityFPS, velocityAtMaximumPointBlankRange);
@@ -200,4 +205,10 @@ const drag = {
 	}
 }
 
-export default drag;
+// export default drag;
+
+
+// // export 
+// function test( ) {
+// 	alert("ping!")
+// }
