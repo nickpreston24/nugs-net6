@@ -19,6 +19,7 @@ EXPOSE 443
 
 # Copy 
 WORKDIR /app
-COPY ./publish ./
+# COPY ./publish ./
+COPY . .
 
 ENTRYPOINT ["./publish/nugsnet6.dll", "--urls", "http://0.0.0.0:80"]
