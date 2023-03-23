@@ -21,6 +21,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using CodeMechanic.Extensions;
 using Neo4j.Driver;
+using nugsnet6;
 
 namespace CodeMechanic.RazorPages;
 
