@@ -27,7 +27,7 @@ namespace CodeMechanic.RazorPages;
 ///<summary>
 ///Airtable https://github.com/ngocnicholas/airtable.net/wiki/Documentation
 ///</summary>
-public abstract class HighSpeedPageModel : PageModel
+public abstract class HighSpeedPageModel : PageModel, IQueryNeo4j, IQueryAirtable
 {
     protected readonly IEmbeddedResourceQuery embeddedResourceQuery;
     protected readonly IDriver driver;

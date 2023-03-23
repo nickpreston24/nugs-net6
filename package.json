@@ -8,7 +8,8 @@
     "buildcss:linux": "npx tailwindcss -i ./Styles/app.css -o ./wwwroot/css/site.css",
     "desktop": "electronize-h5 start /watch",
     "nuke": "rm -rf node_modules wwwroot/lib wwwroot/css",
-    "reinstall": "npm run nuke && yarn && npm i && npm run  buildcss:linux"
+    "reinstall": "npm run nuke && yarn && npm i && npm run  buildcss:linux",
+    "quickstart": "bash quickstart.sh"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.7",
