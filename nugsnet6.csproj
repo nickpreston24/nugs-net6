@@ -10,15 +10,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- The following should embed every .cypher query file into the assembly
+    <!-- The following should embed every query file into the assembly
     Credit: https://stackoverflow.com/questions/69258345/add-all-files-in-folder-including-sub-dir-as-embedded-resource
     -->
     <EmbeddedResource Include="Pages\**\*.cypher" ></EmbeddedResource>
+    <EmbeddedResource Include="Pages\**\*.sql" ></EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Airtable" Version="1.2.0" />
-    <!-- <PackageReference Include="Chart.js" Version="3.7.1" /> -->
     <PackageReference Include="ElectronNET.API" Version="13.5.1" />
     <PackageReference Include="Htmx" Version="1.0.1" />
     <PackageReference Include="Htmx.TagHelpers" Version="1.0.1" />

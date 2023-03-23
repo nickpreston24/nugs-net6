@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html data-theme="halloween" lang="en">
+<!-- <!DOCTYPE html> -->
+<!-- <html data-theme="halloween" lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,32 +20,8 @@
     <script src="//unpkg.com/alpinejs" defer></script>
     <title>Snippet</title>
   </head>
-  <body>
-    <script>
-      function setup() {
-        return {
-          debug: true,
-
-          base_id: "app33DDBeyXEGRflo",
-          page_route: "/Parts",
-          crud_action: 'GET',
-          parameter_text: `maxRecords=3&view=Grid%20view`,
-          base_url: `https://api.airtable.com/v0/`,
-
-          get class_name () {
-            return this.debug ? 'swap-on' : 'swap-off'
-          },
-
-          get fetch_url() {
-            return `${this.base_url}${this.base_id}${this.page_route}?${this.parameter_text}`;
-          },
-
-          get patch_url() {
-            return `${this.base_url}${this.base_id}${this.page_route}?${this.parameter_text}`;
-          } 
-        };
-      }
-    </script>
+  <body> -->
+   
 
     <div
       x-data="setup()"
@@ -57,7 +33,7 @@
 
 
       <div x-data="{ open: false }">
-        <button @click="open = true">Expand</button>
+        <button @@click="open = true">Expand</button>
      
         <span x-show="open">
           Content...
@@ -69,7 +45,7 @@
         <!-- this hidden checkbox controls the state -->
         <input type="checkbox" />
         
-        <!-- geaer icon -->
+        <!-- gear icon -->
         <svg x-on:click="alert('Hello World!')" :class="class_name"  class="class_name fill-none w-10 h-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path clip-rule="evenodd" d="M13.906 4.91a6.41 6.41 0 0 0-1.451-.84l-.469-1.873a1.25 1.25 0 0 0-1.212-.947H9.226a1.25 1.25 0 0 0-1.213.947L7.545 4.07a6.41 6.41 0 0 0-1.452.84l-1.857-.532a1.25 1.25 0 0 0-1.427.577l-.774 1.34A1.25 1.25 0 0 0 2.25 7.82l1.388 1.343a6.477 6.477 0 0 0 0 1.676L2.25 12.181a1.25 1.25 0 0 0-.214 1.524l.774 1.34a1.25 1.25 0 0 0 1.427.577l1.857-.531c.442.34.93.623 1.452.84l.468 1.872c.14.557.64.947 1.213.947h1.548a1.25 1.25 0 0 0 1.213-.947l.468-1.873c.522-.216 1.01-.5 1.452-.84l1.857.532a1.25 1.25 0 0 0 1.427-.577l.774-1.34a1.25 1.25 0 0 0-.214-1.524l-1.389-1.343a6.494 6.494 0 0 0 0-1.676l1.389-1.343a1.25 1.25 0 0 0 .213-1.524l-.773-1.34a1.25 1.25 0 0 0-1.427-.577l-1.857.531ZM10 12.332a2.333 2.333 0 1 0 0-4.666 2.333 2.333 0 0 0 0 4.666Z" stroke="currentColor" stroke-width="1.5"></path></svg>
         
         <!-- plus icon -->
@@ -116,5 +92,31 @@
 
       <span id="results"></span>
     </div>
-  </body>
-</html>
+
+    <script>
+      function setup() {
+        return {
+          debug: true,
+
+          base_id: "app33DDBeyXEGRflo",
+          page_route: "/Parts",
+          crud_action: 'GET',
+          parameter_text: `maxRecords=3&view=Grid%20view`,
+          base_url: `https://api.airtable.com/v0/`,
+
+          get class_name () {
+            return this.debug ? 'swap-on' : 'swap-off'
+          },
+
+          get fetch_url() {
+            return `${this.base_url}${this.base_id}${this.page_route}?${this.parameter_text}`;
+          },
+
+          get patch_url() {
+            return `${this.base_url}${this.base_id}${this.page_route}?${this.parameter_text}`;
+          } 
+        };
+      }
+    </script>
+  <!-- </body> -->
+<!-- </html> -->

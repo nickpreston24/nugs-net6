@@ -24,6 +24,9 @@ using Neo4j.Driver;
 
 namespace CodeMechanic.RazorPages;
 
+///<summary>
+///Airtable https://github.com/ngocnicholas/airtable.net/wiki/Documentation
+///</summary>
 public abstract class HighSpeedPageModel : PageModel
 {
     protected readonly IEmbeddedResourceQuery embeddedResourceQuery;
