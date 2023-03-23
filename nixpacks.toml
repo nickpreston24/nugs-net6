@@ -1,2 +1,0 @@
-#[phases.build]
-#cmds = ["echo first", "yarn", "npm install", "echo last"]
