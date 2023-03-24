@@ -16,8 +16,8 @@ public class D3Graph
 
 public class D3Node
 {
-    public string Title { get; }
-    public string Label { get; }
+    public string Title { get; } = string.Empty;
+    public string Label { get; } = string.Empty;
 
     public D3Node(string title, string label)
     {

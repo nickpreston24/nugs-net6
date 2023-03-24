@@ -11,13 +11,15 @@ using CodeMechanic.Extensions;
 using CodeMechanic.RazorPages;
 using Neo4j.Driver;
 
-
 namespace nugsnet6.Pages.FreeTier;
 
 public class IndexModel : HighSpeedPageModel
 {
-    public IndexModel(IEmbeddedResourceQuery embeddedResourceQuery
-    , IDriver driver) : base(embeddedResourceQuery, driver)
+    public IndexModel(
+        IEmbeddedResourceQuery embeddedResourceQuery
+        , IDriver driver
+        , IAirtableRepo repo
+    ) : base(embeddedResourceQuery, driver, repo)
     {
     }
 }

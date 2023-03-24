@@ -1,20 +1,66 @@
 ﻿@page
-@model nugsnet6.Pages.IndexModel
+@model nugsnet6.Pages.Loadouts.IndexModel
 @{
+    var foo = Model?.Foo;
+    var search = Model?.Search;
 }
 
-<div class='flex flex-col' x-data='setup()'>
+<div :data-theme='theme' class='flex flex-col' x-data="setup()">
+  
+    <div class="hero min-h-screen bg-base-200">
+        <div class="hero-content flex-col lg:flex-row-reverse">
+            <div class="text-center lg:text-left">
+            <h1 class="text-5xl font-bold">Login now!</h1>
 
-    <h1>Hello there!</h1>
+            <div class="grid grid-cols-3 gap-1 md:grid-cols-1">
+                <template x-for="[key, value] of Object.entries(options)">
+                    <label class="cursor-pointer label">
+                    <span x-text="key" class="label-text"></span>
 
-    <span x-text='value' />
+                    <input
+                        x-bind:checked="options[key]"
+                        x-on:change="options[key]=!options[key]"
+                        type="checkbox"
+                        class="toggle toggle-primary"
+                    />
+                    </label>
+                </template>
+            </div>
+            <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+            <div class="card-body">
+                <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Email</span>
+                </label>
+                <input type="text" placeholder="email" class="input input-bordered" />
+                </div>
+                <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Password</span>
+                </label>
+                <input type="text" placeholder="password" class="input input-bordered" />
+                <label class="label">
+                    <a href="#" class="label-text-alt link link-hover">Forgot password?</a>
+                </label>
+                </div>
+                <div class="form-control mt-6">
+                <button class="btn btn-primary">Login</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
-
 <script>
+    // console.log('hello there! :>> ');
     function setup() {
         return {
-            value: "foo"
+            theme: "forest",
+            options: {
+                keep_history: true
+            }
         }
     }
 </script>

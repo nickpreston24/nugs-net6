@@ -2,7 +2,7 @@ namespace nugsnet6.Models{
 
 
 class BallisticsChart {
-   string type {get;set;} = "bar";
+   string type {get;set;}= "bar";
    bool responsive {get;set;} = true;
    Data data {get;set;}
    Options options {get;set;}
@@ -30,7 +30,7 @@ class Data {
 }
 
 class Dataset {
-   string label {get;set;} = string.Empty;
+   string label {get;set;} 
    int[] data {get;set;}
    string[] backgroundColor {get;set;} = new string [] {
     "rgba(255, 99, 132, 0.2)",

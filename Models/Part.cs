@@ -16,13 +16,13 @@ namespace nugsnet6.Models
     public class Part
     {
         //[JsonProperty("id")]
-        public string Id { get; set; }
+        public string Id { get; set; } = string.Empty;
 
         //[JsonProperty("createdTime")]
         public DateTimeOffset CreatedTime { get; set; }
 
         //[JsonProperty("Name")]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         //[JsonProperty("Attachments")]
         // public Attachment[] Attachments { get; set; }
@@ -49,7 +49,7 @@ namespace nugsnet6.Models
     // public partial class Attachment
     // {
     //     //[JsonProperty("id")]
-    //     public string Id { get; set; }
+    //     public string Id { get; set; } = string.Empty;
 
     //     //[JsonProperty("width")]
     //     public long Width { get; set; }
@@ -61,13 +61,13 @@ namespace nugsnet6.Models
     //     public Uri Url { get; set; }
 
     //     //[JsonProperty("filename")]
-    //     public string Filename { get; set; }
+    //     public string Filename { get; set; } = string.Empty;
 
     //     //[JsonProperty("size")]
     //     public long Size { get; set; }
 
     //     //[JsonProperty("type")]
-    //     public string Type { get; set; }
+    //     public string Type { get; set; } = string.Empty;
 
     //     //[JsonProperty("thumbnails")]
     //     public Thumbnails Thumbnails { get; set; }

@@ -124,7 +124,7 @@ namespace CodeMechanic.Advanced.Extensions
 
     public abstract class Enumeration : IComparable
     {
-        public string Name { get; private set; }
+        public string Name { get; private set; } = string.Empty;
 
         public int Id { get; private set; }
 

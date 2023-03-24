@@ -168,9 +168,9 @@ namespace CodeMechanic.Advanced.Extensions
         ///
         /// /* -- Argument.cs --- */
         /// 
-        ///  public string RawCommand { get; set; } = string.Empty; // e.g. 'run'
-        ///  public string Flag { get; set; } = string.Empty;
-        ///  public string RawValues { get; set; }
+        ///  public string RawCommand { get; set; }= string.Empty;// e.g. 'run'
+        ///  public string Flag { get; set; } 
+        ///  public string RawValues { get; set; } = string.Empty;
         /// .. other stuff ..
         /// 
         /// The Extract() method requires a pattern.  Here's the one embedded in ArgumentExtenions.cs (from project Shargs)

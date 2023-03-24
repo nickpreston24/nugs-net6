@@ -22,8 +22,10 @@ public class IndexModel : HighSpeedPageModel
 
     public IndexModel(
         IEmbeddedResourceQuery embeddedResourceQuery
-        , IDriver driver) 
-    : base(embeddedResourceQuery, driver)
+        , IDriver driver
+        , IAirtableRepo repo
+        ) 
+    : base(embeddedResourceQuery, driver, repo)
     {
     }
 
@@ -51,7 +53,7 @@ public class IndexModel : HighSpeedPageModel
 
         query = await stream.ReadAllLinesFromStreamAsync();
 
-        var records = await NeoFind(query, new {});
+        var records = await SearchNeo4J(query, new {});
         // var graph = records.ToD3Graph();
 
         // return Partial("_PartsGrid", records);

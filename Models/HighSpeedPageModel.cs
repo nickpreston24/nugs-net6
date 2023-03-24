@@ -22,6 +22,7 @@ using System.Runtime.CompilerServices;
 using CodeMechanic.Extensions;
 using Neo4j.Driver;
 using nugsnet6;
+using AirtableApiClient;
 
 namespace CodeMechanic.RazorPages;
 
@@ -32,17 +33,20 @@ public abstract class HighSpeedPageModel : PageModel, IQueryNeo4j, IQueryAirtabl
 {
     protected readonly IEmbeddedResourceQuery embeddedResourceQuery;
     protected readonly IDriver driver;
+    protected readonly IAirtableRepo airtable_repo;
 
     public HighSpeedPageModel(
         IEmbeddedResourceQuery embeddedResourceQuery
-        , IDriver driver
+        , IDriver driver = null
+        , IAirtableRepo repo = null
     )
     {
         this.embeddedResourceQuery = embeddedResourceQuery;
         this.driver = driver;
+        this.airtable_repo = repo;
     }
 
-    public async Task<IList<IRecord>> NeoFind(string query, object parameters) 
+    public async Task<IList<IRecord>> SearchNeo4J(string query, object parameters) 
     {
         var none = new List<IRecord>();
         

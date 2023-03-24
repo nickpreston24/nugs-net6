@@ -16,16 +16,16 @@ namespace nugsnet6.Models
     public partial class Build
     {
         //[JsonProperty("id")]
-        public string Id { get; set; }
+        public string Id { get; set; } = string.Empty;
 
         //[JsonProperty("createdTime")]
         public DateTimeOffset CreatedTime { get; set; }
 
         //[JsonProperty("Name")]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         //[JsonProperty("Reasoning")]
-        public string Reasoning { get; set; }
+        public string Reasoning { get; set; } = string.Empty;
 
         //[JsonProperty("Parts")]
         public string[] Parts { get; set; }
@@ -58,19 +58,19 @@ namespace nugsnet6.Models
     public partial class LastModifiedBy
     {
         //[JsonProperty("id")]
-        public string Id { get; set; }
+        public string Id { get; set; } = string.Empty;
 
         //[JsonProperty("email")]
-        public string Email { get; set; }
+        public string Email { get; set; } = string.Empty;
 
         //[JsonProperty("name")]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
     }
 
     public partial class Pic
     {
         //[JsonProperty("id")]
-        public string Id { get; set; }
+        public string Id { get; set; } = string.Empty;
 
         //[JsonProperty("width")]
         public long Width { get; set; }
@@ -82,13 +82,13 @@ namespace nugsnet6.Models
         public Uri Url { get; set; }
 
         //[JsonProperty("filename")]
-        public string Filename { get; set; }
+        public string Filename { get; set; } = string.Empty;
 
         //[JsonProperty("size")]
         public long Size { get; set; }
 
         //[JsonProperty("type")]
-        public string Type { get; set; }
+        public string Type { get; set; } = string.Empty;
 
         //[JsonProperty("thumbnails")]
         public Thumbnails Thumbnails { get; set; }

@@ -37,8 +37,8 @@ public static class DotEnv
 public class DotEnvSetting 
 {
 
-    public string Left { get; set; } = string.Empty;
-    public string Right { get; set; } = string.Empty;
+    public string Left { get; set; } 
+    public string Right { get; set; } 
 
     public const string regex_pattern = $"""
         (?<Left>\w+) # Match alphas and underscore
