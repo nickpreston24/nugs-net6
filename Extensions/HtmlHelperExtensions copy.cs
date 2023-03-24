@@ -6,9 +6,6 @@ using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-// using nugsnet6;
-namespace CodeMechanic.Advanced.Extensions;
-
 
 /// CREDIT: https://www.adamrussell.com/asp-net-core-section-scripts-in-a-partial-view
 

@@ -1,7 +1,6 @@
 using nugsnet6;
 using CodeMechanic.Extensions;
 using Neo4j.Driver;
-using DotEnv.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,8 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddTransient<IEmbeddedResourceQuery, EmbeddedResourceQuery>();
 
-
-new EnvLoader().Load();
+DotEnv.Load();
 
 // builder.UseElectron(args);
 // builder.UseStartup<Startup>();
@@ -22,26 +20,18 @@ new EnvLoader().Load();
 // This method gets called by the runtime. Use this method to add services to the container.
 void ConfigureServices(IServiceCollection services)
 {
-    var reader = new EnvReader();
-    string uri = reader["NEO4J_URI"] ?? string.Empty;
-    string user = reader["NEO4J_USER"] ?? string.Empty;
-    string password = reader["NEO4J_PASSWORD"] ?? string.Empty;
+    // var reader = new EnvReader();
+    string uri =  Environment.GetEnvironmentVariable("NEO4J_URI") ?? string.Empty;
+    string user = Environment.GetEnvironmentVariable("NEO4J_USER") ?? string.Empty;
+    string password = Environment.GetEnvironmentVariable("NEO4J_PASSWORD") ?? string.Empty;
 
-    string airtable_api_key = reader["AIRTABLE_API_KEY"] ?? string.Empty;
-    string airtable_bearer_token = reader["AIRTABLE_BEARER_TOKEN"] ?? string.Empty;
-    string nugs_api_key = reader["NUGS_BASE_KEY"] ?? string.Empty;
+    string airtable_api_key = Environment.GetEnvironmentVariable("AIRTABLE_API_KEY") ?? string.Empty;
+    string airtable_bearer_token = Environment.GetEnvironmentVariable("AIRTABLE_BEARER_TOKEN") ?? string.Empty;
+    string nugs_api_key = Environment.GetEnvironmentVariable("NUGS_BASE_KEY") ?? string.Empty;
 
-    // bool devmode = reader["DEVMODE"].ToBoolean();
-
-    // Console.WriteLine("URI :>> "+ uri);
-    // Console.WriteLine("User :>> "+ user);
-    // Console.WriteLine("Password :>> "+ password);
-    // Console.WriteLine("airtable_api_key :>> "+ airtable_api_key);
-    // Console.WriteLine("nugs_api_key :>> "+ nugs_api_key);
-    // Console.WriteLine("airtable_bearer_token :>> "+ airtable_bearer_token);
+    bool devmode = Environment.GetEnvironmentVariable("DEVMODE").ToBoolean();
 
     services.AddControllers();
-    // services.AddScoped<IMovieRepository, MovieRepository>();
     services.AddSingleton(GraphDatabase.Driver(
         uri
         , AuthTokens.Basic(
@@ -50,8 +40,6 @@ void ConfigureServices(IServiceCollection services)
         )
     ));
     services.AddSingleton<IAirtableRepo, AirtableRepo>(
-        
-
     );
 }
 
