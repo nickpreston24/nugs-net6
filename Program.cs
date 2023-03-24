@@ -20,7 +20,6 @@ DotEnv.Load();
 // This method gets called by the runtime. Use this method to add services to the container.
 void ConfigureServices(IServiceCollection services)
 {
-    // var reader = new EnvReader();
     string uri =  Environment.GetEnvironmentVariable("NEO4J_URI") ?? string.Empty;
     string user = Environment.GetEnvironmentVariable("NEO4J_USER") ?? string.Empty;
     string password = Environment.GetEnvironmentVariable("NEO4J_PASSWORD") ?? string.Empty;
@@ -29,7 +28,7 @@ void ConfigureServices(IServiceCollection services)
     string airtable_bearer_token = Environment.GetEnvironmentVariable("AIRTABLE_BEARER_TOKEN") ?? string.Empty;
     string nugs_api_key = Environment.GetEnvironmentVariable("NUGS_BASE_KEY") ?? string.Empty;
 
-    bool devmode = Environment.GetEnvironmentVariable("DEVMODE").ToBoolean();
+    bool devmode = Environment.GetEnvironmentVariable("DEVMODE").ToBoolean();   
 
     services.AddControllers();
     services.AddSingleton(GraphDatabase.Driver(

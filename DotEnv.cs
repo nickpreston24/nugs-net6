@@ -41,7 +41,7 @@ public class DotEnvSetting
     public string Right { get; set; } = string.Empty;
 
     public const string regex_pattern = $"""
-        (?<Left>[a-zA-Z_]+) # Match alphas and underscore
+        (?<Left>\w+) # Match alphas and underscore
         =?                  # Match only the first equals sign
         (?<Right>.*)        # Match anything
     """;
