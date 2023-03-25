@@ -55,9 +55,9 @@ public class AirtableRepo : IAirtableRepo {
                 do
                 {
                     Task<AirtableListRecordsResponse> task = airtableBase.ListRecords(
-                        table_name, 
+                        table_name.Dump("tablename in"), 
                         offset, 
-                        fields, 
+                        fields.Dump("fields in"), 
                         filterByFormula, 
                         maxRecords, 
                         pageSize, 
@@ -70,6 +70,8 @@ public class AirtableRepo : IAirtableRepo {
                     );
 
                     AirtableListRecordsResponse response = await task;
+
+                    response.Dump("list records response");
 
                     if (response.Success)
                     {
@@ -107,7 +109,7 @@ public class AirtableRepo : IAirtableRepo {
             // return records;
 
 
-            foreach(var record in records ?? Enumerable.Empty<AirtableRecord>()) {
+            foreach(var record in records.Dump("Records from table") ?? Enumerable.Empty<AirtableRecord>()) {
                 // out string id,
                 // out DateTime created_time,
                 // out List<T> fields

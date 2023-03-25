@@ -20,7 +20,7 @@ static void ConfigureServices(IServiceCollection services)
     string user = Environment.GetEnvironmentVariable("NEO4J_USER") ?? string.Empty;
     string password = Environment.GetEnvironmentVariable("NEO4J_PASSWORD") ?? string.Empty;
     
-    string airtable_bearer_token = Environment.GetEnvironmentVariable("AIRTABLE_BEARER_TOKEN") ?? string.Empty;
+    string airtable_personal_access_token = Environment.GetEnvironmentVariable("NUGS_PAT") ?? string.Empty;
 
     bool devmode = Environment.GetEnvironmentVariable("DEVMODE").ToBoolean();   
 

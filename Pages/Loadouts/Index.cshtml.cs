@@ -34,19 +34,16 @@ namespace nugsnet6.Pages.Loadouts
         {
             _foo = foo;
 
-            var test_search = new AirtableSearch()
+            _search = new AirtableSearch()
                 .With(s=>
                     {
                         s.table_name = "Parts";
                         s.offset="5";
+                        s.maxRecords = 100;
                         s.fields= new List<string> {"Notes", "Cost", "Url"};
                     });
 
-            _search = test_search;
-
-            test_search.Dump("test_search");
-
-            var results = await airtable_repo.ListRecords<Part>(test_search);
+            var results = await airtable_repo.ListRecords<Part>(_search);
 
             results.Dump("results");
 
@@ -54,11 +51,14 @@ namespace nugsnet6.Pages.Loadouts
 
         public async Task<IActionResult> OnGetSearchLoadouts(AirtableSearch search)
         {
-            _search = search;
+            // _search = search;
+            _search.Dump("test_search");
 
             try
             {
                 var results = await airtable_repo.ListRecords<Part>(_search);
+                results.Dump("results");
+
                 return Content("""
                     <b class='alert alert-success'>success</b>
                 """);
