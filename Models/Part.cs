@@ -15,85 +15,85 @@ namespace nugsnet6.Models
 
     public class Part
     {
-        //[JsonProperty("id")]
+        
         public string Id { get; set; } = string.Empty;
 
-        //[JsonProperty("createdTime")]
+        
         public DateTimeOffset CreatedTime { get; set; }
 
-        //[JsonProperty("Name")]
+        
         public string Name { get; set; } = string.Empty;
 
-        //[JsonProperty("Attachments")]
+        
         // public Attachment[] Attachments { get; set; }
 
-        //[JsonProperty("URL")]
+        
         public Uri Url { get; set; }
 
-        //[JsonProperty("Combo Cost")]
+        
         public long ComboCost { get; set; }
 
-        //[JsonProperty("Created By")]
+        
         public User CreatedBy { get; set; }
 
-        //[JsonProperty("Created")]
+        
         public DateTimeOffset Created { get; set; }
 
-        //[JsonProperty("Last Modified By")]
+        
         public User LastModifiedBy { get; set; }
 
-        //[JsonProperty("Last Modified")]
+        
         public DateTimeOffset LastModified { get; set; }
     }
 
     // public partial class Attachment
     // {
-    //     //[JsonProperty("id")]
+    //     
     //     public string Id { get; set; } = string.Empty;
 
-    //     //[JsonProperty("width")]
+    //     
     //     public long Width { get; set; }
 
-    //     //[JsonProperty("height")]
+    //     
     //     public long Height { get; set; }
 
-    //     //[JsonProperty("url")]
+    //     
     //     public Uri Url { get; set; }
 
-    //     //[JsonProperty("filename")]
+    //     
     //     public string Filename { get; set; } = string.Empty;
 
-    //     //[JsonProperty("size")]
+    //     
     //     public long Size { get; set; }
 
-    //     //[JsonProperty("type")]
+    //     
     //     public string Type { get; set; } = string.Empty;
 
-    //     //[JsonProperty("thumbnails")]
+    //     
     //     public Thumbnails Thumbnails { get; set; }
     // }
 
     // public partial class Thumbnails
     // {
-    //     //[JsonProperty("small")]
+    //     
     //     public Full Small { get; set; }
 
-    //     //[JsonProperty("large")]
+    //     
     //     public Full Large { get; set; }
 
-    //     //[JsonProperty("full")]
+    //     
     //     public Full Full { get; set; }
     // }
 
     // public partial class Full
     // {
-    //     //[JsonProperty("url")]
+    //     
     //     public Uri Url { get; set; }
 
-    //     //[JsonProperty("width")]
+    //     
     //     public long Width { get; set; }
 
-    //     //[JsonProperty("height")]
+    //     
     //     public long Height { get; set; }
     // }
 

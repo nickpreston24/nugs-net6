@@ -15,106 +15,106 @@ namespace nugsnet6.Models
 
     public partial class Build
     {
-        //[JsonProperty("id")]
+        
         public string Id { get; set; } = string.Empty;
 
-        //[JsonProperty("createdTime")]
+        
         public DateTimeOffset CreatedTime { get; set; }
 
-        //[JsonProperty("Name")]
+        
         public string Name { get; set; } = string.Empty;
 
-        //[JsonProperty("Reasoning")]
+        
         public string Reasoning { get; set; } = string.Empty;
 
-        //[JsonProperty("Parts")]
+        
         public string[] Parts { get; set; }
 
-        //[JsonProperty("Caliber")]
+        
         public string[] Caliber { get; set; }
 
-        //[JsonProperty("Pics")]
+        
         public Pic[] Pics { get; set; }
 
-        //[JsonProperty("Total Cost")]
+        
         public double TotalCost { get; set; }
 
-        //[JsonProperty("Weight")]
+        
         public double Weight { get; set; }
 
-        //[JsonProperty("Created")]
+        
         public DateTimeOffset Created { get; set; }
 
-        //[JsonProperty("Created By")]
+        
         public LastModifiedBy CreatedBy { get; set; }
 
-        //[JsonProperty("Last Modified")]
+        
         public DateTimeOffset LastModified { get; set; }
 
-        //[JsonProperty("Last Modified By")]
+        
         public LastModifiedBy LastModifiedBy { get; set; }
     }
 
     public partial class LastModifiedBy
     {
-        //[JsonProperty("id")]
+        
         public string Id { get; set; } = string.Empty;
 
-        //[JsonProperty("email")]
+        
         public string Email { get; set; } = string.Empty;
 
-        //[JsonProperty("name")]
+        
         public string Name { get; set; } = string.Empty;
     }
 
     public partial class Pic
     {
-        //[JsonProperty("id")]
+        
         public string Id { get; set; } = string.Empty;
 
-        //[JsonProperty("width")]
+        
         public long Width { get; set; }
 
-        //[JsonProperty("height")]
+        
         public long Height { get; set; }
 
-        //[JsonProperty("url")]
+        
         public Uri Url { get; set; }
 
-        //[JsonProperty("filename")]
+        
         public string Filename { get; set; } = string.Empty;
 
-        //[JsonProperty("size")]
+        
         public long Size { get; set; }
 
-        //[JsonProperty("type")]
+        
         public string Type { get; set; } = string.Empty;
 
-        //[JsonProperty("thumbnails")]
+        
         public Thumbnails Thumbnails { get; set; }
     }
 
     public partial class Thumbnails
     {
-        //[JsonProperty("small")]
+        
         public Full Small { get; set; }
 
-        //[JsonProperty("large")]
+        
         public Full Large { get; set; }
 
-        //[JsonProperty("full")]
+        
         public Full Full { get; set; }
     }
 
     public partial class Full
     {
-        //[JsonProperty("url")]
+        
         public Uri Url { get; set; }
 
-        //[JsonProperty("width")]
+        
         public long Width { get; set; }
 
-        //[JsonProperty("height")]
+        
         public long Height { get; set; }
     }
 
