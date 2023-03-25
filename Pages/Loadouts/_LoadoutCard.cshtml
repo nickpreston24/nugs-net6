@@ -1,39 +1,13 @@
-@model IndexModel
+@model nugsnet6.Models.Loadout
 @{
   // C# vars go here!
+  var loadout = Model;
 }
 
-<form asp-action="post">
-    <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-        <div class="card-body">
-            <div class="form-control">
-            <label class="label">
-                <span class="label-text">Email</span>
-            </label>
-            <input type="text" placeholder="email" class="input input-bordered" />
-            </div>
-            <div class="form-control">
-            <label class="label">
-                <span class="label-text">Password</span>
-            </label>
-            <input type="text" placeholder="password" class="input input-bordered" />
-            <label class="label">
-                <a href="#" class="label-text-alt link link-hover">Forgot password?</a>
-            </label>
-            </div>
-            <div class="form-control mt-6">
-                <button class="btn btn-primary">Login</button>
-                <span x-text='value' ></span>
-            </div>
-        </div>
+<div class="card flex-shrink-0 w-64 max-w-lg shadow-2xl bg-base-100 border-2 border-accent">
+    <div class="card-body">
+        <span class="label-text">@loadout.Name</span>
+        <span class="label-text">@loadout.Notes</span>
+        <a href="#" class="label-text-alt link link-hover">@loadout.Inspiration</a>
     </div>
-</form>
-
-
-<script>
-    function setup() {
-        return {
-            value: "bar"
-        }
-    }
-</script>
+</div>

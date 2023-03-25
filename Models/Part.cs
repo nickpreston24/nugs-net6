@@ -19,7 +19,7 @@ namespace nugsnet6.Models
         public string Id { get; set; } = string.Empty;
 
         
-        public DateTimeOffset CreatedTime { get; set; }
+        public DateTime createdTime { get; set; }
 
         
         public string Name { get; set; } = string.Empty;

@@ -1,14 +1,19 @@
 using nugsnet6;
+using CodeMechanic.Extensions;
 
 public static class AirtableConfigurations {
    public static void ConfigureAirtable(this IServiceCollection services)
     {
-        services.AddScoped<IAirtableRepo>(x =>
-        {
-            string airtable_api_key = Environment.GetEnvironmentVariable("AIRTABLE_API_KEY");
-            string nugs_api_key = Environment.GetEnvironmentVariable("NUGS_BASE_KEY");
+        string PAT = Environment.GetEnvironmentVariable("NUGS_PAT");
+        string nugs_base_key = Environment.GetEnvironmentVariable("NUGS_BASE_KEY");
+        // PAT.Dump("api kee");
+        // nugs_base_key.Dump("nug kee");
 
-            return new AirtableRepo(airtable_api_key, nugs_api_key);
+        // services.AddSingleton<IAirtableRepo, AirtableRepo>();
+
+        services.AddHttpClient<IAirtableRepo, AirtableRepo>(client => {
+            client.BaseAddress = new Uri($"https://api.airtable.com/v0/{PAT}");
+            return new AirtableRepo(client, nugs_base_key, PAT);
         });
     }
 }

@@ -67,49 +67,5 @@ public class AirtableSearch
 public static class AirtableExtensions {
 
 
-    public static void Deconstruct<T>(
-        this AirtableRecord? record,
-        out string id,
-        out DateTime created_time,
-        out List<T> fields
-        // out int comment_count
-    )
-    {
-        // record.Dump("airtable record");
-        id = record.Id;
-        created_time = record.CreatedTime;
-        fields = record.Fields.Select(x=>(T)x.Value).ToList();
-        // comment_count = record.CommentCount;
-    }
-
-    // public static void Deconstruct<AirtableSearch>(
-    //     this AirtableSearch? self,
-    //     out string table_name, 
-    //     out string offset, 
-    //     out string fields, 
-    //     out string filterByFormula, 
-    //     out string maxRecords, 
-    //     out string pageSize, 
-    //     out string sort, 
-    //     out string view, 
-    //     out string cellFormat, 
-    //     out string timeZone, 
-    //     out string userLocale, 
-    //     out string returnFieldsByFieldId 
-    // )
-    // // where T : AirtableSearch
-    // {
-    //     returnFieldsByFieldId =  self.returnFieldsByFieldId;
-    //     table_name =  self.table_name; 
-    //     offset =  self.offset; 
-    //     fields =  self.fields; 
-    //     filterByFormula =  self.filterByFormula; 
-    //     maxRecords =  self.maxRecords; 
-    //     pageSize =  self.pageSize; 
-    //     sort =   self.sort; 
-    //     view =   self.view; 
-    //     cellFormat =   self.cellFormat; 
-    //     timeZone =   self.timeZone; 
-    //     userLocale =   self.userLocale; 
-    // }
+   
 }

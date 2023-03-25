@@ -17,11 +17,12 @@ namespace nugsnet6.Models
         public string Id { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public string Inspiration { get; set; } = string.Empty;
+        public string Notes { get; set; } = string.Empty;
         public string[] Kit { get; set; } = Enumerable.Empty<string>().ToArray();
         public string[] PrimaryArm { get; set; } = Enumerable.Empty<string>().ToArray();
         public string[] Sidearm { get; set; } = Enumerable.Empty<string>().ToArray();
         public string[] UrlFromPart { get; set; } = Enumerable.Empty<string>().ToArray();
-        // public DateTimeOffset CreatedTime { get; set; }
-        // public AttachmentsFromPart[] AttachmentsFromPart { get; set; }
+        public DateTimeOffset CreatedTime { get; set; }
+        public string[] Attachments { get; set; }
     }
 }

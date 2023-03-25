@@ -1,0 +1,14 @@
+@model List<nugsnet6.Models.Loadout>
+@{
+  // C# vars go here!
+  var loadouts = Model;
+}
+
+<div class="">
+    <div class='grid grid-cols-5'>
+        @foreach (var loadout in loadouts)
+        {
+            <partial name="_LoadoutCard" model=@loadout />
+        }
+    </div>
+</div>
