@@ -32,6 +32,7 @@ public class AirtableSearch
     public string timeZone { get; set; } = string.Empty;
     public string userLocale { get; set; } = string.Empty;
     public bool returnFieldsByFieldId { get; set; } = true;  
+    // public bool includeCommentCount { get; set; } = true;
 
     public void Deconstruct(
         out string table_name, 

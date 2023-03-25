@@ -65,8 +65,15 @@
                     </label>
                     </div>
                     <div class="form-control mt-6">
-                    <button class="btn btn-primary">Login</button>
+                    <button
+                        hx-get='@Url.Page("","SearchLoadouts")'
+                        hx-target="#search_results"
+                     class="btn btn-primary">Login</button>
                     </div>
+
+                    <span id="search_results">
+                    <!-- results go here -->
+                    </span>
                 </div>
             </div>
         </div>
