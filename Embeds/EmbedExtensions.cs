@@ -9,7 +9,7 @@ using System.Runtime.CompilerServices;
 namespace CodeMechanic.Extensions 
 {
 
-    public static class  EmbedExtensions {
+    public static class EmbedExtensions {
 
         /// Credit: https://gist.github.com/rflechner/fab685187f10b8eb9815c6af1f874d3d
         /// https://josef.codes/using-embedded-files-in-dotnet-core/
