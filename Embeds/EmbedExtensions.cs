@@ -5,11 +5,32 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using CodeMechanic.Extensions;
 
 namespace CodeMechanic.Extensions 
 {
 
     public static class EmbedExtensions {
+
+        // public static async Task<string> GetQueryText<T>(this StackTrace trace,  IEmbeddedResourceQuery embeddedResourceQuery ) {
+
+        //     string resource =  trace.GetCurrentResourcePath();
+        //     // Reads from file system...
+        //     await using Stream stream = embeddedResourceQuery.Read<T>(resource);
+            
+        //     // if(stream == null)
+        //     //     Console.WriteLine("""Psst!  The Query could not be found for this method. You can try the following to troubleshoot:
+                
+        //     //     1. All namespaces match that of your current project.
+        //     //     2. ...
+        //     //     3. ...
+        //     //     """);
+
+        //     // Reads the any file I tell it to as a query.
+        //      string query = await stream.ReadAllLinesFromStreamAsync();
+
+        //      return query;
+        // }
 
         /// Credit: https://gist.github.com/rflechner/fab685187f10b8eb9815c6af1f874d3d
         /// https://josef.codes/using-embedded-files-in-dotnet-core/
@@ -24,7 +45,7 @@ namespace CodeMechanic.Extensions
             var method = frame.GetMethod();
             // var assembly = method.DeclaringType.Assembly;
 
-            string full_namespace = method?.DeclaringType?.Namespace;
+            string full_namespace = method?.DeclaringType?.Namespace.Replace("_", " ");// For some reason, underscored directories are not red properly.  E.g. 'TPOT_Links' will not be understood.
 
             string path = $"{full_namespace}.{caller_method}.{extension}";
 
@@ -35,7 +56,7 @@ namespace CodeMechanic.Extensions
                     .Replace("OnDelete", "")
                     .Replace("OnUpdate", "")
                     .Replace("OnPost", "");
-
+            
             return path;
         }
     

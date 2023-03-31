@@ -1,14 +1,38 @@
 @model List<nugsnet6.Models.Loadout>
 @{
   // C# vars go here!
-  var loadouts = Model;
 }
 
-<div class="">
-    <div class='grid grid-cols-5'>
-        @foreach (var loadout in loadouts)
-        {
-            <partial name="_LoadoutCard" model=@loadout />
-        }
-    </div>
-</div>
+@if (Model is {} loadouts)
+{
+    <table class="table table-zebra w-full">
+        <h1>@loadouts.Count</h1>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Inspiration</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var loadout in loadouts)
+            {
+                <tr class='hover'>
+                    <td>@loadout.Id</td>
+                    <td>@loadout.Name</td>
+                    <td>@loadout.Inspiration</td>
+                    <td>@loadout.Notes</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <tr>
+        <td colspan="4">No Results for "@Model"</td>
+    </tr>
+}
+
+

@@ -29,8 +29,8 @@ public class RecordList<T>
 
         // get JSON result objects into a list
         IList<JToken> results = search["records"]
-            .Children().Dump("children")["fields"]
-            .Dump("fields children")
+            .Children()/*.Dump("children")*/["fields"]
+            /*.Dump("fields children")*/
             .ToList();
   
         // serialize JSON results into .NET objects
@@ -41,7 +41,7 @@ public class RecordList<T>
             T instance = result.ToObject<T>();
             this.records.Add(instance);
         }
-        this.records.Dump("extracted records");
+        // this.records.Dump("extracted records");
     }
 
     public void Deconstruct(
@@ -50,6 +50,6 @@ public class RecordList<T>
     )
     {
         raw_json = this.json;
-        records = this.records.Dump("returned records");
+        records = this.records/*.Dump("returned records")*/;
     }
 }

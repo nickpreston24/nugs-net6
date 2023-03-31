@@ -26,48 +26,32 @@ namespace nugsnet6.Pages.Loadouts
         IEmbeddedResourceQuery embeddedResourceQuery
             , IDriver driver
             , IAirtableRepo repo
-        ) : base(embeddedResourceQuery, driver, repo)
+        ) : base(embeddedResourceQuery, driver, repo, nameof(Loadouts))
         {
         }
 
         public async void OnGet(string foo = "bar")
         {
             _foo = foo;
-
-            // _search = new AirtableSearch()
-            //     .With(s=>
-            //         {
-            //             s.table_name = "Loadouts";
-            //             // s.offset="5";
-            //             s.maxRecords = 2;
-            //             s.fields= new List<string> {"Notes", "Cost", "Url"};
-            //         });
-
-            // var results = await airtable_repo.SearchRecords<Loadout>(_search);
-
-            // results.Dump("results");
-
         }
 
-        public async Task<IActionResult> OnGetSearchLoadouts(AirtableSearch search)
+        public async Task<IActionResult> OnGetSearchLoadouts(Loadout search, string Name = "Snow Owl")
         {
             try
             {
+                search
+                .Dump("initial search for loadouts");
+                Name.Dump("Passed in name");
                 var results = await airtable_repo.SearchRecords<Loadout>(_search
                     .With(s=>
                     {
                         s.maxRecords = 12;
+                        s.filterByFormula = $"(FIND(\"{Name}\", {{Name}}))";
                     })
                 );
 
-                results.Dump("results");
-
-                // return Content($"""
-                //     <b class='alert alert-success'># found: {results.Count}</b>
-                // """);
-
                 return Partial("_LoadoutsPanel", results);
-            } 
+            }
             catch (Exception ex) {
                 var message = ex.ToString();
                 var title = ex.Message;

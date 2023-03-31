@@ -60,13 +60,15 @@ public class IndexModel : HighSpeedPageModel
         string query = "...";
 
         // Magically infers that the current method name is referring to 'RecommendedNugs.cypher'
-        string resource = new StackTrace().GetCurrentResourcePath();
+        string resource = new StackTrace().GetCurrentResourcePath().Dump("resource path");
         if(embeddedResourceQuery == null) 
             return failure;
 
         // throw new Exception("d'oh!");
         // Reads from file system...
         await using Stream stream = embeddedResourceQuery.Read<IndexModel>(resource);
+        if(stream == null)
+            Console.WriteLine("Oh no!  I'm deaf!");
 
         // Reads the any file I tell it to as a query.
         query = await stream.ReadAllLinesFromStreamAsync();

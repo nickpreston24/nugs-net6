@@ -1,4 +1,5 @@
 using nugsnet6;
+using CodeMechanic.Extensions;
 
 using AirtableApiClient;
 
@@ -20,6 +21,7 @@ using AirtableApiClient;
 
 public class AirtableSearch 
 {
+    public string base_id  { get; set; } = string.Empty;
     public string table_name  { get; set; } = string.Empty;
     public string offset  { get; set; } = string.Empty;
     public List<string> fields { get; set; } = new List<string>();
@@ -62,10 +64,19 @@ public class AirtableSearch
         userLocale =   this.userLocale; 
         returnFieldsByFieldId =  this.returnFieldsByFieldId;
     }
+
+    public string AsQuery() 
+    {
+        string query = $"https://api.airtable.com/v0/{base_id}/{table_name}?maxRecords={maxRecords}&filterByFormula={filterByFormula}"
+        .Dump("generated query");
+        return query;
+        
+
+    }
 }
 
-public static class AirtableExtensions {
+// public static class AirtableExtensions {
 
 
    
-}
+// }

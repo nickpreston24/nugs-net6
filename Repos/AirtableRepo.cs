@@ -26,8 +26,8 @@ public class AirtableRepo : IAirtableRepo {
             this.personal_access_token = personal_access_token;
             // this.api_key = api_key;  // DEPRECATED
  
-            this.personal_access_token.Dump("personal_access_token");
-            this.base_id.Dump("base id");
+            // this.personal_access_token.Dump("personal_access_token");
+            // this.base_id.Dump("base id");
 
             this.http_client = client;
             this.http_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", personal_access_token);
@@ -48,13 +48,20 @@ public class AirtableRepo : IAirtableRepo {
                 timeZone,
                 userLocale,
                 returnFieldsByFieldId
-            ) = search.Dump("sent search");
+            ) = search/*.Dump("sent search")*/;
 
             if(string.IsNullOrEmpty(table_name))
-                table_name = nameof(Loadout) + "s";
+                table_name = typeof(T).Name + "s";
 
-            var response = await http_client.GetAsync($"{base_id}/{table_name}?maxRecords={maxRecords}");
-            // response.Dump("httpclient response");
+            var response = await http_client
+                .GetAsync(search
+                    .With(s => {
+                        s.base_id = this.base_id;
+                        s.table_name = table_name;
+                    })
+                    .AsQuery()
+                );
+
             response.EnsureSuccessStatusCode();
 
             var json = await response.Content.ReadAsStringAsync();

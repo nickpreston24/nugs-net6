@@ -34,16 +34,19 @@ public abstract class HighSpeedPageModel : PageModel, IQueryNeo4j, IQueryAirtabl
     protected readonly IEmbeddedResourceQuery embeddedResourceQuery;
     protected readonly IDriver driver;
     protected readonly IAirtableRepo airtable_repo;
+    public readonly string Title = "Home";
 
     public HighSpeedPageModel(
         IEmbeddedResourceQuery embeddedResourceQuery
         , IDriver driver = null
         , IAirtableRepo repo = null
+        , string page_title = ""
     )
     {
         this.embeddedResourceQuery = embeddedResourceQuery;
         this.driver = driver;
         this.airtable_repo = repo;
+        this.Title = page_title;
     }
 
     public async Task<IList<IRecord>> SearchNeo4J(string query, object parameters) 

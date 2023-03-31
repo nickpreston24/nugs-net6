@@ -81,6 +81,7 @@
                         </ul>
                     </li>
                     <li><a href='/Loadouts'>Loadouts</a></li>
+                    <li><a href='/Sandbox'>Sandbox</a></li>
                 </ul>
             </div>
             <div class="navbar-end">
@@ -97,7 +98,7 @@
         </main>
     </div>
 
-    <div  class="btm-nav">
+    <div class="btm-nav">
         <button>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
         </button>
@@ -113,40 +114,38 @@
 
 </body>
 
-
-
 <script type='module'>
 
-            const routes = await (async () => {
-                let results = await import('./routes.json', {
-                    assert: {
-                        type: 'json'
-                    }
-                })
-
-                return results.default;
-            })()
-
-            localStorage.setItem('routes', JSON.stringify(routes));
-
-    </script>
-
-    <script>
-        // console.log("hello from setup()");
-
-        const stored_routes = JSON.parse(localStorage.getItem('routes')) || []
-                // .filter(r=> !r.includes('Index'))  // Exclude Indexes for now.
-        ;
-        console.log('stored_routes :>> ', stored_routes);
-
-        const non_index_routes = stored_routes?.filter(r=>!r.path.includes('Index'))
-
-        function setup_layout() {
-            return {
-                title: "Cold Brew",
-                routes: non_index_routes || []
+    const routes = await (async () => {
+        let results = await import('./routes.json', {
+            assert: {
+                type: 'json'
             }
+        })
+
+        return results.default;
+    })()
+
+    localStorage.setItem('routes', JSON.stringify(routes));
+
+</script>
+
+<script>
+    // console.log("hello from setup()");
+
+    const stored_routes = JSON.parse(localStorage.getItem('routes')) || []
+            // .filter(r=> !r.includes('Index'))  // Exclude Indexes for now.
+    ;
+    console.log('stored_routes :>> ', stored_routes);
+
+    const non_index_routes = stored_routes?.filter(r=>!r.path.includes('Index'))
+
+    function setup_layout() {
+        return {
+            title: "Cold Brew",
+            routes: non_index_routes || []
         }
-    </script>
+    }
+</script>
    
 </html>
