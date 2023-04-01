@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using CodeMechanic.Extensions;
 
-namespace nugsnet6.Airtable;
+namespace CodeMechanic.Airtable;
 
 public class RecordList<T>
 {

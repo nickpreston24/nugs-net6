@@ -9,10 +9,10 @@ using RestSharp;
 using RestSharp.Authenticators;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
+using CodeMechanic.Airtable;
 
 using nugsnet6;
 using nugsnet6.Models;
-using nugsnet6.Airtable;
 
 public class AirtableRepo : IAirtableRepo {
 
