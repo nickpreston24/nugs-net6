@@ -1,15 +1,9 @@
-@page
-@model BallisticsChartModel
-@{
-  //var count = @Model.Count;
-}
+@page "/BulletProperties"
+@using CodeMechanic.Extensions
 
-<form asp-action='post'>
-
-    <!-- <h3 x-text='title'></h3> -->
+<div>
 
   <table>
-
     <tbody>
       <tr class="border">
         <th rowspan="5">Bullet</th>
@@ -78,21 +72,15 @@
     </tbody>
   </table>
 
- <button class='btn btn-active' 
-  hx-target='#count-me'
-  hx-post="@Url.Page("","IncrementBullets")">++ Count</button>
- </button>
+</div>
 
+@code {
 
-<!-- 
-  <button id='foo'
-    hx-get='@Url.Page("BulletProperties","Bullets")'
-    hx-trigger='click'
-    hx-target='#replace-me'
-    hx-swap="innerHTML"
-  >
-    REPLACE STUFF
-  </button>
-  <span id='replace-me'>...replace me </span> -->
+  [Parameter]
+  public Bullet Properties { get; set; } = new Bullet()
+    .With(bullet=>{
+      bullet.Name = "Hornady Black 300 AAC Blackout Subsonic 200gr Pig Rounds";
+    }); //TODO: make some Dummy data
 
-</form>
+  
+}

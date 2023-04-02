@@ -1,0 +1,20 @@
+@page "/Grid"
+
+<div class="p-4 fs-6 grid grid-cols-3">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public string TitleClass { get; set; } = "bg-primary";
+
+    [Parameter]
+    public int Columns { get; set; } = 2;
+
+}

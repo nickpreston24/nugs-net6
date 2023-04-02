@@ -55,25 +55,27 @@
                             <span class="label-text">Name</span>
                         </label>
 
-                         <input 
-                            type="text"
-                            name="Name"
-                            id="search"
-                            autocomplete="off"
-                            hx-get='@Url.Page("Index", "SearchLoadouts")'
-                            hx-target="#search_results"
-                            hx-trigger="keyup changed delay:250ms"
-                            hx-indicator="#loading"
-                            placeholder="Search"
-                            class="form-control"
-                            aria-label="Name"
-                            aria-describedby="search-addon" />
-
-                            <div id="search_results">
-                            </div>
+                        <div class='form-control'>
+                            <input 
+                                type="text"
+                                name="Name"
+                                id="search"
+                                autocomplete="off"
+                                hx-get='@Url.Page("Index", "SearchLoadouts")'
+                                hx-target="#search_results"
+                                hx-trigger="keyup changed delay:250ms"
+                                hx-indicator="#loading"
+                                placeholder="Search"
+                                aria-label="Name"
+                                aria-describedby="search-addon" />
 
                             <div class="htmx-indicator" id='loading'>loading...</div>
-                            
+
+                        </div>
+
+                        <div id="search_results">
+                        </div>
+
                     </div>
                 </div>
 

@@ -12,14 +12,7 @@
             crossorigin="anonymous">
     </script>
 
-    <script 
-            src="//unpkg.com/alpinejs" 
-            asp-fallback-src="~/lib/alpinejs/dist/cdn.min.js"
-            asp-fallback-test="window.alpinejs"  
-            crossorigin="anonymous"
-            defer>
-    </script>
-    
+   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.umd.min.js"></script>
     
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.47.0/dist/full.css" rel="stylesheet" type="text/css" />
@@ -28,6 +21,15 @@
     <script type="module" src="~/js/main.js"></script>
     <!-- <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" /> -->
     <script src="~/_framework/blazor.server.js"></script>
+
+     <script 
+            src="//unpkg.com/alpinejs" 
+            asp-fallback-src="~/lib/alpinejs/dist/cdn.min.js"
+            asp-fallback-test="window.alpinejs"  
+            crossorigin="anonymous"
+            defer>
+    </script>
+    
 
     
 </head>
@@ -93,7 +95,8 @@
             </div>
             <div class="navbar-end">
                 <!-- <a class="btn">Get started</a> -->
-
+                <component type="typeof(OmniSearch)" render-mode="ServerPrerendered" />
+    
                 <!-- <partial name="_OmniSearch" /> -->
 
                 <!-- The button to open modal -->
@@ -104,7 +107,7 @@
                 <label for="my-modal-4" class="modal cursor-pointer">
                     <label class="modal-box relative" for="">
                         <p>results go here...</p>
-                            <div id="omni_search_results">
+                        <div id="omni_search_results">
                         </div>
                     </label>
                 </label>
@@ -180,7 +183,7 @@
 
     function setup_layout() {
         return {
-            title: "Cold Brew",
+            foo: 'bar',
             routes: non_index_routes || []
         }
     }

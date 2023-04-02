@@ -50,7 +50,7 @@ namespace nugsnet6.Pages.Loadouts
                     })
                 );
 
-                return Partial("_LoadoutsPanel", results);
+                return Partial("_LoadoutsTable", results);
             }
             catch (Exception ex) {
                 var message = ex.ToString();

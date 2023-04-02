@@ -1,0 +1,43 @@
+@page "/Panel"
+/*
+https://jonhilton.net/blazor-components/
+*/
+<div class="border-primary border-2 @visibility">
+    <!-- <div x-show='false' class="p-4 d-flex justify-content-between @TitleClass text-white">
+        <h4 class="mb-0">@Title</h4>
+        @if (Dismissible)
+        {
+            <button class="btn-close" @onclick="()=>dismissed = true">Close</button>
+        }
+    </div> -->
+    <div class="p-4 fs-6">
+        <p>before</p>
+        @ChildContent   
+        <p>after</p>
+    </div>
+</div>
+@code {
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public string TitleClass { get; set; } = "";
+
+    [Parameter]
+    public bool Dismissible { get; set; } = true;
+
+    private bool dismissed = false;
+    
+    private string visibility => dismissed ? "d-none" : "d-block";
+    
+    private void Dismiss()
+    {
+        if (Dismissible)
+        {
+            dismissed = true;
+        }
+    }
+}
