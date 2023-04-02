@@ -1,4 +1,4 @@
-using tpotsnet6;
+using nugsnet6;
 using CodeMechanic.Extensions;
 
 public static class AirtableConfigurations {
