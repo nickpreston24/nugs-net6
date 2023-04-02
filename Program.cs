@@ -14,31 +14,13 @@ builder.Services.AddTransient<IEmbeddedResourceQuery, EmbeddedResourceQuery>();
 // builder.UseElectron(args);
 
 
-static void ConfigureServices(IServiceCollection services)
-{
-    string uri =  Environment.GetEnvironmentVariable("NEO4J_URI") ?? string.Empty;
-    string user = Environment.GetEnvironmentVariable("NEO4J_USER") ?? string.Empty;
-    string password = Environment.GetEnvironmentVariable("NEO4J_PASSWORD") ?? string.Empty;
-    
-    string airtable_personal_access_token = Environment.GetEnvironmentVariable("NUGS_PAT") ?? string.Empty;
+bool devmode = Environment.GetEnvironmentVariable("DEVMODE").ToBoolean();   
+bool use_blazor = true;
 
-    bool devmode = Environment.GetEnvironmentVariable("DEVMODE").ToBoolean();   
-
-    services.AddControllers();
-    services.ConfigureAirtable();
-
-    services.AddSingleton(GraphDatabase.Driver(
-        uri
-        , AuthTokens.Basic(
-            user,
-            password
-        )
-    ));
-
-    // services.AddTransient<IAirtableRepo, AirtableRepo>();
-}
-
-ConfigureServices(builder.Services);
+builder.Services.ConfigureAirtable();
+builder.Services.ConfigureNeo4j();
+if(use_blazor)
+    builder.Services.AddServerSideBlazor();
 
 var app = builder.Build();
 
@@ -57,6 +39,13 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapRazorPages();
+if(use_blazor)
+    app.UseEndpoints(endpoints =>
+    {	
+        endpoints.MapRazorPages(); // existing endpoints
+        endpoints.MapBlazorHub();                
+    });
+else
+    app.MapRazorPages();
 
 app.Run();

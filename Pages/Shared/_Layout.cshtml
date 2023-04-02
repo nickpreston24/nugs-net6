@@ -27,9 +27,12 @@
 
     <script type="module" src="~/js/main.js"></script>
     <!-- <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" /> -->
+    <script src="~/_framework/blazor.server.js"></script>
 
     
 </head>
+
+
 <body x-data='setup_layout()'>
     <header>
 
@@ -82,10 +85,43 @@
                     </li>
                     <li><a href='/Loadouts'>Loadouts</a></li>
                     <li><a href='/Sandbox'>Sandbox</a></li>
+                      
+
+
+                  
                 </ul>
             </div>
             <div class="navbar-end">
                 <!-- <a class="btn">Get started</a> -->
+
+                <!-- <partial name="_OmniSearch" /> -->
+
+                <!-- The button to open modal -->
+                <!-- <label for="my-modal-4" class="btn">open modal</label> -->
+
+                <!-- Put this part before </body> tag -->
+                <input type="checkbox" id="my-modal-4" class="modal-toggle" />
+                <label for="my-modal-4" class="modal cursor-pointer">
+                    <label class="modal-box relative" for="">
+                        <p>results go here...</p>
+                            <div id="omni_search_results">
+                        </div>
+                    </label>
+                </label>
+                
+                <!-- Dark mode toggler -->
+                <div x-show='false' class="theme-toggle hide-toggle-on-smaller-screens">
+                    <label title="Use light theme" class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fillRule="evenodd" clipRule="evenodd"></path>
+                        </svg>
+                
+                    <input type="radio" name="theme-toggle" value="light" aria-label="Use light theme">
+                    </label>
+                    
+                    <label title="Use dark theme" class="checked">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg><input type="radio" name="theme-toggle" value="dark" aria-label="Use dark theme">
+                    </label>
+                </div>
             </div>
         </div>
 
@@ -98,10 +134,12 @@
         </main>
     </div>
 
-    <div class="btm-nav">
-        <button>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
-        </button>
+    <div id='footer' class="btm-nav">
+        <a href='/'>
+            <button>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+            </button>
+        </a>
         <button class="active">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
         </button>

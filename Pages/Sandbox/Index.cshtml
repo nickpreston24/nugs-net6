@@ -5,7 +5,7 @@
   // C# vars go here!
 }
 
-<form x-data='setup()' asp-action="post">
+<div x-data='setup()' >
 
     <h1 class='glowing text-8xl' x-text='title'></h1>
 
@@ -24,13 +24,16 @@
             </div>
 
 
+            <component type="typeof(HelloWorld)" render-mode="ServerPrerendered" />
+
+
             <!-- <partial name="BulletProperties" model="null" />             -->
             <!-- <partial name="BallisticsChart" model="null" />             -->
           
            
         </div>
     </div>
-</form>
+</div>
 
 <script>
     function setup()

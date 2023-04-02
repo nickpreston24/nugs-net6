@@ -47,7 +47,7 @@
                 </ul>
             </div>
 
-            <form action='post'>
+            <div>
                 <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                     <div class="card-body">
                         <div class="form-control">
@@ -58,7 +58,7 @@
                          <input 
                             type="text"
                             name="Name"
-                            id="query"
+                            id="search"
                             autocomplete="off"
                             hx-get='@Url.Page("Index", "SearchLoadouts")'
                             hx-target="#search_results"
@@ -73,22 +73,11 @@
                             </div>
 
                             <div class="htmx-indicator" id='loading'>loading...</div>
-                            <!-- <input 
-                                type="text"
-                                placeholder="name" 
-                                name="Name"
-                                class="input input-bordered" />
-                            </div>
-                            <div class="form-control mt-6">
-                            <button
-                                hx-get='@Url.Page("","SearchLoadouts")'
-                                hx-target="#search_results"
-                                class="btn btn-accent">SEARCH</button>
-                            </div> -->
+                            
                     </div>
                 </div>
 
-            </form>
+            </div>
 
             <div class='card shadow-2xl bg-base-100' id="search_results">
             </div> 
@@ -99,6 +88,9 @@
 </div>
 
 <script>
+    document.getElementById("search").addEventListener("submit", function(event){
+        event.preventDefault()
+    });
     function setup() {
         return {
             selected_loadout: "Medic",
