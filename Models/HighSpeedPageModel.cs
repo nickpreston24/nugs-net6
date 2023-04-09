@@ -49,27 +49,28 @@ public abstract class HighSpeedPageModel : PageModel, IQueryNeo4j, IQueryAirtabl
         this.Title = page_title;
     }
 
-    public async Task<IList<IRecord>> SearchNeo4J(string query, object parameters) 
+    public async Task<IList<T>> SearchNeo4J<T>(
+        string query
+        , object parameters
+    )
+        where T : class, new()
     {
-        var none = new List<IRecord>();
+        var collection = new List<T>();
         
         if(parameters == null || string.IsNullOrWhiteSpace(query))
-            return none;
+            return collection;
 
-        await using var session = driver
-            .AsyncSession();
-            // .AsyncSession(configBuilder => configBuilder
-            // .WithDatabase("nugs"));
+        await using var session = driver.AsyncSession();
 
         try
         {
-            var readResults = await session.ExecuteReadAsync(async tx =>
+            var results = await session.ExecuteReadAsync(async tx =>
             {
-                var result = await tx.RunAsync(query, parameters);
-                return await result.ToListAsync();
+                var result = await tx.RunAsync(query, parameters.Dump("passed params"));
+                return await result.ToListAsync<T>(record => record.MapTo<T>());
             });
 
-            return readResults;
+            return results;
         }
         
         // Capture any errors along with the query and data for traceability
@@ -77,6 +78,9 @@ public abstract class HighSpeedPageModel : PageModel, IQueryNeo4j, IQueryAirtabl
         {
             Console.WriteLine($"{query} - {ex}");
             throw;
+        }
+        finally {
+            session.CloseAsync();
         }
     }
 

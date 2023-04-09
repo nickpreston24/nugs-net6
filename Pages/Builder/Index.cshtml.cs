@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,6 +10,7 @@ using System.Runtime.CompilerServices;
 using CodeMechanic.Extensions;
 using CodeMechanic.RazorPages;
 using Neo4j.Driver;
+using nugsnet6.Models;
 
 namespace nugsnet6.Pages.Builder;
 
@@ -53,7 +53,7 @@ public class IndexModel : HighSpeedPageModel
 
         query = await stream.ReadAllLinesFromStreamAsync();
 
-        var records = await SearchNeo4J(query, new {});
+        var records = await SearchNeo4J<Build>(query, new {});
         // var graph = records.ToD3Graph();
 
         // return Partial("_PartsGrid", records);

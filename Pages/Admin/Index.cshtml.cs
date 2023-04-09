@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -32,7 +31,7 @@ public class IndexModel : HighSpeedPageModel
         // reset on refresh
         count = 0;
     }
-    
+
     public async Task<IActionResult> OnGetStuff()
     {
         var failure = Content(
