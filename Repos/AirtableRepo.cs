@@ -48,7 +48,7 @@ public class AirtableRepo : IAirtableRepo {
                 timeZone,
                 userLocale,
                 returnFieldsByFieldId
-            ) = search/*.Dump("sent search")*/;
+            ) = search/*.Dump("search")*/;
 
             if(string.IsNullOrEmpty(table_name))
                 table_name = typeof(T).Name + "s";

@@ -1,0 +1,29 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div x-data="setup()" 
+    hx-target='#content'
+    hx-trigger='revealed'
+    hx-indicator="#content-loading"
+    hx-get='@Url.Page("","RSSFeeds")'
+    class="flex flex-col items-center justify-center">
+    <div id='content'></div>
+    <div id='content-loading'>Loading...</div>
+    <!-- <div class="flex flex-center hero min-h-screen bg-base-200">
+        <div class="hero-content flex-col lg:flex-row-reverse">
+
+            
+        </div>
+    </div>    -->
+
+</div>
+<script>
+function setup() {
+    return {
+    message: "Have a Potato Day! 🥔 ",
+    };
+}
+</script>

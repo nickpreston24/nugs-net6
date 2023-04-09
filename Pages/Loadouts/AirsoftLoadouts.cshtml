@@ -1,0 +1,110 @@
+@page
+@model nugsnet6.Pages.Loadouts.AirsoftLoadoutModel
+@{
+
+}
+
+
+<div class='flex flex-row border-2 border-secondary' x-data="setup()">
+  
+    <div class="hero min-h-screen bg-base-200">
+        <div class="hero-content flex-col lg:flex-row-reverse">
+            <div class="text-center lg:text-left">
+            <h1 class="text-5xl font-bold">Search For @Model.Title</h1>
+
+            <div x-show='false' class="grid grid-cols-3 gap-1 md:grid-cols-1">
+                <template x-for="[key, value] of Object.entries(options)">
+                    <label class="cursor-pointer label">
+                    <span x-text="key" class="label-text"></span>
+
+                    <input
+                        x-bind:checked="options[key]"
+                        x-on:change="options[key]=!options[key]"
+                        type="checkbox"
+                        class="toggle toggle-primary"
+                    />
+                    </label>
+                </template>
+            </div>
+
+            <div x-show='false' 
+                class="dropdown dropdown-left dropdown-end" 
+                x-model="selected_loadout">
+                <label tabindex="0" class="btn m-1">Loadouts</label>
+                <b class="btn m-1">
+                    current: 
+                    <span x-text="selected_loadout"></span>
+                </b>
+
+                <ul
+                tabindex="0"
+                class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+                >
+                    <template x-for="loadout in loadouts" :key="loadout">
+                         <li x-on:change="current_loadout=loadout">
+                            <a x-text='loadout'></a>
+                        </li>
+                    </template>
+                </ul>
+            </div>
+
+            <div>
+                <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                    <div class="card-body">
+                        <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Name</span>
+                        </label>
+
+                        <div class='form-control'>
+                            <input 
+                                type="text"
+                                name="Name"
+                                id="search"
+                                autocomplete="off"
+                                hx-get='@Url.Page("Index", "SearchLoadouts")'
+                                hx-target="#search_results"
+                                hx-trigger="keyup changed delay:250ms"
+                                hx-indicator="#loading"
+                                placeholder="Search"
+                                aria-label="Name"
+                                aria-describedby="search-addon" />
+
+                            <div class="htmx-indicator" id='loading'>loading...</div>
+
+                        </div>
+
+                        <div id="search_results">
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class='card shadow-2xl bg-base-100' id="search_results">
+            </div> 
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+    document.getElementById("search").addEventListener("submit", function(event){
+        event.preventDefault()
+    });
+    function setup() {
+        return {
+            selected_loadout: "Medic",
+            loadouts: [
+                "Sniper",
+                "Heavy",
+                "Spy"
+            ],
+            options: {
+                keep_history: true
+            }
+        }
+    }
+</script>

@@ -1,4 +1,4 @@
-@page "/OmniSearch"
+@page "/"
 
 <div class="form-control w-full max-w-xs">
     <label class="label">
@@ -28,13 +28,6 @@
 </div>
 
 <div class="htmx-indicator" id='omni-loading'>loading...</div>
-<!-- <script>
-    function setup() {
-        return {
-            foo: "bar"
-        }
-    }
-</script> -->
 
 @code {
     public string Term { get; set; } = "Jon";

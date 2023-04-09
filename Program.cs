@@ -38,7 +38,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
+use_blazor = false;
 if(use_blazor)
     app.UseEndpoints(endpoints =>
     {	

@@ -11,7 +11,6 @@
             asp-fallback-test="window.htmx"
             crossorigin="anonymous">
     </script>
-
    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.umd.min.js"></script>
     
@@ -85,7 +84,16 @@
                             <li><a href='Rounds/Index'>Home</a></li>
                         </ul>
                     </li>
-                    <li><a href='/Loadouts'>Loadouts</a></li>
+                    <li tabindex='0'>
+                        <a>
+                            Loadouts
+                            <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg>
+                        </a>
+                        <ul class="p-2">
+                            <li><a href='Loadouts/AirsoftLoadouts'>Airsoft</a></li>
+                            <li><a href='Loadouts/Index'>Defense</a></li>
+                        </ul>
+                    </li>
                     <li><a href='/Sandbox'>Sandbox</a></li>
                       
 

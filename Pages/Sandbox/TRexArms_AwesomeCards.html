@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html data-theme="halloween" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@2.50.0/dist/full.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <script src="https://unpkg.com/htmx.org@1.8.5"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+  </head>
+  <body>
+    <div x-data="setup()" class="flex flex-col items-center justify-center">
+      <ol class="svelte-dohlid">
+        <li class="flex flex-row">
+          <div class="image flex flex-row">
+            <a href="/?p=465547"
+              ><img
+                src="https://img.trex-arms.com/holster_product_category_page/sidecar.jpg?auto=format,compress"
+                srcset="
+                  https://img.trex-arms.com/holster_product_category_page/sidecar.jpg?auto=format,compress&amp;dpr=1   1x,
+                  https://img.trex-arms.com/holster_product_category_page/sidecar.jpg?auto=format,compress&amp;dpr=1.5 1.5x,
+                  https://img.trex-arms.com/holster_product_category_page/sidecar.jpg?auto=format,compress&amp;dpr=2   2x,
+                  https://img.trex-arms.com/holster_product_category_page/sidecar.jpg?auto=format,compress&amp;dpr=2.5 2.5x,
+                  https://img.trex-arms.com/holster_product_category_page/sidecar.jpg?auto=format,compress&amp;dpr=3   3x,
+                  https://img.trex-arms.com/holster_product_category_page/sidecar.jpg?auto=format,compress&amp;dpr=3.5 3.5x,
+                  https://img.trex-arms.com/holster_product_category_page/sidecar.jpg?auto=format,compress&amp;dpr=4   4x,
+                  https://img.trex-arms.com/holster_product_category_page/sidecar.jpg?auto=format,compress&amp;dpr=4.5 4.5x,
+                  https://img.trex-arms.com/holster_product_category_page/sidecar.jpg?auto=format,compress&amp;dpr=5   5x
+                "
+                alt="Sidecar holster being worn inside the waistband in front of the appendix"
+                class="w-[762px] h-[762px]"
+            /></a>
+          </div>
+
+          <a href="/?p=465547" class="text-accent text-5xl"
+            >T.REX Sidecar Holster</a
+          >
+
+          <div class="price flex flex-row">$100+</div>
+
+          <div class="bullets flex flex-row">
+            Inside the waistband • Concealed • Modular
+          </div>
+
+          <div class="description flex flex-row">
+            <p>
+              If you want to carry concealed, this is probably what you want.
+              Built for appendix carry, but works anywhere inside the waistband.
+              Can be fitted with a mag carrier, tourniquet holder, rifle mag
+              carrier, or handcuff carrier.
+            </p>
+          </div>
+        </li>
+        <li class="flex flex-row bg-gray-900">
+          <div class="image flex flex-row">
+            <a href="/?p=698603"
+              ><img
+                src="https://img.trex-arms.com/holster_product_category_page/ragnarok.jpg?auto=format,compress"
+                srcset="
+                  https://img.trex-arms.com/holster_product_category_page/ragnarok.jpg?auto=format,compress&amp;dpr=1   1x,
+                  https://img.trex-arms.com/holster_product_category_page/ragnarok.jpg?auto=format,compress&amp;dpr=1.5 1.5x,
+                  https://img.trex-arms.com/holster_product_category_page/ragnarok.jpg?auto=format,compress&amp;dpr=2   2x,
+                  https://img.trex-arms.com/holster_product_category_page/ragnarok.jpg?auto=format,compress&amp;dpr=2.5 2.5x,
+                  https://img.trex-arms.com/holster_product_category_page/ragnarok.jpg?auto=format,compress&amp;dpr=3   3x,
+                  https://img.trex-arms.com/holster_product_category_page/ragnarok.jpg?auto=format,compress&amp;dpr=3.5 3.5x,
+                  https://img.trex-arms.com/holster_product_category_page/ragnarok.jpg?auto=format,compress&amp;dpr=4   4x,
+                  https://img.trex-arms.com/holster_product_category_page/ragnarok.jpg?auto=format,compress&amp;dpr=4.5 4.5x,
+                  https://img.trex-arms.com/holster_product_category_page/ragnarok.jpg?auto=format,compress&amp;dpr=5   5x
+                "
+                alt="Ragnarok holster worn on the hip"
+                class="w-[762px]"
+            /></a>
+          </div>
+
+          <a href="/?p=698603" class="text-accent text-5xl"
+            >T.REX Ragnarok Holster</a
+          >
+
+          <div class="price flex flex-row">$70+</div>
+
+          <div class="bullets flex flex-row">
+            Heavy duty • Attaches to your preferred mount
+          </div>
+
+          <div class="description flex flex-row">
+            <p>
+              If you have opinions about how holsters should attach to you, you
+              have your choice. We recommend a UBL mid-ride with a thigh strap.
+            </p>
+          </div>
+        </li>
+        <li class="flex flex-row">
+          <div class="image flex flex-row">
+            <a href="/?p=698568"
+              ><img
+                src="https://img.trex-arms.com/holster_product_category_page/ironside.jpg?auto=format,compress"
+                srcset="
+                  https://img.trex-arms.com/holster_product_category_page/ironside.jpg?auto=format,compress&amp;dpr=1   1x,
+                  https://img.trex-arms.com/holster_product_category_page/ironside.jpg?auto=format,compress&amp;dpr=1.5 1.5x,
+                  https://img.trex-arms.com/holster_product_category_page/ironside.jpg?auto=format,compress&amp;dpr=2   2x,
+                  https://img.trex-arms.com/holster_product_category_page/ironside.jpg?auto=format,compress&amp;dpr=2.5 2.5x,
+                  https://img.trex-arms.com/holster_product_category_page/ironside.jpg?auto=format,compress&amp;dpr=3   3x,
+                  https://img.trex-arms.com/holster_product_category_page/ironside.jpg?auto=format,compress&amp;dpr=3.5 3.5x,
+                  https://img.trex-arms.com/holster_product_category_page/ironside.jpg?auto=format,compress&amp;dpr=4   4x,
+                  https://img.trex-arms.com/holster_product_category_page/ironside.jpg?auto=format,compress&amp;dpr=4.5 4.5x,
+                  https://img.trex-arms.com/holster_product_category_page/ironside.jpg?auto=format,compress&amp;dpr=5   5x
+                "
+                alt="Ironside holster being worn outside the waistband on the hip"
+                class="w-[762px]"
+            /></a>
+          </div>
+
+          <a href="/?p=698568" class="text-accent text-5xl"
+            >T.REX Ironside Holster</a
+          >
+
+          <div class="price flex flex-row">$60+</div>
+
+          <div class="bullets flex flex-row">
+            Outside the waistband • Concealable
+          </div>
+
+          <div class="description flex flex-row">
+            <p>
+              If you don't want to carry inside the waistband, this holster
+              conceals beneath your jacket or button-up. It fits different belt
+              sizes and can be adjusted to different angles.
+            </p>
+          </div>
+        </li>
+        <li class="flex flex-row">
+          <div class="image flex flex-row">
+            <a href="/?p=835257"
+              ><img
+                src="https://img.trex-arms.com/holster_product_category_page/ragnarok_sd.jpg?auto=format,compress"
+                srcset="
+                  https://img.trex-arms.com/holster_product_category_page/ragnarok_sd.jpg?auto=format,compress&amp;dpr=1   1x,
+                  https://img.trex-arms.com/holster_product_category_page/ragnarok_sd.jpg?auto=format,compress&amp;dpr=1.5 1.5x,
+                  https://img.trex-arms.com/holster_product_category_page/ragnarok_sd.jpg?auto=format,compress&amp;dpr=2   2x,
+                  https://img.trex-arms.com/holster_product_category_page/ragnarok_sd.jpg?auto=format,compress&amp;dpr=2.5 2.5x,
+                  https://img.trex-arms.com/holster_product_category_page/ragnarok_sd.jpg?auto=format,compress&amp;dpr=3   3x,
+                  https://img.trex-arms.com/holster_product_category_page/ragnarok_sd.jpg?auto=format,compress&amp;dpr=3.5 3.5x,
+                  https://img.trex-arms.com/holster_product_category_page/ragnarok_sd.jpg?auto=format,compress&amp;dpr=4   4x,
+                  https://img.trex-arms.com/holster_product_category_page/ragnarok_sd.jpg?auto=format,compress&amp;dpr=4.5 4.5x,
+                  https://img.trex-arms.com/holster_product_category_page/ragnarok_sd.jpg?auto=format,compress&amp;dpr=5   5x
+                "
+                alt="RagnarokSD holster carrying a suppressed pistol"
+                class="w-[762px]"
+            /></a>
+          </div>
+
+          <a href="/?p=835257" class="text-accent text-5xl"
+            >T.REX RagnarokSD Holster</a
+          >
+
+          <div class="price flex flex-row">$80+</div>
+
+          <div class="bullets flex flex-row">For suppressed pistols</div>
+
+          <div class="description flex flex-row">
+            <p>
+              If you like filling out paperwork and don't like awkward holsters,
+              we've got you covered.
+            </p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </body>
+  <script>
+    function setup() {
+      return {
+        message: "Have a Potato Day! 🥔 ",
+      };
+    }
+  </script>
+
+  <style>
+
+li.svelte-ofu37z {
+    --gap: 1rem;
+    --image-min-size: min(250px, 50vw);
+    background-color: var(--black);
+    display: grid;
+    grid-template-columns: [image-start] var(--gap) [full-width-content-start] calc(var(--image-min-size) - var(--gap)) [image-end] var(--gap) [right-content-start] auto [name-end] var(--gap) [price-start] 6rem [content-end] var(--gap);
+    grid-template-rows: [absolute-top] var(--gap) [vertical-content-start] min-content [bullet-start] min-content var(--gap) [right-description-start] 1fr [small-screen-image-end] var(--gap) [full-width-description-start] auto [vertical-content-end] var(--gap) [absolute-bottom];
+} 
+  </style>
+</html>

@@ -1,0 +1,47 @@
+@using nugsnet6.Models;
+@page "/LoadoutsGrid"
+
+@code {
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public  List<Loadout> Loadouts { get; set; } = new List<Loadout>();
+}
+
+@if (Loadouts.Count > 0)
+{
+    <h1>@Loadouts.Count</h1>
+    <div class="grid grid-cols-1 w-full">
+        
+    </div>
+}
+else
+{
+    <tr>
+        <td colspan="4">No Results</td>
+    </tr>
+}
+
+
+@*
+<thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Inspiration</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var loadout in loadouts)
+            {
+                <tr class='hover'>
+                    <td>@loadout.Id</td>
+                    <td>@loadout.Name</td>
+                    <td>@loadout.Inspiration</td>
+                    <td>@loadout.Notes</td>
+                </tr>
+            }
+        </tbody> 
+*@
