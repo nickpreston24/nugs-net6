@@ -58,156 +58,62 @@
               </template>
 
               <div class="dropdown dropdown-left dropdown-end">
-                <label tabindex="0" class="btn m-1">Click</label>
+                <label x-show="false" tabindex="0" class="btn m-1">Click</label>
                 <ul
                   tabindex="0"
                   class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
                 >
-                  <template x-for="sub in options.subs">
-                    <button class="btn m-1">
-                      <span x-text="sub"></span>
-                    </button>
+                  <template x-for="sub in options.view_panels">
+                    <li class="m-1">
+                      <a>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="h-5 w-5"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            :d="sub.d"
+                          />
+                        </svg>
+                        <span onclick="view_index=0" x-text="sub.label"></span>
+                      </a>
+                    </li>
                   </template>
                 </ul>
               </div>
-
-              <!-- <li>
-                <a>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                    />
-                  </svg>
-                </a>
-              </li>
-              <li>
-                <a>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                </a>
-              </li>
-              <li>
-                <a>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                    />
-                  </svg>
-                </a>
-              </li> -->
             </ul>
           </div>
         </div>
       </div>
     </div>
-
-    <ul x-show="false" class="menu menu-horizontal bg-base-100 rounded-box">
-      <li>
-        <a>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-            />
-          </svg>
-        </a>
-      </li>
-      <li>
-        <a>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-        </a>
-      </li>
-      <li>
-        <a>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-            />
-          </svg>
-        </a>
-      </li>
-    </ul>
   </nav>
   <body
     class="h-screen flex flex-col justify-center text-content-200"
     x-data="setup()"
   >
-    <div class="grid grid-cols-2 grid-rows-2">
-      <div class="flex flex-col items-center justify-center gap-2">
+    <div :class="grid_class">
+      <div class="order-first flex flex-col items-center justify-center gap-2">
         <div class="stats text-ghost">
           <div class="stat flex flex-col">
-            <h1 class="stat-value text-5xl" x-text="total_sales">$89,400</h1>
-            <div class="stat-title">Account balance</div>
+            <h1 class="stat-value text-5xl" x-text="total_sales"></h1>
+            <div class="stat-title">Industry Sales</div>
+            <pre x-text="view_index"></pre>
           </div>
         </div>
       </div>
-      <div class="chart-container" width="600" height="400">
+
+      <div class="order-2" width="600" height="400">
         <canvas id="barChart"></canvas>
       </div>
-      <div class="chart-container" width="600" height="400">
-        <canvas id="lineChart"></canvas>
-      </div>
-      <div id="sales_table">
+
+    
+
+      <div id="sales_table" class="order-3">
         <div class="overflow-x-auto">
           <table class="table w-full">
             <thead>
@@ -229,6 +135,48 @@
               </template>
             </tbody>
           </table>
+        </div>
+      </div>
+
+
+      <div class="order-4" width="600" height="400">
+        <canvas id="lineChart"></canvas>
+      </div>
+
+      <div
+        width="600"
+        height="400"
+        class="order-3 flex flex-col items-center justify-center gap-2"
+      >
+        <div class="stats bg-primary text-primary-content">
+          <div class="stat">
+            <div class="stat-title">Account balance</div>
+            <div class="stat-value">$89,400</div>
+            <div class="stat-actions">
+              <button class="btn btn-sm btn-success">Add funds</button>
+            </div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-title">Current balance</div>
+            <div class="stat-value">$89,400</div>
+            <div class="stat-actions">
+              <button class="btn btn-sm">Withdrawal</button>
+              <button class="btn btn-sm">deposit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        width="600"
+        height="400"
+        class="order-6 flex flex-col items-center justify-center gap-2"
+      >
+        <div
+          class="radial-progress bg-primary text-primary-content border-4 border-primary"
+          style="--value: 70; --size: 12rem; --thickness: 1rem"
+        >
+          70%
         </div>
       </div>
     </div>
@@ -357,6 +305,9 @@
   </script>
 
   <script>
+    let is_number = (n) => (isNaN(n) ? 0 : n);
+    // let is_not_number = n => isNaN(!n) ? 0 : n
+
     const round_to = (n, d) =>
       Math.round(n * Math.pow(10, d)) / Math.pow(10, d);
 
@@ -364,22 +315,46 @@
       return round_to(value % 10, 0);
     }
 
+    const all_view_panels = [
+      {
+        label: "4-Panels",
+        columns: 2,
+        rows: 2,
+        d: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
+      },
+      {
+        label: "6-Panels",
+        columns: 3,
+        rows: 2,
+        d: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6",
+      },
+      {
+        label: "Irregular",
+        d: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z",
+      },
+    ];
+
     function setup() {
       return {
+        view_index: 1,
+        options: {
+          keep_history: true,
+          view_panels: all_view_panels,
+        },
         sales: [
           {
             manufacturer: "ACME Labs",
-            monthly_sales: 1200,
+            monthly_sales: 1200.2,
             last_product_launch: "04/1/23",
           },
           {
             manufacturer: "Bob's Outfitters",
-            monthly_sales: 2500,
+            monthly_sales: 2500.98,
             last_product_launch: "04/25/23",
           },
           {
             manufacturer: "Optics Planet",
-            monthly_sales: 30000,
+            monthly_sales: 30000.0011,
             last_product_launch: "05/11/22",
           },
           {
@@ -389,12 +364,12 @@
           },
           {
             manufacturer: "Daniel Defense",
-            monthly_sales: 7000,
+            monthly_sales: 7000.123,
             last_product_launch: "04/25/23",
           },
           {
             manufacturer: "TNVC Night Vision",
-            monthly_sales: 80500,
+            monthly_sales: 80500.999,
             last_product_launch: "05/11/22",
           },
         ],
@@ -407,13 +382,17 @@
 
           let decimals = tenths_place(total) - 2;
           let rounded_total = round_to(total, decimals);
-          //   console.log("decimals :>> ", decimals);
-          //   console.log("rounded_total :>> ", rounded_total);
+          console.log("decimals :>> ", decimals);
+          console.log("rounded_total :>> ", rounded_total);
           return `$${rounded_total}`;
         },
-        options: {
-          keep_history: true,
-          subs: ["One", "Sec", "Tri"],
+
+        get selected_view() {
+          return all_view_panels[this.view_index];
+        },
+
+        get grid_class() {
+          return `grid grid-cols-${this.selected_view.columns} grid-rows-${this.selected_view.rows}`;
         },
       };
     }
