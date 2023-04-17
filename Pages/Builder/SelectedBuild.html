@@ -23,7 +23,7 @@
   <body>
     <div
       x-data="setup()"
-      class="flex flex-col items-center bg-base-200/40 bg-gradient-to-t from-base-300/40 justify-center"
+      class="flex flex-col md:text-sm items-center bg-base-200/40 bg-gradient-to-t from-base-300/40 justify-center"
     >
       <div
         class="card flex-shrink-0 w-full bg-base-100 max-w-lg lg:max-w-max card-side w-11/12 glass shadow-2xl drop-shadow-2xl card-bordered"
@@ -36,13 +36,13 @@
               <div class="flex flex-col items-center justify-center gap-2">
                 <h1
                   x-text="hero_header"
-                  class="text-5xl text-secondary font-bold"
+                  class="text-xl text-secondary font-bold"
                 ></h1>
 
                 <div width="420" height="746">
                   <div class="flex flex-col items-center justify-center gap-2">
                     <h2 class="text-lg text-secondary justify-center">
-                      Pros
+                      <!-- Pros -->
                       <svg
                         viewBox="0 0 471 471"
                         width="2rem"
@@ -75,7 +75,7 @@ C444.801,187.101,434.001,213.101,414.401,232.701z"
                       </table>
                     </div>
 
-                    <h2 class="text-lg text-secondary">Cons</h2>
+                    <!-- <h2 class="text-lg text-secondary">Cons</h2> -->
 
                     <div
                       class="flex flex-row items-center justify-center gap-2"
@@ -96,7 +96,7 @@ C444.801,187.101,434.001,213.101,414.401,232.701z"
                       <table class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                         <template x-for="idea in build.ideas">
                           <span
-                            class="badge-ghost pt-2 text-xl text-secondary shadow-2xl badge"
+                            class="badge-ghost pt-2 text-secondary shadow-2xl badge"
                           >
                             <p class="mb-4" x-text="idea"></p>
                           </span>
@@ -116,7 +116,7 @@ C444.801,187.101,434.001,213.101,414.401,232.701z"
                 </div>
 
                 <!-- <div class="stat stats-vertical shadow">
-                    <pre class="stat-value" x-text=""></pre>
+                    <pre class="stat-value" x-text="></pre>
                     <pre class="stat-value" x-text="build.parts.length"></pre>
                 </div> -->
                 <!-- <a>
@@ -132,10 +132,8 @@ C444.801,187.101,434.001,213.101,414.401,232.701z"
           </div>
         </div>
 
-        <div class="card-actions justify-start p-10 grid grid-cols-auto">
-          <div
-            class="stats bg-transparent stats-vertical shadow grid grid-cols-1"
-          >
+        <div class="card-actions justify-start">
+          <div class="stats bg-transparent stats-vertical shadow">
             <div class="stat">
               <div class="stat-title">Cost</div>
               <div class="stat-value" x-text="`$${total_cost}`">???</div>
@@ -166,6 +164,14 @@ C444.801,187.101,434.001,213.101,414.401,232.701z"
               </div>
               <div class="stat-desc">% of budget</div>
             </div>
+          </div>
+
+          <div>
+            <p class="text-sm ...">The quick brown fox ...</p>
+            <p class="text-base ...">The quick brown fox ...</p>
+            <p class="text-lg ...">The quick brown fox ...</p>
+            <p class="text-xl ...">The quick brown fox ...</p>
+            <p class="text-2xl ...">The quick brown fox ...</p>
           </div>
 
           <input
@@ -199,6 +205,157 @@ C444.801,187.101,434.001,213.101,414.401,232.701z"
       </div>
     </div>
   </body>
+
+  <div class="btm-nav">
+    <button class="text-primary">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+        />
+      </svg>
+    </button>
+    <button class="text-primary active">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+    </button>
+    <button class="text-primary">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+        />
+      </svg>
+    </button>
+  </div>
+  <div class="btm-nav">
+    <button class="text-secondary">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+        />
+      </svg>
+    </button>
+    <button class="text-secondary active">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+    </button>
+    <button class="text-secondary">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+        />
+      </svg>
+    </button>
+  </div>
+  <div class="btm-nav">
+    <button class="text-accent">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+        />
+      </svg>
+    </button>
+    <button class="text-accent active">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+    </button>
+    <button class="text-accent">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+        />
+      </svg>
+    </button>
+  </div>
   <script>
     function setup() {
       const range_colors = {
@@ -209,9 +366,9 @@ C444.801,187.101,434.001,213.101,414.401,232.701z"
       };
 
       return {
-        hero_header: "The Minute Mann",
-        likes_jazz: null,
-        show_star_wars: true,
+        // hero_header: "The Minute Mann", // Todo: make this the currently selected build
+        // likes_jazz: null,
+        // show_star_wars: true,
         budget: 10000.0,
         max_budget: 20000,
         build: {
@@ -227,44 +384,103 @@ C444.801,187.101,434.001,213.101,414.401,232.701z"
           cons: ["Pricey", "High Maintenance", "test", "test", "test"],
           ideas: [
             "zero your 9mm HSTs to your green dot",
-
             "Smoke on the Water",
             "A Fire in the Sky",
             "RIS III",
             "LMT 40mm",
           ],
-          parts: [
-            { name: "Mark 6", price: 3500.0 },
-            { name: "Walker Titanium BCG 300 BLK / 5.56", price: 350.0 },
-            { name: "Proof 224 Valkyrie Barrel", price: 849.0 },
-            { name: "Dead Air Wolfman", price: 899.0 },
+          builds: [
             {
-              name: "Radian Raptor LT Gas Busting Charging Handle",
-              price: 150,
+              name: "Glock Lobster",
+              parts: [
+                {
+                  name: "Rock Slide G20 Gen 3 Upper | Rock Slide USA",
+                  price: 0,
+                },
+                { name: "BANISH 45 – Silencer Central", price: 0 },
+                {
+                  name: "POLYMER80 PF45 80% FULL SIZE PISTOL TEXTURED FRAME KIT FOR GLOCK 20/21 – BLACK – 80-lower",
+                  price: 0,
+                },
+                {
+                  name: "ETS 10mm 30-Round Extended Magazine for Glock 20 Pistols",
+                  price: 0,
+                },
+                {
+                  name: "Recover Tactical® 20/21 Stabilizer Kit for 10mm/45ACP Glocks",
+                  price: 0,
+                },
+                {
+                  name: "POLYMER80 PF45 80% FULL SIZE PISTOL TEXTURED FRAME KIT FOR GLOCK 20/21 – BLACK – 80-lower",
+                  price: 0,
+                },
+                { name: "P-Series Pistons | Dead Air Silencers", price: 0 },
+                {
+                  name: "Dead Air Piston, 9/16x24 (P-Series) - DA DA403 - Black Ankle Munitions",
+                  price: 0,
+                },
+                {
+                  name: "Dead Air Booster Assembly (P-Series) - DA SD500 - Black Ankle Munitions",
+                  price: 0,
+                },
+                {
+                  name: "Recover Tactical Brace Upper Rail – Compatible w/ All Recover Stabilizers - Recover Brace Upper Rail – Compatible w/ All Recover Stabilizers",
+                  price: 0,
+                },
+                {
+                  name: "BROWNELLS MATCH GRADE BARRELS FOR GLOCK® 20 | Brownells",
+                  price: 0,
+                },
+                {
+                  name: "ProMag 10mm 50-Round Drum Magazine for Glock 20, 29, 40 Pistols",
+                  price: 0,
+                },
+              ],
             },
-            { name: "Titanium V-Seven LPK (combo, estimated)", price: 250 },
-            { name: "VTAC Sling", price: 50 },
-            { name: "Q Cherry Bomb", price: 100 * 3 },
-            { name: "Lower Reciever", price: 110 },
-            { name: "B.A.D. Lever", price: 29.95 },
-            { name: "FANG", price: 34.99 },
-            { name: "LMT 40mm", price: 3700.0, count: 1 },
-            { name: "MP UBR II", price: 199.95 },
-            { name: "Fostech Sabre Grip", price: 29.99 },
-            { name: "Leo Takedown", price: 299.0 },
-            { name: "Law Tactical Folding Adapter", price: 250, count: 1 },
-            { name: "Leo Takedown Plugs", price: 60, count: 3 },
-            { name: "Literally the Best Trigger Ever Made", price: 350 },
-            { name: "Honey Badger Barrel", price: 425 },
-            { name: "Honey Badger Barrel Nut", price: 50 },
-            { name: "Honey Badger Turnbuckle", price: 40 },
-            { name: "Honey Badger Handguard", price: 225 },
-            { name: "Larue Tactical Stealth Barrel 12 in.", price: 276 },
-            { name: "V-Seven Magnesium Handguard, 10 in.", price: 339 },
-            { name: "Riflespeed Gas Block", price: 250, count: 1 },
-            { name: "Gas Tube", price: 10, count: 1 },
-            { name: "Ryker CTRL Grip", price: 300, url:"https://rykerusa.com/collections/gear/products/ryker-ctrl?variant=40076174622766" },
-            { name: "Eotech OGL", url: "https://www.eotechinc.com/eotech-ogl", price: 2100 },
+            {
+              name: "Honey Banshee",
+              parts: [
+                { name: "Mark 6", price: 3500.0 },
+                { name: "Walker Titanium BCG 300 BLK / 5.56", price: 350.0 },
+                { name: "Proof 224 Valkyrie Barrel", price: 849.0 },
+                { name: "Dead Air Wolfman", price: 899.0 },
+                {
+                  name: "Radian Raptor LT Gas Busting Charging Handle",
+                  price: 150,
+                },
+                { name: "Titanium V-Seven LPK (combo, estimated)", price: 250 },
+                { name: "VTAC Sling", price: 50 },
+                { name: "Q Cherry Bomb", price: 100 * 3 },
+                { name: "Lower Reciever", price: 110 },
+                { name: "B.A.D. Lever", price: 29.95 },
+                { name: "FANG", price: 34.99 },
+                { name: "LMT 40mm", price: 3700.0, count: 1 },
+                { name: "MP UBR II", price: 199.95 },
+                { name: "Fostech Sabre Grip", price: 29.99 },
+                { name: "Leo Takedown", price: 299.0 },
+                { name: "Law Tactical Folding Adapter", price: 250, count: 1 },
+                { name: "Leo Takedown Plugs", price: 60, count: 3 },
+                { name: "Literally the Best Trigger Ever Made", price: 350 },
+                { name: "Honey Badger Barrel", price: 425 },
+                { name: "Honey Badger Barrel Nut", price: 50 },
+                { name: "Honey Badger Turnbuckle", price: 40 },
+                { name: "Honey Badger Handguard", price: 225 },
+                { name: "Larue Tactical Stealth Barrel 12 in.", price: 276 },
+                { name: "V-Seven Magnesium Handguard, 10 in.", price: 339 },
+                { name: "Riflespeed Gas Block", price: 250, count: 1 },
+                { name: "Gas Tube", price: 10, count: 1 },
+                {
+                  name: "Ryker CTRL Grip",
+                  price: 300,
+                  url: "https://rykerusa.com/collections/gear/products/ryker-ctrl?variant=40076174622766",
+                },
+                {
+                  name: "Eotech OGL",
+                  url: "https://www.eotechinc.com/eotech-ogl",
+                  price: 2100,
+                },
+              ],
+            },
           ],
         },
         buttons: [
@@ -297,8 +513,8 @@ C444.801,187.101,434.001,213.101,414.401,232.701z"
         },
         get total_cost() {
           let result = this.build.parts.reduce((x, y) => {
-            const actual_count = (!!y.count || y.count === 0) ? y.count : 1;
-            console.log('actual_count :>> ', actual_count);
+            const actual_count = !!y.count || y.count === 0 ? y.count : 1;
+            console.log("actual_count :>> ", actual_count);
             return x + y.price * actual_count;
           }, 10);
 

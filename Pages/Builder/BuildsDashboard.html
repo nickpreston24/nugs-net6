@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html data-theme="night" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.umd.min.js"></script>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@2.50.0/dist/full.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <!-- 
+    From: https://www.youtube.com/watch?v=t3cAUt7sOQg
+    -->
+
+    <script src="https://unpkg.com/htmx.org@1.8.5"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+  </head>
+
+  <nav>
+    <div class="navbar bg-base-300 rounded-box">
+      <div class="flex-1 px-2 lg:flex-none">
+        <a class="text-lg font-bold">Builds</a>
+      </div>
+      <div class="flex justify-end flex-1 px-2">
+        <div class="flex items-stretch">
+          <div class="dropdown dropdown-end">
+            <label tabindex="0" class="btn btn-ghost rounded-btn"
+              >Options</label
+            >
+            <ul
+              tabindex="0"
+              class="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 mt-4"
+            >
+              <template x-for="[key, value] of Object.entries(options)">
+                <label class="cursor-pointer label">
+                  <span
+                    x-text="without_underscores(key)"
+                    class="label-text"
+                  ></span>
+
+                  <input
+                    x-bind:checked="options[key]"
+                    x-on:change="options[key]=!options[key]"
+                    type="checkbox"
+                    class="toggle toggle-primary"
+                  />
+                </label>
+              </template>
+
+              <div class="dropdown dropdown-left dropdown-end">
+                <label tabindex="0" class="btn m-1">Click</label>
+                <ul
+                  tabindex="0"
+                  class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+                >
+                  <template x-for="sub in options.subs">
+                    <button class="btn m-1">
+                      <span x-text="sub"></span>
+                    </button>
+                  </template>
+                </ul>
+              </div>
+
+              <!-- <li>
+                <a>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                    />
+                  </svg>
+                </a>
+              </li>
+              <li>
+                <a>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </a>
+              </li>
+              <li>
+                <a>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                    />
+                  </svg>
+                </a>
+              </li> -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ul x-show="false" class="menu menu-horizontal bg-base-100 rounded-box">
+      <li>
+        <a>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+            />
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+            />
+          </svg>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <body
+    class="h-screen flex flex-col justify-center text-content-200"
+    x-data="setup()"
+  >
+    <div class="grid grid-cols-2 grid-rows-2">
+      <div class="flex flex-col items-center justify-center gap-2">
+        <div class="stats text-ghost">
+          <div class="stat flex flex-col">
+            <h1 class="stat-value text-5xl" x-text="total_sales">$89,400</h1>
+            <div class="stat-title">Account balance</div>
+          </div>
+        </div>
+      </div>
+      <div class="chart-container" width="600" height="400">
+        <canvas id="barChart"></canvas>
+      </div>
+      <div class="chart-container" width="600" height="400">
+        <canvas id="lineChart"></canvas>
+      </div>
+      <div id="sales_table">
+        <div class="overflow-x-auto">
+          <table class="table w-full">
+            <thead>
+              <tr>
+                <template
+                  x-for="header in Object.keys(sales[0]).map(without_underscores)"
+                >
+                  <th x-text="header"></th>
+                </template>
+              </tr>
+            </thead>
+            <tbody>
+              <template x-for="sale in sales">
+                <tr>
+                  <td x-text="sale.manufacturer"></td>
+                  <td x-text="sale.monthly_sales"></td>
+                  <td x-text="sale.last_product_launch"></td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    const without_underscores = (h) => h.replace(/_/gi, " ");
+
+    const labels = Array.from({ length: 900 }, (_, index) => index + 20);
+
+    const data = {
+      datasets: [
+        {
+          label: "Velocity [fps]",
+          data: [
+            { x: 0, y: 1060 },
+            { x: 100, y: 1013 },
+            { x: 200, y: 977 },
+            { x: 300, y: 944 },
+            { x: 400, y: 914 },
+          ],
+          borderColor: "rgb(0, 192, 0)",
+          backgroundColor: "rgb(0, 192, 0, 0.5)",
+          yAxisID: "y",
+          showLine: true,
+        },
+        {
+          label: "Energy [ft.lb]",
+          data: [
+            { x: 0, y: 499 },
+            { x: 100, y: 456 },
+            { x: 200, y: 424 },
+            { x: 300, y: 396 },
+            { x: 400, y: 370 },
+          ],
+          borderColor: "rgb(192, 0, 75)",
+          backgroundColor: "rgb(192, 0, 75, .5)",
+          yAxisID: "y2",
+          showLine: true,
+        },
+        {
+          label: "Points of Impact (POI) [in]",
+          data: [
+            { x: 50, y: 3.1 },
+            { x: 100, y: 0.0 },
+            { x: 200, y: -31.8 },
+            { x: 300, y: -100.1 },
+            { x: 400, y: -207.4 },
+          ],
+          borderColor: "rgb(192, 192, 75)",
+          backgroundColor: "rgb(192, 192, 75, 0.5)",
+          yAxisID: "y3",
+          showLine: true,
+          text: "YO",
+        },
+      ],
+    };
+
+    const config = {
+      type: "scatter",
+      data: data,
+      options: {
+        scales: {
+          // x: {beginAtZero :true},
+          // y: {beginAtZero :true}
+        },
+      },
+    };
+
+    document.addEventListener("DOMContentLoaded", (event) => {
+      var ctx = document.getElementById("lineChart");
+      var lineChart = new Chart(ctx, config);
+    });
+  </script>
+
+  <script>
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    const bar_labels = Array.from(
+      { length: 7 },
+      (_, index) => months[index] || index
+    );
+    const bar_data = {
+      labels: bar_labels,
+      datasets: [
+        {
+          label: "Votes",
+          data: [65, 59, 80, 81, 56, 55, 40],
+          backgroundColor: Array.from(
+            { length: 7 },
+            () => "rgba(153, 102, 255, 0.2)"
+          ),
+          borderColor: Array.from({ length: 7 }, (_) => "rgb(54, 162, 235)"),
+          borderWidth: 1,
+        },
+      ],
+    };
+    const bar_config = {
+      type: "bar",
+      data: bar_data,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    };
+
+    document.addEventListener("DOMContentLoaded", (event) => {
+      var ctx = document.getElementById("barChart");
+      var barChart = new Chart(ctx, bar_config);
+    });
+  </script>
+
+  <script>
+    const round_to = (n, d) =>
+      Math.round(n * Math.pow(10, d)) / Math.pow(10, d);
+
+    function tenths_place(value) {
+      return round_to(value % 10, 0);
+    }
+
+    function setup() {
+      return {
+        sales: [
+          {
+            manufacturer: "ACME Labs",
+            monthly_sales: 1200,
+            last_product_launch: "04/1/23",
+          },
+          {
+            manufacturer: "Bob's Outfitters",
+            monthly_sales: 2500,
+            last_product_launch: "04/25/23",
+          },
+          {
+            manufacturer: "Optics Planet",
+            monthly_sales: 30000,
+            last_product_launch: "05/11/22",
+          },
+          {
+            manufacturer: "TA Targets",
+            monthly_sales: 135.45,
+            last_product_launch: "04/1/23",
+          },
+          {
+            manufacturer: "Daniel Defense",
+            monthly_sales: 7000,
+            last_product_launch: "04/25/23",
+          },
+          {
+            manufacturer: "TNVC Night Vision",
+            monthly_sales: 80500,
+            last_product_launch: "05/11/22",
+          },
+        ],
+
+        get total_sales() {
+          let total = this.sales.reduce(
+            (partialSum, a) => partialSum + a.monthly_sales,
+            0.0
+          );
+
+          let decimals = tenths_place(total) - 2;
+          let rounded_total = round_to(total, decimals);
+          //   console.log("decimals :>> ", decimals);
+          //   console.log("rounded_total :>> ", rounded_total);
+          return `$${rounded_total}`;
+        },
+        options: {
+          keep_history: true,
+          subs: ["One", "Sec", "Tri"],
+        },
+      };
+    }
+  </script>
+</html>
