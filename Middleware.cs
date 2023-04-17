@@ -6,10 +6,13 @@ public static class AirtableConfigurations {
     public static void ConfigureAirtable(this IServiceCollection services)
     {
         string PAT = Environment.GetEnvironmentVariable("NUGS_PAT");
-        string tpot_base_key = Environment.GetEnvironmentVariable("NUGS_BASE_KEY");
+        string base_key = Environment.GetEnvironmentVariable("NUGS_BASE_KEY");
+        if(string.IsNullOrEmpty(PAT) || string.IsNullOrEmpty(base_key))
+            return;
+
         services.AddHttpClient<IAirtableRepo, AirtableRepo>(client => {
             client.BaseAddress = new Uri($"https://api.airtable.com/v0/{PAT}");
-            return new AirtableRepo(client, tpot_base_key, PAT);
+            return new AirtableRepo(client, base_key, PAT);
         });
     }
 }
@@ -27,6 +30,8 @@ public static class Neo4jConfigurations {
 
         services.AddControllers();
         services.ConfigureAirtable();
+        if(string.IsNullOrEmpty(uri))
+            return;
 
         services.AddSingleton(GraphDatabase.Driver(
             uri

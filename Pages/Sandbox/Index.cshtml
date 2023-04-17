@@ -5,18 +5,27 @@
   // C# vars go here!
 }
 
-<div x-data='setup()' >
+<div class='flex' x-data='setup()' >
 
-    <h1 class='glowing text-8xl' x-text='title'></h1>
+    <div class='grid grid-cols-3 grid-flow-col gap-4'>
+        <partial name="_StatsCard" />
+        <partial name="_StatsCard" />
+        <partial name="_StatsCard" />
+        <partial name="_StatsCard" />
+        <partial name="_StatsCard" />
 
-    <div class="card p-5 mb-4 text-ocean-500">
+    </div>
+
+    <h1 x-show='false' class='glowing text-3xl' x-text='title'></h1>
+
+    <div x-show='false' class="card p-5 mb-4 text-ocean-500">
         <div class="d-flex justify-content-between">
 
             <button>Search Airtable Base</button>
 
             <button
                 class='btn-active btn'
-                hx-get='@Url.Page("","RecommendedNugs")'
+                hx-get='@Url.Page("Index","RecommendedRifles")'
                 hx-target="#recommendations"
                 >Get Nug Recommendations</button>
 

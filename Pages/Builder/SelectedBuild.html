@@ -248,12 +248,12 @@ C444.801,187.101,434.001,213.101,414.401,232.701z"
             { name: "Lower Reciever", price: 110 },
             { name: "B.A.D. Lever", price: 29.95 },
             { name: "FANG", price: 34.99 },
-            { name: "LMT 40mm", price: 3700.0 },
+            { name: "LMT 40mm", price: 3700.0, count: 1 },
             { name: "MP UBR II", price: 199.95 },
             { name: "Fostech Sabre Grip", price: 29.99 },
             { name: "Leo Takedown", price: 299.0 },
-            { name: "Law Tactical Folding Adapter", price: 250 },
-            { name: "Leo Takedown Plugs", price: 3 * 60 },
+            { name: "Law Tactical Folding Adapter", price: 250, count: 1 },
+            { name: "Leo Takedown Plugs", price: 60, count: 3 },
             { name: "Literally the Best Trigger Ever Made", price: 350 },
             { name: "Honey Badger Barrel", price: 425 },
             { name: "Honey Badger Barrel Nut", price: 50 },
@@ -261,9 +261,10 @@ C444.801,187.101,434.001,213.101,414.401,232.701z"
             { name: "Honey Badger Handguard", price: 225 },
             { name: "Larue Tactical Stealth Barrel 12 in.", price: 276 },
             { name: "V-Seven Magnesium Handguard, 10 in.", price: 339 },
-            { name: "SA Adjustable Gas Block", price: 99.0 * 2 },
-            { name: "Gas Tube", price: 10 * 2 },
-            { name: "Coda Evolution Handguard", price: 309 },
+            { name: "Riflespeed Gas Block", price: 250, count: 1 },
+            { name: "Gas Tube", price: 10, count: 1 },
+            { name: "Ryker CTRL Grip", price: 300, url:"https://rykerusa.com/collections/gear/products/ryker-ctrl?variant=40076174622766" },
+            { name: "Eotech OGL", url: "https://www.eotechinc.com/eotech-ogl", price: 2100 },
           ],
         },
         buttons: [
@@ -296,8 +297,9 @@ C444.801,187.101,434.001,213.101,414.401,232.701z"
         },
         get total_cost() {
           let result = this.build.parts.reduce((x, y) => {
-            // console.log("x :>> ", x);
-            return x + y.price;
+            const actual_count = (!!y.count || y.count === 0) ? y.count : 1;
+            console.log('actual_count :>> ', actual_count);
+            return x + y.price * actual_count;
           }, 10);
 
           // console.log(result);

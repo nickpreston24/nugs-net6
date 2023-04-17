@@ -50,7 +50,7 @@ public class IndexModel : HighSpeedPageModel
         return Content($"<b>round count{++count}</b>", "text/html");
     }
 
-    public async Task<IActionResult> OnGetRecommendedNugs()
+    public async Task<IActionResult> OnGetRecommendedRifles()
     {
         
         
@@ -72,6 +72,9 @@ public class IndexModel : HighSpeedPageModel
 
         // Reads the any file I tell it to as a query.
         query = await stream.ReadAllLinesFromStreamAsync();
+
+
+// run query
 
         // This can also be a template
         return Content(
