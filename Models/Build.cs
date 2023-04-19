@@ -16,7 +16,10 @@ namespace nugsnet6.Models
     public partial class Build
     {
         
+        public bool Is_Selected { get; set; } = false;
+
         public string Id { get; set; } = string.Empty;
+
 
         
         public DateTimeOffset CreatedTime { get; set; }
@@ -37,7 +40,7 @@ namespace nugsnet6.Models
         public Pic[] Pics { get; set; }
 
         
-        public double TotalCost { get; set; }
+        public double Total_Cost { get; set; }
 
         
         public double Weight { get; set; }

@@ -6,6 +6,7 @@
 
   var builds = Model/*.Dump("model contents")*/ ?? new List<Build>();
   var count = builds.Count;
+  //var taketwo = builds.Where(b=>b.Total_Cost > 0.0).Take(2).Select(b=>b.Total_Cost).Dump("first 2");
   //count.Dump("count");
   //builds.Dump("builds still here?");
 }
@@ -13,9 +14,8 @@
 @foreach (var build in @builds)
 {
     <tr>
-        <th class='text-white'>@build.Name</th>
-        <td class='text-primary'>@build.Id</td>
+        <th class='text-primary'>@build.Name</th>
+        <td class='text-accent'>$@build.Total_Cost.ToString()</td>
         <td class='text-secondary'>@build.Reasoning</td>
-        <td class='text-accent'>@build.TotalCost.ToString()</td>
     </tr>
 }
