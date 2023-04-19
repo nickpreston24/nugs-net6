@@ -19,6 +19,10 @@ public class IndexModel : HighSpeedPageModel
 
     // 'caches' the count value, almost like a reacitve variable, but on the server side...
     private static int count = 0;
+    private static AirtableSearch _search = new AirtableSearch();
+
+    private static List<Build> builds_found = new List<Build>();
+    public List<Build> BuildsFound => builds_found;
 
     public IndexModel(
         IEmbeddedResourceQuery embeddedResourceQuery
@@ -34,7 +38,35 @@ public class IndexModel : HighSpeedPageModel
         // reset on the page's refresh
         count = 0;
     }
-    
+
+    public async Task<IActionResult> OnGetSearchBuilds(string Name = "")
+    {  
+        Name.Dump("name searched");
+         var results = await airtable_repo
+         .SearchRecords<Build>(_search
+            .With(s=>
+            {   
+                s.table_name = "Builds";
+                s.maxRecords = 1000;
+                // s.pageSize = 20;
+                // s.offset = "30";
+                s.filterByFormula = $"(FIND(\"{Name}\", {{Name}}))";
+            })
+        );
+        builds_found = results;
+        // results.Dump("results raw");
+
+
+        return Partial("_BuildsTable", builds_found);
+        // return Content($"<p class='alert alert-primary text-white'>Buckaww!! {results.Count}</p>");
+    }
+
+    public async Task<IActionResult> OnPostFavoriteBuild()
+    {  
+        return Content("<p class='alert alert-primary text-white'>He's a chicken!</p>");
+
+    }
+
     public async Task<IActionResult> OnGetRecommendedBarrels()
     {       
         Console.WriteLine("@ Hello:>> ");

@@ -4,11 +4,12 @@ using System.Text.Json;
 using System.Linq;
 using System.Threading.Tasks;
 using AirtableApiClient;
-using CodeMechanic.Extensions;
 using RestSharp;
 using RestSharp.Authenticators;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
+
+using CodeMechanic.Extensions;
 using CodeMechanic.Airtable;
 
 using nugsnet6;
@@ -21,7 +22,10 @@ public class AirtableRepo : IAirtableRepo {
         protected string personal_access_token = string.Empty;
         private readonly HttpClient http_client;
         
-        public AirtableRepo(HttpClient client, string base_id = "", string personal_access_token = "") {
+        public AirtableRepo(HttpClient client
+            , string base_id = ""
+            , string personal_access_token = ""
+        ) {
             this.base_id = base_id;
             this.personal_access_token = personal_access_token;
             // this.api_key = api_key;  // DEPRECATED
@@ -35,7 +39,7 @@ public class AirtableRepo : IAirtableRepo {
 
         public async Task<List<T>> SearchRecords<T> (AirtableSearch search)
         { 
-             var (
+            var (
                 table_name, 
                 offset,
                 fields, 

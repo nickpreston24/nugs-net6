@@ -5,6 +5,7 @@
         <span class="label-text">Search the entire site</span>
         <span class="label-text-alt" x-text='foo'></span>
     </label>
+    <!-- hx-get='@@Url.Page("Loadouts/Index", "SearchLoadouts")' -->
         <input 
             type="text"
             name="Name"
@@ -31,6 +32,9 @@
 
 @code {
     public string Term { get; set; } = "Jon";
+
+    //[Parameter]
+    //public string TableName { get; set; } = "Loadouts";
 
     protected async Task Toggle()
     {

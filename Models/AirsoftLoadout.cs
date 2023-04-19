@@ -12,3 +12,4 @@ public class AirsoftLoadout
 
     public string URL { get; set; } = string.Empty;
 }
+
