@@ -6,11 +6,14 @@
     <RootNamespace>nugsnet6</RootNamespace>
     <InvariantGlobalization>true</InvariantGlobalization>
     <LangVersion>latest</LangVersion>
+    <NoWarn>
+      CS0414;CS8602;CS1998;CS0168;CS8605;CS8603;CS8625;CS8604;CS8600;CS8601;CS8620;CS8618;CS4014;CS8619;CS8765;CS0105;CS8767;CS0659;CS8619;</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
     <!-- The following should embed every query file into the assembly
-    Credit: https://stackoverflow.com/questions/69258345/add-all-files-in-folder-including-sub-dir-as-embedded-resource
+    Credit:
+    https://stackoverflow.com/questions/69258345/add-all-files-in-folder-including-sub-dir-as-embedded-resource
     -->
     <EmbeddedResource Include="Pages\**\*.cypher"></EmbeddedResource>
     <EmbeddedResource Include="Pages\**\*.sql"></EmbeddedResource>
