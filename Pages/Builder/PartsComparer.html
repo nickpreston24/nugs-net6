@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html data-theme="halloween" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@2.50.0/dist/full.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <script src="https://unpkg.com/htmx.org@1.8.5"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <title>Compare Up to 3 Builds</title>
+  </head>
+  <body>
+    <div x-data="setup()" class="flex flex-col items-center justify-center">
+      <section
+        id="compare_builds"
+        class="border-4 hero min-h-screen bg-base-200"
+      >
+        <div class="hero-content flex-col lg:flex-row-reverse">
+          <div class="flex items-center justify-between">
+            <h1>Compare Builds Side-By-Side</h1>
+
+            <div class="flex justify-evenly gap-2">
+              <a href="" rel="noopener noreferrer" target="_blank">
+                <!-- Share on Facebook -->
+                <span>FB</span>
+              </a>
+              <a href="" rel="noopener noreferrer" target="_blank">
+                <!-- Share on Twitter -->
+                <span>TW</span>
+              </a>
+              <a
+                href="mailto:?subject=I'm comparing these builds, which one should I buy?&amp;body=I've been using the Lock-N-Loadout Build Compare tool to help find the build that's best for me. Which one do you think would be the best to buy?"
+              >
+                <!-- Connect through email -->
+                <span>EM</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+  <script>
+    function setup() {
+      return {
+        // message: "Have a Potato Day! 🥔 ",
+      };
+    }
+  </script>
+</html>

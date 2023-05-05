@@ -8,5 +8,5 @@ using System.Text.Json.Serialization;
 using nugsnet6;
 
 public interface IAirtableRepo {
-       Task<List<T>> SearchRecords<T>(AirtableSearch search);
+       Task<List<T>> SearchRecords<T>(AirtableSearch search, bool debug = false);
 }

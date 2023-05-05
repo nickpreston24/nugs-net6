@@ -37,7 +37,9 @@ public class AirtableRepo : IAirtableRepo {
             this.http_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", personal_access_token);
         }
 
-        public async Task<List<T>> SearchRecords<T> (AirtableSearch search)
+        public async Task<List<T>> SearchRecords<T> (
+            AirtableSearch search
+            , bool debug = false)
         { 
             var (
                 table_name, 
@@ -65,6 +67,8 @@ public class AirtableRepo : IAirtableRepo {
                     })
                     .AsQuery()
                 );
+            if(debug)
+                response.Dump("raw response");
 
             response.EnsureSuccessStatusCode();
 

@@ -13,7 +13,7 @@ namespace nugsnet6.Models
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
 
-    public partial class Build
+    public class Build
     {
         
         public bool Is_Selected { get; set; } = false;
@@ -58,7 +58,7 @@ namespace nugsnet6.Models
         public LastModifiedBy LastModifiedBy { get; set; }
     }
 
-    public partial class LastModifiedBy
+    public class LastModifiedBy
     {
         
         public string Id { get; set; } = string.Empty;
@@ -70,7 +70,7 @@ namespace nugsnet6.Models
         public string Name { get; set; } = string.Empty;
     }
 
-    public partial class Pic
+    public class Pic
     {
         
         public string Id { get; set; } = string.Empty;
@@ -97,7 +97,7 @@ namespace nugsnet6.Models
         public Thumbnails Thumbnails { get; set; }
     }
 
-    public partial class Thumbnails
+    public class Thumbnails
     {
         
         public Full Small { get; set; }
@@ -109,7 +109,7 @@ namespace nugsnet6.Models
         public Full Full { get; set; }
     }
 
-    public partial class Full
+    public class Full
     {
         
         public Uri Url { get; set; }
@@ -120,26 +120,4 @@ namespace nugsnet6.Models
         
         public long Height { get; set; }
     }
-
-    // public partial class Build
-    // {
-    //     public static Build FromJson(string json) => JsonConvert.DeserializeObject<Build>(json, nugsnet6.Models.Builds.Converter.Settings);
-    // }
-
-    // public static class Serialize
-    // {
-    //     public static string ToJson(this Build self) => JsonConvert.SerializeObject(self, nugsnet6.Models.Builds.Converter.Settings);
-    // }
-
-    // public static class Converter
-    // {
-    //     public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
-    //     {
-    //         MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
-    //         DateParseHandling = DateParseHandling.None,
-    //         Converters = {
-    //             new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
-    //         },
-    //     };
-    // }
 }

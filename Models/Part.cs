@@ -4,120 +4,84 @@
 //
 //   "Set quicktype target language"
 
-namespace nugsnet6.Models
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace nugsnet6.Models;
+
+public class Part
 {
-    using System;
-    using System.Collections.Generic;
+    public string Id { get; set; } = string.Empty;
+    public DateTime createdTime { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Kind { get; set; } = string.Empty;
+    public string Type { get; set; } = string.Empty;
+    public string Notes { get; set; } = string.Empty;
+    public string ProductCode { get; set; } = string.Empty;
 
-    using System.Globalization;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
+    public double Cost { get; set; }
+    public double WeightInOz { get; set; }
+    // public Attachment[] Attachments { get; set; }
+    public Uri Url { get; set; }
+    public long ComboCost { get; set; }
+    public User CreatedBy { get; set; }
+    public DateTimeOffset Created { get; set; }
+    public User LastModifiedBy { get; set; }
+    public DateTimeOffset LastModified { get; set; }
+}
 
-    public class Part
-    {
-        
-        public string Id { get; set; } = string.Empty;
-
-        
-        public DateTime createdTime { get; set; }
-
-        
-        public string Name { get; set; } = string.Empty;
-
-        
-        // public Attachment[] Attachments { get; set; }
-
-        
-        public Uri Url { get; set; }
-
-        
-        public long ComboCost { get; set; }
-
-        
-        public User CreatedBy { get; set; }
-
-        
-        public DateTimeOffset Created { get; set; }
-
-        
-        public User LastModifiedBy { get; set; }
-
-        
-        public DateTimeOffset LastModified { get; set; }
-    }
-
-    // public partial class Attachment
-    // {
-    //     
-    //     public string Id { get; set; } = string.Empty;
-
-    //     
-    //     public long Width { get; set; }
-
-    //     
-    //     public long Height { get; set; }
-
-    //     
-    //     public Uri Url { get; set; }
-
-    //     
-    //     public string Filename { get; set; } = string.Empty;
-
-    //     
-    //     public long Size { get; set; }
-
-    //     
-    //     public string Type { get; set; } = string.Empty;
-
-    //     
-    //     public Thumbnails Thumbnails { get; set; }
-    // }
-
-    // public partial class Thumbnails
-    // {
-    //     
-    //     public Full Small { get; set; }
-
-    //     
-    //     public Full Large { get; set; }
-
-    //     
-    //     public Full Full { get; set; }
-    // }
-
-    // public partial class Full
-    // {
-    //     
-    //     public Uri Url { get; set; }
-
-    //     
-    //     public long Width { get; set; }
-
-    //     
-    //     public long Height { get; set; }
-    // }
+// public class Attachment
+// {
+    
+//     public string Id { get; set; } = string.Empty;
 
     
+//     public long Width { get; set; }
 
-    // public partial class Part
-    // {
-    //     public static Part FromJson(string json) => JsonConvert.DeserializeObject<Part>(json, nugsnet6.Models.Parts.Converter.Settings);
-    // }
+    
+//     public long Height { get; set; }
 
-    // public static class Serialize
-    // {
-    //     public static string ToJson(this Part self) => JsonConvert.SerializeObject(self, nugsnet6.Models.Parts.Converter.Settings);
-    // }
+    
+//     public Uri Url { get; set; }
 
-    // public static class Converter
-    // {
-    //     public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
-    //     {
-    //         MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
-    //         DateParseHandling = DateParseHandling.None,
-    //         Converters = {
-    //             new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
-    //         },
-    //     };
-    // }
-}
+    
+//     public string Filename { get; set; } = string.Empty;
+
+    
+//     public long Size { get; set; }
+
+    
+//     public string Type { get; set; } = string.Empty;
+    
+//     public Thumbnails Thumbnails { get; set; }
+// }
+
+// public class Thumbnails
+// {
+    
+//     public Full Small { get; set; }
+
+    
+//     public Full Large { get; set; }
+
+    
+//     public Full Full { get; set; }
+// }
+
+// public  class Full
+// {
+    
+//     public Uri Url { get; set; }
+
+    
+//     public long Width { get; set; }
+
+    
+//     public long Height { get; set; }
+// }
+
+
+

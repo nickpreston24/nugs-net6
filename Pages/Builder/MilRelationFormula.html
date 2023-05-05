@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html data-theme="forest" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@2.50.0/dist/full.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <script src="https://unpkg.com/htmx.org@1.8.5"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <title>Mil Relation Formula</title>
+  </head>
+  <body
+    class="text-3xl flex flex-col items-center justify-center"
+  >
+    <!-- 
+    Inspiration:
+    http://8541tactical.com/range_estimation.php
+   -->
+    <div  
+    x-data="setup()"
+    
+    class="grid grid-cols-1 grid-rows-3 gap-2 m-4">
+      <div class="flex flex-1">
+        <label>Height in Mils</label>
+        <input type="text" name="height_in_mils" :value="height_in_mils" />
+      </div>
+
+      <div class="flex flex-1">
+        <label>Target Height (in.)</label>
+        <input
+          :value="target_height_inches"
+          type="text"
+          name="target_height_inches"
+        />
+      </div>
+
+      <div class="text-accent flex flex-row flex-1 gap-1">
+        <label>Result: </label>
+        <h2 x-text="range_to_target"></h2>
+        <p>yds</p>
+      </div>
+    </div>
+  </body>
+  <script>
+    function setup() {
+      return {
+        target_height_inches: 68.0,
+        height_in_mils: 1.0,
+        mil_constant: 27.77, // 25.4, according this: https://www.youtube.com/watch?v=SYE8q9dGvns at 4:51 timestamp.
+        get range_to_target() {
+          let result =
+            (1.0 * this.mil_constant * this.target_height_inches) /
+            this.height_in_mils;
+          console.log("result :>> ", result);
+          return result;
+        },
+      };
+    }
+  </script>
+</html>

@@ -1,23 +1,7 @@
-using nugsnet6;
+using System.Text;
 using CodeMechanic.Extensions;
-
 using AirtableApiClient;
-
-// public record AirtableSearch(
-
-//     string table_name, 
-//     string offset, 
-//     List<string> fields, 
-//     string filterByFormula, 
-//     int maxRecords, 
-//     int pageSize, 
-//     List<Sort> sort, 
-//     string view, 
-//     string cellFormat, 
-//     string timeZone, 
-//     string userLocale, 
-//     bool returnFieldsByFieldId 
-// );
+namespace nugsnet6;
 
 public class AirtableSearch 
 {
@@ -67,16 +51,21 @@ public class AirtableSearch
 
     public string AsQuery() 
     {
-        string query = $"https://api.airtable.com/v0/{base_id}/{table_name}?maxRecords={maxRecords}&filterByFormula={filterByFormula}"
-        .Dump("generated query");
-        return query;
-        
+        // string query = $"https://api.airtable.com/v0/{base_id}/{table_name}?maxRecords={maxRecords}&filterByFormula={filterByFormula}"
 
+        string query = 
+            new StringBuilder($"https://api.airtable.com/v0/{base_id}/{table_name}?")
+            .AppendEach(
+                new string [] { 
+                    table_name
+                    , filterByFormula
+                    , maxRecords.ToString()
+                }
+                , _=> string.Empty)
+            .ToString()
+            .Trim()
+            .Dump("generated query");
+
+        return query;
     }
 }
-
-// public static class AirtableExtensions {
-
-
-   
-// }

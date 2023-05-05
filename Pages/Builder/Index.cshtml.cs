@@ -20,7 +20,8 @@ public class IndexModel : HighSpeedPageModel
     private static string table_name = "Builds";
     private static AirtableSearch _search = new AirtableSearch();
     private static List<Build> builds_found = new List<Build>();
-    public List<Build> BuildsFound => builds_found;
+
+    private static List<Part> parts_found = new List<Part>();
 
     public IndexModel(
         IEmbeddedResourceQuery embeddedResourceQuery
@@ -37,27 +38,61 @@ public class IndexModel : HighSpeedPageModel
 
     public void OnPatchSetTableName(string next_table_name = "Loadouts") => table_name = next_table_name;
 
+
+    public async Task<IActionResult> OnGetSearchParts(string Name = "")
+    {
+        parts_found = await airtable_repo
+         .SearchRecords<Part>(_search
+            .With(s=>
+            {   
+                s.table_name = "Parts";
+                s.maxRecords = 3;
+                s.filterByFormula = $"(FIND(\"{Name}\", {{Name}}))";
+            })
+            , debug: true
+        );
+
+        string html = new StringBuilder()
+            .AppendEach(
+                parts_found, part => 
+        $"""
+            <tr>
+                <th>
+                    <label>
+                        <input type="checkbox" class="checkbox" />
+                    </label>
+                </th>
+                <th class='text-primary'>{part.Name}</th>
+                <td class='text-secondary'>{part.Kind}</td>
+                <td class='text-secondary'>{part.Type}</td>
+                <td class='text-secondary'>{part.WeightInOz}</td>
+                <td class='text-secondary'>{part.ProductCode}</td>
+                <td class='text-accent'>${part.Cost.ToString()}</td>
+                <td class='text-secondary'>{part.Notes}</td>
+            </tr>
+        """).ToString();
+        return Content(html);
+    }
+
     public async Task<IActionResult> OnGetSearchBuilds(string Name = "")
     {  
-        Name.Dump("name searched");
-        // Pop.Dump("Pop?");
-        table_name.Dump("new table name");
-
         builds_found = await airtable_repo
          .SearchRecords<Build>(_search
             .With(s=>
             {   
                 s.table_name = "Builds";
-                s.maxRecords = 100;
+                s.maxRecords = 3;
                 // s.pageSize = 20;
                 // s.offset = "30";
                 s.filterByFormula = $"(FIND(\"{Name}\", {{Name}}))";
             })
+            , debug: true
         );
 
         string html = new StringBuilder()
             .AppendEach(
-                builds_found, build => 
+                builds_found, 
+                build => 
         $"""
             <tr>
                 <th>
@@ -82,9 +117,6 @@ public class IndexModel : HighSpeedPageModel
 
     public async Task<IActionResult> OnGetRecommendedBarrels()
     {       
-        Console.WriteLine("@ Hello:>> ");
-        Debug.WriteLine("@ Hello:>> ");
-        
         var failure = Content(
             $"<div class='alert alert-error'><p class='text-xl text-warning text-sh'>An Error Occurred...  But fret not! Our team of intelligent lab mice are on the job!</p></div>");
 

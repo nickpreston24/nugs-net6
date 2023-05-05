@@ -25,18 +25,29 @@ public class RecordList<T>
         /// https://www.newtonsoft.com/json/help/html/SerializingJSONFragments.htm
 
         JObject search = JObject.Parse(json);
-        // search.Dump("Jobject");
+        search.Dump("Jobject");
 
         // get JSON result objects into a list
         IList<JToken> results = search["records"]
-            .Children()/*.Dump("children")*/["fields"]
-            /*.Dump("fields children")*/
+            .Children()
+            // .Dump("children")
+            ["fields"]
+            // .Dump("fields children")
             .ToList();
   
+
+        // IList<JToken> results = search//["fields"]
+        //     .Dump("fields")
+        //     .Children()
+        //     // ["fields"]
+        //     // .ToList()
+        //     ;
+
         // serialize JSON results into .NET objects
         IList<T> records = new List<T>();
         foreach (JToken result in results)
         {
+            // result.Dump("result");
             // JToken.ToObject is a helper method that uses JsonSerializer internally
             T instance = result.ToObject<T>();
             this.records.Add(instance);

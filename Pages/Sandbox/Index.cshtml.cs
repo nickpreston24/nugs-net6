@@ -12,12 +12,12 @@ using CodeMechanic.Extensions;
 using CodeMechanic.RazorPages;
 using Neo4j.Driver;
 
+using rider_bytesafe_nuget_attempt;
+
 namespace nugsnet6.Pages.Sandbox;
 
 public class IndexModel : HighSpeedPageModel
 {
-
-    private static int count = 0;
 
     public IndexModel(
         IEmbeddedResourceQuery embeddedResourceQuery
@@ -28,32 +28,11 @@ public class IndexModel : HighSpeedPageModel
 
     public void OnGet()
     {
-        // reset on refresh
-        count = 0;
-    }
-
-    public IActionResult OnPostIncrement()
-    {
-        Console.WriteLine("Post!");
-        return Content($"<span>{++count}</span>", "text/html");
-    }
-
-    public IActionResult OnGetStuff()
-    {
-        return Content($"<b>Stuff for u!<br/> One lump, or 2?</b>");
-    }
-
-    public IActionResult OnPostIncrementBullets()
-    {
-        Console.WriteLine("Gotcha!");
-        Debug.WriteLine("Gotcha!");
-        return Content($"<b>round count{++count}</b>", "text/html");
+        new PurpleElephant().Dump("elephante gigantico");
     }
 
     public async Task<IActionResult> OnGetRecommendedRifles()
     {
-        
-        
         var failure = Content(
             $"<div class='alert alert-error'><p class='text-xl text-warning text-sh'>An Error Occurred...  But fret not! Our team of intelligent lab mice are on the job!</p></div>");
 
