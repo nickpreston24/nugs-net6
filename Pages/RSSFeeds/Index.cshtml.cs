@@ -12,9 +12,11 @@ using System.Xml;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using CodeMechanic.Extensions;
-using CodeMechanic.RazorPages;
+using CodeMechanic.RazorHAT;
 using Neo4j.Driver;
 using nugsnet6.Models;
+
+using CodeMechanic.Embeds;
 
 namespace nugsnet6.Pages.RSSFeeds;
 

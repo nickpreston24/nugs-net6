@@ -9,10 +9,9 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using CodeMechanic.Extensions;
-using CodeMechanic.RazorPages;
+using CodeMechanic.RazorHAT;
+using CodeMechanic.Embeds;
 using Neo4j.Driver;
-
-using rider_bytesafe_nuget_attempt;
 
 namespace nugsnet6.Pages.Sandbox;
 
@@ -28,7 +27,6 @@ public class IndexModel : HighSpeedPageModel
 
     public void OnGet()
     {
-        new PurpleElephant().Dump("elephante gigantico");
     }
 
     public async Task<IActionResult> OnGetRecommendedRifles()

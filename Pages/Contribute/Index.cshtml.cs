@@ -8,6 +8,7 @@ using System.Linq;
 using CodeMechanic.Extensions;
 
 
+using CodeMechanic.Embeds;
 namespace nugsnet6.Pages.Contribute;
 
 public class IndexModel : PageModel
