@@ -1,7 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 // using Chart.Js;
-using nugsnet6.Models;
 
 namespace nugsnet6.Pages.Rounds
 {

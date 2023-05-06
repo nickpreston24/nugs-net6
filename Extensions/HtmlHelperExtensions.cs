@@ -1,10 +1,9 @@
-using System;
-using System.Linq;
 using System.Text.Encodings.Web;
-using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Rendering;
+
+using System.Text.RegularExpressions;
 
 // using nugsnet6;
 namespace CodeMechanic.Advanced.Extensions;
@@ -23,7 +22,7 @@ public static class HtmlHelperExtensions
     public static IHtmlContent RenderPartialSectionScripts(this IHtmlHelper htmlHelper)
     {
         var partialSectionScripts = htmlHelper.ViewContext.HttpContext.Items.Keys
-            .Where(k => Regex.IsMatch(
+            .Where(k => System.Text.RegularExpressions.Regex.IsMatch(
                 k.ToString(),
                 "^" + _partialViewScriptItemPrefix + "([0-9A-Fa-f]{8}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{12})$"));
         var contentBuilder = new HtmlContentBuilder();

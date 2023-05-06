@@ -4,12 +4,6 @@
 //
 //   "Set quicktype target language"
 
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-
 namespace nugsnet6.Models;
 
 public class Part

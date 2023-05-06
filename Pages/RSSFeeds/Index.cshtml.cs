@@ -1,21 +1,10 @@
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.ServiceModel.Syndication;
 using System.Xml;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using CodeMechanic.Extensions;
 using CodeMechanic.RazorHAT;
 using Neo4j.Driver;
-using nugsnet6.Models;
-
 using CodeMechanic.Embeds;
 
 namespace nugsnet6.Pages.RSSFeeds;

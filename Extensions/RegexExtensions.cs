@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-using CodeMechanic.Advanced.Extensions;
 using CodeMechanic.Extensions;
 
 namespace CodeMechanic.Advanced.Extensions
@@ -17,9 +12,6 @@ namespace CodeMechanic.Advanced.Extensions
     {
         private static readonly IDictionary<Type, ICollection<PropertyInfo>> _propertyCache =
                    new Dictionary<Type, ICollection<PropertyInfo>>();
-
-
-
 
         /// <summary>
         /// Takes a dictionary full of Regex patterns (or words) and swaps those values with whatever you set as the .Value.
@@ -57,7 +49,7 @@ namespace CodeMechanic.Advanced.Extensions
                 {
                     // Sometimes in JSON \ have to be represented in unicode.  This reverts it.
                     string fixedKey = next.Key.Replace("%5C", @"\").Replace(@"\\", @"\");
-                    string fixedValue = Regex.Replace(next.Value, @"\""", "'");
+                    string fixedValue = System.Text.RegularExpressions.Regex.Replace(next.Value, @"\""", "'");
 
                     modified.Add(fixedKey, fixedValue);
                     return modified;
@@ -71,7 +63,7 @@ namespace CodeMechanic.Advanced.Extensions
                 string modified = line;
                 foreach (KeyValuePair<string, string> replacement in map)
                 {
-                    modified = Regex.Replace(
+                    modified = System.Text.RegularExpressions.Regex.Replace(
                         modified,
                         replacement.Key,
                         replacement.Value,
@@ -278,7 +270,7 @@ namespace CodeMechanic.Advanced.Extensions
                     | RegexOptions.Singleline
                     | RegexOptions.IgnorePatternWhitespace;
 
-            var regex = new Regex(regex_pattern, options, TimeSpan.FromMilliseconds(250));
+            var regex = new System.Text.RegularExpressions.Regex(regex_pattern, options, TimeSpan.FromMilliseconds(250));
 
             var matches = regex.Matches(text).Cast<Match>();
 

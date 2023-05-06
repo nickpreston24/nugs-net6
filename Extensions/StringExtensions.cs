@@ -1,7 +1,4 @@
-using System;
 using System.Globalization;
-using System.Text;
-using System.Text.RegularExpressions;
 
 namespace CodeMechanic.Extensions;
 
@@ -308,7 +305,7 @@ public static class StringExtensions
 
         // From: https://stackoverflow.com/questions/3479434/sanitizing-sql-data
         // it escapes \r, \n, \x00, \x1a, baskslash, single quotes, and double quotes
-        return Regex.Replace(input_text ?? string.Empty, @"[\r\n\x00\x1a\\'""]", @"\$0");
+        return System.Text.RegularExpressions.Regex.Replace(input_text ?? string.Empty, @"[\r\n\x00\x1a\\'""]", @"\$0");
     }
 
     public static string ToFormat(this string text, params object[] args) =>
@@ -347,7 +344,7 @@ public static class StringExtensions
 
     public static string RemoveNonAlphanumeric(this string value)
     {
-        var next = Regex.Replace(value, non_alphas_or_digits, "");
+        var next = System.Text.RegularExpressions.Regex.Replace(value, non_alphas_or_digits, "");
         return next;
     }
 

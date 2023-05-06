@@ -1,7 +1,3 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
-using System.Net;
 using System.Diagnostics;
 using CodeMechanic.Models;
 

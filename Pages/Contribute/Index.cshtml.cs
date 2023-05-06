@@ -1,13 +1,4 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using CodeMechanic.Extensions;
-
-
 using CodeMechanic.Embeds;
 namespace nugsnet6.Pages.Contribute;
 

@@ -1,6 +1,5 @@
 using nugsnet6;
 using CodeMechanic.Extensions;
-using Neo4j.Driver;
 using CodeMechanic.Embeds;
 
 var builder = WebApplication.CreateBuilder(args);
