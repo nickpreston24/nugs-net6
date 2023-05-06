@@ -23,15 +23,18 @@
     <PackageReference Include="Airtable" Version="1.3.0" />
     <PackageReference Include="CodeMechanic.Diagnostics" Version="1.0.1" />
     <PackageReference Include="CodeMechanic.Embeds" Version="1.0.0" />
+    <PackageReference Include="CodeMechanic.FileSystem" Version="1.0.3" />
     <PackageReference Include="CodeMechanic.RazorHAT" Version="1.0.0" />
-    <PackageReference Include="CodeMechanic.Types" Version="1.0.1" />
-    <PackageReference Include="ElectronNET.API" Version="23.6.1" />
+    <PackageReference Include="CodeMechanic.Reflection" Version="1.0.3" />
+    <PackageReference Include="CodeMechanic.Regex" Version="1.0.0" />
+    <PackageReference Include="CodeMechanic.Types" Version="1.0.6" />
+    <PackageReference Include="ElectronNET.API" Version="23.6.2-alpha-13" />
     <PackageReference Include="Htmx" Version="1.0.1" />
     <PackageReference Include="Htmx.TagHelpers" Version="1.0.1" />
     <PackageReference Include="Insight.Database" Version="6.3.11" />
     <PackageReference Include="Neo4j.Driver" Version="5.8.0" />
-    <PackageReference Include="RestSharp" Version="110.2.0" />
-    <PackageReference Include="System.ServiceModel.Syndication" Version="7.0.0" />
+    <PackageReference Include="RestSharp" Version="110.2.1-alpha.0.2" />
+    <PackageReference Include="System.ServiceModel.Syndication" Version="8.0.0-preview.3.23174.8" />
   </ItemGroup>
 
 </Project> 
