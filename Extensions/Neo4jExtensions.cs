@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Text;
+using CodeMechanic.Diagnostics;
 using Neo4j.Driver;
 using Newtonsoft.Json;
 using CodeMechanic.Extensions;

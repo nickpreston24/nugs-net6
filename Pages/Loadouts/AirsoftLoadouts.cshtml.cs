@@ -3,6 +3,7 @@ using CodeMechanic.Extensions;
 using Neo4j.Driver;
 using CodeMechanic.Embeds;
 using CodeMechanic.RazorHAT;
+using CodeMechanic.Types;
 
 namespace nugsnet6.Pages.Loadouts
 {

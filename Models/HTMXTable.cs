@@ -11,6 +11,8 @@
 */
 using CodeMechanic.Extensions;
 using System.Text;
+using CodeMechanic.Types;
+
 namespace nugsnet6.Models;
 
 public class HTMXTable<T>

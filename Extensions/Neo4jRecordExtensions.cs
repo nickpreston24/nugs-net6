@@ -1,4 +1,7 @@
 using System.Reflection;
+using CodeMechanic.Diagnostics;
+using CodeMechanic.Reflection;
+using CodeMechanic.Types;
 using Neo4j.Driver;
 
 namespace CodeMechanic.Extensions;

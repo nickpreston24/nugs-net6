@@ -1,4 +1,6 @@
-﻿namespace CodeMechanic.Extensions
+﻿using CodeMechanic.Types;
+
+namespace CodeMechanic.Extensions
 {
     /// <summary>
     /// Credit:

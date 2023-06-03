@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using CodeMechanic.Diagnostics;
 using CodeMechanic.Extensions;
 using CodeMechanic.RazorHAT;
 using CodeMechanic.Embeds;

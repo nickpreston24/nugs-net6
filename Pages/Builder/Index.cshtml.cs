@@ -8,6 +8,8 @@ using nugsnet6.Models;
 
 
 using CodeMechanic.Embeds;
+using CodeMechanic.Types;
+
 namespace nugsnet6.Pages.Builder;
 
 public class IndexModel : HighSpeedPageModel

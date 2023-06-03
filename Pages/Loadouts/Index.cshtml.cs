@@ -1,3 +1,4 @@
+using CodeMechanic.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using CodeMechanic.Extensions;
 using Neo4j.Driver;
@@ -6,7 +7,7 @@ using nugsnet6.Models;
 
 using CodeMechanic.RazorHAT;
 using CodeMechanic.Embeds;
-
+using CodeMechanic.Types;
 
 
 namespace nugsnet6.Pages.Loadouts

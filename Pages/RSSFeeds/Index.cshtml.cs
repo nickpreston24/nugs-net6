@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.ServiceModel.Syndication;
 using System.Xml;
+using CodeMechanic.Diagnostics;
 using Newtonsoft.Json.Linq;
 using CodeMechanic.Extensions;
 using CodeMechanic.RazorHAT;
