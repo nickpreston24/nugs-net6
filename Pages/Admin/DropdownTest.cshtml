@@ -1,0 +1,20 @@
+@using nugsnet6.Experimental
+@using CodeMechanic.Types
+@using CodeMechanic.Diagnostics
+@model User
+
+@functions {
+
+}
+
+<label class="label w-100">nameof(Role)</label>
+
+@Html.DropDownListFor(user => user.Role,
+    new SelectList(
+        Role.GetAll<Role>()
+            .Dump("options 1")
+            .Select(x => x.Name)
+            .ToArray()
+            .Dump("options")
+        ,
+        "Select Role"))

@@ -5,76 +5,133 @@
 
 }
 
+<h3 class="text-pink-600"> Current Search: @Model.CurrentAirtableSearch.table_name </h3>
+
+<input
+    hx-get
+    hx-page-handler="SearchLoadouts"
+    asp-for="@Model.LoadoutSearch.Name"
+    
+    >
+    
+</input>
+<div class="card p-4">
+    @await Html.PartialAsync("_Tabs")
+</div>
+
+
+@* *@
+@* @section head *@
+@* { *@
+@*     <style> *@
+@*     .easeload{ *@
+@*         opacity: 0; *@
+@*         transition: all 1s ease; *@
+@*     } *@
+@*     </style> *@
+@* } *@
+
 <div class='flex flex-row border-2 border-secondary' x-data="setup()">
-  
-    <div class="hero min-h-screen bg-base-200">
-        <div class="hero-content flex-col lg:flex-row-reverse">
-            <div class="text-center lg:text-left">
-            <h1 class="text-5xl font-bold">Search For @Model.Title</h1>
 
-            <div x-show='false' class="grid grid-cols-3 gap-1 md:grid-cols-1">
-                <template x-for="[key, value] of Object.entries(options)">
-                    <label class="cursor-pointer label">
-                    <span x-text="key" class="label-text"></span>
 
-                    <input
-                        x-bind:checked="options[key]"
-                        x-on:change="options[key]=!options[key]"
-                        type="checkbox"
-                        class="toggle toggle-primary"
-                    />
-                    </label>
-                </template>
-            </div>
 
-            <div x-show='false' 
-                class="dropdown dropdown-left dropdown-end" 
-                x-model="selected_loadout">
-                <label tabindex="0" class="btn m-1">Loadouts</label>
-                <b class="btn m-1">
-                    current: 
-                    <span x-text="selected_loadout"></span>
-                </b>
+    @* <div class="tab-list"> *@
+    @*     <a hx-get="/tab1" class="selected">Tab 1</a> *@
+    @*     <a hx-get="/tab2">Tab 2</a> *@
+    @*     <a hx-get="/tab3">Tab 3</a> *@
+    @* </div> *@
 
-                <ul
-                tabindex="0"
-                class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
-                >
-                    <template x-for="loadout in loadouts" :key="loadout">
-                         <li x-on:change="current_loadout=loadout">
-                            <a x-text='loadout'></a>
-                        </li>
-                    </template>
-                </ul>
-            </div>
+    @* <div class="tab-content"> *@
+    @*     Commodo normcore truffaut VHS duis gluten-free keffiyeh iPhone taxidermy godard ramps anim pour-over. *@
+    @*     Pitchfork vegan mollit umami quinoa aute aliquip kinfolk eiusmod live-edge cardigan ipsum locavore. *@
+    @*     Polaroid duis occaecat narwhal small batch food truck. *@
+    @*     PBR&B venmo shaman small batch you probably haven't heard of them hot chicken readymade. *@
+    @*     Enim tousled cliche woke, typewriter single-origin coffee hella culpa. *@
+    @*     Art party readymade 90's, asymmetrical hell of fingerstache ipsum. *@
+    @* </div> *@
 
-            <div>
-                <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-                    <div class="card-body">
-                        <div class="form-control">
-                        <label class="label">
-                            <span class="label-text">Name</span>
-                        </label>
+    <template x-if="false">
 
-                        <div class='form-control'>
-                            <input 
-                                type="text"
-                                name="Name"
-                                id="search"
-                                autocomplete="off"
-                                hx-get='@Url.Page("Index", "SearchLoadouts")'
-                                hx-target="#search_results"
-                                hx-trigger="keyup changed delay:250ms"
-                                hx-indicator="#loading"
-                                placeholder="Search"
-                                aria-label="Name"
-                                aria-describedby="search-addon" />
+        <div class="hero min-h-screen bg-base-200">
+            <div class="hero-content">
+                <div class=" lg:text-left">
+                    <h1 class="text-5xl font-bold">Search For @Model.Title</h1>
 
-                            <div class="htmx-indicator" id='loading'>loading...</div>
+                    <div x-data="{ count: $persist(0).as('count-sample') }">
+                        <button x-on:click="count++">Increment</button>
+                        <span x-text="count"></span>
+                    </div>
+
+                    <div x-show='false' class="grid grid-cols-3 gap-1 md:grid-cols-1">
+                        <template x-for="[key, value] of Object.entries(options)">
+                            <label class="cursor-pointer label">
+                                <span x-text="key" class="label-text"></span>
+
+                                <input
+                                    x-bind:checked="options[key]"
+                                    x-on:change="options[key]=!options[key]"
+                                    type="checkbox"
+                                    class="toggle toggle-primary"/>
+                            </label>
+                        </template>
+                    </div>
+
+                    <div x-show='false'
+                         class="dropdown dropdown-left dropdown-end">
+                        <label tabindex="0" class="btn m-1">Loadouts</label>
+                        <b class="btn m-1">
+                            current:
+                            @* <span x-text="selected_loadout"></span> *@
+                        </b>
+
+                        <ul
+                            tabindex="0"
+                            class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                            <template
+                                x-if="false"
+                                x-for="loadout in loadouts" :key="loadout">
+                                <li x-on:change="current_loadout=loadout">
+                                    <a x-text='loadout'></a>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                            <div class="card-body">
+                                <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text">Name</span>
+                                    </label>
+
+                                    <div class='form-control'>
+                                        <input
+                                            type="text"
+                                            name="Name"
+                                            id="search"
+                                            autocomplete="off"
+                                            hx-get='@Url.Page("Index", "SearchLoadouts")'
+                                            hx-target="#search_results"
+                                            hx-trigger="keyup changed delay:250ms"
+                                            hx-indicator="#loading"
+                                            placeholder="Search"
+                                            aria-label="Name"
+                                            aria-describedby="search-addon"/>
+
+                                        <div class="htmx-indicator" id='loading'>loading...</div>
+
+                                    </div>
+
+                                    <div id="search_results">
+                                    </div>
+
+                                </div>
+                            </div>
 
                         </div>
 
-                        <div id="search_results">
+                        <div class='card shadow-2xl bg-base-100' id="search_results">
                         </div>
 
                     </div>
@@ -82,32 +139,23 @@
 
             </div>
 
-            <div class='card shadow-2xl bg-base-100' id="search_results">
-            </div> 
-
         </div>
-    </div>
+    </template>
 
 </div>
 
-</div>
-</div>
-    
-    <script>
-    document.getElementById("search").addEventListener("submit", function(event){
+<script>
+    document.getElementById("search")
+            .addEventListener("submit", function(event){
         event.preventDefault()
     });
+    
     function setup() {
+        
         return {
-            selected_loadout: "Medic",
-            loadouts: [
-                "Sniper",
-                "Heavy",
-                "Spy"
-            ],
-            options: {
-                keep_history: true
-            }
+            message: ''
+            , options: {}
+            , loadouts: [] // blank for now, might not use it
         }
     }
 </script>

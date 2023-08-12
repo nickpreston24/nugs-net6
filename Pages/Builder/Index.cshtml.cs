@@ -1,16 +1,15 @@
-using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using CodeMechanic.Extensions;
-using CodeMechanic.RazorHAT;
 using System.Text;
-using Neo4j.Driver;
-using nugsnet6.Models;
-
-
 using CodeMechanic.Embeds;
+using CodeMechanic.FileSystem;
+using CodeMechanic.RazorHAT;
 using CodeMechanic.Types;
+using Microsoft.AspNetCore.Mvc;
+using Neo4j.Driver;
+using nugsnet6.Experimental;
+using nugsnet6.Extensions;
 
-namespace nugsnet6.Pages.Builder;
+namespace nugsnet6;
 
 public class IndexModel : HighSpeedPageModel
 {
@@ -24,7 +23,7 @@ public class IndexModel : HighSpeedPageModel
         IEmbeddedResourceQuery embeddedResourceQuery
         , IDriver driver
         , IAirtableRepo repo
-    ) 
+    )
         : base(embeddedResourceQuery, driver, repo)
     {
     }
@@ -36,23 +35,31 @@ public class IndexModel : HighSpeedPageModel
     public void OnPatchSetTableName(string next_table_name = "Loadouts") => table_name = next_table_name;
 
 
+    public IActionResult OnPatchPatchPart([FromForm] Part request)
+    {
+        return Content(
+            $"<div class='alert alert-primary'>Updated part as {request.Name}!</div>",
+            "text/html"
+        );
+    }
+
     public async Task<IActionResult> OnGetSearchParts(string Name = "")
     {
         parts_found = await airtable_repo
-         .SearchRecords<Part>(_search
-            .With(s=>
-            {   
-                s.table_name = "Parts";
-                s.maxRecords = 3;
-                s.filterByFormula = $"(FIND(\"{Name}\", {{Name}}))";
-            })
-            , debug: true
-        );
+            .SearchRecords<Part>(_search
+                    .With(s =>
+                    {
+                        s.table_name = "Parts";
+                        s.maxRecords = 3;
+                        s.filterByFormula = $"(FIND(\"{Name}\", {{Name}}))";
+                    })
+                , debug: true
+            );
 
         string html = new StringBuilder()
             .AppendEach(
-                parts_found, part => 
-        $"""
+                parts_found, part =>
+                    $"""
             <tr>
                 <th>
                     <label>
@@ -72,25 +79,25 @@ public class IndexModel : HighSpeedPageModel
     }
 
     public async Task<IActionResult> OnGetSearchBuilds(string Name = "")
-    {  
+    {
         builds_found = await airtable_repo
-         .SearchRecords<Build>(_search
-            .With(s=>
-            {   
-                s.table_name = "Builds";
-                s.maxRecords = 3;
-                // s.pageSize = 20;
-                // s.offset = "30";
-                s.filterByFormula = $"(FIND(\"{Name}\", {{Name}}))";
-            })
-            , debug: true
-        );
+            .SearchRecords<Build>(_search
+                    .With(s =>
+                    {
+                        s.table_name = "Builds";
+                        s.maxRecords = 3;
+                        // s.pageSize = 20;
+                        // s.offset = "30";
+                        s.filterByFormula = $"(FIND(\"{Name}\", {{Name}}))";
+                    })
+                , debug: true
+            );
 
         string html = new StringBuilder()
             .AppendEach(
-                builds_found, 
-                build => 
-        $"""
+                builds_found,
+                build =>
+                    $"""
             <tr>
                 <th>
                     <label>
@@ -107,27 +114,26 @@ public class IndexModel : HighSpeedPageModel
     }
 
     public async Task<IActionResult> OnPostFavoriteBuild()
-    {  
+    {
         return Content("<p class='alert alert-primary text-accent'>He's a chicken!</p>");
-
     }
 
     public async Task<IActionResult> OnGetRecommendedBarrels()
-    {       
+    {
         var failure = Content(
             $"<div class='alert alert-error'><p class='text-xl text-warning text-sh'>An Error Occurred...  But fret not! Our team of intelligent lab mice are on the job!</p></div>");
 
         string query = "...";
 
         string resource = new StackTrace().GetCurrentResourcePath();
-        if(embeddedResourceQuery == null) 
+        if (embeddedResourceQuery == null)
             return failure;
 
         await using Stream stream = embeddedResourceQuery.Read<IndexModel>(resource);
 
         query = await stream.ReadAllLinesFromStreamAsync();
 
-        var records = await SearchNeo4J<Build>(query, new {});
+        var records = await SearchNeo4J<Build>(query, new { });
 
         return Content("""
             <div class='alert alert-success shadow-lg'>
@@ -137,5 +143,3 @@ public class IndexModel : HighSpeedPageModel
     }
 
 }
-
-

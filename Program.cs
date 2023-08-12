@@ -1,7 +1,7 @@
-using nugsnet6;
-using CodeMechanic.Extensions;
 using CodeMechanic.Embeds;
 using CodeMechanic.Types;
+using nugsnet6;
+using TPOT_Links.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,11 +11,11 @@ DotEnv.Load();
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddTransient<IEmbeddedResourceQuery, EmbeddedResourceQuery>();
-// builder.UseElectron(args);
+builder.Services.AddScoped<IPartService, PartService>();
 
 
 bool devmode = Environment.GetEnvironmentVariable("DEVMODE").ToBoolean();
-bool use_blazor = true;
+bool use_blazor = false;
 
 builder.Services.ConfigureAirtable();
 builder.Services.ConfigureNeo4j();
@@ -38,7 +38,6 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-use_blazor = false;
 if (use_blazor)
     app.UseEndpoints(endpoints =>
     {

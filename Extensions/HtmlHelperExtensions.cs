@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-using System.Text.RegularExpressions;
-
 // using nugsnet6;
 namespace CodeMechanic.Advanced.Extensions;
 

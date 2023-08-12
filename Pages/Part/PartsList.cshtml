@@ -1,0 +1,36 @@
+@model List<Part>
+
+@{
+    var parts = Model ?? new List<Part>();
+    int rowz = (int)(parts.Count > 0
+        ? Math.Ceiling(parts.Count / Math.Log10(parts.Count) * 1.0)
+        : parts.Count);
+
+    int cols = (int)(parts.Count > 0
+        ? Math.Ceiling(Math.Log10(parts.Count) * 1.0)
+        : 1);
+
+    string GetCssClass()
+    {
+        return $"grid sm:grid-cols-{@cols} grid-rows-{@rowz} gap-x-2";
+    }
+
+}
+@if (parts.Any())
+{
+    <div x-show="card_options.dev_mode">
+
+        <div class="text-tiny text-red-600">
+            <h2 >cols: @cols, rows: @rowz, total papers: @parts.Count</h2>
+        </div>
+    </div>
+
+    @* <div class="grid grid-flow-col grid-rows-6 grid-cols-@cols"> *@
+    <div class="@GetCssClass()">
+
+        @foreach (var part in parts)
+        {
+            <partial name="_PartCard" model="@part"/>
+        }
+    </div>
+}

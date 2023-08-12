@@ -3,7 +3,6 @@ using System.ServiceModel.Syndication;
 using System.Xml;
 using CodeMechanic.Diagnostics;
 using Newtonsoft.Json.Linq;
-using CodeMechanic.Extensions;
 using CodeMechanic.RazorHAT;
 using Neo4j.Driver;
 using CodeMechanic.Embeds;

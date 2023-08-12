@@ -1,0 +1,254 @@
+@page
+@using Htmx.TagHelpers
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model IndexModel
+@{
+    //https://airtable.com/app33DDBeyXEGRflo/tblt4CGuQIRCcpM2W/viwY2d0b9wzFFeLXr/rece53WI4aXu35ndd/fldWJaJwX9hBrUIIs?copyLinkToCellOrRecordOrigin=gridView
+}
+
+<div>
+    <div >
+        <!-- <h1>Hello, world!</h1> -->
+
+        <div class="flex flex-1 flex-row border-2">
+
+            <!-- searchy sidepanel -->
+            <div class="border-4 border-secondary">
+                <form>
+
+                    <!-- Grid -->
+                    <div class="grid">
+
+                        <!-- Markup example 1: input is inside label -->
+                        <label for="Name">
+                            Part Name
+                            <input type="text" id="Name" name="Name" placeholder="Pistol Brace" required>
+                        </label>
+
+                        <label for="Type">
+                            Type
+                            <input type="text" id="Type" name="Type" placeholder="AR-15" required>
+                        </label>
+
+                    </div>
+
+                    <!-- Markup example 2: input is after label -->
+                    <!-- <label for="email">Email address</label>
+                    <input type="email" id="email" name="email" placeholder="Email address" required>
+                    <small>We'll never share your email with anyone else.</small> -->
+
+                    <!-- Button -->
+                    <!-- <button type="submit">Submit</button> -->
+
+                </form>
+            </div>
+
+            <div class="border-4 border-accent">
+                <form>
+
+                    <!-- Grid -->
+                    <div class="grid">
+
+
+
+                        <div class="card w-96 bg-base-100 shadow-xl">
+                            <figure><img :src="" alt="Shoes" /></figure>
+                            <div class="card-body">
+                                <h2 class="card-title">
+                                    Shoes!
+                                    <div class="badge badge-secondary">NEW</div>
+                                </h2>
+                                <p>If a dog chews shoes whose shoes does he choose?</p>
+                                <div class="card-actions justify-end">
+                                    <div class="badge badge-outline">Fashion</div>
+                                    <div class="badge badge-outline">Products</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Markup example 2: input is after label -->
+
+                    <button type="submit">Pick</button>
+
+                </form>
+            </div>
+
+        </div>
+
+
+        <!-- Searchy table -->
+
+        <template x-if="false">
+            <div data-theme="forest">
+                <figure>
+
+                    <table class="table table-compact w-full">
+                        <thead>
+                            <tr>
+                                <th class=''>
+                                    <input type="text" name="Name" class="input input-bordered input-sm max-w-xs"
+                                        autocomplete="off" hx-trigger="keyup changed delay:250ms"
+                                        hx-get='@Url.Page("", "SearchBuilds")' hx-indicator="#loading"
+                                        hx-target='#search_results' hx-swap='innerHTML' placeholder="e.g., Glock"
+                                        aria-label="Name" aria-describedby="search-addon" />
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label>
+                                        <input type="checkbox" class="checkbox" />
+                                    </label>
+                                </th>
+                                <th>Name</th>
+                                <th>Total Cost</th>
+                                <th>Reasoning</th>
+                                <th>Id</th>
+                                <th>???</th>
+                                <th>???</th>
+                            </tr>
+                        </thead>
+                        <tbody id='search_results'>
+                            <div class="htmx-indicator" id='loading'>loading...</div>
+                        </tbody>
+                    </table>
+                </figure>
+            </div>
+        </template>
+
+    </div>
+</div>
+
+
+
+
+<!-- GRID -->
+
+
+<!-- <div class='grid grid-cols-2 gap-1'>
+
+    <div class='row-span-5 flex flex-col items-center justify-center gap-2' width="600" height='400'> 
+    
+    
+        <table id='builds_table' class="table table-compact w-full">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Reasoning</th>
+                <th>Favorite Color</th>
+            </tr>
+
+            <tr>
+                <div class="form-control w-full max-w-xs">
+                
+                    <input 
+                        type="text"
+                        name="Name"
+                        id="query"
+                        class="input input-bordered input-sm w-full max-w-xs" 
+                        autocomplete="off"
+
+                        hx-trigger="keyup changed delay:250ms"
+                        hx-get='@Url.Page("Index", "SearchBuilds")'
+                        hx-indicator="#loading"
+                        hx-target='#search_results'
+                        placeholder="Search"        
+                        aria-label="Name"
+                        aria-describedby="search-addon" 
+                    />
+                
+                </div>
+            
+            </tr>
+        
+            </thead>
+            <div id='search_results' ></div>
+        </table>
+
+
+    </div>
+    <div class='flex flex-col items-center justify-center gap-2' width="600" height='400'> 
+        Box 2
+    </div>
+    <div class='flex flex-col items-center justify-center gap-2' width="600" height='400'> Box 3</div>
+    <div class='flex flex-col items-center justify-center gap-2' width="600" height='400'> Box 4</div>
+</div> -->
+
+<!-- 
+<form action='post'>
+
+    <div
+        class='flex flex-col items-center h-screen'
+        x-data='setup()'>
+        <partial name="_BuildSteps" />
+        
+        <div class="border-ghost border-l-4 border-r-2">
+            <div class='grid grid-cols-2 grid-rows-auto'>
+                <partial name="_BarrelPicker" />
+                <section id='recommendations' > </section>
+
+            </div>
+        </div>
+
+    </div>
+</form> -->
+
+<!-- <button class='btn btn-secondary'
+             hx-post='@Url.Page("", "FavoriteBuild")'
+             hx-swap='outerHTML'
+             hx-target='#results'
+     >Get Favorite Build!</button>
+
+<div id='results'>...</div> -->
+
+
+<script>
+
+</script>
+
+<script>
+    function setup() {
+        return {
+            steps: [
+                'Purpose',
+                'Caliber',
+                'Barrel',
+            ]
+        }
+    }
+</script>
+
+<!-- <ul class="steps">
+    <template x-for='step in steps'>
+        <li  
+            class="step step-secondary"
+            x-text='step'
+        >
+        </li>
+    </template>
+</ul> -->
+
+
+<!--
+
+When putting your build together, you’ll need to decide on the following parts:
+
+Caliber, barrel length, purpose?
+Brace or stock?
+Do you want your brace or stock to fold?
+Ratcheting castle nut or staked castle nut?
+What upper and lower receiver do you want?
+Which trigger do you want or require?
+Is your lower parts kit Mil-Spec or upgraded?
+BCG.
+Charging Handle (rear charging or side charging?).
+Handguard preference?
+Muzzle device?
+Optics/Sights?
+Pistol Grips/Foregrips
+Barrel Takedown or Breakdown Kits
+Cerakote choice (optional)
+
+-->

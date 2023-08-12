@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+    
+        <title>Web Scraping with C# | ScrapingBee </title>
+        <meta charset="utf-8" />
+        <meta name="description" content="Learn web scraping with C# with this step-by-step tutorial covering the must-known C# web-scraping tools and libraries." />
+        <meta name="viewport" content="width=device-width" initial-scale="1" maximum-scale="1" />
+    
+    
+    
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="Web Scraping with C#" />
+        <meta property="og:description" content="Learn web scraping with C# with this step-by-step tutorial covering the must-known C# web-scraping tools and libraries." />
+        <meta property="og:type" content="article" />
+        <meta property="og:image" content="https://www.scrapingbee.com/blog/web-scraping-csharp/cover.png" />
+        <meta property="og:url" content="https://www.scrapingbee.com/blog/web-scraping-csharp/" />
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:creator" content="@scrapingbee" />
+        <meta property="twitter:domain" content="https://www.scrapingbee.com" />
+        <meta property="twitter:site" content="@scrapingbee" />
+        <meta property="twitter:title" content="Web Scraping with C# | ScrapingBee " />
+        <meta property="twitter:description" content="Learn web scraping with C# with this step-by-step tutorial covering the must-known C# web-scraping tools and libraries." />
+        <meta property="twitter:image" content="https://www.scrapingbee.com/blog/web-scraping-csharp/cover.png" />
+    
+    <link rel="alternate" type="application/rss+xml" title="The ScrapingBee Blog" href="https://www.scrapingbee.com/index.xml" />
+    <link rel="icon" type="image/png" href="/images/favico.png" />
+    <link rel="alternate icon" href="/images/favico.svg">
+
+    
+        <link rel="canonical" href="https://www.scrapingbee.com/blog/web-scraping-csharp/" />
+    
+
+    
+    
+
+    
+
+    
+        
+        
+        <style>*,::before,::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:initial}::before,::after{--tw-content:''}html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:Circular Std,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,segoe ui,Roboto,helvetica neue,Arial,noto sans,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol,noto color emoji}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr[title]{-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,samp,pre{font-family:;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,[type=button],[type=reset],[type=submit]{-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dl,dd,h1,h2,h3,h4,h5,h6,hr,figure,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}ol,ul,menu{list-style:none;margin:0;padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#24292e}input::placeholder,textarea::placeholder{opacity:1;color:#24292e}button,[role=button]{cursor:pointer}:disabled{cursor:default}img,svg,video,canvas,audio,iframe,embed,object{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]{display:none}.container{margin-left:auto;margin-right:auto;max-width:1204px;padding-left:20px;padding-right:20px}@media(min-width:1024px){.container{padding-left:30px;padding-right:30px}}.btn{display:inline-flex;height:48px;align-items:center;justify-content:center;border-radius:4px;--tw-bg-opacity:1;background-color:rgb(15 15 14/var(--tw-bg-opacity));padding-left:25px;padding-right:25px;font-size:16px;font-weight:700;--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity));transition-property:opacity;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:150ms}.btn:hover{--tw-bg-opacity:0.9}@media(min-width:1024px){.btn{height:56px;font-size:18px}}.btn-sm{height:45px;font-size:16px}.btn-black-o{border-width:2px;--tw-border-opacity:1;border-color:rgb(15 15 14/var(--tw-border-opacity));background-color:transparent;--tw-text-opacity:1;color:rgb(15 15 14/var(--tw-text-opacity))}.btn-black-o:hover{--tw-bg-opacity:1;background-color:rgb(15 15 14/var(--tw-bg-opacity));--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity))}.btn-yellow{--tw-bg-opacity:1;background-color:rgb(255 201 31/var(--tw-bg-opacity));--tw-text-opacity:1;color:rgb(15 15 14/var(--tw-text-opacity))}.link{font-weight:700;text-decoration-line:underline}.link:hover{text-decoration-line:none}body{font-size:18px;line-height:1.77;--tw-text-opacity:1;color:rgb(15 15 14/var(--tw-text-opacity))}blockquote,q{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:0 0}blockquote q:not(.quote):before,blockquote q:not(.quote):after{content:'"'}blockquote>ol{list-style:decimal;margin-left:30px}h1,h2,h3{font-weight:700}h1{font-size:40px;line-height:1.22}@media(min-width:1024px){h1{font-size:56px}}h2{font-size:36px;line-height:1.26}@media(min-width:1024px){h2{font-size:48px}}h3{font-size:30px;line-height:1.33}@media(min-width:1024px){h3{font-size:36px}}h4{font-size:22px;line-height:1.33}@media(min-width:1024px){h4{font-size:24px}}h5{font-size:20px;line-height:1.2}h6{font-size:16px;line-height:1.25}*,::before,::after{--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-transform:translateX(var(--tw-translate-x)) translateY(var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));--tw-border-opacity:1;border-color:rgb(90 113 132/var(--tw-border-opacity));--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur:var(--tw-empty,/*!*/ /*!*/);--tw-brightness:var(--tw-empty,/*!*/ /*!*/);--tw-contrast:var(--tw-empty,/*!*/ /*!*/);--tw-grayscale:var(--tw-empty,/*!*/ /*!*/);--tw-hue-rotate:var(--tw-empty,/*!*/ /*!*/);--tw-invert:var(--tw-empty,/*!*/ /*!*/);--tw-saturate:var(--tw-empty,/*!*/ /*!*/);--tw-sepia:var(--tw-empty,/*!*/ /*!*/);--tw-drop-shadow:var(--tw-empty,/*!*/ /*!*/);--tw-filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.visible{visibility:visible}.static{position:static}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.sticky{position:sticky}.left-0{left:0}.top-80{top:80px}.top-0{top:0}.right-0{right:0}.-top-3{top:-3px}.-right-3{right:-3px}.left-2{left:2px}.top-2{top:2px}.top-3{top:3px}.z-101{z-index:101}.z-100{z-index:100}.z-9{z-index:9}.z-1{z-index:1}.order-2{order:2}.order-1{order:1}.float-right{float:right}.m-0{margin:0}.-m-10{margin:-10px}.m-auto{margin:auto}.my-4{margin-top:4px;margin-bottom:4px}.-mx-15{margin-left:-15px;margin-right:-15px}.mx-auto{margin-left:auto;margin-right:auto}.my-2{margin-top:2px;margin-bottom:2px}.mx-2{margin-left:2px;margin-right:2px}.my-10{margin-top:10px;margin-bottom:10px}.-mx-20{margin-left:-20px;margin-right:-20px}.-mx-11{margin-left:-11px;margin-right:-11px}.-mx-21{margin-left:-21px;margin-right:-21px}.-mx-12{margin-left:-12px;margin-right:-12px}.-mx-50{margin-left:-50px;margin-right:-50px}.-mx-9{margin-left:-9px;margin-right:-9px}.-mx-30{margin-left:-30px;margin-right:-30px}.-mx-23{margin-left:-23px;margin-right:-23px}.-mx-10{margin-left:-10px;margin-right:-10px}.-my-2{margin-top:-2px;margin-bottom:-2px}.-mx-16{margin-left:-16px;margin-right:-16px}.-my-20{margin-top:-20px;margin-bottom:-20px}.-my-19{margin-top:-19px;margin-bottom:-19px}.mt-30{margin-top:30px}.mb-12{margin-bottom:12px}.mt-60{margin-top:60px}.mb-20{margin-bottom:20px}.mb-11{margin-bottom:11px}.mb-33{margin-bottom:33px}.mb-17{margin-bottom:17px}.mb-100{margin-bottom:100px}.mt-66{margin-top:66px}.mb-21{margin-bottom:21px}.mt-70{margin-top:70px}.mr-12{margin-right:12px}.mt-20{margin-top:20px}.ml-12{margin-left:12px}.mb-40{margin-bottom:40px}.mb-24{margin-bottom:24px}.mb-8p{margin-bottom:8%}.mb-10{margin-bottom:10px}.mb-2{margin-bottom:2px}.mb-18{margin-bottom:18px}.mb-6{margin-bottom:6px}.mr-6{margin-right:6px}.mb-19{margin-bottom:19px}.mb-30{margin-bottom:30px}.mr-9{margin-right:9px}.mr-5{margin-right:5px}.ml-3{margin-left:3px}.mr-1{margin-right:1px}.ml-10{margin-left:10px}.mb-48{margin-bottom:48px}.mb-5{margin-bottom:5px}.mb-25{margin-bottom:25px}.mt-19{margin-top:19px}.mr-20{margin-right:20px}.mt-12{margin-top:12px}.mt-32{margin-top:32px}.mb-32{margin-bottom:32px}.ml-8{margin-left:8px}.mb-15{margin-bottom:15px}.mb-60{margin-bottom:60px}.mb-13{margin-bottom:13px}.mb-3{margin-bottom:3px}.mt-100{margin-top:100px}.mb-50{margin-bottom:50px}.mb-70{margin-bottom:70px}.mr-10{margin-right:10px}.mb-45{margin-bottom:45px}.-ml-9{margin-left:-9px}.-ml-20{margin-left:-20px}.mb-80{margin-bottom:80px}.mb-54{margin-bottom:54px}.mb-27{margin-bottom:27px}.mb-35{margin-bottom:35px}.mb-4{margin-bottom:4px}.mt-10{margin-top:10px}.mb-66{margin-bottom:66px}.ml-5{margin-left:5px}.mt-13{margin-top:13px}.mb-8{margin-bottom:8px}.mb-38{margin-bottom:38px}.-mr-4{margin-right:-4px}.ml-4{margin-left:4px}.mb-31{margin-bottom:31px}.mb-14{margin-bottom:14px}.-mb-px{margin-bottom:-1px}.mb-34{margin-bottom:34px}.mb-16{margin-bottom:16px}.ml-20{margin-left:20px}.mr-24{margin-right:24px}.ml-6{margin-left:6px}.mb-9{margin-bottom:9px}.mt-9{margin-top:9px}.mb-120{margin-bottom:120px}.-mr-20{margin-right:-20px}.mt-80{margin-top:80px}.mb-36{margin-bottom:36px}.-mb-4{margin-bottom:-4px}.-mt-25{margin-top:-25px}.-mt-1{margin-top:-1px}.mr-8{margin-right:8px}.block{display:block}.inline-block{display:inline-block}.inline{display:inline}.flex{display:flex}.inline-flex{display:inline-flex}.table{display:table}.grid{display:grid}.contents{display:contents}.hidden{display:none}.h-12{height:12px}.h-screen{height:100vh}.h-35{height:35px}.h-204{height:204px}.h-full{height:100%}.h-auto{height:auto}.h-100{height:100px}.h-40{height:40px}.h-32{height:32px}.h-4{height:4px}.h-56{height:56px}.h-150{height:150px}.h-58{height:58px}.h-24{height:24px}.h-80{height:80px}.h-86{height:86px}.h-30{height:30px}.h-600{height:600px}.max-h-832{max-height:832px}.min-h-52{min-height:52px}.w-full{width:100%}.w-35{width:35px}.w-40{width:40px}.w-100{width:100px}.w-160{width:160px}.w-182{width:182px}.w-123{width:123px}.w-61{width:61px}.w-56{width:56px}.w-195{width:195px}.w-24{width:24px}.w-25p{width:25%}.w-86{width:86px}.w-36{width:36px}.w-40p{width:40%}.w-30p{width:30%}.w-30{width:30px}.w-auto{width:auto}.w-600{width:600px}.w-20{width:20px}.w-5\/12{width:41.666667%}.w-2\/12{width:16.666667%}.w-1\/2{width:50%}.min-w-120{min-width:120px}.min-w-500{min-width:500px}.min-w-900{min-width:900px}.min-w-222{min-width:222px}.min-w-full{min-width:100%}.max-w-screen-lg{max-width:1280px}.max-w-894{max-width:894px}.max-w-620{max-width:620px}.max-w-full{max-width:100%}.max-w-1276{max-width:1276px}.max-w-970{max-width:970px}.max-w-screen-xl{max-width:1440px}.max-w-508{max-width:508px}.max-w-321{max-width:321px}.max-w-none{max-width:none}.max-w-1024{max-width:1024px}.max-w-728{max-width:728px}.max-w-1292{max-width:1292px}.max-w-404{max-width:404px}.max-w-1277{max-width:1277px}.max-w-542{max-width:542px}.max-w-1308{max-width:1308px}.flex-auto{flex:auto}.flex-1{flex:1}.flex-shrink-0{flex-shrink:0}.flex-grow{flex-grow:1}.grow{flex-grow:1}.basis-0{flex-basis:0}.transform{transform:var(--tw-transform)}.cursor-text{cursor:text}.cursor-pointer{cursor:pointer}.resize{resize:both}.flex-row{flex-direction:row}.flex-col{flex-direction:column}.flex-col-reverse{flex-direction:column-reverse}.flex-wrap{flex-wrap:wrap}.items-start{align-items:flex-start}.items-center{align-items:center}.justify-end{justify-content:flex-end}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.justify-around{justify-content:space-around}.gap-10{gap:10px}.gap-20{gap:20px}.divide-y>:not([hidden])~:not([hidden]){--tw-divide-y-reverse:0;border-top-width:calc(1px * calc(1 - var(--tw-divide-y-reverse)));border-bottom-width:calc(1px * var(--tw-divide-y-reverse))}.divide-gray-200>:not([hidden])~:not([hidden]){--tw-divide-opacity:1;border-color:rgb(90 113 132/var(--tw-divide-opacity))}.overflow-auto{overflow:auto}.overflow-hidden{overflow:hidden}.overflow-x-auto{overflow-x:auto}.overflow-y-scroll{overflow-y:scroll}.overscroll-x-auto{overscroll-behavior-x:auto}.text-ellipsis{text-overflow:ellipsis}.whitespace-nowrap{white-space:nowrap}.rounded-sm{border-radius:.125rem}.rounded-md{border-radius:.375rem}.rounded-8{border-radius:8px}.rounded-100p{border-radius:100%}.rounded-4{border-radius:4px}.rounded{border-radius:.25rem}.rounded-xl{border-radius:.75rem}.rounded-2xl{border-radius:1rem}.rounded-full{border-radius:9999px}.rounded-5{border-radius:5px}.rounded-t-md{border-top-left-radius:.375rem;border-top-right-radius:.375rem}.rounded-b-md{border-bottom-right-radius:.375rem;border-bottom-left-radius:.375rem}.rounded-t-4{border-top-left-radius:4px;border-top-right-radius:4px}.rounded-l-xl{border-top-left-radius:.75rem;border-bottom-left-radius:.75rem}.rounded-r-xl{border-top-right-radius:.75rem;border-bottom-right-radius:.75rem}.border{border-width:1px}.border-2{border-width:2px}.border-4{border-width:4px}.border-t-2{border-top-width:2px}.border-t{border-top-width:1px}.border-r{border-right-width:1px}.border-b{border-bottom-width:1px}.border-b-0{border-bottom-width:0}.border-l-2{border-left-width:2px}.border-b-2{border-bottom-width:2px}.border-l{border-left-width:1px}.border-r-2{border-right-width:2px}.border-solid{border-style:solid}.border-gray-400{--tw-border-opacity:1;border-color:rgb(36 41 46/var(--tw-border-opacity))}.border-black-100{--tw-border-opacity:1;border-color:rgb(15 15 14/var(--tw-border-opacity))}.border-gray-700{--tw-border-opacity:1;border-color:rgb(228 231 236/var(--tw-border-opacity))}.border-gray-300{--tw-border-opacity:1;border-color:rgb(179 186 197/var(--tw-border-opacity))}.border-gray-1400{--tw-border-opacity:1;border-color:rgb(217 218 219/var(--tw-border-opacity))}.border-white{--tw-border-opacity:1;border-color:rgb(255 255 255/var(--tw-border-opacity))}.border-blue-200{--tw-border-opacity:1;border-color:rgb(66 84 102/var(--tw-border-opacity))}.border-green-700{--tw-border-opacity:1;border-color:rgb(21 128 61/var(--tw-border-opacity))}.border-yellow-100{--tw-border-opacity:1;border-color:rgb(255 201 31/var(--tw-border-opacity))}.border-yellow-400{--tw-border-opacity:1;border-color:rgb(250 173 19/var(--tw-border-opacity))}.border-transparent{border-color:transparent}.border-gray-600{--tw-border-opacity:1;border-color:rgb(204 204 204/var(--tw-border-opacity))}.border-gray-100{--tw-border-opacity:1;border-color:rgb(230 236 242/var(--tw-border-opacity))}.border-gray-200{--tw-border-opacity:1;border-color:rgb(90 113 132/var(--tw-border-opacity))}.border-green-500{--tw-border-opacity:1;border-color:rgb(34 197 94/var(--tw-border-opacity))}.border-gray-1200{--tw-border-opacity:1;border-color:rgb(208 213 221/var(--tw-border-opacity))}.border-opacity-20{--tw-border-opacity:0.2}.bg-yellow-100{--tw-bg-opacity:1;background-color:rgb(255 201 31/var(--tw-bg-opacity))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity))}.bg-gray-100{--tw-bg-opacity:1;background-color:rgb(230 236 242/var(--tw-bg-opacity))}.bg-blue-100{--tw-bg-opacity:1;background-color:rgb(44 58 87/var(--tw-bg-opacity))}.bg-black-100{--tw-bg-opacity:1;background-color:rgb(15 15 14/var(--tw-bg-opacity))}.bg-green-100{--tw-bg-opacity:1;background-color:rgb(220 252 231/var(--tw-bg-opacity))}.bg-yellow-200{--tw-bg-opacity:1;background-color:rgb(255 244 210/var(--tw-bg-opacity))}.bg-gray-900{--tw-bg-opacity:1;background-color:rgb(242 242 242/var(--tw-bg-opacity))}.bg-gray-1000{--tw-bg-opacity:1;background-color:rgb(197 197 196/var(--tw-bg-opacity))}.bg-blue-400{--tw-bg-opacity:1;background-color:rgb(27 37 56/var(--tw-bg-opacity))}.bg-yellow-70{--tw-bg-opacity:1;background-color:rgb(255 201 62/var(--tw-bg-opacity))}.bg-red-500{--tw-bg-opacity:1;background-color:rgb(239 68 68/var(--tw-bg-opacity))}.bg-none{background-image:none}.object-cover{-o-object-fit:cover;object-fit:cover}.p-10{padding:10px}.p-0{padding:0}.p-1{padding:1px}.p-20{padding:20px}.p-60{padding:60px}.p-3{padding:3px}.p-5{padding:5px}.p-38{padding:38px}.p-15{padding:15px}.p-40{padding:40px}.px-37{padding-left:37px;padding-right:37px}.px-4{padding-left:4px;padding-right:4px}.px-15{padding-left:15px;padding-right:15px}.py-6{padding-top:6px;padding-bottom:6px}.px-10{padding-left:10px;padding-right:10px}.py-50{padding-top:50px;padding-bottom:50px}.py-5{padding-top:5px;padding-bottom:5px}.py-8{padding-top:8px;padding-bottom:8px}.px-6{padding-left:6px;padding-right:6px}.px-20{padding-left:20px;padding-right:20px}.px-11{padding-left:11px;padding-right:11px}.py-20{padding-top:20px;padding-bottom:20px}.px-21{padding-left:21px;padding-right:21px}.px-31{padding-left:31px;padding-right:31px}.py-10{padding-top:10px;padding-bottom:10px}.px-12{padding-left:12px;padding-right:12px}.px-55{padding-left:55px;padding-right:55px}.px-50{padding-left:50px;padding-right:50px}.px-9{padding-left:9px;padding-right:9px}.px-39{padding-left:39px;padding-right:39px}.px-30{padding-left:30px;padding-right:30px}.py-70{padding-top:70px;padding-bottom:70px}.py-40{padding-top:40px;padding-bottom:40px}.px-23{padding-left:23px;padding-right:23px}.py-15{padding-top:15px;padding-bottom:15px}.py-100{padding-top:100px;padding-bottom:100px}.py-4{padding-top:4px;padding-bottom:4px}.px-1{padding-left:1px;padding-right:1px}.py-2{padding-top:2px;padding-bottom:2px}.px-24{padding-left:24px;padding-right:24px}.py-3{padding-top:3px;padding-bottom:3px}.py-16{padding-top:16px;padding-bottom:16px}.px-17{padding-left:17px;padding-right:17px}.px-14{padding-left:14px;padding-right:14px}.px-16{padding-left:16px;padding-right:16px}.py-19{padding-top:19px;padding-bottom:19px}.px-5{padding-left:5px;padding-right:5px}.pt-6{padding-top:6px}.pb-0{padding-bottom:0}.pt-60{padding-top:60px}.pb-2{padding-bottom:2px}.pb-16{padding-bottom:16px}.pt-50{padding-top:50px}.pb-80{padding-bottom:80px}.pt-20{padding-top:20px}.pt-19{padding-top:19px}.pr-16{padding-right:16px}.pl-18{padding-left:18px}.pb-30{padding-bottom:30px}.pt-18{padding-top:18px}.pt-15{padding-top:15px}.pt-11{padding-top:11px}.pb-48{padding-bottom:48px}.pt-2{padding-top:2px}.pt-47{padding-top:47px}.pt-3{padding-top:3px}.pl-12{padding-left:12px}.pl-9{padding-left:9px}.pr-2{padding-right:2px}.pt-80{padding-top:80px}.pb-50{padding-bottom:50px}.pb-70{padding-bottom:70px}.pr-20{padding-right:20px}.pb-20{padding-bottom:20px}.pt-31{padding-top:31px}.pb-38{padding-bottom:38px}.pl-8{padding-left:8px}.pr-15{padding-right:15px}.pr-13{padding-right:13px}.pt-100{padding-top:100px}.pt-70{padding-top:70px}.pt-17{padding-top:17px}.pt-66{padding-top:66px}.pb-100{padding-bottom:100px}.pt-35{padding-top:35px}.pl-24{padding-left:24px}.pt-52{padding-top:52px}.pt-7{padding-top:7px}.pb-6{padding-bottom:6px}.pr-10{padding-right:10px}.pl-45{padding-left:45px}.pt-16{padding-top:16px}.pb-19{padding-bottom:19px}.pt-28{padding-top:28px}.pt-30{padding-top:30px}.pb-60{padding-bottom:60px}.pl-35{padding-left:35px}.pr-12{padding-right:12px}.pb-45{padding-bottom:45px}.pl-43{padding-left:43px}.pt-40{padding-top:40px}.pt-12{padding-top:12px}.pb-10{padding-bottom:10px}.pt-8{padding-top:8px}.text-left{text-align:left}.text-center{text-align:center}.text-right{text-align:right}.align-middle{vertical-align:middle}.font-menlo{font-family:menlo}.font-sans{font-family:Circular Std,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,segoe ui,Roboto,helvetica neue,Arial,noto sans,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol,noto color emoji}.text-20{font-size:20px}.text-36{font-size:36px}.text-24{font-size:24px}.text-15{font-size:15px}.text-30{font-size:30px}.text-14{font-size:14px}.text-16{font-size:16px}.text-18{font-size:18px}.text-12{font-size:12px}.text-32{font-size:32px}.text-130{font-size:130px}.text-40{font-size:40px}.text-48{font-size:48px}.text-13{font-size:13px}.text-10{font-size:10px}.text-28{font-size:28px}.text-17{font-size:17px}.font-normal{font-weight:400}.font-bold{font-weight:700}.font-medium{font-weight:500}.uppercase{text-transform:uppercase}.lowercase{text-transform:lowercase}.capitalize{text-transform:capitalize}.not-italic{font-style:normal}.leading-a50{line-height:1.5}.leading-a41{line-height:1.41}.leading-a48{line-height:1.1429}.leading-a21{line-height:1.21}.leading-a77{line-height:1.77}.leading-a33{line-height:1.33}.leading-none{line-height:1}.leading-a20{line-height:1.2}.leading-a4{line-height:1.4}.leading-a26{line-height:1.26}.leading-2{line-height:2}.leading-a55{line-height:1.55}.leading-a25{line-height:1.25}.leading-a86{line-height:1.86}.leading-a53{line-height:1.54}.leading-a16{line-height:1.16}.tracking-a2{letter-spacing:.2px}.tracking-tight{letter-spacing:-.01em}.text-green-1000{--tw-text-opacity:1;color:rgb(54 179 126/var(--tw-text-opacity))}.text-yellow-400{--tw-text-opacity:1;color:rgb(250 173 19/var(--tw-text-opacity))}.text-red-100{--tw-text-opacity:1;color:rgb(249 38 114/var(--tw-text-opacity))}.text-gray-200{--tw-text-opacity:1;color:rgb(90 113 132/var(--tw-text-opacity))}.text-blue-200{--tw-text-opacity:1;color:rgb(66 84 102/var(--tw-text-opacity))}.text-black-100{--tw-text-opacity:1;color:rgb(15 15 14/var(--tw-text-opacity))}.text-black-200{--tw-text-opacity:1;color:rgb(0 0 0/var(--tw-text-opacity))}.text-red-200{--tw-text-opacity:1;color:rgb(255 121 198/var(--tw-text-opacity))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity))}.text-yellow-100{--tw-text-opacity:1;color:rgb(255 201 31/var(--tw-text-opacity))}.text-gray-400{--tw-text-opacity:1;color:rgb(36 41 46/var(--tw-text-opacity))}.text-gray-300{--tw-text-opacity:1;color:rgb(179 186 197/var(--tw-text-opacity))}.text-gray-500{--tw-text-opacity:1;color:rgb(232 232 232/var(--tw-text-opacity))}.text-red-300{--tw-text-opacity:1;color:rgb(233 84 50/var(--tw-text-opacity))}.text-green-600{--tw-text-opacity:1;color:rgb(22 163 74/var(--tw-text-opacity))}.text-gray-100{--tw-text-opacity:1;color:rgb(230 236 242/var(--tw-text-opacity))}.text-opacity-70{--tw-text-opacity:0.7}.underline{text-decoration-line:underline}.no-underline{text-decoration-line:none}.shadow-card{--tw-shadow:0px 2px 20px rgba(169, 169, 169, 0.16), 0 32px 46px -27px rgba(117, 117, 117, 0.2);--tw-shadow-colored:0px 2px 20px var(--tw-shadow-color), 0 32px 46px -27px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.shadow-sm{--tw-shadow:0 2px 8px rgba(0, 0, 0, 0.16);--tw-shadow-colored:0 2px 8px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.shadow-xl{--tw-shadow:0 23.4255px 46.8511px rgba(0, 0, 0, 0.2);--tw-shadow-colored:0 23.4255px 46.8511px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.outline{outline-style:solid}.drop-shadow-xl{--tw-drop-shadow:drop-shadow(0 20px 13px rgb(0 0 0 / 0.03)) drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));filter:var(--tw-filter)}.drop-shadow{--tw-drop-shadow:drop-shadow(0 1px 2px rgb(0 0 0 / 0.1)) drop-shadow(0 1px 1px rgb(0 0 0 / 0.06));filter:var(--tw-filter)}.filter{filter:var(--tw-filter)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:150ms}.transition-opacity{transition-property:opacity;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:150ms}.transition{transition-property:background-color,border-color,color,fill,stroke,opacity,box-shadow,transform,filter,-webkit-backdrop-filter;transition-property:background-color,border-color,color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-property:background-color,border-color,color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:150ms}.transition-colors{transition-property:background-color,border-color,color,fill,stroke;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:150ms}.ease-in{transition-timing-function:cubic-bezier(.4,0,1,1)}.ease-in-out{transition-timing-function:cubic-bezier(.4,0,.2,1)}@font-face{font-family:menlo;font-weight:400;font-style:normal;src:local("Menlo Regular"),local("menlo"),url(/fonts/menlo/Menlo-Regular.woff?e2vwe8)format('woff');font-display:swap}@font-face{font-family:circular std;font-weight:400;font-style:normal;src:local("Circular Std Book"),local("Circular Std"),url(/fonts/circularStd/CircularStd-Book.woff?e2vwe8)format('woff'),url(/fonts/circularStd/CircularStd-Book.woff2?e2vwe8)format('woff');font-display:swap}@font-face{font-family:circular std;font-weight:500;font-style:normal;src:local("Circular Std Medium"),local("Circular Std"),url(/fonts/circularStd/CircularStd-Medium.woff?e2vwe8)format('woff'),url(/fonts/circularStd/CircularStd-Medium.woff2?e2vwe8)format('woff');font-display:swap}@font-face{font-family:circular std;font-weight:700;font-style:normal;src:local("Circular Std Bold"),local("Circular Std"),url(/fonts/circularStd/CircularStd-Bold.woff?e2vwe8)format('woff'),url(/fonts/circularStd/CircularStd-Bold.woff2?e2vwe8)format('woff');font-display:swap}@font-face{font-family:circular std;font-weight:900;font-style:normal;src:local("Circular Std Black"),local("Circular Std"),url(/fonts/circularStd/CircularStd-Black.woff?e2vwe8)format('woff'),url(/fonts/circularStd/CircularStd-Black.woff2?e2vwe8)format('woff');font-display:swap}input:focus,textarea:focus,select:focus{outline:none!important;outline-offset:0!important;box-shadow:none!important}select{-webkit-appearance:none}.qa a{font-weight:700;text-decoration-line:underline}.bg-skew-yellow-b{background:#ffc91f}.bg-skew-white-b{background:#fff}.bg-skew-black{background:#0f0f0e}.bg-skew-black-t{background:#0f0f0e}.bg-skew-black-alt{background:#0f0f0e}.underline-yellow{background:#ffc91f}@media(min-width:768px){.bg-skew-yellow-b::after{content:'';position:absolute;bottom:0;left:-50%;right:-50%;top:-50%;transform:rotate(-8deg)skew(-8deg);background:#ffc91f;z-index:-1}.bg-skew-white-b:after{content:'';position:absolute;bottom:61px;left:-50%;right:-50%;top:-50%;transform:rotate(-8deg)skew(-8deg);background:#fff;z-index:-1}.bg-skew-black::after{content:'';position:absolute;bottom:0;left:-50%;right:-50%;top:0;transform:rotate(-8deg)skew(-8deg);background:#0f0f0e;z-index:-1}.bg-skew-black-t:after{content:'';position:absolute;bottom:-50%;left:-50%;right:-50%;top:0;transform:rotate(-8deg)skew(-8deg);background:#0f0f0e;z-index:-1}.bg-skew-black-alt::after{content:'';position:absolute;bottom:0;left:-50%;right:-50%;top:0;transform:rotate(8deg)skew(8deg);background:#0f0f0e;z-index:-1}.underline-yellow::after{content:'';background:#ffc91f;height:6px;left:0;right:0;bottom:0;position:absolute}.bg-skew-yellow-b,.bg-skew-white-b,.bg-skew-black,.bg-skew-black-t,.bg-skew-black-alt,.underline-yellow{background:0 0}}.price-plan.recommended{--tw-bg-opacity:1;background-color:rgb(15 15 14/var(--tw-bg-opacity));--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity))}.price-plan.recommended .txt-hidden{display:block}.price-plan.recommended .border-gray-600{border-color:transparent}.price-plan.recommended .btn-black-o{--tw-border-opacity:1;border-color:rgb(255 201 31/var(--tw-border-opacity));--tw-bg-opacity:1;background-color:rgb(255 201 31/var(--tw-bg-opacity));transition-property:all;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:150ms}.price-plan.recommended .btn-black-o:hover{--tw-text-opacity:1;color:rgb(15 15 14/var(--tw-text-opacity));background-color:#ffd127;border-color:#ffd127}.fixed-position{left:0!important;width:100%!important}.fixed-position .fixed-bar{width:100%!important;left:0!important;display:flex;flex-wrap:wrap;justify-content:space-between;--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity));padding-top:12px;padding-bottom:12px;padding-left:12px;padding-right:12px;--tw-shadow:0 2px 8px rgba(0, 0, 0, 0.16);--tw-shadow-colored:0 2px 8px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.fixed-position .fixed-bar .btn{display:inline-block}.fixed-position h1{margin-top:10px;margin-bottom:10px;margin-right:15px;text-align:left;font-size:16px;font-weight:400}@media(min-width:1024px){.fixed-position h1{margin:0;font-size:24px}}.terms-content{font-size:16px;line-height:1.5}@media(min-width:1024px){.terms-content{max-width:720px}}.terms-content h2{margin-bottom:32px;border-bottom-width:1px;--tw-border-opacity:1;border-color:rgb(15 15 14/var(--tw-border-opacity));padding-top:49px;padding-bottom:31px;font-size:30px;line-height:1.33}@media(min-width:1024px){.terms-content h2{font-size:36px}}.terms-content p{margin-bottom:24px}.terms-content p a:hover{text-decoration-line:underline}.journey{position:relative;padding-left:60px}.journey:before{content:"";width:3px;position:absolute;top:0;bottom:0;left:20px;background:#0f0f0e}.journey .row+.row{margin-top:40px}.journey .row:after{content:"";width:40px;height:40px;background:#fff;border-radius:50%;border:3px solid #0f0f0e;position:absolute;top:50%;left:-58px;transform:translateY(-50%);z-index:2}.journey time{width:100%;display:flex;flex-wrap:wrap}.box{padding:15px 34px 15px 77px;position:relative;min-height:200px;display:flex;align-items:center;border-radius:8px;overflow:hidden;background:url(/assets/images/bg-triangle.svg)no-repeat 0/cover}.side-nav .active{border-left-width:2px;--tw-border-opacity:1;border-color:rgb(250 173 19/var(--tw-border-opacity));padding-left:14px;font-weight:700}.nice-select{position:relative;outline:none}.custom-select .nice-select .current{display:flex;height:56px;width:100%;cursor:pointer;align-items:center;border-radius:4px;border-width:1px;--tw-border-opacity:1;border-color:rgb(179 186 197/var(--tw-border-opacity));padding-top:10px;padding-bottom:10px;padding-left:20px;padding-right:55px;font-size:16px;font-weight:400;line-height:1.5;--tw-text-opacity:1;color:rgb(90 113 132/var(--tw-text-opacity))}.custom-select .nice-select .current::-moz-placeholder{--tw-placeholder-opacity:1;color:rgb(179 186 197/var(--tw-placeholder-opacity))}.custom-select .nice-select .current::placeholder{--tw-placeholder-opacity:1;color:rgb(179 186 197/var(--tw-placeholder-opacity))}.custom-select .nice-select .current:focus{--tw-border-opacity:1;border-color:rgb(90 113 132/var(--tw-border-opacity))}.custom-select .nice-select .current:after{content:"\e907";font:6px/1 icomoon;position:absolute;right:23px;top:50%;transform:translateY(-50%);color:#5a7184;transition:transform .15s linear}.custom-select .nice-select.open .current:after{transform:translateY(-50%)rotate(180deg)}.custom-select .nice-select.open .list{visibility:visible;opacity:1}.custom-select .nice-select .list{visibility:hidden;position:absolute;top:100%;left:0;right:0;margin-top:-1px;height:212px;overflow:auto;border-radius:4px;border-width:1px;--tw-border-opacity:1;border-color:rgb(179 186 197/var(--tw-border-opacity));--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity));padding-top:10px;padding-bottom:10px;padding-left:20px;padding-right:20px;font-size:16px;line-height:1.5;--tw-text-opacity:1;color:rgb(90 113 132/var(--tw-text-opacity));opacity:0;transition-property:all;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:150ms}.custom-select .nice-select .list li{cursor:pointer;padding-top:4px;padding-bottom:4px}.nice-select.style-1 .current{position:relative;display:flex;cursor:pointer;align-items:center;padding-right:18px;font-size:16px}.nice-select.style-1 .current:hover{--tw-text-opacity:1;color:rgb(255 201 31/var(--tw-text-opacity))}.nice-select.style-1 .current:after{position:absolute;right:0;margin-left:8px;margin-top:1px;overflow:hidden;font-size:6px;line-height:1;top:50%;transform:translateY(-50%);content:"\e906";font-family:icomoon;transition:transform .15s linear}.nice-select.style-1.open .current:after{transform:translateY(-50%)rotate(180deg)}.nice-select.style-1.open .list{visibility:visible;opacity:1}.nice-select.style-1 .list{visibility:hidden;position:absolute;right:0;top:100%;z-index:50;width:160px;overflow:auto;border-bottom-right-radius:6px;border-bottom-left-radius:6px;--tw-bg-opacity:1;background-color:rgb(27 37 56/var(--tw-bg-opacity));padding:10px;opacity:0}.nice-select.style-1 .list li{cursor:pointer;padding-top:5px;padding-bottom:5px}.nice-select.style-1 .list li:hover{--tw-text-opacity:1;color:rgb(255 201 31/var(--tw-text-opacity))}[data-more].active .icon-chevron03{transform:rotate(180deg)}.tabs li a.active{font-weight:700;--tw-text-opacity:1;color:rgb(15 15 14/var(--tw-text-opacity))}.tabs li a.active:after{content:"";position:absolute;bottom:-1px;left:0;right:0;height:2px;background:#faad13}.tab-content .tab{display:none}.tab-content .tab.active{display:block}.filter a.active{--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity));--tw-text-opacity:1;color:rgb(15 15 14/var(--tw-text-opacity))}.filter label .bg{position:absolute;top:0;left:0;right:0;bottom:0;background:#e8e8e8;z-index:1;transition:background .3s linear}.filter label .txt{position:relative;z-index:2;color:#0f0f0e}.filter input[type=checkbox]{position:fixed;left:0;top:0;opacity:0;z-index:-1}.filter input[type=checkbox]:checked~.bg{background:#ffc91f}.paging li.active a{--tw-bg-opacity:1;background-color:rgb(255 201 31/var(--tw-bg-opacity))}.select-opener:after{position:absolute;right:16px;top:50%;font-size:10px;transition-property:all;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:150ms}@media(min-width:1024px){.select-opener:after{display:none}}.select-opener:after{transform:translateY(-50%);content:"\e906";font:8px/1 icomoon}.select-opener.active:after{transform:translateY(-50%)rotate(180deg)}.toc{z-index:3}.testimonial-slider-wrap .slider-nav{position:absolute;right:0;bottom:0;display:flex;height:92px;width:80px;flex-wrap:wrap;align-items:center;justify-content:flex-end;--tw-bg-opacity:1;background-color:rgb(15 15 14/var(--tw-bg-opacity))}.testimonial-slider-wrap .slider-nav .slick-next{margin-left:40px}.testimonial-slider-wrap .slider-nav .slick-arrow{transition-property:all;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:150ms}.testimonial-slider-wrap .slider-nav .slick-arrow:hover{--tw-text-opacity:1;color:rgb(255 201 31/var(--tw-text-opacity))}.doc-nav li.active{font-weight:700;text-decoration-line:underline}.bg-yellow-full{position:relative}.bg-yellow-full:after{content:"";position:absolute;top:100%;left:0;right:0;bottom:-9999px;z-index:1;background:#ffc91f}.navbar .hasdrop .hasdrop-a.active,.navbar .hasdrop:hover .hasdrop-a{text-decoration-line:underline}.navbar .hasdrop-a:after{content:"\e908";display:inline-block;vertical-align:middle;margin-left:8px;font:6px/1 icomoon}.nav-drop{padding-left:18px;padding-right:18px;padding-top:18px}@media only screen and (min-width:1024px){.journey{padding-left:0}.journey time{justify-content:flex-end}.journey:before{top:30px;bottom:30px;left:50%;transform:translateX(-50%)}.journey .row:after{left:50%;transform:translate(-50%,-50%)}.journey .row+.row{margin-top:101px}.journey .row:nth-child(even){flex-direction:row-reverse}.journey .row:nth-child(even) .box{padding:15px 77px 15px 34px;background-image:url(/assets/images/bg-triangle-r.svg);background-position:100% 0}.journey .row:nth-child(even) time{justify-content:flex-start}.box{min-height:183px}}@media only screen and (max-width:1023px){.navbar-wrap{top:100%;pointer-events:none;position:absolute;left:0;right:0}.nav-active .navbar-wrap{pointer-events:auto}.navbar{transform:translateY(-101%);transition:transform .25s ease-in}.nav-active .navbar{transform:translateY(0)}.nav-active .nav-opener .icon-menu:before{content:"\e90c";margin-right:3px}.testimonial-slider-wrap .slider-nav{position:static;margin-top:20px;height:auto;width:100%}.sticky-aside.is-affixed .inner-wrapper-sticky h3{display:none}}@media only screen and (max-width:767px){.journey .row:after{top:-2px;transform:none}.box{background:#ffc91f;padding:15px}}@media only screen and (min-width:1024px){.sub-navs{display:block!important}.toc{position:static!important}.navbar .hasdrop{margin-left:-21px;margin-right:-21px;margin-top:-14px;margin-bottom:-14px}.navbar .hasdrop:hover .nav-drop{visibility:visible;opacity:1}.navbar .hasdrop:hover .hasdrop-a{color:rgba(0,0,0,.47);text-decoration-line:none}.navbar .hasdrop .hasdrop-a.active{text-decoration-line:none}.navbar .hasdrop-a{position:relative;padding-top:14px;padding-bottom:14px;padding-left:21px;padding-right:21px;transition-property:all;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:150ms}.navbar .hasdrop-a:hover{color:rgba(0,0,0,.47);text-decoration-line:none}.nav-drop{display:block!important;height:auto!important;visibility:hidden;position:absolute;top:100%;left:15px;min-width:214px;border-radius:.375rem;--tw-bg-opacity:1;background-color:rgb(15 15 14/var(--tw-bg-opacity));padding-top:18px;padding-bottom:18px;padding-left:21px;padding-right:21px;opacity:0;transition-property:all;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:150ms}.nav-drop:after{content:" ";position:absolute;right:calc(50% - 15px);top:-10px;border-top:none;border-right:15px solid transparent;border-left:15px solid transparent;border-bottom:15px solid #000}}@media only screen and (min-width:1280px){.nav-drop{left:21px}}@media only screen and (max-width:1023px){.toc .sub-navs{overflow-y:auto;max-height:calc( 100vh - 48px)}}.range-slider__slider{width:100%;margin:39px 0 30px;position:relative}.range-slider__slider:after{content:"";position:absolute;top:50%;left:0;right:0;transform:translateY(-50%);background:#e6ecf2;height:8px;border-radius:4px}.range-slider__slider .range-slider__slide{position:absolute;left:0;top:4px;z-index:2;height:8px;border-radius:4px;--tw-bg-opacity:1;background-color:rgb(255 201 31/var(--tw-bg-opacity))}.range-slider__slider .input-wrap{position:relative;z-index:2}.range-slider__slider input{-webkit-appearance:none;-moz-appearance:none;appearance:none;width:100%;height:8px;border-radius:4px;background:0 0}.range-slider__slider input::-moz-range-thumb{-webkit-appearance:none;-moz-appearance:none;appearance:none;width:24px;height:24px;background:#0f0f0e;cursor:pointer;border-radius:50%;border:none}.range-slider__slider input::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:24px;height:24px;background:#0f0f0e;cursor:pointer;border-radius:50%;border:none}.custom-checkbox input{position:fixed;left:0;top:0;opacity:0;z-index:-1}.custom-checkbox{position:relative;display:inline-flex;align-items:center;margin:0;font-size:16px;line-height:1.5;color:#5a7184;padding-left:26px}.custom-checkbox .checkmark{width:16px;height:16px;position:absolute;left:0;top:2px;border:1px solid #5a7184;transition:border .3s linear,background .3s linear}.custom-checkbox .checkmark:after{content:"\e923";font:8px/1 icomoon;position:absolute;color:#5a7184;top:50%;left:50%;transform:translate(-50%,-50%);opacity:0;transition:opacity .3s linear}.custom-checkbox input:checked+.checkmark:after{opacity:1}.blog-post h1,.blog-post h2,.blog-post h3,.blog-post h4,.blog-post h5,.blog-post h6{margin-top:50px;margin-bottom:25px;--tw-text-opacity:1;color:rgb(15 15 14/var(--tw-text-opacity))}.blog-post h2,.blog-post h3,.blog-post h4,.blog-post h5,.blog-post h6{margin-top:-70px;padding-top:121px;outline:2px solid transparent;outline-offset:2px}.blog-post h2:first-of-type{margin-bottom:21px;--tw-text-opacity:1;color:rgb(15 15 14/var(--tw-text-opacity))}.blog-post h2:first-child,.blog-post h3:first-child{margin-top:0;padding-top:0}.blog-post p:not(:last-child),.blog-post .highlight:not(:last-child),.blog-post blockquote:not(:last-child),.blog-post pre:not(:last-child),.blog-post>ul:not(:last-child),.blog-post>ol:not(:last-child),.blog-post>table:not(:last-child){margin-bottom:20px}.blog-post code,.blog-post pre{border-radius:.375rem;font-size:.9em}.blog-post h1>code,.blog-post h2>code,.blog-post h3>code{font-size:inherit!important}.blog-post{--tw-text-opacity:1;color:rgb(52 66 84/var(--tw-text-opacity))}.blog-post blockquote{border-left-width:4px;border-style:solid;--tw-border-opacity:1;border-left-color:rgb(255 201 31/var(--tw-border-opacity));--tw-bg-opacity:1;background-color:rgb(255 236 199/var(--tw-bg-opacity));padding:20px}.blog-post code:not(.hljs){margin-bottom:20px;--tw-bg-opacity:1;background-color:rgb(230 236 242/var(--tw-bg-opacity));padding-left:4px;padding-right:4px;font-family:Circular Std,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,segoe ui,Roboto,helvetica neue,Arial,noto sans,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol,noto color emoji;font-size:16px;--tw-text-opacity:1;color:rgb(33 43 69/var(--tw-text-opacity))}.blog-post>ul{list-style-type:disc;padding-left:28px}.blog-post a{font-style:normal;text-decoration-line:underline}.blog-post a:hover{font-weight:700}.blog-post>ol{list-style-type:decimal;padding-left:28px}.blog-post img{vertical-align:middle;border:0}.blog-post .img svg,.blog-post .img img{margin:0;width:100%;height:auto}.blog-post .img{position:relative}.blog-post .img img{position:absolute;top:0;left:0}.blog-post table{border-width:1px;--tw-border-opacity:1;border-color:rgb(15 15 14/var(--tw-border-opacity))}.blog-post th,.blog-post td{border-width:1px;--tw-border-opacity:1;border-color:rgb(15 15 14/var(--tw-border-opacity));padding:10px}.toc{overflow-y:auto;font-size:16px}.toc>.toc-list{overflow:hidden;position:relative}.toc>.toc-list li{list-style:none;margin-bottom:10px}.toc-list{margin:0;padding-left:10px}a.toc-link{--tw-text-opacity:1;color:rgb(90 113 132/var(--tw-text-opacity));height:100%}.is-collapsible{max-height:1000px;overflow:hidden;transition:all 300ms ease-in-out}.is-collapsed{max-height:0}.is-position-fixed{position:fixed!important;top:0}.is-active-link{--tw-text-opacity:1 !important;color:rgb(15 15 14/var(--tw-text-opacity))!important}.toc-link::before{background-color:#eee;content:' ';display:inline-block;height:inherit;left:0;margin-top:-1px;position:absolute;width:2px}.toc-link:hover::before{background-color:#ffc91f}.is-active-link::before{background-color:#ffc91f}.nice-tab-content{display:none}.nice-tab-content.active{display:block}.client-library{border-radius:.375rem;padding:10px;--tw-text-opacity:1;color:rgb(15 15 14/var(--tw-text-opacity))}.client-library:hover{--tw-bg-opacity:1;background-color:rgb(255 236 199/var(--tw-bg-opacity))}.client-library.active{--tw-bg-opacity:1;background-color:rgb(255 201 31/var(--tw-bg-opacity))}.doc-content{font-size:16px}.doc-content h2,.doc-content h3,.doc-content h4,.doc-content h5,.doc-content h6{font-weight:700;--tw-text-opacity:1;color:rgb(15 15 14/var(--tw-text-opacity));outline:2px solid transparent;outline-offset:2px}.doc-content>h2,.doc-content>h3{margin-top:40px;margin-bottom:21px}.doc-content h2{font-size:36px}.doc-content p{margin-bottom:10px}.doc-content code:not(.hljs),.doc-content pre:not(.hljs){margin-bottom:10px;border-radius:4px;font-size:16px}.doc-content>pre>code{--tw-bg-opacity:1;background-color:rgb(44 58 87/var(--tw-bg-opacity))}.doc-content{--tw-text-opacity:1;color:rgb(52 66 84/var(--tw-text-opacity))}.doc-content blockquote{margin-bottom:10px;border-left-width:4px;border-style:solid;--tw-border-opacity:1;border-left-color:rgb(255 201 31/var(--tw-border-opacity));--tw-bg-opacity:1;background-color:rgb(255 236 199/var(--tw-bg-opacity));padding:20px}.doc-content p>code:not(.hljs),.doc-content li>code:not(.hljs),.doc-content td>code:not(.hljs){--tw-bg-opacity:1;background-color:rgb(230 236 242/var(--tw-bg-opacity));--tw-text-opacity:1;color:rgb(33 43 69/var(--tw-text-opacity));padding-left:4px;padding-right:4px;font-family:Circular Std,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,segoe ui,Roboto,helvetica neue,Arial,noto sans,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol,noto color emoji}code.hljs{--tw-bg-opacity:1;background-color:rgb(44 58 87/var(--tw-bg-opacity));border-radius:4px;font-size:14px}.doc-content>ul{margin-bottom:10px;list-style-type:disc;padding-left:28px}.doc-content a{font-style:normal;text-decoration-line:underline}.doc-content a:hover{font-weight:700}.doc-content>ol{margin-bottom:10px;list-style-type:decimal;padding-left:28px}.doc-content img{vertical-align:middle;border:0}.doc-content .img svg,.doc-content .img img{margin:0;width:100%;height:auto}.doc-content .img{position:relative}.doc-content .img img{position:absolute;top:0;left:0}.doc-content table{margin-bottom:10px;border-width:1px;--tw-border-opacity:1;border-color:rgb(15 15 14/var(--tw-border-opacity))}.doc-content th,.doc-content td{border-width:1px;--tw-border-opacity:1;border-color:rgb(15 15 14/var(--tw-border-opacity));padding:10px}.doc-row{display:flex;flex-wrap:wrap;border-bottom-width:1px;--tw-border-opacity:1;border-color:rgb(217 218 219/var(--tw-border-opacity));padding-bottom:48px;padding-top:47px;--tw-text-opacity:1;color:rgb(15 15 14/var(--tw-text-opacity))}.doc-left{width:100%;font-size:16px}.doc-left h2,.doc-left h3,.doc-left h4,.doc-left h5,.doc-left h6{font-weight:700;--tw-text-opacity:1;color:rgb(15 15 14/var(--tw-text-opacity));outline:2px solid transparent;outline-offset:2px}.doc-left>h2,.doc-left>h3{margin-top:40px;margin-bottom:21px}.doc-left h2{font-size:36px}.doc-left p{margin-bottom:10px}.doc-left code:not(.hljs),.doc-left pre:not(.hljs){margin-bottom:10px;border-radius:4px;font-size:16px}.doc-left>pre>code{--tw-bg-opacity:1;background-color:rgb(44 58 87/var(--tw-bg-opacity))}.doc-left{--tw-text-opacity:1;color:rgb(52 66 84/var(--tw-text-opacity))}.doc-left blockquote{margin-bottom:10px;border-left-width:4px;border-style:solid;--tw-border-opacity:1;border-left-color:rgb(255 201 31/var(--tw-border-opacity));--tw-bg-opacity:1;background-color:rgb(255 236 199/var(--tw-bg-opacity));padding:20px}.doc-left p>code:not(.hljs),.doc-left li>code:not(.hljs),.doc-left td>code:not(.hljs){}.doc-left>ul{margin-bottom:10px;list-style-type:disc;padding-left:28px}.doc-left a{font-style:normal;text-decoration-line:underline}.doc-left a:hover{font-weight:700}.doc-left>ol{margin-bottom:10px;list-style-type:decimal;padding-left:28px}.doc-left img{vertical-align:middle;border:0}.doc-left .img svg,.doc-left .img img{margin:0;width:100%;height:auto}.doc-left .img{position:relative}.doc-left .img img{position:absolute;top:0;left:0}.doc-left table{margin-bottom:10px;border-width:1px;--tw-border-opacity:1;border-color:rgb(15 15 14/var(--tw-border-opacity))}.doc-left th,.doc-left td{border-width:1px;--tw-border-opacity:1;border-color:rgb(15 15 14/var(--tw-border-opacity));padding:10px}@media(min-width:1024px){.doc-left{width:50%}}.doc-right{width:100%;padding-top:50px;font-size:16px}.doc-right h2,.doc-right h3,.doc-right h4,.doc-right h5,.doc-right h6{font-weight:700;--tw-text-opacity:1;color:rgb(15 15 14/var(--tw-text-opacity));outline:2px solid transparent;outline-offset:2px}.doc-right>h2,.doc-right>h3{margin-top:40px;margin-bottom:21px}.doc-right h2{font-size:36px}.doc-right p{margin-bottom:10px}.doc-right code:not(.hljs),.doc-right pre:not(.hljs){margin-bottom:10px;border-radius:4px;font-size:16px}.doc-right>pre>code{--tw-bg-opacity:1;background-color:rgb(44 58 87/var(--tw-bg-opacity))}.doc-right{--tw-text-opacity:1;color:rgb(52 66 84/var(--tw-text-opacity))}.doc-right blockquote{margin-bottom:10px;border-left-width:4px;border-style:solid;--tw-border-opacity:1;border-left-color:rgb(255 201 31/var(--tw-border-opacity));--tw-bg-opacity:1;background-color:rgb(255 236 199/var(--tw-bg-opacity));padding:20px}.doc-right p>code:not(.hljs),.doc-right li>code:not(.hljs),.doc-right td>code:not(.hljs){}.doc-right>ul{margin-bottom:10px;list-style-type:disc;padding-left:28px}.doc-right a{font-style:normal;text-decoration-line:underline}.doc-right a:hover{font-weight:700}.doc-right>ol{margin-bottom:10px;list-style-type:decimal;padding-left:28px}.doc-right img{vertical-align:middle;border:0}.doc-right .img svg,.doc-right .img img{margin:0;width:100%;height:auto}.doc-right .img{position:relative}.doc-right .img img{position:absolute;top:0;left:0}.doc-right table{margin-bottom:10px;border-width:1px;--tw-border-opacity:1;border-color:rgb(15 15 14/var(--tw-border-opacity))}.doc-right th,.doc-right td{border-width:1px;--tw-border-opacity:1;border-color:rgb(15 15 14/var(--tw-border-opacity));padding:10px}@media(min-width:1024px){.doc-right{width:50%;padding-left:30px}}@media(min-width:1440px){.doc-right{padding-left:32px}}.doc-full{width:100%;font-size:16px}.doc-full h2,.doc-full h3,.doc-full h4,.doc-full h5,.doc-full h6{font-weight:700;--tw-text-opacity:1;color:rgb(15 15 14/var(--tw-text-opacity));outline:2px solid transparent;outline-offset:2px}.doc-full>h2,.doc-full>h3{margin-top:40px;margin-bottom:21px}.doc-full h2{font-size:36px}.doc-full p{margin-bottom:10px}.doc-full code:not(.hljs),.doc-full pre:not(.hljs){margin-bottom:10px;border-radius:4px;font-size:16px}.doc-full>pre>code{--tw-bg-opacity:1;background-color:rgb(44 58 87/var(--tw-bg-opacity))}.doc-full{--tw-text-opacity:1;color:rgb(52 66 84/var(--tw-text-opacity))}.doc-full blockquote{margin-bottom:10px;border-left-width:4px;border-style:solid;--tw-border-opacity:1;border-left-color:rgb(255 201 31/var(--tw-border-opacity));--tw-bg-opacity:1;background-color:rgb(255 236 199/var(--tw-bg-opacity));padding:20px}.doc-full p>code:not(.hljs),.doc-full li>code:not(.hljs),.doc-full td>code:not(.hljs){}.doc-full>ul{margin-bottom:10px;list-style-type:disc;padding-left:28px}.doc-full a{font-style:normal;text-decoration-line:underline}.doc-full a:hover{font-weight:700}.doc-full>ol{margin-bottom:10px;list-style-type:decimal;padding-left:28px}.doc-full img{vertical-align:middle;border:0}.doc-full .img svg,.doc-full .img img{margin:0;width:100%;height:auto}.doc-full .img{position:relative}.doc-full .img img{position:absolute;top:0;left:0}.doc-full table{margin-bottom:10px;border-width:1px;--tw-border-opacity:1;border-color:rgb(15 15 14/var(--tw-border-opacity))}.doc-full th,.doc-full td{border-width:1px;--tw-border-opacity:1;border-color:rgb(15 15 14/var(--tw-border-opacity));padding:10px}.snippet-copy{cursor:pointer}.snippet-copy>span:hover{font-weight:900}.doc-section-splitter{margin-top:50px}.toc-doc{font-size:16px}.toc-doc .toc-list li{margin-bottom:0;padding-top:4px;padding-bottom:4px}.toc-doc ol ol{padding-left:14px}.alternatives a:not([class]){font-weight:700;text-decoration-line:underline}.alternatives a:not([class]):hover{text-decoration-line:none}.last-of-type\:border-0:last-of-type{border-width:0}.empty\:hidden:empty{display:none}.hover\:border-2:hover{border-width:2px}.hover\:border-yellow-100:hover{--tw-border-opacity:1;border-color:rgb(255 201 31/var(--tw-border-opacity))}.hover\:border-gray-300:hover{--tw-border-opacity:1;border-color:rgb(179 186 197/var(--tw-border-opacity))}.hover\:bg-white:hover{--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity))}.hover\:bg-yellow-100:hover{--tw-bg-opacity:1;background-color:rgb(255 201 31/var(--tw-bg-opacity))}.hover\:bg-opacity-90:hover{--tw-bg-opacity:0.9}.hover\:font-bold:hover{font-weight:700}.hover\:text-black-100:hover{--tw-text-opacity:1;color:rgb(15 15 14/var(--tw-text-opacity))}.hover\:text-yellow-100:hover{--tw-text-opacity:1;color:rgb(255 201 31/var(--tw-text-opacity))}.hover\:text-gray-700:hover{--tw-text-opacity:1;color:rgb(228 231 236/var(--tw-text-opacity))}.hover\:underline:hover{text-decoration-line:underline}.hover\:no-underline:hover{text-decoration-line:none}.hover\:shadow-2xl:hover{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}@media(min-width:375px){.xs\:text-18{font-size:18px}}@media(min-width:768px){.sm\:order-none{order:0}.sm\:-m-1{margin:-1px}.sm\:my-6{margin-top:6px;margin-bottom:6px}.sm\:-mx-6{margin-left:-6px;margin-right:-6px}.sm\:mb-0{margin-bottom:0}.sm\:mb-32{margin-bottom:32px}.sm\:mb-33{margin-bottom:33px}.sm\:mb-20{margin-bottom:20px}.sm\:mr-30{margin-right:30px}.sm\:mb-40{margin-bottom:40px}.sm\:mb-27{margin-bottom:27px}.sm\:mb-22{margin-bottom:22px}.sm\:mb-16{margin-bottom:16px}.sm\:mt-50{margin-top:50px}.sm\:block{display:block}.sm\:flex{display:flex}.sm\:h-40{height:40px}.sm\:h-auto{height:auto}.sm\:w-1\/2{width:50%}.sm\:w-1\/3{width:33.333333%}.sm\:w-281{width:281px}.sm\:w-10\/12{width:83.333333%}.sm\:w-auto{width:auto}.sm\:w-40{width:40px}.sm\:w-c28{width:calc(50% - 28px)}.sm\:w-100{width:100px}.sm\:w-50{width:50px}.sm\:max-w-490{max-width:490px}.sm\:flex-1{flex:1}.sm\:justify-start{justify-content:flex-start}.sm\:p-32{padding:32px}.sm\:py-60{padding-top:60px;padding-bottom:60px}.sm\:px-24{padding-left:24px;padding-right:24px}.sm\:py-70{padding-top:70px;padding-bottom:70px}.sm\:pt-41{padding-top:41px}.sm\:pt-102{padding-top:102px}.sm\:pb-80{padding-bottom:80px}.sm\:pt-91{padding-top:91px}.sm\:pb-71{padding-bottom:71px}.sm\:pb-60{padding-bottom:60px}.sm\:pb-70{padding-bottom:70px}.sm\:pr-12{padding-right:12px}.sm\:pt-100{padding-top:100px}.sm\:text-left{text-align:left}.sm\:text-right{text-align:right}.sm\:text-24{font-size:24px}.sm\:text-48{font-size:48px}.sm\:text-20{font-size:20px}.sm\:text-18{font-size:18px}.sm\:text-40{font-size:40px}.sm\:text-16{font-size:16px}.sm\:text-60{font-size:60px}}@media(min-width:1024px){.md\:order-first{order:-9999}.md\:order-1{order:1}.md\:order-3{order:3}.md\:-m-28{margin:-28px}.md\:m-0{margin:0}.md\:-mx-21{margin-left:-21px;margin-right:-21px}.md\:-mx-60{margin-left:-60px;margin-right:-60px}.md\:mx-0{margin-left:0;margin-right:0}.md\:-mx-36{margin-left:-36px;margin-right:-36px}.md\:mr-60{margin-right:60px}.md\:mb-0{margin-bottom:0}.md\:mb-170{margin-bottom:170px}.md\:-mr-60{margin-right:-60px}.md\:mb-196{margin-bottom:196px}.md\:mb-45{margin-bottom:45px}.md\:mb-115{margin-bottom:115px}.md\:mb-75{margin-bottom:75px}.md\:mb-54{margin-bottom:54px}.md\:mb-66{margin-bottom:66px}.md\:mb-67{margin-bottom:67px}.md\:mb-42{margin-bottom:42px}.md\:mb-74{margin-bottom:74px}.md\:mt-120{margin-top:120px}.md\:mb-80{margin-bottom:80px}.md\:mr-40{margin-right:40px}.md\:mt-0{margin-top:0}.md\:block{display:block}.md\:inline-block{display:inline-block}.md\:flex{display:flex}.md\:hidden{display:none}.md\:h-48{height:48px}.md\:w-1\/2{width:50%}.md\:w-1\/4{width:25%}.md\:w-22\.3p{width:22.3%}.md\:w-22{width:22px}.md\:w-53\.3p{width:53.3%}.md\:w-53{width:53px}.md\:w-3\/12{width:25%}.md\:w-9\/12{width:75%}.md\:w-6\/12{width:50%}.md\:w-500{width:500px}.md\:w-full{width:100%}.md\:w-auto{width:auto}.md\:min-w-0{min-width:0}.md\:max-w-none{max-width:none}.md\:max-w-380{max-width:380px}.md\:max-w-434{max-width:434px}.md\:flex-1{flex:1}.md\:flex-row{flex-direction:row}.md\:items-center{align-items:center}.md\:justify-start{justify-content:flex-start}.md\:justify-between{justify-content:space-between}.md\:overflow-visible{overflow:visible}.md\:border-transparent{border-color:transparent}.md\:border-black-100{--tw-border-opacity:1;border-color:rgb(15 15 14/var(--tw-border-opacity))}.md\:bg-transparent{background-color:transparent}.md\:p-0{padding:0}.md\:p-28{padding:28px}.md\:py-38{padding-top:38px;padding-bottom:38px}.md\:px-15{padding-left:15px;padding-right:15px}.md\:px-60{padding-left:60px;padding-right:60px}.md\:py-100{padding-top:100px;padding-bottom:100px}.md\:px-41{padding-left:41px;padding-right:41px}.md\:py-22{padding-top:22px;padding-bottom:22px}.md\:px-8{padding-left:8px;padding-right:8px}.md\:px-48{padding-left:48px;padding-right:48px}.md\:py-80{padding-top:80px;padding-bottom:80px}.md\:px-0{padding-left:0;padding-right:0}.md\:py-91{padding-top:91px;padding-bottom:91px}.md\:px-36{padding-left:36px;padding-right:36px}.md\:pb-0{padding-bottom:0}.md\:pt-156{padding-top:156px}.md\:pb-220{padding-bottom:220px}.md\:pt-220{padding-top:220px}.md\:pt-162{padding-top:162px}.md\:pb-200{padding-bottom:200px}.md\:pt-100{padding-top:100px}.md\:pb-127{padding-bottom:127px}.md\:pt-210{padding-top:210px}.md\:pt-180{padding-top:180px}.md\:pb-113{padding-bottom:113px}.md\:pt-111{padding-top:111px}.md\:pb-3{padding-bottom:3px}.md\:pb-30{padding-bottom:30px}.md\:pl-30{padding-left:30px}.md\:pl-64{padding-left:64px}.md\:pb-20{padding-bottom:20px}.md\:pb-82{padding-bottom:82px}.md\:pb-100{padding-bottom:100px}.md\:text-left{text-align:left}.md\:text-center{text-align:center}.md\:text-right{text-align:right}.md\:text-24{font-size:24px}.md\:text-36{font-size:36px}.md\:text-56{font-size:56px}.md\:text-18{font-size:18px}.md\:text-62{font-size:62px}.md\:text-42{font-size:42px}.md\:text-14{font-size:14px}.md\:text-black-100{--tw-text-opacity:1;color:rgb(15 15 14/var(--tw-text-opacity))}.md\:hover\:bg-black-100:hover{--tw-bg-opacity:1;background-color:rgb(15 15 14/var(--tw-bg-opacity))}.md\:hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity))}}@media(min-width:1280px){.lg\:-mx-23{margin-left:-23px;margin-right:-23px}.lg\:-mx-8{margin-left:-8px;margin-right:-8px}.lg\:mr-90{margin-right:90px}.lg\:mr-86{margin-right:86px}.lg\:mr-83{margin-right:83px}.lg\:w-8\/12{width:66.666667%}.lg\:w-9\/12{width:75%}.lg\:w-608{width:608px}.lg\:w-52p{width:52%}.lg\:w-26p{width:26%}.lg\:w-22p{width:22%}.lg\:max-w-434{max-width:434px}.lg\:flex-nowrap{flex-wrap:nowrap}.lg\:justify-between{justify-content:space-between}.lg\:px-21{padding-left:21px;padding-right:21px}.lg\:px-23{padding-left:23px;padding-right:23px}.lg\:px-36{padding-left:36px;padding-right:36px}.lg\:px-12{padding-left:12px;padding-right:12px}.lg\:px-8{padding-left:8px;padding-right:8px}.lg\:pt-80{padding-top:80px}.lg\:text-56{font-size:56px}.lg\:text-16{font-size:16px}.lg\:text-24{font-size:24px}}@media(min-width:1440px){.xl\:w-2\/12{width:16.666667%}.xl\:w-10\/12{width:83.333333%}.xl\:px-10{padding-left:10px;padding-right:10px}.xl\:pl-29{padding-left:29px}.xl\:pr-105{padding-right:105px}.xl\:pl-32{padding-left:32px}.xl\:pr-34{padding-right:34px}.xl\:text-16{font-size:16px}}</style>
+        <link rel="preload" href="/main.min.a09f1f7d5c32eba3a323bc3c39fca98dc62a83bad52faf6e0c62e7c5285cab6a.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/main.min.a09f1f7d5c32eba3a323bc3c39fca98dc62a83bad52faf6e0c62e7c5285cab6a.css"></noscript>
+    
+
+    
+        
+        
+        
+        <script type="application/ld+json">
+            {
+                "@context": "http://schema.org",
+                "@type": "BlogPosting",
+                "articleSection": "blog",
+                "name": "Web Scraping with C#",
+                "headline": "Web Scraping with C#",
+                "alternativeHeadline": "",
+                "description": "Learn web scraping with C# with this step-by-step tutorial covering the must-known C# web-scraping tools and libraries.",
+                "inLanguage": "en-us",
+                "isFamilyFriendly": "true",
+                "mainEntityOfPage": {
+                    "@type": "WebPage",
+                    "@id": "https://www.scrapingbee.com/blog/web-scraping-csharp/"
+                },
+                "author" : {
+                    "@type": "Person",
+                    "name": "Jennifer Marsh"
+                },
+                "creator" : {
+                    "@type": "Person",
+                    "name": "Jennifer Marsh"
+                },
+                "accountablePerson" : {
+                    "@type": "Person",
+                    "name": "Jennifer Marsh"
+                },
+                "copyrightHolder" : "ScrapingBee, the best web scraping API.",
+                "copyrightYear" : "2022",
+                "dateCreated": "2022-06-07T10:22:27.00Z",
+                "datePublished": "2022-06-07T10:22:27.00Z",
+                "dateModified": "2022-06-07T10:22:27.00Z",
+                "publisher":{
+                    "@type":"Organization",
+                    "name": "ScrapingBee, the best web scraping API.",
+                    "url": "https://www.scrapingbee.com/",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "https://www.scrapingbee.com/favico.png",
+                        "width":"32",
+                        "height":"32"
+                    }
+                },
+                "image": "https://www.scrapingbee.com/blog/web-scraping-csharp/cover.png",
+                "url" : "https://www.scrapingbee.com/blog/web-scraping-csharp/",
+                "wordCount" : "2626"
+            }
+        </script>
+    
+</head>
+    <body>
+        <div id="wrapper">
+            <header class="bg-yellow-100 py-20 md:py-38 absolute left-0 right-0 top-0 z-9">
+    <div class="container">
+        <div class="flex items-center">
+            <div class="w-160 md:mr-60 lg:mr-90">
+                <a href="/">
+                    <img src="/images/logo.svg" alt="ScrapingBee logo" height="26" width="160">
+                </a>
+            </div>
+            <span class="nav-opener md:hidden cursor-pointer absolute top-0 right-0 mt-19 mr-20"><i class="icon-menu"></i></span>
+            <div class="navbar-wrap overflow-hidden md:overflow-visible md:flex-1">
+                <nav class="navbar px-20 py-20 md:p-0 md:flex md:items-center md:justify-between text-16 leading-a20 bg-black-100 md:bg-transparent text-white md:text-black-100">
+                    <ul class="flex items-center -mx-21 justify-between md:justify-start border-b border-blue-200 md:border-transparent pb-20 md:pb-0 mb-30 md:mb-0">
+                        <li class="px-15 lg:px-21"><a href="https://app.scrapingbee.com/account/login" class="block hover:underline">Login</a></li>
+                        <li class="px-15 lg:px-21"><a href="https://app.scrapingbee.com/account/register" class="btn btn-black-o text-16 px-21 h-40 md:h-48 border-white md:border-black-100 text-white md:text-black-100 hover:bg-white md:hover:bg-black-100 hover:text-black-100 md:hover:text-white transition-all">Sign Up</a></li>
+                    </ul>
+                    <ul class="md:flex md:order-first md:items-center md:-mx-21">
+                        <li class="relative md:px-15 lg:px-21 mb-20 md:mb-0"><a href="/#pricing" class="block hover:underline">Pricing</a></li>
+                        <li class="relative md:px-15 lg:px-21 mb-20 md:mb-0"><a href="/#faq" class="block hover:underline">FAQ</a></li>
+                        <li class="relative md:px-15 lg:px-21 mb-20 md:mb-0"><a href="/blog/" class="block hover:underline">Blog</a></li>
+                        <li class="relative md:px-15 lg:px-21 mb-20 md:mb-0">
+                            <a href="#" class="block hover:underline">Other Features</a>
+                            <ul class="nav-drop">
+                                <li><a href="/features/screenshot/" class="text-white hover:underline">Screenshots</a></li>
+                                <li class="mt-12"><a href="/features/google/" class="text-white hover:underline">Google search API</a></li>
+                                <li class="mt-12"><a href="/features/data-extraction/" class="text-white hover:underline">Data extraction</a></li>
+                                <li class="mt-12"><a href="/features/javascript-scenario/" class="text-white hover:underline">JavaScript scenario</a></li>
+                                <li class="mt-12"><a href="/features/make/" class="text-white hover:underline">No code web scraping</a></li>
+                            </ul>
+                        </li>
+                        <li class="relative md:px-15 lg:px-21 mb-20 md:mb-0">
+                            <a href="#" class="block hover:underline">Developers</a>
+                            <ul class="nav-drop">
+                                <li><a href="/tutorials" class="text-white hover:underline">Tutorials</a></li>
+                                <li class="mt-12"><a href="/documentation/" class="text-white hover:underline">Documentation</a></li>
+                                <li class="mt-12"><a href="https://help.scrapingbee.com/en/" target="_blank" class="text-white hover:underline">Knowledge Base</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+            <div id="content">
+            
+
+<article class="mt-60 md:mt-120 pt-60 md:pt-111 pb-2 text-blue-200 mb-8p">
+    <div class="container max-w-screen-lg">
+        <div class="flex flex-wrap justify-center items-center text-center sm:text-left mb-20 md:mb-80">
+            <div class="w-full sm:w-10/12 lg:w-8/12">
+                <div class="w-full z-101 left-0 fixed-bar items-center" id="notify-bar">
+                    <h1 class="text-center text-36 sm:text-40 lg:text-56 text-black-100 mb-11 capitalize">Web Scraping with C#</h1>
+                    <span class="hidden md:block">
+                        <a href="https://app.scrapingbee.com/account/register" class="btn bg-yellow-100 hover:bg-opacity-90 transition-opacity h-auto text-black-100 text-14 md:text-18 font-bold px-15 md:px-41 py-8 hidden">Try ScrapingBee for Free</a>
+                    </span>
+                </div>
+                <div class="text-center text-16 mb-10">
+                    <strong class="block text-black-100 text-18 font-bold mb-2"><span class="hidden md:inline-block">Jennifer Marsh |</span> 07 June 2022  | <span class="text-blue-200">13 min read</span></strong>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-wrap -mx-15 lg:-mx-23">
+            <div class="w-full md:w-22.3p px-15 lg:px-23 order-2 hidden md:block md:order-1">
+                <div class="sticky top-80">
+                    <div class="table-content text-black-100 pb-16 md:pb-3 mb-33">
+                        <div class="relative mb-17 font-bold">Table of contents</div>
+                        <div class="toc relative js-toc" style="height: 80vh">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="w-full md:w-53.3p px-15 lg:px-23 order-2 blog-post js-toc-content-full">
+            
+
+                <p>C# is rather popular as backend programming language and you might find yourself in need of it for scraping a web page (or multiple pages). In this article, we will cover how to scrape a website using C#. Specifically, we'll walk you through the steps on how to send the HTTP request, how to <a href="https://www.scrapingbee.com/blog/csharp-html-parser/">parse the received HTML document with C#</a>, and how to access and extract the information we are after.</p>
+<p>As we mentioned in other articles, this will work beautifully as long as we scrape server-rendered/server-composed HTML. The moment we are dealing with <a href="https://en.wikipedia.org/wiki/Single-page_application">single-page applications</a>, or anything else that heavily relies on JavaScript, things become a lot more complicated. This is what we will discuss in the second part of this article, where we will have an in-depth look at <a href="https://www.puppeteersharp.com/">PuppeteerSharp</a>, <a href="https://www.selenium.dev/documentation/webdriver/">Selenium WebDriver for C#</a>, and <a href="https://developers.google.com/web/updates/2017/06/headless-karma-mocha-chai">Headless Chrome</a>.</p>
+<blockquote>
+<p><strong>Note</strong>: This article assumes that the reader is familiar with C# and ASP.NET, as well as HTTP request libraries. The PuppeteerSharp and Selenium WebDriver .NET libraries are available to make integration of Headless Chrome easier for developers. Also, this project is using .NET Core 3.1 framework and the <a href="https://www.scrapingbee.com/blog/html-agility-pack/">HTML Agility Pack for parsing raw HTML</a>.</p>
+</blockquote>
+<h2 id="part-i-static-pages">Part I: Static Pages</h2>
+<p><strong>Setup</strong></p>
+<p>If you’re using C# as a language, you probably already use Visual Studio. This article uses a simple .NET Core Web Application project using MVC (Model View Controller). After you created a new project, use the NuGet package manager to add the necessary libraries used throughout this tutorial.</p>
+<p><img src="image4.png" alt="Nuget Package manager"></p>
+<p>In NuGet, click the “Browse” tab and then type “HTML Agility Pack” to <a href="https://www.nuget.org/packages/HtmlAgilityPack/">fetch the package</a>.</p>
+<p><img src="image5.png" alt="Browse tab"></p>
+<p>Install the package, and then you’re ready to go. This package makes it easy to parse the downloaded HTML and find tags and information that you want to save.</p>
+<p>Finally, before you get started with coding the scraper, you need the following libraries added to the codebase:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">using</span> HtmlAgilityPack;
+<span style="color:#66d9ef">using</span> System.Net.Http;
+<span style="color:#66d9ef">using</span> System.Net.Http.Headers;
+<span style="color:#66d9ef">using</span> System.Threading.Tasks;
+<span style="color:#66d9ef">using</span> System.Net;
+<span style="color:#66d9ef">using</span> System.Text;
+<span style="color:#66d9ef">using</span> System.IO;
+</code></pre></div><h3 id="making-an-http-request-to-a-web-page-in-c">Making an HTTP Request to a Web Page in C#</h3>
+<p>Imagine you have a project where you need to scrape Wikipedia for information on famous software engineers. It wouldn't be Wikipedia, if it didn't have such an article, right? 😉</p>
+<blockquote>
+<p><a href="https://en.wikipedia.org/wiki/List_of_programmers">https://en.wikipedia.org/wiki/List_of_programmers</a></p>
+</blockquote>
+<p>That article has a list of programmers with links to their respective own Wikipedia pages. You can scrape the list and save the information to a CSV file (which e.g. you can easily process with Excel) for later use.</p>
+<p>This is just one simple example of what you can do with web scraping, but the general concept is to find a site that has the information you need, use C# to scrape the content, and store it for later use. In more complex projects, you can crawl pages using the links found on a top category page.</p>
+<p><strong>Still, let's focus on that particular Wikipedia page for our following examples.</strong></p>
+<h4 id="using-nets-httpclient-to-retrieve-html">Using .NET's HttpClient to Retrieve HTML</h4>
+<p>.NET already comes with an HTTP client (aptly named <code>HttpClient</code>) in its <a href="https://docs.microsoft.com/dotnet/api/system.net.http"><code>System.Net.Http</code> namespace</a>, so no need for any external third party libraries or dependencies. Plus, it supports asynchronous calls out of the box.</p>
+<p>Using <code>GetStringAsync()</code>, it's relatively straightforward to get the content of any URL in an asynchronous, non-blocking fashion, as we can observe in the following example.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">async</span> Task&lt;<span style="color:#66d9ef">string</span>&gt; CallUrl(<span style="color:#66d9ef">string</span> fullUrl)
+{
+	HttpClient client = <span style="color:#66d9ef">new</span> HttpClient();
+	<span style="color:#66d9ef">var</span> response = <span style="color:#66d9ef">await</span> client.GetStringAsync(fullUrl);
+	<span style="color:#66d9ef">return</span> response;
+}
+</code></pre></div><p>We simply instantiate a new <code>HttpClient</code> object, call <code>GetStringAsync()</code>, &quot;await&quot; its completion, and return the completed task to our caller. We now just add that method to our controller class and we are good to go to call <code>CallUrl()</code> from our <code>Index()</code> method. Let's actually do that.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">public</span> IActionResult Index()
+{
+	<span style="color:#66d9ef">string</span> url = <span style="color:#e6db74">&#34;https://en.wikipedia.org/wiki/List_of_programmers&#34;</span>;
+	<span style="color:#66d9ef">var</span> response = CallUrl(url).Result;
+	<span style="color:#66d9ef">return</span> View();
+}
+</code></pre></div><p>Here, we define our Wikipedia URL in <code>url</code>, it to <code>CallUrl()</code>, and are storing its response in our <code>response</code> variable.</p>
+<p>All right, the code to make the HTTP request is done. We still haven’t parsed it yet, but now is a good time to run the code to ensure that the Wikipedia HTML is returned instead of any errors.</p>
+<p>For that, we'll first set a breakpoint in the <code>Index()</code> method at <code>return View();</code>. This will ensure that you can use the Visual Studio debugger UI to view the results.</p>
+<p>You can test the above code by clicking the “Run” button in the Visual Studio menu:</p>
+<p><img src="image3.png" alt="Run button in Visual studio"></p>
+<p>Visual Studio will stop at the breakpoint and now you can view the current state of the application.</p>
+<p><img src="image2.png" alt="Breakpoint in Visual studio"></p>
+<p>If you pick &quot;HTML Visualizer&quot; from the context menu, you'd be getting a preview of the HTML page, but already by hovering over the variable, we can see that we got a proper HTML page returned by the server, so we should be good to go.</p>
+<h3 id="parsing-the-html">Parsing the HTML</h3>
+<p>With the HTML retrieved, it's time to parse it. <a href="https://html-agility-pack.net">HTML Agility Pack</a> is a popular parser suite and can be easily <a href="https://stackoverflow.com/questions/25311568/parsing-html-with-linq">combined with LINQ</a> as well, for example.</p>
+<p>Before you parse the HTML, you need to know a little bit about the structure of the page so that you know which elements to extract exactly. This is where your browser's developer tools will shine once again, as they allow you to analyse the DOM tree in detail.</p>
+<p>With our Wikipedia page, we'll notice we've got plenty of link in our Table of Contents, we won't need those. There are also quite a few other links (e.g. the edit links), which we do not necessarily need for our data set. On a closer look, we notice that all the links, we are interested in, are part of a <code>&lt;li&gt;</code> parent.</p>
+<p><img src="image1.png" alt="DOM inspection"></p>
+<p>Based on the DOM tree, we have now established that <code>&lt;li&gt;</code>s are not only used for our actual link elements, but also for the page's content table. As we are not really after the content table, we need to make sure we filter out those <code>&lt;li&gt;</code>s and, fortunately, they come with their own distinct HTML classes, so we can simply exclude in our code all <code>&lt;li&gt;</code> elements having <code>tocsection</code> classes.</p>
+<p><strong>Time to code!</strong> We'll start off by adding another method to our controller class, <code>ParseHtml()</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">private</span> List&lt;<span style="color:#66d9ef">string</span>&gt; ParseHtml(<span style="color:#66d9ef">string</span> html)
+{
+	HtmlDocument htmlDoc = <span style="color:#66d9ef">new</span> HtmlDocument();
+	htmlDoc.LoadHtml(html);
+
+	<span style="color:#66d9ef">var</span> programmerLinks = htmlDoc.DocumentNode.Descendants(<span style="color:#e6db74">&#34;li&#34;</span>)
+		.Where(node =&gt; !node.GetAttributeValue(<span style="color:#e6db74">&#34;class&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>).Contains(<span style="color:#e6db74">&#34;tocsection&#34;</span>))
+		.ToList();
+
+	List&lt;<span style="color:#66d9ef">string</span>&gt; wikiLink = <span style="color:#66d9ef">new</span> List&lt;<span style="color:#66d9ef">string</span>&gt;();
+
+	<span style="color:#66d9ef">foreach</span> (<span style="color:#66d9ef">var</span> link <span style="color:#66d9ef">in</span> programmerLinks)
+	{
+		<span style="color:#66d9ef">if</span> (link.FirstChild.Attributes.Count &gt; <span style="color:#ae81ff">0</span>) wikiLink.Add(<span style="color:#e6db74">&#34;https://en.wikipedia.org/&#34;</span> + link.FirstChild.Attributes[<span style="color:#ae81ff">0</span>].Value) ;
+	}
+
+	<span style="color:#66d9ef">return</span> wikiLink;
+}
+</code></pre></div><p>Here, we first create an instance of <code>HtmlDocument</code> and load the HTML document we earlier received from <code>CallUrl()</code>. We now have a proper DOM representation of our document and can proceed with scraping that document.</p>
+<ol>
+<li>We get all <code>&lt;li&gt;</code> children with <code>Descendants()</code></li>
+<li>We use LINQ (<code>Where()</code>) to filter out elements which use mentioned HTML classes</li>
+<li>We iterate (<code>foreach</code>) over our links and save their (relative) URLs as absolute URLs in our <code>wikiLink</code> string list</li>
+<li>We return the string list to our caller</li>
+</ol>
+<h4 id="xpath">XPath</h4>
+<p>One thing to note, we wouldn't have needed to perform the element selection manually. We did so solely for the sake of the example.</p>
+<p>In real-world code, it will be much more convenient to apply an <a href="https://en.wikipedia.org/wiki/XPath">XPath expression</a>. With that, our whole selection logic would fit into a one-liner.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">var</span> programmerLinks = htmlDoc.DocumentNode.SelectNodes(<span style="color:#e6db74">&#34;//li[not(contains(@class, &#39;tocsection&#39;))]&#34;</span>)
+</code></pre></div><p>This follows the same logic as our manual selection and will select <em>all</em> (<code>//</code>) <code>&lt;li&gt;</code>s which <em>do not contain said class</em> (<code>not(contains())</code>).</p>
+<blockquote>
+<p>💡 If you like to find out more about XPath, please check out our lovely tutorial on <a href="https://www.scrapingbee.com/blog/practical-xpath-for-web-scraping/">How to Use XPath for Web Scraping</a>.</p>
+</blockquote>
+<h3 id="exporting-scraped-data-to-a-file">Exporting Scraped Data to a File</h3>
+<p>So far, we have fetched the HTML document from Wikipedia, parsed it into a DOM tree, and managed to extract all the desired links and we now have a generic list of links from the page.</p>
+<p>Now, we want to export the links to a CSV file. We'll add another method named <code>WriteToCsv()</code> to write data from the generic list to a file. The following code is the full method that writes the extracted links to a file named “links.csv” and stores it on the local disk.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> WriteToCsv(List&lt;<span style="color:#66d9ef">string</span>&gt; links)
+{
+	StringBuilder sb = <span style="color:#66d9ef">new</span> StringBuilder();
+	<span style="color:#66d9ef">foreach</span> (<span style="color:#66d9ef">var</span> link <span style="color:#66d9ef">in</span> links)
+	{
+		sb.AppendLine(link);
+	}
+
+	System.IO.File.WriteAllText(<span style="color:#e6db74">&#34;links.csv&#34;</span>, sb.ToString());
+}
+</code></pre></div><p>The above code is all it takes to write data to a file on local storage using native .NET framework libraries.</p>
+<p><strong>That's all, folks. Promised!</strong></p>
+<p>But to recap, let's also post the <code>HomeController</code> code in its full glory:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">using</span> System;
+<span style="color:#66d9ef">using</span> System.Collections.Generic;
+<span style="color:#66d9ef">using</span> System.Diagnostics;
+<span style="color:#66d9ef">using</span> System.Linq;
+<span style="color:#66d9ef">using</span> Microsoft.AspNetCore.Mvc;
+<span style="color:#66d9ef">using</span> Microsoft.Extensions.Logging;
+
+<span style="color:#66d9ef">using</span> HtmlAgilityPack;
+<span style="color:#66d9ef">using</span> System.Net.Http;
+<span style="color:#66d9ef">using</span> System.Net.Http.Headers;
+<span style="color:#66d9ef">using</span> System.Threading.Tasks;
+<span style="color:#66d9ef">using</span> System.Net;
+<span style="color:#66d9ef">using</span> System.Text;
+<span style="color:#66d9ef">using</span> System.IO;
+
+<span style="color:#66d9ef">namespace</span> ScrapingBeeScraper.Controllers
+{
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HomeController</span> : Controller
+    {
+        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">readonly</span> ILogger&lt;HomeController&gt; <span style="color:#ae81ff">_l</span>ogger;
+
+        <span style="color:#66d9ef">public</span> HomeController(ILogger&lt;HomeController&gt; logger)
+        {
+            <span style="color:#ae81ff">_l</span>ogger = logger;
+        }
+
+        <span style="color:#66d9ef">public</span> IActionResult Index()
+        {
+            <span style="color:#66d9ef">string</span> url = <span style="color:#e6db74">&#34;https://en.wikipedia.org/wiki/List_of_programmers&#34;</span>;
+            <span style="color:#66d9ef">string</span> response = CallUrl(url).Result;
+            
+            <span style="color:#66d9ef">var</span> linkList = ParseHtml(response);
+            
+            WriteToCsv(linkList);
+
+            <span style="color:#66d9ef">return</span> View();
+        }
+<span style="color:#a6e22e">
+</span><span style="color:#a6e22e">        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]</span>
+        <span style="color:#66d9ef">public</span> IActionResult Error()
+        {
+            <span style="color:#66d9ef">return</span> View(<span style="color:#66d9ef">new</span> ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">async</span> Task&lt;<span style="color:#66d9ef">string</span>&gt; CallUrl(<span style="color:#66d9ef">string</span> fullUrl)
+        {
+            HttpClient client = <span style="color:#66d9ef">new</span> HttpClient();
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13;
+            client.DefaultRequestHeaders.Accept.Clear();
+            <span style="color:#66d9ef">var</span> response = client.GetStringAsync(fullUrl);
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">await</span> response;
+        }
+
+        <span style="color:#66d9ef">private</span> List&lt;<span style="color:#66d9ef">string</span>&gt; ParseHtml(<span style="color:#66d9ef">string</span> html)
+        {
+            HtmlDocument htmlDoc = <span style="color:#66d9ef">new</span> HtmlDocument();
+            htmlDoc.LoadHtml(html);
+
+            <span style="color:#66d9ef">var</span> programmerLinks = htmlDoc.DocumentNode.Descendants(<span style="color:#e6db74">&#34;li&#34;</span>)
+                .Where(node =&gt; !node.GetAttributeValue(<span style="color:#e6db74">&#34;class&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>).Contains(<span style="color:#e6db74">&#34;tocsection&#34;</span>))
+                .ToList();
+
+            List&lt;<span style="color:#66d9ef">string</span>&gt; wikiLink = <span style="color:#66d9ef">new</span> List&lt;<span style="color:#66d9ef">string</span>&gt;();
+
+            <span style="color:#66d9ef">foreach</span> (<span style="color:#66d9ef">var</span> link <span style="color:#66d9ef">in</span> programmerLinks)
+            {
+                <span style="color:#66d9ef">if</span> (link.FirstChild.Attributes.Count &gt; <span style="color:#ae81ff">0</span>)
+                    wikiLink.Add(<span style="color:#e6db74">&#34;https://en.wikipedia.org/&#34;</span> + link.FirstChild.Attributes[<span style="color:#ae81ff">0</span>].Value) ;
+            }
+
+            <span style="color:#66d9ef">return</span> wikiLink;
+
+        }
+
+        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> WriteToCsv(List&lt;<span style="color:#66d9ef">string</span>&gt; links)
+        {
+            StringBuilder sb = <span style="color:#66d9ef">new</span> StringBuilder();
+            <span style="color:#66d9ef">foreach</span> (<span style="color:#66d9ef">var</span> link <span style="color:#66d9ef">in</span> links)
+            {
+                sb.AppendLine(link);
+            }
+
+            System.IO.File.WriteAllText(<span style="color:#e6db74">&#34;links.csv&#34;</span>, sb.ToString());
+        }
+    }
+}
+</code></pre></div><h2 id="part-ii-scraping-dynamic-javascript-pages">Part II: Scraping Dynamic JavaScript Pages</h2>
+<p>In <em>Part I</em>, the whole scraping was quite straightforward, because we received the full HTML document already from the server and we only had to parse it and pick the data we wanted.</p>
+<p>JavaScript has shifted that landscape, however, and sites which primarily rely on JavaScript - <em>in particular, of course, sites made with Angular, React, or Vue.js</em> - can't be scraped in the way we discussed earlier. If you were to use the same approach, you wouldn't get much HTML back, but mostly just JavaScript code. You need to actually execute that JavaScript code to get to the data you want.</p>
+<p>Dynamic JavaScript isn’t the only issue. Some sites detect if JavaScript is enabled or evaluate the user agent sent by the browser. The user agent header is part of the HTTP request and tells the web server the type of browser being used to access pages (e.g. Chrome, Firefox, etc). If you use web scraper code, it typically sends some default user agent and many web servers will return different content based on the user agent. Some web servers will use JavaScript to detect when a request is not from a human user.</p>
+<blockquote>
+<p>💡 Check out our great article on <a href="https://www.scrapingbee.com/blog/web-scraping-without-getting-blocked/">Web Scraping without getting blocked</a> for more details on that subject.</p>
+</blockquote>
+<p>You can overcome this issue by using libraries that leverage <a href="https://www.scrapingbee.com/blog/introduction-to-chrome-headless/">Headless Chrome</a> to render the page and then parse the results. Following, we'll be talking about two libraries freely available from NuGet that can be used in conjunction with Headless Chrome to parse results. <a href="https://www.puppeteersharp.com/">PuppeteerSharp</a> is the first solution we use that makes asynchronous calls to a web page. The other solution is <a href="https://www.selenium.dev/documentation/en/webdriver/">Selenium WebDriver</a>, which is a common platform for automated testing of web applications, but can also serve perfectly fine for scraping task.</p>
+<h3 id="using-puppeteersharp-with-headless-chrome">Using PuppeteerSharp with Headless Chrome</h3>
+<p>Similar to our previous example, we start again with our controller's <code>Index()</code> method, but need fewer &quot;additional&quot; methods this time, as <em>Puppeteer</em> already covers quite a few of the areas we handled ourselves earlier.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task&lt;IActionResult&gt; Index()
+{
+	<span style="color:#66d9ef">string</span> fullUrl = <span style="color:#e6db74">&#34;https://en.wikipedia.org/wiki/List_of_programmers&#34;</span>;
+
+	List&lt;<span style="color:#66d9ef">string</span>&gt; programmerLinks = <span style="color:#66d9ef">new</span> List&lt;<span style="color:#66d9ef">string</span>&gt;();
+
+	<span style="color:#66d9ef">var</span> options = <span style="color:#66d9ef">new</span> LaunchOptions()
+	{
+		Headless = <span style="color:#66d9ef">true</span>,
+		ExecutablePath = <span style="color:#e6db74">&#34;C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe&#34;</span>
+	};
+
+	<span style="color:#66d9ef">var</span> browser = <span style="color:#66d9ef">await</span> Puppeteer.LaunchAsync(options, <span style="color:#66d9ef">null</span>, Product.Chrome);
+	<span style="color:#66d9ef">var</span> page = <span style="color:#66d9ef">await</span> browser.NewPageAsync();
+	<span style="color:#66d9ef">await</span> page.GoToAsync(fullUrl);
+
+	<span style="color:#66d9ef">var</span> links = <span style="color:#e6db74">@&#34;Array.from(document.querySelectorAll(&#39;li:not([class^=&#34;&#34;toc&#34;&#34;]) a&#39;)).map(a =&gt; a.href);&#34;</span>;
+	<span style="color:#66d9ef">var</span> urls = <span style="color:#66d9ef">await</span> page.EvaluateExpressionAsync&lt;<span style="color:#66d9ef">string</span>[]&gt;(links);
+
+	<span style="color:#66d9ef">foreach</span> (<span style="color:#66d9ef">string</span> url <span style="color:#66d9ef">in</span> urls)
+	{
+		programmerLinks.Add(url);
+	}
+    
+    WriteToCsv(programmerLinks);
+
+	<span style="color:#66d9ef">return</span> View();
+}
+</code></pre></div><blockquote>
+<p>Please do not forget to install and import <em>Puppeteer</em> with <em>NuGet</em> and <code>using PuppeteerSharp;</code></p>
+</blockquote>
+<p>Instead of sending the HTTP request, parsing the HTML, and extracting the data ourselves, we really only relied on Puppeteer and Chrome here. The first basic steps were:</p>
+<ol>
+<li>Defining a couple of options with the new <code>LaunchOptions</code> class (among them, the <strong>path to our browser</strong> instance ‼️)</li>
+<li>Launching a new browser instance with <code>Puppeteer.LaunchAsync()</code> and got a fresh page object with <code>NewPageAsync()</code></li>
+<li>Loading <a href="https://en.wikipedia.org/wiki/List_of_programmers">https://en.wikipedia.org/wiki/List_of_programmers</a> with <code>GoToAsync()</code></li>
+</ol>
+<p><strong>So far, so good, now the real magic.</strong></p>
+<p>Instead of handling the whole element selection ourselves, we now simply passed the following JavaScript snippet to <code>EvaluateExpressionAsync()</code>, which kindly did all the heavy lifting for us.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">Array.<span style="color:#a6e22e">from</span>(document.<span style="color:#a6e22e">querySelectorAll</span>(<span style="color:#e6db74">&#39;li:not([class^=&#34;toc&#34;]) a:first-child&#39;</span>)).<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">a</span> =&gt; <span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">href</span>);
+</code></pre></div><p>If you are familiar with JavaScript, you will notice that we ran <code>querySelectorAll()</code>, with the <a href="https://www.w3schools.com/cssref/css_selectors.asp">CSS selector</a> <code>li:not([class^=&quot;toc&quot;]) a</code> to get the same set of elements from our first example, and eventually used <code>map()</code> to switch the element values to their respective link attributes (<code>href</code>).</p>
+<p>Now we only had to collect our links and write them to the CSV file with <code>WriteToCsv()</code>.</p>
+<p><em><strong>Done, thanks Puppeteer!</strong></em></p>
+<h3 id="using-selenium-with-headless-chrome">Using Selenium with Headless Chrome</h3>
+<p>If <em>Puppeteer</em> is not an option, you could also check out <em>Selenium WebDriver</em>. Selenium is a very popular platform for automated testing of web applications and works quite similar to <em>Puppeteer</em>. In addition to <em>Puppeteer</em>, it also allows you to perform typical user actions (e.g. mouse clicks) natively.</p>
+<p>For our example, we first need to get over the usual NuGet rituals and install <code>Selenium.WebDriver</code>, as well as well as <code>Selenium.WebDriver.ChromeDriver</code>. The latter is the required browser helper for Chrome, of course there are also helpers for Firefox.</p>
+<p>Now, just two more <code>using</code> statements and we can rock'n'roll.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">using</span> OpenQA.Selenium;
+<span style="color:#66d9ef">using</span> OpenQA.Selenium.Chrome;
+</code></pre></div><p>Now, you can add the code that will open a page and extract all links from the results. The following code demonstrates how to extract links and add them to a generic list.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task&lt;IActionResult&gt; Index()
+{
+	<span style="color:#66d9ef">string</span> fullUrl = <span style="color:#e6db74">&#34;https://en.wikipedia.org/wiki/List_of_programmers&#34;</span>;
+	List&lt;<span style="color:#66d9ef">string</span>&gt; programmerLinks = <span style="color:#66d9ef">new</span> List&lt;<span style="color:#66d9ef">string</span>&gt;();
+
+	<span style="color:#66d9ef">var</span> options = <span style="color:#66d9ef">new</span> ChromeOptions()
+	{
+		BinaryLocation = <span style="color:#e6db74">&#34;C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe&#34;</span>
+	};
+
+	options.AddArguments(<span style="color:#66d9ef">new</span> List&lt;<span style="color:#66d9ef">string</span>&gt;() { <span style="color:#e6db74">&#34;headless&#34;</span>, <span style="color:#e6db74">&#34;disable-gpu&#34;</span> });
+
+	<span style="color:#66d9ef">var</span> browser = <span style="color:#66d9ef">new</span> ChromeDriver(options);
+	browser.Navigate().GoToUrl(fullUrl);
+
+	<span style="color:#66d9ef">var</span> links = browser.FindElementsByXPath(<span style="color:#e6db74">&#34;//li[not(contains(@class, &#39;tocsection&#39;))]/a[1]&#34;</span>);
+	<span style="color:#66d9ef">foreach</span> (<span style="color:#66d9ef">var</span> url <span style="color:#66d9ef">in</span> links)
+	{
+		programmerLinks.Add(url.GetAttribute(<span style="color:#e6db74">&#34;href&#34;</span>));
+	}
+    
+    WriteToCsv(programmerLinks);
+
+	<span style="color:#66d9ef">return</span> View();
+}
+</code></pre></div><p>Quite similar to our Puppeteer example, isn't it?</p>
+<p>Here we set our browser options with <code>ChromeOptions</code>, instantiated a <code>ChromeDriver</code> object, loaded the page with <code>GoToUrl</code>, and eventually extracted the elements and saved everything, once more, to our CSV file.</p>
+<p>As attentive reader you certainly have noticed the technology switch we leisurely introduced. Instead of a CSS selector we used an XPath expression, but don't fret, Selenium supports CSS selectors just as fine.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">var</span> links = browser.FindElementsByCssSelector(<span style="color:#e6db74">@&#34;li:not([class^=&#34;&#34;toc&#34;&#34;]) a:first-child&#34;</span>);
+</code></pre></div><p>Please, also notice that Selenium is not asynchronous, so if you have a large pool of links and actions to take on a page, it will freeze your program until the scraping completes. This is the one of the main differences between Puppeteer and Selenium.</p>
+<blockquote>
+<p>In this tutorial, we haven't covered a bit subject in web scraping: Proxies!
+Check out our <a href="/blog/csharp-httpclient-proxy/">HttpClient proxy tutorial</a> if you want to learn more.</p>
+</blockquote>
+<h2 id="conclusion">Conclusion</h2>
+<p>C#, and .NET in general, have all the necessary tools and libraries for you to implement your own data scraper, and especially with tools like Puppeteer and Selenium it is easy to quickly implement a crawler project and get the data you want.</p>
+<p>One aspect we only briefly addressed is the different techniques to avoid getting blocked or rate limited by the server. Typically, that is the real obstacle in web scraping and not any technical limitations.</p>
+<p>Check out our <a href="https://www.scrapingbee.com/">no-code web scraping API</a>, if you prefer to focus on your data rather than user agents, rate limits, proxies, and JavaScript challenges. <strong>Did you know, the first 1,000 API requests are on us?</strong></p>
+
+            </div>
+            <div class="w-full sm:w-10/12 m-0 mx-auto md:m-0 md:w-22.3p px-15 lg:px-23 order-1 md:order-3 text-16 leading-a41 text-center md:text-left text-black-100">
+                <div style="height: 330px; position: relative;">
+                    <div class="pb-30 sm:pb-60 md:pb-30">
+                        <div class="avatar w-100 mx-auto md:mx-0 mb-18 h-100 rounded-100p overflow-hidden">
+                            <img src="/images/authors/jennifer.png" alt="image description" width="200" height="200">
+                        </div>
+                        <strong class="block font-normal text-black-100 text-18 mb-17 text-24">Jennifer Marsh</strong>
+                        <p>Jennifer Marsh is a software developer and technology writer for a number of publications across several industries including cybersecurity, programming, DevOps, and IT operations.
+                        
+                        
+                        
+                        </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+<script>
+    let insertCta = function() {
+        const h2Tags = document.querySelectorAll('article h2');
+        const h2Count = h2Tags.length;
+        const middleH2Index = h2Count % 2 === 1 ? (h2Count + 1) / 2 : h2Count / 2;
+        const middleH2 = h2Tags[middleH2Index - 1];
+
+        const div = document.createElement('div');
+        div.setAttribute('id', 'cta-blog')
+        div.setAttribute('class', 'mt-100 hidden')
+        div.innerHTML = `
+        <div class="flex flex-row flex-wrap items-center p-20 mb-48 border-b border-white border-opacity-20 bg-yellow-100 rounded-8">
+                <div class="w-full">
+                    <span class="text-24 font-bold text-black-100 leading-a21 tracking-a2 mb-5">Tired of getting blocked while scraping the web?</span>
+                    <p class="text-black-100 mb-21">Join 20,000 users using our API to get the data they need!</p>
+                </div>
+                <div class="w-full text-left">
+                    <a href="https://app.scrapingbee.com/account/register" class="btn px-37">Try ScrapingBee for Free</a>
+                </div>
+        </div>
+    `
+        middleH2.before(div);
+    }
+    insertCta();
+</script>
+
+
+    
+    
+    <div class="mt-60 md:mt-120 p-60 bg-yellow-100">
+        <div class="container">
+            <h3> You might also like:</h3>
+            
+            <div class="flex flex-wrap">
+                
+                
+<div class="w-full sm:w-1/3 p-10 md:p-28 flex">
+    <a href="/blog/csharp-html-parser/?utm_source=related_content" class="shadow-card hover:shadow-2xl rounded-8 overflow-hidden flex flex-col text-16 leading-a50">
+        <div class="bg-white p-20 sm:p-32 flex-1 flex flex-col">
+            <div class="flex-1">
+                <h4 class="font-bold mb-12">C# HTML parsers</h4>
+                <div class="flex justify-between items-center mb-12">
+                    <div class="flex items-center gap-10">
+                        <div class="w-40 rounded-100p overflow-hidden">
+                            <img src="/images/authors/agustinus.jpg" class="block" alt="">
+                        </div>
+                        <strong class="block">Agustinus Theodorus</strong>
+                    </div>
+                    <div class="text-16">7 min read</div>
+                </div>
+                <div class="text-gray-200">
+                    <p>This article will teach you to parse HTML in C#.  HTML Agility pack, AngleSharp ... there are many options to parse HTML in C# and this article will show you the best tools for the job. </p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+                
+                
+<div class="w-full sm:w-1/3 p-10 md:p-28 flex">
+    <a href="/blog/web-scraping-rust/?utm_source=related_content" class="shadow-card hover:shadow-2xl rounded-8 overflow-hidden flex flex-col text-16 leading-a50">
+        <div class="bg-white p-20 sm:p-32 flex-1 flex flex-col">
+            <div class="flex-1">
+                <h4 class="font-bold mb-12">Web Scraping with Rust</h4>
+                <div class="flex justify-between items-center mb-12">
+                    <div class="flex items-center gap-10">
+                        <div class="w-40 rounded-100p overflow-hidden">
+                            <img src="/images/authors/gints.jpg" class="block" alt="">
+                        </div>
+                        <strong class="block">Gints Dreimanis</strong>
+                    </div>
+                    <div class="text-16">7 min read</div>
+                </div>
+                <div class="text-gray-200">
+                    <p>In this article, you’ll learn how to implement web scraping with the Rust programming language. You’ll use two Rust libraries, `reqwest` and `scraper`, to scrape the top one hundred movies list from IMDb.</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+                
+                
+<div class="w-full sm:w-1/3 p-10 md:p-28 flex">
+    <a href="/blog/practical-xpath-for-web-scraping/?utm_source=related_content" class="shadow-card hover:shadow-2xl rounded-8 overflow-hidden flex flex-col text-16 leading-a50">
+        <div class="bg-white p-20 sm:p-32 flex-1 flex flex-col">
+            <div class="flex-1">
+                <h4 class="font-bold mb-12">Practical XPath for Web Scraping</h4>
+                <div class="flex justify-between items-center mb-12">
+                    <div class="flex items-center gap-10">
+                        <div class="w-40 rounded-100p overflow-hidden">
+                            <img src="/images/authors/kevin.png" class="block" alt="">
+                        </div>
+                        <strong class="block">Kevin Sahin</strong>
+                    </div>
+                    <div class="text-16">12 min read</div>
+                </div>
+                <div class="text-gray-200">
+                    <p>In this tutorial, we are going to see how to use XPath expressions in your Python code to extract data from the web</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+
+
+            </div>
+            <footer class="bg-black-100 relative text-white pt-80 md:pt-180 lg:pt-80 pb-50 z-100 text-center sm:text-left">
+    <div class="container">
+        <div class="flex flex-wrap items-center pb-70 md:pb-113 mb-48 border-b border-white border-opacity-20">
+            <div class="w-full sm:flex-1 mb-40 sm:mb-0 pr-20">
+                
+                <h2 class="text-white font-bold text-2xl md:text-3xl mb-6">Tired of getting blocked while scraping the web?</h2>
+                <p class="mb-5">ScrapingBee API handles headless browsers and rotates proxies for you.</p>
+                <p>Get access to 1,000 free API credits, no credit card required!</p>
+                
+            </div>
+            <div class="w-full sm:w-281 sm:text-right lg:mr-86">
+                <a href="https://app.scrapingbee.com/account/register" class="btn btn-yellow px-37">Try ScrapingBee for Free</a>
+            </div>
+        </div>
+        <div class="flex flex-wrap -mx-20">
+            <div class="w-full md:w-1/4 px-20 mb-30 md:mb-0">
+                <div class="logo mb-25">
+                    <a href="/"><img src="/images/logo-white.svg" width="164" height="28" class="inline-block" alt="ScrapingBee"></a>
+                </div>
+                <p class="mb-18">ScrapingBee API handles headless browsers and rotates proxies for you.</p>
+                <ul class="flex flex-wrap justify-center sm:justify-start -mx-11">
+                    <li class="px-11"><a href="https://twitter.com/ScrapingBee" class="text-white hover:text-yellow-100"><i class="icon-twitter text-15"></i></a></li>
+                    <li class="px-11"><a href="https://www.linkedin.com/company/scrapingbee" class="text-white hover:text-yellow-100"><i class="icon-linkedin text-15"></i></a></li>
+                </ul>
+            </div>
+            <div class="w-full sm:w-1/3 md:w-1/4 px-20">
+                <div class="mb-30 sm:mb-40">
+                    <h4 class="text-18 text-yellow-100 font-bold leading-a77 mb-10 sm:mb-27">Company</h4>
+                    <ul class="text-16 md:text-18 leading-a33">
+                        <li class="mb-10 sm:mb-22"><a href="/#about-us" class="hover:underline">Team</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/journey-to-one-million-arr/" class="hover:underline">Company's journey</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/blog/" class="hover:underline">Blog</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/rebranding/" class="hover:underline">Rebranding</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/affiliates/" class="hover:underline">Affiliate Program</a></li>
+                    </ul>
+                </div>
+                <div class="mb-30 sm:mb-40">
+                    <h4 class="text-18 text-yellow-100 font-bold leading-a77 mb-10 sm:mb-27">Tools</h4>
+                    <ul class="text-16 md:text-18 leading-a33">
+                        <li class="mb-10 sm:mb-22"><a href="/curl-converter/" class="hover:underline">Curl converter</a></li>
+                    </ul>
+                </div>
+                <div class="mb-30 sm:mb-40">
+                    <h4 class="text-18 text-yellow-100 font-bold leading-a77 mb-10 sm:mb-27">Legal</h4>
+                    <ul class="text-16 md:text-18 leading-a33">
+                        <li class="mb-10 sm:mb-22"><a href="/terms-and-conditions/" class="hover:underline">Terms of Service</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/privacy-policy/" class="hover:underline">Privacy Policy</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/gdpr/" class="hover:underline">GDPR Compliance</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/data-processing-agreement/" class="hover:underline">Data Processing Agreement</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="w-full sm:w-1/3 md:w-1/4 px-20">
+                <div class="mb-30 sm:mb-40">
+                    <h4 class="text-18 text-yellow-100 font-bold leading-a77 mb-10 sm:mb-27">Product</h4>
+                    <ul class="text-16 md:text-18 leading-a33">
+                        <li class="mb-10 sm:mb-22"><a href="/#features" class="hover:underline">Features</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/#pricing" class="hover:underline">Pricing</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="https://status.scrapingbee.com" target="_blank" class="hover:underline">Status</a></li>
+                    </ul>
+                </div>
+                <div class="mb-30 sm:mb-40">
+                    <h4 class="text-18 text-yellow-100 font-bold leading-a77 mb-10 sm:mb-27">How we compare</h4>
+                    <ul class="text-16 md:text-18 leading-a33">
+                        <li class="mb-10 sm:mb-22"><a href="/crawlera-alternative/" class="hover:underline">Alternative to Crawlera</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/luminati-alternative/" class="hover:underline">Alternative to Luminati</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/smartproxy-alternative/" class="hover:underline">Alternative to Smartproxy</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/netnut-alternative/" class="hover:underline">Alternative to NetNut</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/scraperapi-alternative/" class="hover:underline">Alternative to ScraperAPI</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/scrapingbee-alternative/" class="hover:underline">Alternatives to ScrapingBee</a></li>
+                    </ul>
+                </div>
+                <div class="mb-30 sm:mb-40">
+                    <h4 class="text-18 text-yellow-100 font-bold leading-a77 mb-10 sm:mb-27">No code web scraping</h4>
+                    <ul class="text-16 md:text-18 leading-a33">
+                        <li class="mb-10 sm:mb-22"><a href="/blog/no-code-web-scraping/" class="hover:underline">No code web scraping</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/blog/no-code-competitor-monitoring/" class="hover:underline">No code competitor monitoring</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/blog/scrape-content-google-sheet/" class="hover:underline">How to put scraped website data into Google Sheets</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/blog/no-code-stock-price-slack/" class="hover:underline">Send stock prices update to Slack</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/blog/nocode-amazon/" class="hover:underline">Scrape Amazon products' price with no code</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/blog/nocode-amazon/" class="hover:underline">Scrape Amazon products' price with no code</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/blog/no-code-job-data-extraction/" class="hover:underline">Extract job listings, details and salaries</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="w-full sm:w-1/3 md:w-1/4 px-20">
+                <div class="mb-30 sm:mb-40">
+                    <h4 class="text-18 text-yellow-100 font-bold leading-a77 mb-10 sm:mb-27">Learning Web Scraping</h4>
+                    <ul class="text-16 md:text-18 leading-a33">
+                        <li class="mb-10 sm:mb-22"><a href="/webscraping-questions/" class="hover:underline">Web scraping questions</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/blog/web-scraping-without-getting-blocked/" class="hover:underline">A guide to Web Scraping without getting blocked</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/blog/web-scraping-tools/" class="hover:underline">Web Scraping Tools</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/blog/best-free-proxy-list-web-scraping/" class="hover:underline">Best Free Proxies</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/blog/best-mobile-4g-proxy-provider-webscraping/" class="hover:underline">Best Mobile proxies</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/blog/scraping-vs-crawling/" class="hover:underline">Web Scraping vs Web Crawling</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/blog/rotating-proxies/" class="hover:underline">Rotating and residential proxies</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/blog/web-scraping-101-with-python/" class="hover:underline">Web Scraping with Python</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/blog/web-scraping-php/" class="hover:underline">Web Scraping with PHP</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/blog/introduction-to-web-scraping-with-java/" class="hover:underline">Web Scraping with Java</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/blog/web-scraping-ruby/" class="hover:underline">Web Scraping with Ruby</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/blog/web-scraping-javascript/" class="hover:underline">Web Scraping with NodeJS</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/blog/web-scraping-r/" class="hover:underline">Web Scraping with R</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/blog/web-scraping-csharp/" class="hover:underline">Web Scraping with C#</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/blog/web-scraping-c++/" class="hover:underline">Web Scraping with C++</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/blog/web-scraping-elixir/" class="hover:underline">Web Scraping with Elixir</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/blog/web-scraping-perl/" class="hover:underline">Web Scraping with Perl</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/blog/web-scraping-rust/" class="hover:underline">Web Scraping with Rust</a></li>
+                        <li class="mb-10 sm:mb-22"><a href="/blog/web-scraping-go/" class="hover:underline">Web Scraping with Go</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="pt-20 sm:pt-41 text-center">
+            <div class="sm:mb-16 text-36 md:text-62 leading-none" style="height: 60px">
+                <i class="icon-heart02 text-yellow-100"></i>
+            </div>
+            <p>Copyright © 2023</p>
+            <p>Made in France</p>
+        </div>
+    </div>
+</footer>
+        </div>
+        
+
+    
+    <script onload="hljs.highlightAll();" src="/scripts/hljs.min.js" type="text/javascript" charset="UTF-8"></script>
+
+    
+    <script src="/scripts/app-blog.min.js" type="text/javascript" charset="UTF-8" defer></script>
+
+
+
+
+
+        
+<script type="text/javascript" defer>
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "4l5ookr75t");
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-123177514-4"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-123177514-4');
+    gtag('config', 'G-4Y8DBCM1YW');
+</script>
+
+<script defer>
+    function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+            results = regex.exec(location.search);
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+    
+    var utm_source = getParameterByName('utm_source');
+    var utm_medium = getParameterByName('utm_medium');
+    var utm_campaign = getParameterByName('utm_campaign');
+    var utm_term = getParameterByName('utm_term');
+    var now = new Date();
+    now.setMonth( now.getMonth() + 1 );
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    
+    if(utm_source != "" && getCookie("utm_source") == "") {
+        document.cookie = `utm_source=${utm_source}; domain=scrapingbee.com; path=/; expires="${now.toUTCString()}"`
+    }
+    if(utm_medium != "" && getCookie("utm_medium") == "") {
+        document.cookie = `utm_medium=${utm_medium}; domain=scrapingbee.com; path=/; expires="${now.toUTCString()}"`
+    }
+    if(utm_campaign != "" && getCookie("utm_campaign") == "") {
+        document.cookie = `utm_campaign=${utm_campaign}; domain=scrapingbee.com; path=/; expires="${now.toUTCString()}"`
+    }
+    if(utm_term != "" && getCookie("utm_term") == "") {
+        document.cookie = `utm_term=${utm_term}; domain=scrapingbee.com; path=/; expires="${now.toUTCString()}"`
+    }
+    if(document.referrer != "" && getCookie("referrer") ==  "") {
+        document.cookie = `referrer=${document.referrer}; domain=scrapingbee.com; path=/; expires="${now.toUTCString()}"`
+    }
+    // Set the cookies
+    var utm_journey = getCookie("utm_journey");
+    var current_relative_path = location.href.replace(location.origin,'');
+    if (utm_journey != "") {
+        old_journey = atob(utm_journey)
+        new_journey = `${old_journey} - ${current_relative_path}`
+        document.cookie = `utm_journey=${btoa(new_journey)}; domain=scrapingbee.com; path=/;`
+    } else {
+        document.cookie = `utm_journey=${btoa(current_relative_path)}; domain=scrapingbee.com; expires="${now.toUTCString()}; path=/;`
+    }
+</script>
+
+<script type="text/javascript">
+    (function(){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src='https://cdn.firstpromoter.com/fprom.js',t.onload=t.onreadystatechange=function(){var t=this.readyState;if(!t||"complete"==t||"loaded"==t)try{$FPROM.init("ih0s10ti",".scrapingbee.com")}catch(t){}};var e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(t,e)})();
+</script>
+
+    <!-- Cloudflare Pages Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "79198e73bed44288a74b7b70b34934d7"}'></script><!-- Cloudflare Pages Analytics --></body>
+</html>

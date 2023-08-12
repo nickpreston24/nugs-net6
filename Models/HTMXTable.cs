@@ -9,7 +9,7 @@
     5. Bonus - Toggle the search, filters, etc.
    
 */
-using CodeMechanic.Extensions;
+
 using System.Text;
 using CodeMechanic.Types;
 

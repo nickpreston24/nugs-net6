@@ -4,115 +4,108 @@
 //
 //   "Set quicktype target language"
 
-namespace nugsnet6.Models
+namespace nugsnet6;
+
+using System;
+
+public class Build
 {
-    using System;
+    public bool Is_Selected { get; set; } = false;
 
-    public class Build
-    {
-        
-        public bool Is_Selected { get; set; } = false;
-
-        public string Id { get; set; } = string.Empty;
+    public string Id { get; set; } = string.Empty;
 
 
-        
-        public DateTimeOffset CreatedTime { get; set; }
+    public DateTimeOffset CreatedTime { get; set; }
 
-        
-        public string Name { get; set; } = string.Empty;
 
-        
-        public string Reasoning { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
 
-        
-        public string[] Parts { get; set; }
 
-        
-        public string[] Caliber { get; set; }
+    public string Reasoning { get; set; } = string.Empty;
 
-        
-        public Pic[] Pics { get; set; }
 
-        
-        public double Total_Cost { get; set; }
+    public string[] Parts { get; set; }
 
-        
-        public double Weight { get; set; }
 
-        
-        public DateTimeOffset Created { get; set; }
+    public string[] Caliber { get; set; }
 
-        
-        public LastModifiedBy CreatedBy { get; set; }
 
-        
-        public DateTimeOffset LastModified { get; set; }
+    public Pic[] Pics { get; set; }
 
-        
-        public LastModifiedBy LastModifiedBy { get; set; }
-    }
 
-    public class LastModifiedBy
-    {
-        
-        public string Id { get; set; } = string.Empty;
+    public double Total_Cost { get; set; }
 
-        
-        public string Email { get; set; } = string.Empty;
 
-        
-        public string Name { get; set; } = string.Empty;
-    }
+    public double Weight { get; set; }
 
-    public class Pic
-    {
-        
-        public string Id { get; set; } = string.Empty;
 
-        
-        public long Width { get; set; }
+    public DateTimeOffset Created { get; set; }
 
-        
-        public long Height { get; set; }
 
-        
-        public Uri Url { get; set; }
+    public LastModifiedBy CreatedBy { get; set; }
 
-        
-        public string Filename { get; set; } = string.Empty;
 
-        
-        public long Size { get; set; }
+    public DateTimeOffset LastModified { get; set; }
 
-        
-        public string Type { get; set; } = string.Empty;
 
-        
-        public Thumbnails Thumbnails { get; set; }
-    }
+    public LastModifiedBy LastModifiedBy { get; set; }
+}
 
-    public class Thumbnails
-    {
-        
-        public Full Small { get; set; }
+public class LastModifiedBy
+{
+    public string Id { get; set; } = string.Empty;
 
-        
-        public Full Large { get; set; }
 
-        
-        public Full Full { get; set; }
-    }
+    public string Email { get; set; } = string.Empty;
 
-    public class Full
-    {
-        
-        public Uri Url { get; set; }
 
-        
-        public long Width { get; set; }
+    public string Name { get; set; } = string.Empty;
+}
 
-        
-        public long Height { get; set; }
-    }
+public class Pic
+{
+    public string Id { get; set; } = string.Empty;
+
+
+    public long Width { get; set; }
+
+
+    public long Height { get; set; }
+
+
+    public Uri Url { get; set; }
+
+
+    public string Filename { get; set; } = string.Empty;
+
+
+    public long Size { get; set; }
+
+
+    public string Type { get; set; } = string.Empty;
+
+
+    public Thumbnails Thumbnails { get; set; }
+}
+
+public class Thumbnails
+{
+    public Full Small { get; set; }
+
+
+    public Full Large { get; set; }
+
+
+    public Full Full { get; set; }
+}
+
+public class Full
+{
+    public Uri Url { get; set; }
+
+
+    public long Width { get; set; }
+
+
+    public long Height { get; set; }
 }

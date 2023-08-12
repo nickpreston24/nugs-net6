@@ -1,0 +1,59 @@
+@page
+@using nugsnet6.Experimental
+@model nugsnet6.Pages.Parts.InventoryModel
+
+@{
+    string[] headers = @"Name,Cost,Attachments,URL,Calibers,WeightInOz,Demo,Type,Kind,Notes,Combo,Combo Cost,Builds,Requests,Donations,Created By,Created,Last Modified By,Last Modified,ProductCode,Id,Roles
+    ".Split(',');
+    var props = typeof(Part).GetProperties().ToList();
+    var original_propnames = props.Select(x => x.Name.Replace(" ", ""));
+    var sorted_props = props.OrdinalSort(headers).Select(x => x.Name);
+
+}
+<div class="m-4" x-data="setup()">
+@* *@
+@*     <pre class="flex flex-row"> *@
+@* @foreach (var x in @original_propnames) *@
+@* { *@
+@*     <li>@x</li> *@
+@* } *@
+@* *@
+@* </pre> *@
+    <pre class="flex flex-row">
+    @foreach (var x in @sorted_props)
+    {
+        <li>@x</li>
+    }
+    
+    </pre>
+    <pre class="flex flex-row">
+        @foreach (var x in @headers)
+        {
+            <li>@x</li>
+        }
+        
+        </pre>
+    
+    @* <pre>@sorted_props</pre> *@
+
+    <h1 class="text-3xl">blah 2</h1>
+
+    @* hx-controller="InventoryModel" *@
+    <section
+        hx-get
+        hx-target="this"
+        hx-trigger="load"
+        hx-page-handler="AllPartsFromCSV"
+        hx-swap="outerHTML">
+
+        <partial name="PartsList" model="null"/>
+    </section>
+</div>
+<script>
+function setup(){
+    return {
+    card_options: {
+        dev_mode:false
+        }
+}}
+</script>

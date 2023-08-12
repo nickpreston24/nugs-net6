@@ -1,0 +1,19 @@
+@model Part
+
+@{
+    var part = Model;
+    string edit_mode = "false";
+}
+
+<div class="card w-84 bg-ghost border-2 border-accent">
+    <div class="card-body text-secondary">
+        <h2 x-show="!@edit_mode" class="card-title text-primary">@part.Name</h2>
+        <p class="max-w-full">@part.Notes</p>
+        <p class="max-w-full">@part.Type</p>
+        <p class="max-w-full">@part.Kind</p>
+        <p class="max-w-64 overflow-ellipsis overflow-auto "><b>Cost:</b> <br> @part.Cost</p>
+        <div class="card-actions justify-end flex flex-col">
+            @* <partial name="_CardActions"/> *@
+        </div>
+    </div>
+</div>

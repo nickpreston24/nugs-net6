@@ -1,60 +1,81 @@
 using CodeMechanic.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using CodeMechanic.Extensions;
 using Neo4j.Driver;
 using nugsnet6.Models;
-
-
 using CodeMechanic.RazorHAT;
 using CodeMechanic.Embeds;
 using CodeMechanic.Types;
-
+using Htmx;
 
 namespace nugsnet6.Pages.Loadouts
 {
+    [BindProperties]
     public class IndexModel : HighSpeedPageModel
     {
-        private static string _foo;
-        public string Foo  => _foo;
+        private static AirtableSearch currentAirtableSearch = new AirtableSearch();
+        public AirtableSearch CurrentAirtableSearch => currentAirtableSearch;
 
-        private static AirtableSearch _search = new AirtableSearch();
-        public AirtableSearch Search => _search;
+        public Loadout LoadoutSearch { get; set; }
+
+        public IEnumerable<string> Items { get; }
+            = new[] { "_LoadoutEditor", "_LoadoutSearcher", "_Third" };
+
+        [BindProperty(Name = "tab", SupportsGet = true)]
+        public string? Tab { get; set; }
+
+        public bool IsSelected(string name) =>
+            name.Equals(Tab?.Trim(), StringComparison.OrdinalIgnoreCase);
+
 
         public IndexModel(
-        IEmbeddedResourceQuery embeddedResourceQuery
+            IEmbeddedResourceQuery embeddedResourceQuery
             , IDriver driver
             , IAirtableRepo repo
         ) : base(embeddedResourceQuery, driver, repo, nameof(Loadouts))
         {
         }
 
-        public async void OnGet(string foo = "bar")
+        public IActionResult OnGet()
         {
-            _foo = foo;
+            // make sure we have a tab
+            Tab = Items.Any(IsSelected) ? Tab : Items.First();
+            // Tab.Dump("put it on my tab");
+            return Request.IsHtmx()
+                ? Partial("_Tabs", this)
+                : Page();
         }
 
-        public async Task<IActionResult> OnGetSearchLoadouts(Loadout search, string Name = "Snow Owl")
+        public string? IsSelectedCss(string tab, string? cssClass)
+            => IsSelected(tab) ? cssClass /*.Dump("css class")*/ : null;
+
+        public async Task<IActionResult> OnGetSearchLoadouts(
+            [FromForm] Loadout search
+            // , string Name = "Snow Owl"
+        )
         {
             try
             {
-                search
-                .Dump("initial search for loadouts");
-                Name.Dump("Passed in name");
-                var results = await airtable_repo.SearchRecords<Loadout>(_search
-                    .With(s=>
-                    {
-                        s.maxRecords = 12;
-                        s.filterByFormula = $"(FIND(\"{Name}\", {{Name}}))";
-                    })
-                );
+                // search.Dump("initial search for loadouts");
+                var results = await airtable_repo
+                    .SearchRecords<Loadout>(currentAirtableSearch
+                        .With(s =>
+                        {
+                            s.maxRecords = 12;
+                            s.filterByFormula = $"(FIND(\"{search.Name}\", {{Name}}))";
+                        })
+                    );
+
+
+                search.Name.Dump("Passed in name");
 
                 return Partial("_LoadoutsTable", results);
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 var message = ex.ToString();
                 var title = ex.Message;
 
-                  return Content($"""
+                return Content($"""
                     <b class='alert alert-error'>{title}</b>
                 """);
             }

@@ -3,16 +3,30 @@
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @model IndexModel
 @{
-   //https://airtable.com/app33DDBeyXEGRflo/tblt4CGuQIRCcpM2W/viwY2d0b9wzFFeLXr/rece53WI4aXu35ndd/fldWJaJwX9hBrUIIs?copyLinkToCellOrRecordOrigin=gridView
+    //https://airtable.com/app33DDBeyXEGRflo/tblt4CGuQIRCcpM2W/viwY2d0b9wzFFeLXr/rece53WI4aXu35ndd/fldWJaJwX9hBrUIIs?copyLinkToCellOrRecordOrigin=gridView
 }
+@* *@
+@* <div class="flex flex-row"> *@
+@* *@
+@*     $1$ searchy sidepanel #1# *@
+@*     <div id="search_panel" class="w-1/4 border-4 border-secondary"> *@
+@*         Search Panel *@
+@*     </div> *@
+@* *@
+@*     <div id="builder_side_panel" class="w-3/4 border-4 border-accent"> *@
+@*         Results Panel *@
+@*     </div> *@
+@* *@
+@* </div> *@
 
-<div data-theme="dracula">
+<div data-theme="forest" class="border-2 h-screen">
     <!-- Searchy table -->
-    <table class="table table-compact w-full">
-        <thead>
+    <template x-if="true">
+        <table class="table table-compact w-full">
+            <thead>
             <tr>
-                <th class=''>  
-                    <input 
+                <th class=''>
+                    <input
                         type="text"
                         name="Name"
                         class="input input-bordered input-sm max-w-xs"
@@ -24,83 +38,83 @@
                         hx-swap='innerHTML'
                         placeholder="e.g., Glock"
                         aria-label="Name"
-                        aria-describedby="search-addon" 
-                    />   
-                </th> 
+                        aria-describedby="search-addon"/>
+                </th>
             </tr>
-            <tr>    
+            <tr>
                 <th>
                     <label>
-                        <input type="checkbox" class="checkbox" />
+                        <input type="checkbox" class="checkbox"/>
                     </label>
-                </th>           
-                <th>Name</th> 
-                <th>Total Cost</th> 
-                <th>Reasoning</th> 
-                <th>Id</th> 
-                <th>???</th> 
+                </th>
+                <th>Name</th>
+                <th>Total Cost</th>
+                <th>Reasoning</th>
+                <th>Id</th>
+                <th>???</th>
                 <th>???</th>
             </tr>
-        </thead> 
-        <tbody id='search_results'>
-            <div class="htmx-indicator" id='loading'>loading...</div> 
-        </tbody>   
-    </table>
+            </thead>
+            <tbody id='search_results'>
+            <div class="htmx-indicator" id='loading'>loading...</div>
+            </tbody>
+        </table>
+
+    </template>
 </div>
 
 
 <!-- GRID -->
 
 
-
 <!-- <div class='grid grid-cols-2 gap-1'>
 
-<div class='row-span-5 flex flex-col items-center justify-center gap-2' width="600" height='400'> 
+    <div class='row-span-5 flex flex-col items-center justify-center gap-2' width="600" height='400'> 
     
     
-<table id='builds_table' class="table table-compact w-full">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Reasoning</th>
-            <th>Favorite Color</th>
-        </tr>
+        <table id='builds_table' class="table table-compact w-full">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Reasoning</th>
+                <th>Favorite Color</th>
+            </tr>
 
-        <tr>
-            <div class="form-control w-full max-w-xs">
+            <tr>
+                <div class="form-control w-full max-w-xs">
                 
-                <input 
-                    type="text"
-                    name="Name"
-                    id="query"
-                    class="input input-bordered input-sm w-full max-w-xs" 
-                    autocomplete="off"
+                    <input 
+                        type="text"
+                        name="Name"
+                        id="query"
+                        class="input input-bordered input-sm w-full max-w-xs" 
+                        autocomplete="off"
 
-                    hx-trigger="keyup changed delay:250ms"
-                    hx-get='@Url.Page("Index", "SearchBuilds")'
-                    hx-indicator="#loading"
-                    hx-target='#search_results'
-                    placeholder="Search"        
-                    aria-label="Name"
-                    aria-describedby="search-addon" 
-                />
+                        hx-trigger="keyup changed delay:250ms"
+                        hx-get='@Url.Page("Index", "SearchBuilds")'
+                        hx-indicator="#loading"
+                        hx-target='#search_results'
+                        placeholder="Search"        
+                        aria-label="Name"
+                        aria-describedby="search-addon" 
+                    />
                 
-            </div>
+                </div>
             
-        </tr>
+            </tr>
         
-    </thead>
-    <div id='search_results' ></div>
-</table>
+            </thead>
+            <div id='search_results' ></div>
+        </table>
 
 
-</div>
-<div class='flex flex-col items-center justify-center gap-2' width="600" height='400'> 
-    Box 2
-</div>
-<div class='flex flex-col items-center justify-center gap-2' width="600" height='400'> Box 3</div>
-<div class='flex flex-col items-center justify-center gap-2' width="600" height='400'> Box 4</div>
+    </div>
+    <div class='flex flex-col items-center justify-center gap-2' width="600" height='400'> 
+        Box 2
+    </div>
+    <div class='flex flex-col items-center justify-center gap-2' width="600" height='400'> Box 3</div>
+    <div class='flex flex-col items-center justify-center gap-2' width="600" height='400'> Box 4</div>
 </div> -->
 
 <!-- 
@@ -122,14 +136,13 @@
     </div>
 </form> -->
 
- <!-- <button class='btn btn-secondary'
-        hx-post='@Url.Page("","FavoriteBuild")'
-        hx-swap='outerHTML'
-        hx-target='#results'
+<!-- <button class='btn btn-secondary'
+             hx-post='@Url.Page("", "FavoriteBuild")'
+             hx-swap='outerHTML'
+             hx-target='#results'
      >Get Favorite Build!</button>
 
-     <div id='results'>...</div> -->
-
+<div id='results'>...</div> -->
 
 
 <script>
@@ -145,14 +158,14 @@
 </script>
 
 <!-- <ul class="steps">
-        <template x-for='step in steps'>
-            <li  
-                class="step step-secondary"
-                x-text='step'
-            >
-            </li>
-        </template>
-    </ul> -->
+    <template x-for='step in steps'>
+        <li  
+            class="step step-secondary"
+            x-text='step'
+        >
+        </li>
+    </template>
+</ul> -->
 
 
 @*
