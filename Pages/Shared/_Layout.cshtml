@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html data-theme="night" lang="en" class='scroll-smooth'>
 <head>
     <base href="~/"/>
@@ -7,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - Lock-N-Loadout</title>
 
-    <script src="https://unpkg.com/htmx.org@1.8.5"
+    <script src="https://unpkg.com/htmx.org@latest"
             asp-fallback-src="~/lib/htmx.org/dist/htmx.min.js"
             asp-fallback-test="window.htmx"
             crossorigin="anonymous">
@@ -15,7 +14,9 @@
 
     <!-- Alpine Plugins -->
     <script defer src='https://cdn.jsdelivr.net/npm/@@alpinejs/persist@3.x.x/dist/cdn.min.js'></script>
-    
+    <script src="https://unpkg.com/htmx.org@latest/dist/ext/alpine-morph.js"></script>
+    <script defer src="https://unpkg.com/@@alpinejs/morph@3.x.x/dist/cdn.min.js"></script>
+
     <!-- Alpine Core -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
@@ -29,13 +30,13 @@
     <!-- <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" /> -->
     @* <script src="~/_framework/blazor.server.js"></script> *@
 
-    <script
-        src="//unpkg.com/alpinejs"
-        asp-fallback-src="~/lib/alpinejs/dist/cdn.min.js"
-        asp-fallback-test="window.alpinejs"
-        crossorigin="anonymous"
-        defer>
-    </script>
+    @* <script *@
+    @*     src="//unpkg.com/alpinejs" *@
+    @*     asp-fallback-src="~/lib/alpinejs/dist/cdn.min.js" *@
+    @*     asp-fallback-test="window.alpinejs" *@
+    @*     crossorigin="anonymous" *@
+    @*     defer> *@
+    @* </script> *@
 
 
 </head>
@@ -179,26 +180,26 @@
 </div>
 
 <template x-if="false">
-    
-<div id='footer' class="btm-nav">
-    <a href='/'>
-        <button>
+
+    <div id='footer' class="btm-nav">
+        <a href='/'>
+            <button>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                </svg>
+            </button>
+        </a>
+        <button class="active">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
         </button>
-    </a>
-    <button class="active">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-        </svg>
-    </button>
-    <button>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-        </svg>
-    </button>
-</div>
+        <button>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+            </svg>
+        </button>
+    </div>
 
 </template>
 
@@ -242,7 +243,7 @@
 
     function setup_layout() {
         return {
-            foo: 'bar',
+            foo: 'barf',
             routes: non_index_routes || []
         }
     }

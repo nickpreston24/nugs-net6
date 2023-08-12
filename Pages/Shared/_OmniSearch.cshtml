@@ -25,14 +25,15 @@ https://jonhilton.net/use-blazor-in-existing-app/
 }
 
 
-<div>
+<div x-data="setup()">
 
     <div class="form-control w-full max-w-xs">
+        <h3 x-text="foo"></h3>
         <!-- <label class="label">
             <span class="label-text">What is your name?</span>
             <span class="label-text-alt">Top Right label</span>
         </label> -->
-         <input 
+        <input
             type="text"
             name="Name"
             id="query"
@@ -41,10 +42,10 @@ https://jonhilton.net/use-blazor-in-existing-app/
             hx-target="#omni_search_results"
             hx-trigger="keyup changed delay:250ms"
             hx-indicator="#loading"
-            placeholder="Search"        
+            placeholder="Search"
             aria-label="Name"
-            class="input input-bordered input-sm w-full max-w-xs" 
-            aria-describedby="search-addon" />
+            class="input input-bordered input-sm w-full max-w-xs"
+            aria-describedby="search-addon"/>
         <!-- <label class="label">
             <span class="label-text-alt">Bottom Left label</span>
             <span class="label-text-alt">Bottom Right label</span>
@@ -56,7 +57,6 @@ https://jonhilton.net/use-blazor-in-existing-app/
     <div class="htmx-indicator" id='loading'>loading...</div>
    
 </div>
-<!-- 
 
 <script>
     function setup() {
@@ -64,4 +64,4 @@ https://jonhilton.net/use-blazor-in-existing-app/
             value: "foo"
         }
     }
-</script> -->
+</script> 

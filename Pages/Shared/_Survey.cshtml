@@ -1,0 +1,313 @@
+@{
+    var survey = new Survey()
+    {
+        User = new User()
+        {
+            Name = "Nick Preston"
+        },
+        Favorite_Caliber = "300 AAC Blackout"
+    };
+
+    var kinds = new List<string>() { "AR-10", "AR-15" };
+    var kinds_json = Json.Serialize(kinds);
+    Console.WriteLine(kinds_json);
+
+}
+
+
+<div x-data="{
+    show: true,
+    kinds: ['AR-10', 'AR-15'],
+
+    barrel_properties: {
+            calibers: ['5.56 NATO', '.308 Win'],
+            lengths: [20, 18, 16, 14.5, 13.9, 12, 11, 10.5],
+            gas_blocks: ['Fixed', 'Adjustable']
+    },
+                    
+    survey_options: {
+        fields: {
+            favorite_caliber: '@survey.Favorite_Caliber',
+            platform: '@survey.Platform',
+        },
+    },
+    get percent_complete() {
+        return 50.00;
+    }
+ }">
+    @* let all_fields = this.fields *@
+    @* console.log('all fields ', all_fields) *@
+    @* let completion = Object.entries(all_fields).map((x,y) => 1) *@
+    @* console.log('completion :>> ', completion) *@
+
+    <div class="tooltip" :data-tip="show ? 'Hide options' : 'Show all options!'">
+        <button class="btn btn-accent" @@click="show =! show" x-text="show ? 'Hide' : 'Show' ">...</button>
+    </div>
+
+    <div x-show="show"
+         class="join join-vertical justify-start flex flex-col">
+
+        <div class="tooltip" data-tip="I'm a tooltip! :D">
+            <markdown x-show="survey_options.length > 0">
+                # Hello there!, you can choose search options below
+            </markdown>
+        </div>
+
+        <div class="form-control w-full max-w-xs">
+            <form hx-post
+                  hx-page-handler="UpdateSurvey"
+                  class="form-horizontal needs-validation" _="on htmx:beforeSend set #submitButton.disabled to 'disabled'">
+                <h1>Please Fill Out Our Survey!</h1>
+
+                <h2 x-text="'Completion? ' + percent_complete"></h2>
+                <div class="radial-progress bg-primary text-primary-content border-4 border-primary" style="--value:70;" x-text="percent_complete + '%'"></div>
+
+                <div
+                    class="flex flex-col items-center justify-center gap-2">
+                    <template x-cloak x-for="[key, value] of Object.entries(survey_options.fields)">
+                        <div class="mb-3">
+                            <label x-text="key.replace('_',' ')"
+                                   class="label form-label"
+                                   :asp-for="key">
+                            </label>
+                            <input :name='key'
+                                   :value='value'
+                                   :asp-for="key"
+                                   type="text"
+                                   class="input">
+                            <div class="invalid-feedback">
+                                <span :asp-validation-for='key'></span>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+
+                <template x-cloak x-for="[key, property] of Object.entries(barrel_properties)" :key="key">
+                    <div class="flex flex-row items-center gap-1">
+                        <label x-text="key"></label>
+                        <select x-model="key"
+                                class="flex flex-col items-center justify-center gap-2">
+                            <template x-cloak x-for="[key, value] of Object.entries(property)" :key="key">
+                                <option :selected="key" x-text="value"></option>
+                            </template>
+                        </select>
+                    </div>
+
+                </template>
+
+
+                <div class="control">
+                    <button id="submit_survey"
+                            type="submit"
+                            class="btn btn-accent"
+                            :enabled="percent_complete">
+                        <span class="htmx-indicator">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            <span class="visually-hidden">Loading...</span>
+                        </span>
+                        Complete Survey
+
+                    </button>
+
+                    @Html.AntiForgeryToken()
+                </div>
+
+            </form>
+        </div>
+
+
+        <div class="htmx-indicator" id='loading'>loading...</div>
+
+    </div>
+
+</div>
+
+
+@* *@
+@* <script> *@
+@*     console.log('loading survey panel...') *@
+@*     const options_setup = () => { *@
+@*         return { *@
+@*             title: 'Survey test', *@
+@*             count: 0, *@
+@*             show: true, *@
+@*             card_options:  *@
+@*             { *@
+@*                 case_insensitive: true, *@
+@*                 ignore_whitespace: false, *@
+@*                 ignore_special_characters: false, *@
+@*                 dev_mode: false *@
+@*             } *@
+@*         } *@
+@*     } *@
+@* </script> *@
+
+
+
+
+
+
+
+
+@* *@
+@* <script> *@
+@* console.log('loading survey panel...') *@
+@*          *@
+@* const survey_setup = () => { *@
+@*     return { *@
+@*        title: 'boo', *@
+@*        count: 0, *@
+@*        show: 'true', *@
+@*        food: 'pizza', *@
+@*        survey_options:  *@
+@*        { *@
+@*            ignore_whitespace: false, *@
+@*            ignore_special_characters: false, *@
+@*            dev_mode: false *@
+@*        }, *@
+@*         *@
+
+@*         *@
+
+@*         *@
+@*     } *@
+@* } *@
+@*      *@
+@* </script> *@
+@* *@
+@* <div x-data="survey_setup"> *@
+@* *@
+
+@* *@
+@*     <template x-for="[key, value] of Object.entries(survey_options)"> *@
+@* *@
+@*         <button *@
+@*             x-show="true" *@
+@*             x-on:click="survey_options[key]=!value" *@
+@*             class="btn btn-primary join-item shadow-md shadow-secondary-400/50" *@
+@*             :class="{'border-2 border-secondary btn-ghost': !value, 'border-2    border-accent': value }"> *@
+@*             <label *@
+@*                 :data-tippy-content="key" *@
+@*                 x-text="key" *@
+@*                 class="form-label badge badge-sm" *@
+@*                 :asp-for='key'> *@
+@*             </label> *@
+@* *@
+@*             <input x-bind:name='key' *@
+@*                    x-bind:value='value' *@
+@*                    x-bind:checked="value" *@
+@*                    type="checkbox" *@
+@*                    :asp-for="key" *@
+@*                    :data-tippy-content="key" *@
+@*                    class="form-control toggle toggle-primary"> *@
+@*         </button> *@
+@* *@
+@*         <div *@
+@*             x-show="false"> *@
+@* *@
+@*             <button *@
+@*                 @@click='value=!value' *@
+@*                 class="swap btn btn-primary flex-grow  "> *@
+@* *@
+@* *@
+@*                 <div class="items-center"> *@
+@*                     <span class="" x-text="key"></span> *@
+@* *@
+@*                     <!-- this hidden checkbox controls the state --> *@
+@*                     <label class="swap swap-flip text-lg  flex-grow-0 flex-shrink-0"> *@
+@* *@
+@*                         <!-- this hidden checkbox controls the state --> *@
+@*                         <input *@
+@*                             :checked="value" *@
+@*                             type="checkbox"/> *@
+@* *@
+@*                         <div class="swap-on">✔️</div> *@
+@*                         <div class="swap-off">❌</div> *@
+@*                     </label> *@
+@* *@
+@* *@
+@*                 </div> *@
+@* *@
+@*             </button> *@
+@* *@
+@*         </div> *@
+@* *@
+@*     </template> *@
+@* *@
+@* *@
+@* </div> *@
+@* *@
+@* *@
+@* *@
+@* *@
+@* *@
+@* *@
+
+
+
+
+
+
+
+@* <template x-cloak x-for="[key, value] in Object.entries(fields)"> *@
+@* *@
+@*     <div class="mb-3"> *@
+@*         <label class="form-label" *@
+@*                x-text="key" *@
+@*                :asp-for="value"> *@
+@*         </label> *@
+@* *@
+@*         $1$ <pre x-text="'you typed ' + favorite_caliber"></pre> #1# *@
+@* *@
+@*         <input *@
+@*             class="form-control" *@
+@*             type="text" *@
+@*             x-model="favorite_caliber" *@
+@*             asp-for="@survey.Favorite_Caliber"> *@
+@* *@
+@*         <div class="invalid-feedback"> *@
+@*             <span asp-validation-for="@survey.Favorite_Caliber"></span> *@
+@*         </div> *@
+@* *@
+@*     </div> *@
+@* </template> *@
+
+
+@* <div class="mb-3"> *@
+@*     <label class="form-label" *@
+@*            asp-for="@survey.Favorite_Caliber"> *@
+@*     </label> *@
+@*      *@
+@*     <pre x-text="'you typed ' + favorite_caliber"></pre> *@
+@* *@
+@*     <input *@
+@*         class="form-control" *@
+@*         type="text" *@
+@*         x-model="favorite_caliber" *@
+@*         asp-for="@survey.Favorite_Caliber"> *@
+@*      *@
+@*     <div class="invalid-feedback"> *@
+@*         <span asp-validation-for="@survey.Favorite_Caliber"></span> *@
+@*     </div> *@
+@*      *@
+@* </div> *@
+
+@* <div class="mb-3"> *@
+@*     <label class="form-label" asp-for="Age"></label> *@
+@*     <input type="text" class="form-control" asp-for="Age"> *@
+@*     <div class="invalid-feedback"> *@
+@*         <span asp-validation-for="Age"></span> *@
+@*     </div> *@
+@* </div> *@
+
+@* <div x-if="false"> *@
+@* *@
+@*     <template x-cloak x-for="[key, value] of Object.entries(options)"> *@
+@*         <div class="mb-3"> *@
+@*             <label class="form-label" :for="key"></label> *@
+@*             <span x-text="key">This is for debugging only and can be omitted</span> *@
+@*             <input type="checkbox" class="form-control toggle toggle-accent" :for="key"> *@
+@*         </div> *@
+@*     </template> *@
+@* </div> *@

@@ -1,0 +1,25 @@
+@using nugsnet6.Experimental
+@model NugsSettings
+
+@{
+    var settings = Model;
+    var devmode = settings?.ASPNET_ENV?.Matches("development");
+}
+
+@* FROM: https://htmx.org/extensions/alpine-morph/ *@
+<div x-if="true">
+    <div hx-target="this" hx-ext="alpine-morph" hx-swap="morph">
+        <div x-data="{ count: 0, replaced: false,
+                    message: 'Change me, then press the button!' }">
+            <input type="text" x-model="message">
+            <h1 x-text="'Dev mode?? ' + @devmode"></h1>
+            <div x-text="count"></div>
+            <button x-bind:style="replaced && {'backgroundColor': '#fecaca'}"
+                    x-on:click="replaced = true; count++"
+                    hx-get
+                    hx-page-handler="swap">
+                Morph
+            </button>
+        </div>
+    </div>
+</div>

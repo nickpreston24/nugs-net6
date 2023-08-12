@@ -1,5 +1,4 @@
 using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -17,17 +16,38 @@ public static class RegexExtensions
     private static readonly IDictionary<Type, ICollection<PropertyInfo>> _propertyCache =
         new Dictionary<Type, ICollection<PropertyInfo>>();
 
+    private static readonly IDictionary<string, Regex> _regex_cache = new Dictionary<string, Regex>();
+
+
+    public static bool Matches(this string text, string pattern)
+    {
+        var options = RegexOptions.Compiled
+                      | RegexOptions.IgnoreCase
+                      | RegexOptions.ExplicitCapture
+                      | RegexOptions.Singleline
+                      | RegexOptions.IgnorePatternWhitespace;
+
+        Regex regexp = _regex_cache.TryGetValue(pattern, out regexp)
+            ? regexp
+            : new Regex(pattern, options);
+
+        var exists = _regex_cache.TryAdd(pattern, regexp);
+
+        return regexp.IsMatch(text);
+    }
+
+
     // https://regex101.com/r/fs66ZD/1
     private static string csv_parsing_pattern = """
-    (?<=^|,)(("[^"]*")|([^,]*))(?=$|,)
-    """;
-    
+                                                (?<=^|,)(("[^"]*")|([^,]*))(?=$|,)
+                                                """;
+
     // WIP: https://regex101.com/r/Qpka5B/1
 
     private static string sample_csv_file_contents = """
-    "SMITH, JOHN",1234567890,"12/20/2012,11:00",,DRSCONSULT,DR BOB - OFFICE VISIT - CONSULT,SLEEP CENTER,1234567890,,,"a, b"
-    "JONES, WILLIAM",1234567890,12/20/2012,12:45,,DRSCONSULT,DR BOB - OFFICE VISIT - CONSULT,SLEEP CENTER,,,,
-""".Trim();
+                                                         "SMITH, JOHN",1234567890,"12/20/2012,11:00",,DRSCONSULT,DR BOB - OFFICE VISIT - CONSULT,SLEEP CENTER,1234567890,,,"a, b"
+                                                         "JONES, WILLIAM",1234567890,12/20/2012,12:45,,DRSCONSULT,DR BOB - OFFICE VISIT - CONSULT,SLEEP CENTER,,,,
+                                                     """.Trim();
 
     public static readonly Regex csv_parser = new Regex(csv_parsing_pattern, RegexOptions.Compiled);
 
@@ -51,9 +71,9 @@ public static class RegexExtensions
             .AppendEach(sorted_props, property => $"""(?<{property.Name}>("[^"]*")|([^,]*))(?=$|,)""",
                 delimiter: "")
             .ToString();
-        
+
         adapted_pattern.Dump("final pattern");
-        
+
         var regex = new Regex(adapted_pattern, options);
         var items = csv_text.Extract<T>(regex);
 
