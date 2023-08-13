@@ -1,0 +1,114 @@
+<template x-cloak>
+  <div class="">
+    <!-- Debugging panel for aligning svgs -->
+    <span x-if="debug">
+      <pre class="text-white">viewBox? {{ viewBox }}</pre>
+
+      <div class="flex flex-row">
+        <div class="text-white">
+          <label for="">Width</label>
+          <button @@click="width--">-</button>
+          <button @@click="width++">+</button>
+        </div>
+        <div class="text-white">
+          <label for="">Height</label>
+          <button @@click="height--">-</button>
+          <button @@click="height++">+</button>
+        </div>
+        <div class="text-white">
+          <label for="">X</label>
+          <button @@click="x--">-</button>
+          <button @@click="x++">+</button>
+        </div>
+
+        <div class="text-white">
+          <label for="">Y</label>
+          <button @@click="y--">-</button>
+          <button @@click="y++">+</button>
+        </div>
+      </div>
+
+      <button @@click="reset">reset</button>
+    </span>
+    <svg
+      id="logo"
+      :viewBox="box"
+      class="border-2 border-yellow-400"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <slot></slot>
+      <!-- Wanna try this w/ slots: https://github.com/sethidden/vue-compound-components -->
+      <!-- <template #default="scope">
+        <LetterPath :multiple="scope.multiple" />
+      </template> -->
+
+      <!-- Try this: https://jefrydco.id/en/blog/safe-access-vue-refs-undefined/ 
+       to fix your Letter lengths
+       -->
+    </svg>
+  </div>
+</template>
+<script setup>
+@*
+import { onMounted, ref } from "vue";
+import useViewBox from "./useViewBox";
+import { Row } from "../../flex";
+import { button } from "../../atoms";
+const { width, height, viewBox, x, y } = useViewBox();
+const box = !!props?.debug ? viewBox : props?.viewBox;
+function reset() {
+  x.value = 28;
+  y.value = 78;
+  width.value = 66;
+  height.value = 16;
+}
+const props = ({
+  debug: {
+    default: false,
+  },
+  viewBox: {
+    type: String,
+    default: "0 0 40 40",
+  },
+  // width: {
+  //   default: "100mm",
+  // },
+  // height: {
+  //   default: "100mm",
+  // },
+  opacity: {
+    type: Number,
+    default: 0.5,
+  },
+  shadow: {
+    required: false,
+    default: "0 0 0",
+  },
+  from: {
+    required: false,
+    default: "transparent",
+  },
+  to: {
+    required: false,
+    default: "white",
+  },
+});
+*@
+
+</script>
+@* 
+<style>
+#logo {
+  animation: fill 0.5s ease forwards 3.5s;
+}
+
+@keyframes fill {
+  from {
+    fill: x-bind(from);
+  }
+  to {
+    fill: x-bind(to);
+    filter: drop-shadow(5px 15px 12px rgb(x-bind(shadow)));
+  }
+}
+</style> *@

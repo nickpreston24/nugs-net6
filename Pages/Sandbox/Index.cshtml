@@ -4,32 +4,49 @@
 @using nugsnet6.Pages.Shared
 @model IndexModel
 @{
-  // C# vars go here!
+    var mode = Environment.GetEnvironmentVariable("ENVIRONMENT") ?? "development";
 }
 
-<div class='flex' x-data='setup()' >
 
+<script>
+    function setup()
+    {
+        return {
+            title: "Sandbox",
+            devmode: true,
+            mode: @mode,
+            
+            panels: {
+                
+            }
+        }
+    }
+</script>
+<h1>blah</h1>
+<div class='flex flex-column' x-data='setup()'>
+
+    <partial name="_StatsCard"/>
     <!-- <div class='grid grid-cols-3 grid-flow-col gap-4'>
-        <partial name="_StatsCard" />
-        <partial name="_StatsCard" />
-        <partial name="_StatsCard" />
-        <partial name="_StatsCard" />
-        <partial name="_StatsCard" />
+        @* <partial name="_StatsCard" /> *@
+        @* <partial name="_StatsCard" /> *@
+        @* <partial name="_StatsCard" /> *@
+        @* <partial name="_StatsCard" /> *@
 
     </div> -->
 
-    <h1 x-show='false' class='glowing text-3xl' x-text='title'></h1>
+    <h1 x-show='true' class='glowing text-3xl' x-text='title'></h1>
 
-    <div x-show='false' class="card p-5 mb-4 text-ocean-500">
+    <div x-show='true' class="card p-5 mb-4 text-ocean-500">
         <div class="d-flex justify-content-between">
 
             <button>Search Airtable Base</button>
 
             <button
                 class='btn-active btn'
-                hx-get='@Url.Page("Index","RecommendedRifles")'
-                hx-target="#recommendations"
-                >Get Nug Recommendations</button>
+                hx-get='@Url.Page("Index", "RecommendedRifles")'
+                hx-target="#recommendations">
+                Get Nug Recommendations
+            </button>
 
             <div id="recommendations">
             </div>
@@ -45,7 +62,7 @@
                         <button class="btn btn-active btn-link">Button</button>
                     </div>
                 </component>
-                <component  type="typeof(Panel)" Dismissible="true" TitleClass="bg-primary" render-mode="ServerPrerendered">
+                <component type="typeof(Panel)" Dismissible="true" TitleClass="bg-primary" render-mode="ServerPrerendered">
                     <div>
                         <button class="btn btn-active">Button</button>
                         <button class="btn btn-active btn-primary">Button</button>
@@ -54,7 +71,7 @@
                         <button class="btn btn-active btn-ghost">Button</button>
                         <button class="btn btn-active btn-link">Button</button>
                         <span class='text-2xl text-primary'>
-                            <component type="typeof(OmniSearch)" render-mode="ServerPrerendered" />
+                            <component type="typeof(OmniSearch)" render-mode="ServerPrerendered"/>
                         </span>
                     </div>
                 </component>
@@ -62,17 +79,8 @@
 
             @* <!-- <partial name="BulletProperties" model="null" />             --> *@
             @* <!-- <partial name="BallisticsChart" model="null" />             --> *@
-          
-           
+
+
         </div>
     </div>
 </div>
-
-<script>
-    function setup()
-    {
-        return {
-            title: "Sandbox"
-        }
-    }
-</script>

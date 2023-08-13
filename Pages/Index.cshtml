@@ -2,6 +2,7 @@
 @model IndexModel
 
 @{
+
 }
 
 @* 
@@ -13,8 +14,23 @@
 
     <div class="hero min-h-screen bg-base-200">
         <div class="hero-content text-center">
-            <div class="max-w-md">
-                <h1 class="text-5xl font-bold">Hello, there!</h1>
+            <form class="max-w-md">
+                <h1 class="text-5xl font-bold">Welcome to Lock N' Loadout!</h1>
+
+                <p>
+                    If you're anything like me, you're probably an American fed up with the anti-2nd Ammendment goons like the ATF and greasy-haird liars like the California Governor, chomping at the bit to take our God given right to keep and bear arms away.
+                </p>
+
+                <p>
+                    No matter how many times we utter "Shall NOT be infringed, they won't listen and they never will, despite victories like Bruen.
+
+                    Our right, whether we deserve it or not, is under constant assault for one reason - disarming and steamrolling the US population.
+
+                </p>
+
+                @* <a rel="noopener" target="_blank" href="#facebook_ads_example"> *@
+                @*     Get Started *@
+                @* </a> *@
 
                 <a href='Builder'
                    type='button'
@@ -25,12 +41,53 @@
                    class="btn btn-primary">
                     Let's Build!
                 </a>
-                
-                 @* <partial name="_CardOptionsPanel" model="default"/> *@
-                
-            </div>
+
+
+                <div hx-boost="true">
+                    <a
+                        type='button'
+                        hx-get
+                        hx-page="Index"
+                        hx-page-handler="RenderSection"
+                        hx-swap="outerHTML"
+                        name="section_name"
+                        hx-params="*"
+                        value="blarg"
+                        asp-for="section_name"
+                        class="btn btn-primary">
+                        Render test
+                    </a>
+                </div>
+
+                <a
+                    type='button'
+                    hx-get
+                    hx-page="Index"
+                    hx-page-handler="ModalTest"
+                    hx-swap="outerHTML"
+                    class="btn btn-primary">
+                    Load Modal
+                </a>
+
+
+                <a
+                    type='button'
+                    hx-get
+                    hx-page="Index"
+                    hx-page-handler="PartialsListTest"
+                    hx-swap="outerHTML"
+                    class="btn btn-primary">
+                    Partials List Test
+                </a>
+
+            </form>
         </div>
     </div>
+</section>
+
+<section>
+
+
 </section>
 <script>
     const home_setup = () => {

@@ -1,23 +1,32 @@
+@using CodeMechanic.Types
+@using CodeMechanic.Diagnostics
 @{
+    var kinds = new List<string>() { "AR-10", "AR-15" };
     var survey = new Survey()
     {
         User = new User()
         {
             Name = "Nick Preston"
         },
-        Favorite_Caliber = "300 AAC Blackout"
+        Favorite_Caliber = "300 AAC Blackout",
+        Platform = kinds.TakeFirstRandom()
     };
 
-    var kinds = new List<string>() { "AR-10", "AR-15" };
-    var kinds_json = Json.Serialize(kinds);
-    Console.WriteLine(kinds_json);
+    var kinds_json = @Html.Raw(kinds); //Json.Serialize(kinds);
+    // Console.WriteLine(kinds_json);
+    kinds_json.Dump("kinds");
 
 }
 
 
+<script type="text/javascript">
+    var kinds_json = JSON.parse('@Html.Raw(kinds)');
+    console.log('kinds json :>> ', kinds_json)
+</script>
+
 <div x-data="{
     show: true,
-    kinds: ['AR-10', 'AR-15'],
+    kinds: @kinds_json,
 
     barrel_properties: {
             calibers: ['5.56 NATO', '.308 Win'],
@@ -121,6 +130,11 @@
 
     </div>
 
+    @Html.PartialSectionScripts(
+        @<script>
+        alert('Hello from the partial view!');
+    </script>
+        )
 </div>
 
 

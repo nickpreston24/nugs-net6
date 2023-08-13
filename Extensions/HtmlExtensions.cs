@@ -1,3 +1,4 @@
+using System.Text;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -9,8 +10,19 @@ namespace CodeMechanic.Advanced.Extensions;
 
 /// CREDIT: https://www.adamrussell.com/asp-net-core-section-scripts-in-a-partial-view
 
-public static class HtmlHelperExtensions
+public static class HtmlExtensions
 {
+    
+    /// <summary>
+    /// Quick wrapper for creating safe HTML strings on the backend.
+    /// </summary>
+    public static HtmlString AsHTMLString(this string raw_text)
+    {
+        var clone = new StringBuilder(raw_text); // lazy clone.
+        var result = new HtmlString(clone.ToString());
+        return result;
+    }
+    
     private const string _partialViewScriptItemPrefix = "scripts_";
     public static IHtmlContent PartialSectionScripts(this IHtmlHelper htmlHelper, Func<object, HelperResult> template)
     {

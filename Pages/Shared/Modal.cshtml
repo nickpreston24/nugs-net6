@@ -1,0 +1,65 @@
+@using Microsoft.AspNetCore.Html
+@model CustomModal
+
+@{
+    var modal = Model ?? new CustomModal()
+    {
+        Title = "Test"
+    };
+
+    string GetCssClass()
+    {
+        return ""; //$"{modal.BadgeCSS}";
+    }
+}
+@* *@
+@* <style> *@
+@*     div.modal_container { *@
+@*         z-index: unset; *@
+@*         z-index: 50 !important; *@
+@*     } *@
+@* </style> *@
+
+<div
+    id=""
+    class="modal_container"
+    x-data="{
+    show_modal:false
+    , get for_class(){
+        return this.show_modal ? 'my_modal' : '';    
+    }
+}">
+
+    <pre x-text="for_class"></pre>
+
+    <!-- The button to open modal -->
+    <label
+        :for="for_class"
+        x-on:click="show_modal=true"
+        class="btn">
+        Show Results
+        @* open modal *@
+    </label>
+
+    <!-- Put this part before </body> tag -->
+    <input type="checkbox" id="my_modal" class="modal-toggle"/>
+    <div class="modal">
+        <div class="modal-box">
+            <h3 class="font-bold text-lg">@modal.Title</h3>
+            <p class="py-4">@modal.Message</p>
+            @if (@modal.Render != HtmlString.Empty)
+            {
+                @(@modal.Render)
+            }
+            <div class="modal-action">
+                <label x-on:click="show_modal=false" for="my_modal" class="btn">Close!</label>
+            </div>
+        </div>
+    </div>
+
+    @Html.PartialSectionScripts(
+        @<script>
+        alert('Hello from the partial view!');
+    </script>
+        )
+</div>

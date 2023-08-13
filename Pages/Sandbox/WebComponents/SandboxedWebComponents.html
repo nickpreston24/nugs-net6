@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Basic Web Components</title>
+
+  <script src="https://unpkg.com/htmx.org@latest" asp-fallback-src="~/lib/htmx.org/dist/htmx.min.js"
+    asp-fallback-test="window.htmx" asp-fallback-test="window.htmx" crossorigin="anonymous">
+  </script>
+
+  <!-- Alpine Plugins -->
+  <script defer src='https://cdn.jsdelivr.net/npm/@@alpinejs/persist@3.x.x/dist/cdn.min.js'></script>
+  <script src="https://unpkg.com/htmx.org@latest/dist/ext/alpine-morph.js"></script>
+  <script defer src="https://unpkg.com/@@alpinejs/morph@3.x.x/dist/cdn.min.js"></script>
+
+  <!-- Alpine Core -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.umd.min.js"></script>
+
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@2.47.0/dist/full.css" rel="stylesheet" type="text/css" />
+
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
+
+  <link rel="stylesheet" href="./main.css" />
+  <script src="./main.js" type="module"></script>
+  <script src="./futuristic-card.js" type="module"></script>
+  <script src="./stack.js" type="module"></script>
+
+</head>
+
+<body>
+  <header class="heading">
+    <h1 class="text-3xl">Basic Web Components</h1>
+  </header>
+  <main>
+    
+    <stack slot="render">
+      <span class="w-40 h-40">1</span>
+      <span class="w-40 h-40">2</span>
+      <span class="w-40 h-40">3</span>
+      <span class="w-40 h-40">4</span>
+    </stack>
+    
+    <!-- <h2 class="text-2xl">Main Area</h2> -->
+    <!-- <h3 class="text-xl">Web Component Below</h3> -->
+    <!-- <base-card>
+      <h2 slot="title">Characters</h2>
+      <ul slot="list">
+        <li>Leonard</li>
+        <li>Sheldon</li>
+        <li>Raj</li>
+        <li>Howard</li>
+      </ul>
+    </base-card> -->
+
+    <!-- <futuristic-card></futuristic-card> -->
+
+
+
+  </main>
+</body>
+
+<style>
+  * {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+html {
+  font-size: 20px;
+  color-scheme: dark light;
+  font-family: Roboto, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+header,
+main {
+  padding: 1rem 4rem;
+}
+
+
+</style>
+
+</html>
