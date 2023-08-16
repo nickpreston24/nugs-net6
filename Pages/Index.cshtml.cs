@@ -51,12 +51,17 @@ public class IndexModel : PageModel
 
     public async Task<IActionResult> OnGetRenderSection(string section_name, object value)
     {
-        var section_missing = Content($"""
-                                           <p class='alert alert-error'>The section '{section_name ?? "<unspecified>" }' could not be loaded... please contact your administrator!</p>
-                                           <script>
-                                                alert('boop!')
-                                           </script>
-                                       """);
+        section_name.Dump("section requested");
+
+        var section_missing = Content(
+                $"""
+                     <p class='alert alert-error'>Could not load section because the name was unspecified .. Please contact your administrator!</p>
+                     <script>
+                          alert('boop!')
+                     </script>
+                 """
+            )
+            ;
 
         if (section_name.IsEmpty())
             return section_missing;
@@ -64,20 +69,22 @@ public class IndexModel : PageModel
         return Partial(section_name, value);
     }
 
-
-    //IDEA: Not possible, but certainly fun
+    /*
+     * IDEA: Not possible, but certainly fun
+     */
+    // [Obsolete("Not possible to use async yield returns, yet!")]
     // public async IAsyncEnumerable<IActionResult> OnGetNextSection(string section_name = "")
     // {
-    //     section_name.Dump();
-    //     // if (section_name.IsEmpty()) return Content("<p>No content!</p>");
-    //
-    //     await foreach (var content in FetchSectionContents())
-    //     {
-    //         // yield return content;
-    //         yield return content;
-    //     }
-    //
-    //     // return Content("<p>Done!</p>");
+        // section_name.Dump();
+        // // if (section_name.IsEmpty()) return Content("<p>No content!</p>");
+        //
+        // await foreach (var content in FetchSectionContents())
+        // {
+        //     // yield return content;
+        //     yield return content;
+        // }
+
+        // return Content("<p>Done!</p>");
     // }
 
     // IDEA: yield return Partials.

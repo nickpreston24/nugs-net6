@@ -1,28 +1,51 @@
 @page
+@using nugsnet6.Models
+@using CodeMechanic.Types
 @model BallisticsChartModel
 @{
-    //var foo = "bar";
+    int min_velocity = 900;
+    int max_velocity = 3300;
+    int step = 50;
+    
+    // IEnumerable<int> Series(int k = 0, int n = 1, int c = 1)
+    // {
+    //     while (true)
+    //     {
+    //         yield return k;
+    //         k = (c * k) + n;
+    //     }
+    // }
+    
+    // int[] nums = new List<int>().Agg
+    
+    var coordinates = Enumerable
+        .Repeat(new Coordinates
+        {
+            x = 0,
+            y = 1000
+        }, 5);
+
 }
 
 <div class='flex flex-col' x-data='setup()'>
-   <h1>
-    Ballistics for S&B 300 BLK
-   </h1>
+    <h1>
+        Ballistics for S&B 300 BLK
+    </h1>
 
     <label class='glowing text-lg'> Here's a sample Ballistics chart that's really neat: </label>
-   
-   
+
+
     <a class='link-accent' href='https://www.sellierbellot.us/products/rifle-ammunition/rifle-ammunition-fmj/detail/492/'>
         <button class='btn-accent btn'>
-        Go
+            Go
         </button>
     </a>
 
     <div class="chart-container" width="600" height="400">
-    <canvas id="myChart"></canvas>
-</div>
+        <canvas id="myChart"></canvas>
+    </div>
 
-<script>
+    <script>
     const labels = Array.from({length:900}, (_,index)=>index + 20);
 
     const data = {
@@ -30,7 +53,7 @@
             {
                 label: 'Velocity [fps]',
                 data: [
-                {x: 0, y: 1060},
+                    {x: 0, y: 1060},
                     {x: 100, y: 1013},
                     {x: 200, y: 977},
                     {x: 300, y: 944},
@@ -93,5 +116,5 @@
 
     });
 </script>
-        
+
 </div>

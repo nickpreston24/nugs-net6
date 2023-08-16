@@ -1,3 +1,4 @@
+using CodeMechanic.Diagnostics;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 // using Chart.Js;
 
@@ -11,6 +12,7 @@ namespace nugsnet6.Pages.Rounds
 
         public void OnGet()
         {
+            "hello from ballistics chart".Dump();
 
             // Chart = JsonConvert.DeserializeObject<ChartJs>(chartData);
             // ChartJson = JsonConvert.SerializeObject(Chart, new JsonSerializerSettings
