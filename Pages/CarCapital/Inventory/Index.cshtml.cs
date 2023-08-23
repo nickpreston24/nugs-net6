@@ -2,6 +2,7 @@ using CodeMechanic.Diagnostics;
 using CodeMechanic.Embeds;
 using CodeMechanic.RazorHAT;
 using CodeMechanic.Types;
+using Htmx;
 using Microsoft.AspNetCore.Mvc;
 using Neo4j.Driver;
 
@@ -26,6 +27,8 @@ public class Index : HighSpeedPageModel
     private static List<Car> _cars = new List<Car>();
 
     public List<Car> AllCarInventory => _cars;
+    public bool RenderCartOutOfBand { get; set; }
+    public int TotalItemsInCart { get; set; } = 1;
 
 
     public Index(
@@ -35,6 +38,45 @@ public class Index : HighSpeedPageModel
     {
         _cars.Count.Dump("inventory (cached)");
         AllCarInventory.Count.Dump("inventory");
+    }
+
+
+    public void OnGet()
+    {
+        "onget fired!".Dump();
+    }
+
+    public IActionResult OnPostAddToCart(int count)
+    {
+        count.Dump("hello from addtocart");
+        TotalItemsInCart = 42;
+        RenderCartOutOfBand = true;
+        return Request.IsHtmx()
+            ? Content("<p class='alert alert-primary'>'Gday there, guvna!</p>")
+            // ? Partial("_Form", this)
+            : Page();
+    }
+
+    public async Task<IActionResult> OnGetStuff()
+    {
+        return Content("<p class='alert alert-primary'>'Ello there, guvna!</p>");
+    }
+
+    // public async Task<IActionResult> OnPostForts()
+    // {
+    //     "forts".Dump();
+    //     return Content("<p class='alert alert-primary'>'Gday there, guvna!</p>");
+    // }
+
+    public async Task<IActionResult> OnDeleteDuplicates()
+    {
+        return Content("<p class='alert alert-primary'>'Gday there, guvna!</p>");
+    }
+
+
+    public async Task<IActionResult> OnPutCandy()
+    {
+        return Content("<p class='alert alert-primary'>'Gday there, guvna!</p>");
     }
 
     public async Task<IActionResult> OnPostValidate()

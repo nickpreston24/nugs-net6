@@ -1,0 +1,37 @@
+@model nugsnet6.Pages.Samples.Person
+@{
+    var id = $"person-{Model.Id}";
+}
+
+<tr id="@id">
+    <td>
+        <label asp-for="Name" class="is-hidden">Name</label>
+        <input class="input" type="text" asp-for="Name"/>
+    </td>
+    <td>
+        <label asp-for="Age" class="is-hidden">Age</label>
+        <input class="input" type="number" asp-for="Age"/>
+    </td>
+    <td class="has-text-right">
+        <button class="button is-success"
+                hx-post="@Url.Page("Index", "Update", new { Model.Id })"
+                hx-swap="outerHTML"
+                hx-target="closest tr"
+                hx-include="#@id input">
+            <span class="icon">
+                <i class="fa fa-save"></i>
+            </span>
+            <span>Save</span>
+        </button>
+        <button class="button is-warning"
+                hx-get="@Url.Page("Index", "Row", new { Model.Id })"
+                hx-swap="outerHTML"
+                hx-target="closest tr">
+            <span class="icon">
+                <i class="fa fa-exclamation-triangle"></i>
+            </span>
+            <span>Cancel</span>
+        </button>
+        @Html.AntiForgeryToken()
+    </td>
+</tr>

@@ -2,13 +2,38 @@
 @using CodeMechanic.Diagnostics
 @model nugsnet6.Pages.CarCapital.Inventory.Index
 @{
+    
+    // ViewBag.Title = "Out-of-Band Swaps";
+    // ViewBag.Previous = "13_ClientsideTemplates";
+    // ViewBag.Home = true;
     var car_search = Model.Search_Results.Dump("current search");
     var total_cars = Model.AllCarInventory.Dump("all cars in model").Count;
 }
 
 <link href="@Url.Content("~/css/carcapitalcorpcard.css")" rel="stylesheet" type="text/css"/>
 
-<div x-data='setup()'>
+
+
+
+<div class="card m-5 p-5 ms-0 text-center">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <div class="navbar-nav ml-auto">
+                <!-- will be replaced by HTMX Out-of-band swaps -->
+                <a id="cartNavbar" class="nav-link ms-10" aria-current="page" href="#">
+                    <i class="fa fa-shopping-cart"></i>
+                    Cart
+                    <span class="badge bg-secondary">@Model.TotalItemsInCart</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    @await Html.PartialAsync("CarCapital/Shared/_ShoppingItem")
+</div>
+
+<section x-data='setup()'>
     <form hx-post hx-page="Index" hx-page-handler="Validate" hx-swap="outerHTML"
           class="form-horizontal needs-validation" _="on htmx:beforeSend set #submitButton.disabled to 'disabled'">
         <div class="mb-3">
@@ -54,7 +79,7 @@
 
     <h3>@total_cars Cars on lot</h3>
 
-</div>
+</section>
 
 <script>
     const categories = [
@@ -79,3 +104,52 @@
         }
     }
 </script>
+
+
+@* *@
+@* @section end { *@
+@* *@
+@* } *@
+@* *@
+@* @section head { *@
+@*     <style>          *@
+@*         .top { *@
+@*             padding: 18px; *@
+@*             background-color: #ff8900; *@
+@*             border-top-left-radius: 5px; *@
+@*             border-top-right-radius: 5px; *@
+@*             color: #fff *@
+@*         } *@
+@*          *@
+@*         .middle { *@
+@*             height: 350px; *@
+@*             display: flex; *@
+@*             justify-content: center; *@
+@*             align-items: center; *@
+@*             flex-direction: column !important; *@
+@*             padding: 10px *@
+@*         } *@
+@*          *@
+@*         .bottom { *@
+@*             background: #eee; *@
+@*             padding: 30px 10px 10px; *@
+@*         } *@
+@*          *@
+@*         .add { *@
+@*             height: 38px; *@
+@*             border-radius: 4px; *@
+@*             margin-left: 40px; *@
+@*             padding-right: 22px; *@
+@*             padding-left: 20px *@
+@*         } *@
+@*          *@
+@*         .form-control:focus { *@
+@*             color: #495057; *@
+@*             background-color: #fff; *@
+@*             border-color: #8bbafe; *@
+@*             outline: 0; *@
+@*             box-shadow: none *@
+@*         } *@
+@*         /* styling from https://bbbootstrap.com/snippets/bootstrap-grocery-product-card-plus-minus-icons-12859362 */ *@
+@*     </style> *@
+@* } *@

@@ -118,6 +118,17 @@
                     <a href='/Sandbox'>Sandbox</a>
                 </li>
 
+                <li>
+                    <a href='/Samples'>Samples</a>
+                </li>
+
+                <li>
+                    <a asp-page="/Polling">Polling</a>
+                </li>
+
+                <li>
+                    <a asp-page="/OOB/14_OutOfBand">OOB</a>
+                </li>
 
             </ul>
         </div>
@@ -233,6 +244,12 @@
             routes: non_index_routes || []
         }
     }
+</script>
+
+<script >
+document.body.addEventListener("htmx:responseError", function(e) {
+    console.log('htmx error :>> ', e)
+})
 </script>
 
 </html>
