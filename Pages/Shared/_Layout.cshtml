@@ -34,7 +34,7 @@
 <body x-data='setup_layout()'>
 <header>
 
-    <div class="navbar bg-base-100">
+    <div x-show='false' class="navbar bg-base-100">
         <div class="navbar-start">
             <div class="dropdown">
                 <label tabindex="0" class="btn btn-ghost lg:hidden">
@@ -74,15 +74,15 @@
                     </li>
                 </ul>
             </div>
-            <a class="btn btn-ghost normal-case text-xl" href='/'>Lock-N-Loadout</a>
+            <a x-show='false' class="btn btn-ghost normal-case text-xl" href='/'>Lock-N-Loadout</a>
         </div>
 
         <div class="navbar-center hidden lg:flex">
             <ul class="menu menu-horizontal px-1">
-                <li>
+                <li x-show='false'>
                     <a href='/Builder'>Builder</a>
                 </li>
-                <li tabindex="0">
+                <li x-show='false' tabindex="0">
                     <a>
                         Rounds
                         <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
@@ -98,7 +98,7 @@
                         </li>
                     </ul>
                 </li>
-                <li tabindex='0'>
+                <li x-show='false' tabindex='0'>
                     <a>
                         Loadouts
                         <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
@@ -114,7 +114,7 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li x-show='false'>
                     <a href='/Sandbox'>Sandbox</a>
                 </li>
 

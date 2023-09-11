@@ -27,16 +27,19 @@
                         <input :value="buyer_pwd" x-model="buyer_pwd" type="password" placeholder="password" class="input input-bordered"/>
                         <span
                             :class="correct_password ? 'border-2 border-success' : 'border-error border-2 ' "
-                            x-text="correct_password ? 'correct!' : 'incorrect pwd'"></span>
+                            x-text="correct_password ? 'correct!' : 'incorrect pwd'">
+                        </span>
                         <label class="label">
                             <a href="#" class="label-text-alt link link-hover">Forgot password?</a>
                         </label>
                     </div>
                     <div class="form-control mt-6">
-                        <button :disabled="!correct_password"
-                                :class="correct_password ? 'btn btn-success' : 'btn btn-error'">
-                            See Listings
-                        </button>
+                        <a href="/PrivateSales">
+                            <button :disabled="!correct_password"
+                                    :class="correct_password ? 'btn btn-success' : 'btn btn-error'">
+                                See Listings
+                            </button>
+                        </a>
                     </div>
                 </div>
             </div>
