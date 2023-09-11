@@ -2,7 +2,7 @@ using Htmx;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace nugsnet6.Pages.OOB
+namespace Exercises.Pages
 {
     public class OutOfBand : PageModel
     {

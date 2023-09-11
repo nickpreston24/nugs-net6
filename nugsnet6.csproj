@@ -44,9 +44,8 @@
     </ItemGroup>
 
 
-    <ItemGroup>
-      <AdditionalFiles Include="Pages\CarCapital\Shared\_ShoppingItem.cshtml" />
-    </ItemGroup>
+
+
 
 
 

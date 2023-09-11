@@ -5,12 +5,13 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - Lock-N-Loadout</title>
+    <script src="https://unpkg.com/htmx.org@1.9.4"></script>
 
-    <script src="https://unpkg.com/htmx.org@latest"
-            asp-fallback-src="~/lib/htmx.org/dist/htmx.min.js"
-            asp-fallback-test="window.htmx"
-            crossorigin="anonymous">
-    </script>
+    @* <script src="https://unpkg.com/htmx.org@latest" *@
+    @*         asp-fallback-src="~/lib/htmx.org/dist/htmx.min.js" *@
+    @*         asp-fallback-test="window.htmx" *@
+    @*         crossorigin="anonymous"> *@
+    @* </script> *@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.umd.min.js"></script>
 
@@ -127,7 +128,7 @@
                 </li>
 
                 <li>
-                    <a asp-page="/OOB/14_OutOfBand">OOB</a>
+                    <a asp-page="/OOB_Swaps/14_OutOfBand">OOB</a>
                 </li>
 
             </ul>
@@ -246,7 +247,7 @@
     }
 </script>
 
-<script >
+<script>
 document.body.addEventListener("htmx:responseError", function(e) {
     console.log('htmx error :>> ', e)
 })

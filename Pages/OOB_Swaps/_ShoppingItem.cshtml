@@ -1,5 +1,4 @@
-@using CodeMechanic.Types
-@model Pages.CarCapital.Inventory.Index
+@model Exercises.Pages.OutOfBand
 @{ ArgumentNullException.ThrowIfNull(Model); }
 
 @if (Model.RenderCartOutOfBand)
@@ -20,22 +19,9 @@
             <h5>Pineapple Green Packham</h5> <span>Each - approx 1.2KG</span>
         </div>
         <div class="bottom d-flex flex-row justify-content-center">
-            @* hx-page-handler="AddToCart" *@
-            @* hx-post="@Url.Page("Index", "AddToCart")" *@
-            <form asp-action="post"
-                  hx-post
-                  hx-page="~/CarCapital/Inventory"
-                  hx-page-handler="AddToCart"
-                  hx-swap="outerHTML"
-                  hx-target="#shoppingItem">
+            <form hx-post hx-page="14_OutOfBand" hx-page-handler="AddToCart" hx-swap="outerHTML" hx-target="#shoppingItem">
                 <div class="input-group mb-3">
-                    <input id="count"
-                           type="number"
-                           min="0"￼
-                           max="100"
-                           class="form-control"
-                           name="count"
-                           value="@Model.TotalItemsInCart">
+                    <input id="count" type="number" min="0" max="100" class="form-control" name="count" value="@Model.TotalItemsInCart">
                     <button type="submit" class="btn btn-success btn-sm add">
                         Add For <b>$1.75</b>
                     </button>
