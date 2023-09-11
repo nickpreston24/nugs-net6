@@ -1,0 +1,57 @@
+@page
+@using nugsnet6.Extensions
+@model nugsnet6.Pages.PrivateSales.IndexModel
+
+<div data-theme="corporate">
+    <h1>place sales here</h1>
+
+    @{
+        // ArgumentNullException.ThrowIfNull(Model);
+        var tabnames = Model.Views;
+    }
+
+    <div id="tabbed-content">
+        <div class="tabs tabs-boxed">
+            @foreach (var tab in tabnames)
+            {
+                // asp-all-route-data="@tab"
+                // asp-for="new { tab }"
+                <a
+                    hx-get="@Url.Page("Index", new { tab })"
+                    href="#"
+                    class="tab nav-link @Model.IsSelectedCss(tab, " active")"
+                    aria-current="@Model.IsSelectedCss(tab, " page")"
+                    hx-target="#tabbed-content">
+
+                    @StringExtensions.ToCamelCase2(tab, spaced: true)
+
+                </a>
+            }
+        </div>
+
+        <div class="tab-content">
+            <div class="tab-pane show active p-1 mt-3" role="tabpanel">
+                <h2>@Model.Tab.ToHumanCase()</h2>
+                <hr>
+
+                <partial name="@Model.Tab"/>
+                @* <img alt="random image" *@
+                @*      class="rounded float-end m-2 mt-1 easeload" *@
+                @*      width="200" *@
+                @*      height="200" *@
+                @*      onload="this.style.opacity = 1;" *@
+                @*      src="https://picsum.photos/200/200?cache=@DateTime.Now.Ticks"/> *@
+                @* *@
+                @* <p> *@
+                @*     Commodo normcore truffaut VHS duis gluten-free keffiyeh iPhone taxidermy godard ramps anim pour-over. *@
+                @*     Pitchfork vegan mollit umami quinoa aute aliquip kinfolk eiusmod live-edge cardigan ipsum locavore. *@
+                @*     Polaroid duis occaecat narwhal small batch food truck. *@
+                @*     PBR & B venmo shaman small batch you probably haven't heard of them hot chicken readymade. *@
+                @*     Enim tousled cliche woke, typewriter single-origin coffee hella culpa. *@
+                @*     Art party readymade 90's, asymmetrical hell of fingerstache ipsum. *@
+                @* </p> *@
+            </div>
+        </div>
+    </div>
+
+</div>

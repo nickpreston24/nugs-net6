@@ -1,0 +1,85 @@
+
+
+<div x-data="setup()" class="hero min-h-screen bg-base-200">
+    <div class="hero-content text-center">
+        <form class="max-w-md">
+            <h1 x-text="hero_title" class="text-5xl font-bold"></h1>
+
+            @* <p> *@
+            @*     If you're anything like me, you're probably an American fed up with the anti-2nd Ammendment goons like the ATF and greasy-haired liars like the California Governor, chomping at the bit to take our God given right to keep and bear arms away. *@
+            @* </p> *@
+            @* *@
+            @* <p> *@
+            @*     No matter how many times we utter "Shall NOT be infringed, they won't listen and they never will, despite victories like Bruen. *@
+            @* *@
+            @*     Our right, whether we deserve it or not, is under constant assault for one reason - disarming and steamrolling the US population. *@
+            @* *@
+            @* </p> *@
+
+            @* <a rel="noopener" target="_blank" href="#facebook_ads_example"> *@
+            @*     Get Started *@
+            @* </a> *@
+
+            <a href='Builder'
+               type='button'
+               hx-get
+               hx-page="Index"
+               hx-page-handler="Survey"
+               hx-swap="outerHTML"
+               class="btn btn-primary">
+                Let's Build!
+            </a>
+
+            <div hx-boost="true">
+                <a
+                    type='button'
+                    hx-get
+                    hx-page="Index"
+                    hx-page-handler="RenderSection"
+                    hx-swap="outerHTML"
+                    name="section_name"
+                    hx-params="*"
+                    value="blarg"
+                    asp-for="section_name"
+                    class="btn btn-primary">
+                    Render test
+                </a>
+            </div>
+
+            <a
+                x-show="false"
+                type='button'
+                hx-get
+                hx-page="Index"
+                hx-page-handler="ModalTest"
+                hx-swap="outerHTML"
+                class="btn btn-primary">
+                Load Modal
+            </a>
+
+
+            <a
+                x-show="false"
+                type='button'
+                hx-get
+                hx-page="Index"
+                hx-page-handler="PartialsListTest"
+                hx-swap="outerHTML"
+                class="btn btn-primary">
+                Partials List Test
+            </a>
+
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript" asp-append-version="true">
+    
+    function setup() {
+            return {
+                    hero_title: "Welcome to Lock N' Loadout!"
+                }
+        }
+
+
+</script>
