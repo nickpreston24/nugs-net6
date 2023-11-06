@@ -9,7 +9,7 @@
 
   <script src="https://unpkg.com/htmx.org@latest" asp-fallback-src="~/lib/htmx.org/dist/htmx.min.js"
     asp-fallback-test="window.htmx" asp-fallback-test="window.htmx" crossorigin="anonymous">
-  </script>
+    </script>
 
   <!-- Alpine Plugins -->
   <script defer src='https://cdn.jsdelivr.net/npm/@@alpinejs/persist@3.x.x/dist/cdn.min.js'></script>
@@ -25,6 +25,10 @@
 
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.11.2/cdn/themes/light.css" />
+  <script type="module"
+    src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.11.2/cdn/shoelace-autoloader.js"></script>
+
   <link rel="stylesheet" href="./main.css" />
   <script src="./main.js" type="module"></script>
   <script src="./bigbang.js" type="module"></script>
@@ -32,20 +36,45 @@
 
 <body>
   <header>
-    <h1>Basic Web Components</h1>
+    <h1>Web Components Showcase</h1>
   </header>
   <main>
-    <h2>Main Area</h2>
-    <h3>Web Component Below</h3>
-    <big-bang>
-      <h2 slot="title">Characters</h2>
-      <ul slot="list">
-        <li>Leonard</li>
-        <li>Sheldon</li>
-        <li>Raj</li>
-        <li>Howard</li>
-      </ul>
-    </big-bang>
+
+    <sl-tab-group placement="top">
+      <sl-tab slot="nav" panel="general">General</sl-tab>
+      <sl-tab slot="nav" panel="custom">Custom</sl-tab>
+      <sl-tab slot="nav" panel="advanced">Advanced</sl-tab>
+
+      <sl-tab-panel name="general">
+        <h2>Basic Web Component</h2>
+        <big-bang>
+          <h2 slot="title">Characters</h2>
+          <ul slot="list">
+            <li>Leonard</li>
+            <li>Sheldon</li>
+            <li>Raj</li>
+            <li>Howard</li>
+          </ul>
+        </big-bang>
+
+        <p>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit iste accusamus fugiat possimus pariatur
+          excepturi,
+          sint autem praesentium mollitia ipsum minus, nemo ipsa iure nostrum maiores consectetur laboriosam accusantium
+          nobis!
+        </p>
+      </sl-tab-panel>
+
+      <sl-tab-panel name="custom">
+
+
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi labore cupiditate voluptas. Neque omnis
+        voluptatum, sequi cumque, magni, numquam delectus mollitia rerum possimus distinctio nulla facere et? Aut, quam
+        tempora!
+      </sl-tab-panel>
+      <sl-tab-panel name="advanced">This is the advanced tab panel.</sl-tab-panel>
+    </sl-tab-group>
+
   </main>
 </body>
 

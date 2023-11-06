@@ -1,0 +1,78 @@
+@model List<ListingFilter>
+
+<h2>Filters: </h2>
+
+<div
+    x-data="setup()"
+    class="join join-vertical justify-start flex flex-col">
+    <template x-cloak x-for="[key, value] of Object.entries(card_options)">
+        <button
+            x-show="true"
+            x-on:click="card_options[key]=!value"
+            class="btn btn-primary join-item shadow-md shadow-secondary-400/50"
+            :class="{'border-2 border-secondary btn-ghost': !value, 'border-2    border-accent': value }">
+            <label
+                :data-tippy-content="key"
+                x-text="key"
+                class="form-label badge badge-sm"
+                :asp-for='key'>
+            </label>
+
+            <input x-bind:name='key'
+                   x-bind:value='value'
+                   x-bind:checked="value"
+                   type="checkbox"
+                   :asp-for="key"
+                   :data-tippy-content="key"
+                   class="form-control toggle toggle-primary">
+        </button>
+
+        <div
+            x-show="false">
+
+            <button
+                @@click='value=!value'
+                class="swap btn btn-primary flex-grow  ">
+
+
+                <div class="items-center">
+                    <span class="" x-text="key"></span>
+
+                    <!-- this hidden checkbox controls the state -->
+                    <label class="swap swap-flip text-lg  flex-grow-0 flex-shrink-0">
+
+                        <!-- this hidden checkbox controls the state -->
+                        <input
+                            :checked="value"
+                            type="checkbox"/>
+
+                        <div class="swap-on">✔️</div>
+                        <div class="swap-off">❌</div>
+                    </label>
+
+
+                </div>
+
+            </button>
+
+        </div>
+
+
+    </template>
+
+</div>
+
+<script>
+    function setup() {
+        return {
+                kinds: ["ar-15"],
+                types: ["barrel", "handgun"],
+                card_options: {
+                    "foo": true,
+                    
+                    
+                
+                }
+            }
+        }
+</script>

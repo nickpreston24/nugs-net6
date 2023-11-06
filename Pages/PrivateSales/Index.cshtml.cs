@@ -4,22 +4,16 @@ using CodeMechanic.Embeds;
 using CodeMechanic.FileSystem;
 using CodeMechanic.RazorHAT;
 using Htmx;
-using HyperTextExpression;
-// using HyperTextExpression;
 using Microsoft.AspNetCore.Mvc;
 using Neo4j.Driver;
 using nugsnet6.Extensions;
-using static HyperTextExpression.HtmlExp;
-
 
 namespace nugsnet6.Pages.PrivateSales
 {
     [BindProperties]
     public class IndexModel : HighSpeedPageModel
     {
-        // private static AirtableSearch currentAirtableSearch = new AirtableSearch();
-
-        public List<string> Views { get; }
+        public List<string> Tabs { get; }
             = new[] { "_MarketPrices", "_PrivateSales" }.ToList();
 
         [BindProperty(Name = nameof(Tab), SupportsGet = true)]
@@ -27,7 +21,6 @@ namespace nugsnet6.Pages.PrivateSales
 
         public bool IsSelected(string name) =>
             name.Equals(Tab?.Trim(), StringComparison.OrdinalIgnoreCase);
-
 
         public IndexModel(
             IEmbeddedResourceQuery embeddedResourceQuery
@@ -49,20 +42,18 @@ namespace nugsnet6.Pages.PrivateSales
                     // .Dump("all partials found in dir")
                     .Select(path => Regex.Replace(path, @".*\/", ""))
                     .Select(path => Regex.Replace(path, @"\.cshtml", ""))
-                    .Dump("partial names")
+                    // .Dump("partial names")
                 ;
 
-            var updated = new List<string>(view_names).Concat(Views).Distinct().ToList();
+            var updated = new List<string>(view_names).Concat(Tabs).Distinct().ToList();
 
-            updated.Dump("mreged");
-
-            Views = updated;
+            Tabs = updated;
         }
 
         public IActionResult OnGet()
         {
             // make sure we have a tab
-            Tab = Views.Any(IsSelected) ? Tab : Views.FirstOrDefault();
+            Tab = Tabs.Any(IsSelected) ? Tab : Tabs.FirstOrDefault();
             // Tab.Dump("put it on my tab");
             return Request.IsHtmx() && Tab.IsNotEmpty()
                 ? Partial("_Tabs", this)
@@ -70,32 +61,6 @@ namespace nugsnet6.Pages.PrivateSales
         }
 
         public string? IsSelectedCss(string tab, string? cssClass)
-            => IsSelected(tab) ? cssClass /*.Dump("css class")*/ : null;
-
-
-        private static HtmlEl RenderSalesTab(PrivateSale sale, int index) =>
-            HtmlEl("form",
-                ("span", Children(
-                    ("strong", $"{sale.Id}.")
-                )),
-                ("input",
-                    Attrs(
-                        ("type", "checkbox"),
-                        (sale.Done ? "checked" : ""),
-                        ("hx-put", "/todo-app/update-status"),
-                        ("hx-ext", "json-enc"),
-                        ("hx-target", "#todo-list")
-                    )
-                ),
-                ("div", "<p>hi ther</p>")
-            );
-    }
-
-    public record PrivateSale
-    {
-        public string Header = string.Empty;
-        public string Frame { get; set; } = string.Empty;
-        public string Id { get; } = new Guid().ToString(); // dummy value
-        public bool Done { get; set; } = false; // dummy value
+            => IsSelected(tab) ? cssClass : null;
     }
 }

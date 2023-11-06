@@ -1,0 +1,23 @@
+@model IEnumerable<Listing>
+
+
+<div>
+
+    <h1>Here are all my listings</h1>
+
+    @if (!Model.Any())
+    {
+        <div>
+            <p>No listings found. Sorry!</p>
+            <span>Please email me at michael.n.preston@gmail.com</span>
+        </div>
+    }
+    <ul>
+        @foreach (var listing in Model)
+        {
+            @* <partial name="HoloCard" model="listing"/> *@
+            <partial name="ListingDaisyCard" model="listing"/>
+        }
+
+    </ul>
+</div>

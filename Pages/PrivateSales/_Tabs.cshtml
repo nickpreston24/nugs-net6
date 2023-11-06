@@ -1,22 +1,28 @@
 @using nugsnet6.Extensions
-@using StringExtensions = nugsnet6.Extensions.StringExtensions
-@model nugsnet6.Pages.PrivateSales.IndexModel
+@model IndexModel
 @{
-    var tabnames = Model.Views;
+    var tabnames = Model.Tabs
+        .Select(name => new
+        {
+            Title = name.CapitalizedWords(),
+            Name = name
+        })
+        // .Dump("names")
+        ;
 }
 
 <div id="tabbed-content">
     <div class="tabs tabs-boxed">
-        @foreach (var tab in tabnames)
+        @foreach (var item in tabnames)
         {
             <a
-                hx-get="@Url.Page("Index", new { tab })"
+                hx-get="@Url.Page("Index", new { tab = item.Name })"
                 href="#"
-                class="tab nav-link @Model.IsSelectedCss(tab, " active")"
-                aria-current="@Model.IsSelectedCss(tab, " page")"
+                class="tab nav-link  text-2xl @Model.IsSelectedCss(item.Name, " active")"
+                aria-current="@Model.IsSelectedCss(item.Name, " page")"
                 hx-target="#tabbed-content">
 
-                @StringExtensions.ToCamelCase2(tab, spaced: true)
+                @item.Title
 
             </a>
         }
@@ -28,7 +34,7 @@
             <hr>
 
             <partial name="@Model.Tab"/>
-            
+
         </div>
     </div>
 </div>

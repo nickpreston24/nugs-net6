@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 namespace nugsnet6.Extensions;
 
 public static class StringExtensions
@@ -15,6 +17,18 @@ public static class StringExtensions
             .ToArray();
 
         return $"{string.Join(string.Empty, tailWords)}";
+    }
+
+    public static string CapitalizedWords(this string text, bool retain_spaces = true)
+    {
+        var words =
+            Regex.Matches(text, @"([A-Z][a-z]+)")
+                .Cast<Match>()
+                .Select(m => m.Value);
+
+        var all_words = retain_spaces ? string.Join(" ", words) : string.Join("", words);
+
+        return all_words;
     }
 
     public static string ToCamelCase2(this string text, bool spaced = false)

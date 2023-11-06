@@ -1,10 +1,25 @@
 @page
-@model nugsnet6.Pages.PrivateSales.Progress
+@model nugsnet6.Pages.PrivateSales.Progress;
+
 
 @{
-    var progress = @Model;    
+    var sample_listings = @Model.Listings;
+    var filters = Model.Filters;
 }
-<div>
-    
 
+<div class="flex flex-column justify-between items-center border-4 border-primary">
+    @* <partial name="_Listings" model="sample_listings"/> *@
+    <div
+        hx-get
+        hx-page="Progress"
+        hx-page-handler="GetAllListings"
+        hx-trigger="click"
+        hx-target="#listings_section">
+        Refresh
+    </div>
+    <section id="listings_section" class="border-2 border-ghost">
+    </section>
+    <section class="w-1/3">
+        <partial name="_ListingFilters" model="filters"/>
+    </section>
 </div>
