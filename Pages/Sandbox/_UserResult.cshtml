@@ -1,0 +1,12 @@
+@model User
+@{
+    var user = Model;
+}
+
+<div class="card">
+    <ul class="card-body">
+        <li>Id: @user.Id</li>
+        <li>x: @user.JsonData.X</li>
+        <li>z: @user.JsonData.Z</li>
+    </ul>
+</div>
