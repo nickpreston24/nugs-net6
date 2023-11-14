@@ -1,6 +1,7 @@
 using CodeMechanic.Embeds;
 using CodeMechanic.Types;
 using nugsnet6;
+using nugsnet6.Services;
 using TPOT_Links.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,9 +13,9 @@ DotEnv.Load();
 builder.Services.AddRazorPages();
 builder.Services.AddTransient<IEmbeddedResourceQuery, EmbeddedResourceQuery>();
 builder.Services.AddScoped<IPartService, PartService>();
+builder.Services.AddScoped<IJsonConfigService, JsonConfigService>();
 
-
-bool devmode = Environment.GetEnvironmentVariable("DEVMODE").ToBoolean();
+bool dev_mode = Environment.GetEnvironmentVariable("DEVMODE").ToBoolean();
 bool use_blazor = false;
 
 builder.Services.ConfigureAirtable();

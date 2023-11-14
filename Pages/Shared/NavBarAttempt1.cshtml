@@ -1,0 +1,141 @@
+@using CodeMechanic.Diagnostics
+@using Newtonsoft.Json
+@model bool
+
+@{
+    var show_navbar = JsonConvert.SerializeObject(Model).Dump("show nav?");
+}
+
+
+<div x-data="{show_navbar: @show_navbar}">
+
+    <template x-if="show_navbar">
+
+        <div class="navbar bg-base-100">
+            <div class="navbar-start">
+                <div class="dropdown">
+                    <label tabindex="0" class="btn btn-ghost lg:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16"/>
+                        </svg>
+                    </label>
+                    <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                        <li>
+                            <a href="/Guides">Guides</a>
+                        </li>
+                        <li tabindex="0">
+                            <a class="justify-between">
+                                Sandbox
+                                <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
+                                </svg>
+                            </a>
+
+                            <ul class="p-2">
+
+                                <template x-for="route in routes">
+                                    <li>
+                                        <a :href="route.path" x-bind:target="'_self'"
+                                           x-text="route.title">
+                                        </a>
+                                    </li>
+                                </template>
+                            </ul>
+
+                        </li>
+                        <li>
+                            <a href='/Courses'>Courses</a>
+                        </li>
+                        <li>
+                            <a href='/Builder'>Builder</a>
+                        </li>
+                    </ul>
+                </div>
+                <a x-show='false' class="btn btn-ghost normal-case text-xl" href='/'>Lock-N-Loadout</a>
+            </div>
+
+            <div class="navbar-center hidden lg:flex">
+                <ul class="menu menu-horizontal px-1">
+                    <li x-show='false'>
+                        <a href='/Builder'>Builder</a>
+                    </li>
+                    <li x-show='false' tabindex="0">
+                        <a>
+                            Rounds
+                            <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
+                            </svg>
+                        </a>
+                        <ul class="p-2">
+                            <li>
+                                <a href='Rounds/BallisticsChart'>Ballistics</a>
+                            </li>
+                            <li>
+                                <a href='Rounds/Index'>Home</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li x-show='false' tabindex='0'>
+                        <a>
+                            Loadouts
+                            <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
+                            </svg>
+                        </a>
+                        <ul class="p-2">
+                            <li>
+                                <a href='Loadouts/AirsoftLoadouts'>Airsoft</a>
+                            </li>
+                            <li>
+                                <a href='Loadouts/Index'>Defense</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li x-show='false'>
+                        <a href='/Sandbox'>Sandbox</a>
+                    </li>
+
+
+                </ul>
+            </div>
+            <div class="navbar-end">
+                <!-- <a class="btn">Get started</a> -->
+                <!-- <component x-show='false' type="typeof(OmniSearch)" render-mode="ServerPrerendered" />
+                -->
+                <!-- <partial name="_OmniSearch" /> -->
+
+                <!-- The button to open modal -->
+                <!-- <label for="my-modal-4" class="btn">open modal</label> -->
+
+                <!-- Put this part before </body> tag -->
+                <input type="checkbox" id="my-modal-4" class="modal-toggle"/>
+                <label for="my-modal-4" class="modal cursor-pointer">
+                    <label class="modal-box relative" for="">
+                        <p>results go here...</p>
+                        <div id="omni_search_results">
+                        </div>
+                    </label>
+                </label>
+
+                <!-- Dark mode toggler -->
+                <div x-show='false' class="theme-toggle hide-toggle-on-smaller-screens">
+                    <label title="Use light theme" class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fillRule="evenodd" clipRule="evenodd"></path>
+                        </svg>
+
+                        <input type="radio" name="theme-toggle" value="light" aria-label="Use light theme">
+                    </label>
+
+                    <label title="Use dark theme" class="checked">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                        </svg><input type="radio" name="theme-toggle" value="dark" aria-label="Use dark theme">
+                    </label>
+                </div>
+            </div>
+        </div>
+
+    </template>
+
+</div>

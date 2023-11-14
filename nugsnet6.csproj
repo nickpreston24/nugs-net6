@@ -12,6 +12,13 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Watch Include="**\*.cshtml"/>
+        <Watch Include="**\*.config.*"/>
+        <Watch Include="**\*.sql"/>
+        <Watch Include="**\*.cypher"/>
+    </ItemGroup>
+
+    <ItemGroup>
         <!-- The following should embed every query file into the assembly
         Credit:
         https://stackoverflow.com/questions/69258345/add-all-files-in-folder-including-sub-dir-as-embedded-resource
@@ -21,26 +28,27 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Airtable" Version="1.3.0" />
-        <PackageReference Include="CodeMechanic.Async" Version="1.0.1" />
-        <PackageReference Include="CodeMechanic.Diagnostics" Version="1.0.2" />
-        <PackageReference Include="CodeMechanic.Embeds" Version="1.0.0" />
-        <PackageReference Include="CodeMechanic.FileSystem" Version="1.0.4" />
-        <PackageReference Include="CodeMechanic.RazorHAT" Version="1.0.0" />
-        <PackageReference Include="CodeMechanic.Reflection" Version="1.0.3" />
-        <PackageReference Include="CodeMechanic.Regex" Version="1.0.1" />
-        <PackageReference Include="CodeMechanic.Types" Version="1.0.6" />
-        <PackageReference Include="ElectronNET.API" Version="23.6.2-alpha-13" />
-        <PackageReference Include="Htmx" Version="1.1.3" />
-        <PackageReference Include="Htmx.TagHelpers" Version="1.1.3" />
-        <PackageReference Include="HyperTextExpression.AspNetCore" Version="0.0.7" />
-        <PackageReference Include="Insight.Database" Version="6.3.11" />
-        <PackageReference Include="JsonDiffPatch.Net" Version="2.3.0" />
-        <PackageReference Include="MySqlConnector" Version="2.2.7" />
-        <PackageReference Include="Neo4j.Driver" Version="5.9.0" />
-        <PackageReference Include="NSpecification" Version="1.3.0" />
-        <PackageReference Include="RestSharp" Version="110.2.1-alpha.0.2" />
-        <PackageReference Include="System.ServiceModel.Syndication" Version="8.0.0-preview.3.23174.8" />
+        <PackageReference Include="Airtable" Version="1.3.0"/>
+        <PackageReference Include="CodeMechanic.Async" Version="1.0.1"/>
+        <PackageReference Include="CodeMechanic.Diagnostics" Version="1.0.2"/>
+        <PackageReference Include="CodeMechanic.Embeds" Version="1.0.0"/>
+        <PackageReference Include="CodeMechanic.FileSystem" Version="1.0.4"/>
+        <PackageReference Include="CodeMechanic.RazorHAT" Version="1.0.0"/>
+        <PackageReference Include="CodeMechanic.Reflection" Version="1.0.3"/>
+        <PackageReference Include="CodeMechanic.Regex" Version="1.0.1"/>
+        <PackageReference Include="CodeMechanic.Types" Version="1.0.6"/>
+        <PackageReference Include="ElectronNET.API" Version="23.6.2-alpha-13"/>
+        <PackageReference Include="Htmx" Version="1.6.1"/>
+        <PackageReference Include="Htmx.TagHelpers" Version="1.6.1"/>
+        <PackageReference Include="HyperTextExpression.AspNetCore" Version="0.0.7"/>
+
+        <PackageReference Include="Insight.Database" Version="6.3.11"/>
+        <PackageReference Include="JsonDiffPatch.Net" Version="2.3.0"/>
+        <PackageReference Include="MySqlConnector" Version="2.2.7"/>
+        <PackageReference Include="Neo4j.Driver" Version="5.14.0"/>
+        <PackageReference Include="NSpecification" Version="1.3.0"/>
+        <PackageReference Include="RestSharp" Version="110.2.1-alpha.0.2"/>
+        <PackageReference Include="System.ServiceModel.Syndication" Version="8.0.0-preview.3.23174.8"/>
     </ItemGroup>
 
 

@@ -1,7 +1,11 @@
+@using CodeMechanic.FileSystem
+@using nugsnet6.Services
 @model IndexModel
 
+@inject IJsonConfigService configs
 @{
     string secret_passphrase = Environment.GetEnvironmentVariable("BUYER_PASSPHRASE");
+    var config = configs.ReadConfig("buyer_settings.config.json");
 }
 
 <section x-data="setup()">
