@@ -1,0 +1,64 @@
+@model dynamic
+
+<template>
+    <div class='grid grid-cols-2 gap-1'>
+
+        <div class='row-span-5 flex flex-col items-center justify-center gap-2' width="600" height='400'>
+
+            <table id='builds_table' class="table table-compact w-full">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Reasoning</th>
+                    <th>Favorite Color</th>
+                </tr>
+
+                <tr>
+                    <div class="form-control w-full max-w-xs">
+
+                        <input
+                            type="text"
+                            name="Name"
+                            id="query"
+                            class="input input-bordered input-sm w-full max-w-xs"
+                            autocomplete="off"
+
+                            hx-trigger="keyup changed delay:250ms"
+                            hx-get='@Url.Page("Index", "SearchBuilds")'
+                            hx-indicator="#loading"
+                            hx-target='#search_results'
+                            placeholder="Search"
+                            aria-label="Name"
+                            aria-describedby="search-addon"/>
+
+                    </div>
+
+                </tr>
+
+                </thead>
+                <div id='search_results'></div>
+            </table>
+
+
+        </div>
+
+        <div x-if="false">
+
+            <template>
+
+                <div class='flex flex-col items-center justify-center gap-2' width="600" height='400'>
+                    Box 2
+                </div>
+                <div class='flex flex-col items-center justify-center gap-2' width="600" height='400'>
+                    Box 3
+                </div>
+                <div class='flex flex-col items-center justify-center gap-2' width="600" height='400'>
+                    Box 4
+                </div>
+            </template>
+        </div>
+    </div>
+
+
+</template>

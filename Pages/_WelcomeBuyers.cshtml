@@ -1,56 +1,105 @@
-@using CodeMechanic.FileSystem
+@using nugsnet6.Extensions
 @using nugsnet6.Services
 @model IndexModel
+
+@functions {
+
+    public record BuyerConfig
+    {
+        public bool show_private_sales_login { get; set; }
+        public bool show_config_test_div { get; set; }
+        public DateTimeOffset some_date { get; set; }
+        public double some_double { get; set; }
+        public float some_float { get; set; }
+        public int some_int { get; set; }
+        public bool enable_lightsabers { get; set; }
+    }
+
+}
 
 @inject IJsonConfigService configs
 @{
     string secret_passphrase = Environment.GetEnvironmentVariable("BUYER_PASSPHRASE");
-    var config = configs.ReadConfig("buyer_settings.config.json");
+    string config_path = "buyer_settings.config.json";
+    var buyer_settings = configs.ReadConfigSettings<BuyerConfig>(config_path);
+    // Console.WriteLine(buyer_settings.show_private_sales_login);
+    // Console.WriteLine(buyer_settings.show_config_test_div);
+    // Console.WriteLine(DateTimeOffset.UtcNow.ToString());
 }
 
-<section x-data="setup()">
+<template x-if="@buyer_settings.show_private_sales_login.AsJS()">
 
-    <div class="hero min-h-screen bg-base-200">
-        <div class="hero-content flex-col lg:flex-row-reverse">
-            <div class="text-center lg:text-left">
-                <h1 class="text-5xl font-bold">Login now!</h1>
-                <p class="py-6">Please login with the password I gave you.</p>
-            </div>
-            <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-                <div class="card-body">
-                    <div x-show="false" class="form-control">
-                        <label class="label">
-                            <span class="label-text">Email</span>
-                        </label>
-                        <input type="text" placeholder="email" class="input input-bordered"/>
-                    </div>
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text">Password</span>
-                        </label>
-                        <input :value="buyer_pwd" x-model="buyer_pwd" type="password" placeholder="password" class="input input-bordered"/>
-                        <span
-                            :class="correct_password ? 'border-2 border-success' : 'border-error border-2 ' "
-                            x-text="correct_password ? 'correct!' : 'incorrect pwd'">
-                        </span>
-                        <label class="label">
-                            <a href="#" class="label-text-alt link link-hover">Forgot password?</a>
-                        </label>
-                    </div>
-                    <div class="form-control mt-6">
-                        <a href="/PrivateSales">
-                            <button :disabled="!correct_password"
-                                    :class="correct_password ? 'btn btn-success' : 'btn btn-error'">
-                                See Listings
-                            </button>
-                        </a>
+    <section x-data="setup()">
+        <template x-if="@buyer_settings.show_config_test_div.AsJS()">
+            <ul>
+                <li class="">@buyer_settings.some_date</li>
+                <li class="">@buyer_settings.some_double</li>
+                <li class="">@buyer_settings.some_float</li>
+                <li class="">@buyer_settings.some_int</li>
+            </ul>
+        </template>
+
+        <div class="hero min-h-screen bg-base-200">
+            <div class="hero-content flex-col lg:flex-row-reverse">
+                <div class="text-center lg:text-left">
+                    <h1 class="text-5xl font-bold {@buyer_settings.enable_lightsabers ? 'green-lightsaber' : '' }">
+                        Login now!
+                    </h1>
+                    <p class="py-6">Please login with the password I gave you.</p>
+                </div>
+                <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                    <div class="card-body">
+                        <div x-show="false" class="form-control">
+                            <label class="label">
+                                <span class="label-text">Email</span>
+                            </label>
+                            <input type="text" placeholder="email" class="input input-bordered"/>
+                        </div>
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text">Password</span>
+                            </label>
+                            <input :value="buyer_pwd" x-model="buyer_pwd" type="password" placeholder="password" class="input input-bordered"/>
+                            <span
+                                :class="correct_password ? 'border-2 border-success' : 'border-error border-2' "
+                                x-text="correct_password ? 'correct!' : 'incorrect pwd'">
+                            </span>
+                            <label class="label">
+                                <a href="#" class="label-text-alt link link-hover">Forgot password?</a>
+                            </label>
+                        </div>
+                        <div class="form-control mt-6">
+
+                            <div class="gap-2 flex flex-row-reverse">
+
+                                <a
+                                    x-show="@buyer_settings.show_private_sales_login.AsJS()"
+
+                                    @@click="if(!correct_password) $event.preventDefault()"
+                                    href="/PrivateSales">
+                                    <button :disabled="!correct_password"
+                                            :class="correct_password ? 'btn btn-success' : 'btn btn-error'">
+                                        See Listings
+                                    </button>
+                                </a>
+
+                                <a
+                                    href="/Builder">
+                                    <button
+                                        class="btn btn-primary">
+                                        See Builds
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-</section>
+    </section>
+</template>
+
 
 <script>
     var _secrtpwd = '@secret_passphrase';
@@ -87,3 +136,6 @@
 @*         </form> *@
 @*     </div> *@
 @* </div> *@
+<style>
+  
+</style>

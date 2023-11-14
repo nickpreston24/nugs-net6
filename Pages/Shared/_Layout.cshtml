@@ -28,14 +28,16 @@
 
     <script type="module" src="~/js/main.js"></script>
 
+    <link rel="stylesheet" href="~/css/site.css">
+
 </head>
 
-<body x-data='setup_layout()'>
+<body x-data='setup_layout()' class="m-2">
 <header>
 
 </header>
 <div class="">
-    <main role="main" class="pb-3">
+    <main role="main">
         @RenderBody()
     </main>
 </div>

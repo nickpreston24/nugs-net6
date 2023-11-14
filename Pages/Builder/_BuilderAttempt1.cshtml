@@ -1,0 +1,50 @@
+@model dynamic
+
+<div x-if="false">
+
+    <template x-cloak>
+
+        <form action='post'>
+
+            <div
+                class='flex flex-col items-center h-screen'
+                x-data='setup()'>
+                <partial name="_BuildSteps"/>
+
+                <div class="border-ghost border-l-4 border-r-2">
+                    <div class='grid grid-cols-2 grid-rows-auto'>
+                        <partial name="_BarrelPicker"/>
+                        <section id='recommendations'> </section>
+
+                    </div>
+                </div>
+
+            </div>
+        </form>
+
+        <button class='btn btn-secondary'
+                hx-post='@Url.Page("", "FavoriteBuild")'
+                hx-swap='outerHTML'
+                hx-target='#favorite_build_results'>
+            Get Favorite Build!
+        </button>
+
+
+        <div id='favorite_build_results'>...</div>
+
+    </template>
+
+</div>
+
+
+<script>
+    function setup() {
+        return {
+            steps: [
+                'Purpose',
+                'Caliber',
+                'Barrel',
+            ]
+        }        
+    }
+</script>

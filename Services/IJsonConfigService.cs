@@ -1,11 +1,16 @@
 using CodeMechanic.Diagnostics;
 using CodeMechanic.FileSystem;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using nugsnet6.Extensions;
 
 namespace nugsnet6.Services;
 
 public interface IJsonConfigService
 {
     public string ReadConfig(string filename);
+    public T GetSetting<T>(string key, string json);
+    T ReadConfigSettings<T>(string filename);
 }
 
 public class JsonConfigService : IJsonConfigService
@@ -40,13 +45,13 @@ public class JsonConfigService : IJsonConfigService
 
         var not_blacklisted = new NSpecifications.Spec<string>(
             filepath => filepath.Contains("node_modules/")
-                  || filepath.Contains("wwwroot/")
-                  || filepath.Contains("bin/")
-                  || filepath.Contains("obj/")
+                        || filepath.Contains("wwwroot/")
+                        || filepath.Contains("bin/")
+                        || filepath.Contains("obj/")
         );
 
         var configs = grepper.GetFileNames()
-            .Where(not_blacklisted)
+                .Where(not_blacklisted)
             // .Dump("configs")
             ;
         return configs;
@@ -55,8 +60,47 @@ public class JsonConfigService : IJsonConfigService
     public string ReadConfig(string filename)
     {
         string filepath = FindConfig(filename);
-        string lines = File.ReadAllText(filepath);
+        string lines = File.Exists(filepath) ? File.ReadAllText(filepath) : string.Empty;
         if (dev_mode) Console.WriteLine("Lines :>> \n" + lines);
         return lines;
+    }
+
+
+    public T GetSetting<T>(string key = "", string json = "{}")
+    {
+        throw new NotImplementedException("Finish this...if you dare!");
+
+        if (key.IsEmpty() || json.IsEmpty())
+            return default;
+
+        JObject search = JObject.Parse(json);
+
+        IList<JToken> results = search.Children().ToList();
+
+        // serialize JSON results into .NET objects
+        IList<T> searchResults = new List<T>();
+        foreach (JToken result in results)
+        {
+            // JToken.ToObject is a helper method that uses JsonSerializer internally
+            T searchResult = result.ToObject<T>();
+            searchResults.Add(searchResult);
+        }
+
+        return searchResults.FirstOrDefault();
+    }
+
+    public T ReadConfigSettings<T>(string filename)
+    {
+        var config_json = ReadConfig(filename);
+        var settings = JsonConvert.DeserializeObject<T>(config_json);
+        return settings ?? Activator.CreateInstance<T>();
+    }
+
+    private void CheckForWatchedConfigFiles()
+    {
+        //Todo: Search for Watch tags in the current .csproj and check that they include .config.js*
+        // Then, Console.Warn the user:
+        string cs_projname = "";
+        Console.WriteLine($"WARNING: Could not find 'config.json' files in a <Watch> inside project '{cs_projname}'");
     }
 }

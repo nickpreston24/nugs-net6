@@ -1796,3 +1796,17 @@ html {
 .glowing {
   text-shadow: 0px 1px 6px rgba(255, 0, 255, 0.7);
 }
+
+body {
+  border: 1px solid green;
+}
+
+.green-lightsaber {
+  text-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 20px #49ff18, 0 0 30px #49FF18, 0 0 40px #49FF18, 0 0 55px #49FF18, 0 0 75px #49ff18;
+  color: #FFFFFF;
+}
+
+.sith-lightsaber {
+  text-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 20px #f11, 0 0 30px #f11, 0 0 40px #f11, 0 0 55px #f11, 0 0 75px #f11;
+  color: #FFFFFF;
+}

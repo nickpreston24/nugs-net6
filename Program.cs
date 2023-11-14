@@ -13,7 +13,7 @@ DotEnv.Load();
 builder.Services.AddRazorPages();
 builder.Services.AddTransient<IEmbeddedResourceQuery, EmbeddedResourceQuery>();
 builder.Services.AddScoped<IPartService, PartService>();
-builder.Services.AddScoped<IJsonConfigService, JsonConfigService>();
+builder.Services.AddSingleton<IJsonConfigService, JsonConfigService>();
 
 bool dev_mode = Environment.GetEnvironmentVariable("DEVMODE").ToBoolean();
 bool use_blazor = false;

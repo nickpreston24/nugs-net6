@@ -1,0 +1,48 @@
+@using nugsnet6.Extensions
+@using nugsnet6.Services
+
+@functions {
+
+    public record DashboardSettings
+    {
+        public bool show_me { get; set; }
+        public string foo { get; set; }
+        public int columns { get; set; } = 2;
+        public int rows { get; set; } = 2;
+    }
+
+}
+
+@inject IJsonConfigService configs
+@{
+    var dashboard_settings = configs.ReadConfigSettings<DashboardSettings>("youtube_dashboard.config.json");
+    string sample_text = """ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque blanditiis consequuntur delectus doloribus ducimus esse expedita explicabo illum laboriosam laborum molestias nostrum obcaecati quos saepe soluta ut, velit? Beatae, nulla.""";
+    int total_boxes = @dashboard_settings.columns * @dashboard_settings.rows + 1;
+}
+<template x-if="@dashboard_settings.show_me.AsJS()">
+
+
+    <section
+
+        x-show="false"
+        class="min-h-screen flex flex-col items-center">
+        <h1>@dashboard_settings.foo</h1>
+
+        <ul>
+            <li>
+                rows: @dashboard_settings.rows
+            </li>
+            <li>
+                cols: @dashboard_settings.columns
+            </li>
+        </ul>
+        <div class="grid grid-cols-{@dashboard_settings.columns} grid-rows-{@dashboard_settings.rows} gap-4">
+            @for (int i = 0; i < total_boxes; i++)
+            {
+                <p class="border-2 border-accent">
+                    @sample_text
+                </p>
+            }
+        </div>
+    </section>
+</template>
