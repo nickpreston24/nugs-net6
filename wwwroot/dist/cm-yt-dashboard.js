@@ -7,8 +7,10 @@
   const __template = function({ state }) {
     return [  
     h("div", {"id": `dash1`, "class": `border-red-400 border-2`}, [
-      h("slot", {"name": `header`}, `Default Header`),
-      h("div", {"class": `sidebar`}, `sidebar`),
+      h("slot", {"name": `header`, "class": `header`}, `Default Header`),
+      h("div", {"class": `sidebar`}, [
+        h("slot", {"name": `sidebar`}, `sidebar`)
+      ]),
       h("div", {"class": `main`}, [
         h("div", {"class": `card text-orange-500 sm:min-w-36`}, [
           h("slot", {"name": `place1`}, `One`)
@@ -50,6 +52,7 @@
             /*background-color: #95ff7c;*/
             grid-column: 1/2;
             grid-row: 1/3;
+            border: #49ff18 1px solid;
         }
 
         .main {

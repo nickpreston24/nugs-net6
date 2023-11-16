@@ -1,0 +1,58 @@
+@using System.Text.RegularExpressions
+@using CodeMechanic.Advanced.Regex
+@using CodeMechanic.Diagnostics
+@using CodeMechanic.RazorHAT.Services
+@using CodeMechanic.Types
+@using Newtonsoft.Json
+@using nugsnet6.Models
+@model dynamic
+
+@inject IRazorRoutesService routes_service
+@inject IJsonConfigService json_config
+@{
+    string regexp = @"(?<name>[a-zA-Z_-]*)\/$";
+
+    var routes = routes_service.GetAllRoutes() ?? Enumerable.Empty<string>(); /*.Dump("all routes")*/
+
+    var options = RegexOptions.Compiled | RegexOptions.Multiline | RegexOptions.IgnoreCase;
+    var settings_text = json_config.ReadConfig("sidebar_settings.json");
+
+    var settings = JsonConvert.DeserializeObject<SidebarSettings>(settings_text);
+    // settings.Dump("sidebar settings 2");
+
+    var sidebar_options = routes
+        .SelectMany(route => route
+            .Extract<SidebarRoute>(regexp, options: options)
+            .With(option =>
+            {
+                var current = option.FirstOrDefault();
+                if (route.Equals("/"))
+                    current.Name = "Home";
+                current.Href = route;
+
+                // TODO: fix disabling specific routes via config.
+                var is_enabled = settings.Routes.FirstOrDefault(x => x.Name.Equals(current.Name))?.Enabled ?? false;
+                current.Enabled = is_enabled;
+            })
+        );
+
+}
+
+@* style="background-image: url(https://daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.jpg);" *@
+<div class="min-h-screen">
+    <div class="flex flex-col items-center text-center text-neutral-content">
+        <div class="max-w-md">
+            <ul class="menu p-4 min-h-full text-base-content text-pink-700">
+                <!-- Sidebar content here -->
+                @foreach (var sidebaroption in sidebar_options)
+                {
+                    <li class="text-white border-2 border-secondary">
+                        <a href="@sidebaroption.Href">
+                            @sidebaroption.Name
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

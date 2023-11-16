@@ -1,0 +1,10 @@
+@model List<Part>
+@{
+    var parts = @Model;
+}
+<ul>
+    @foreach (var part in parts)
+    {
+        <partial name="_Part" model="part"></partial>
+    }
+</ul>

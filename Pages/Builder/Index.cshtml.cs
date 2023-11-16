@@ -1,13 +1,10 @@
 using System.Diagnostics;
 using System.Text;
 using CodeMechanic.Embeds;
-using CodeMechanic.FileSystem;
 using CodeMechanic.RazorHAT;
 using CodeMechanic.Types;
 using Microsoft.AspNetCore.Mvc;
 using Neo4j.Driver;
-using nugsnet6.Experimental;
-using nugsnet6.Extensions;
 
 namespace nugsnet6;
 
@@ -27,6 +24,17 @@ public class IndexModel : HighSpeedPageModel
         : base(embeddedResourceQuery, driver, repo)
     {
     }
+
+    public List<Part> Parts { get; set; } = new List<Part>()
+    {
+        new Part()
+        {
+            Name = "BCM Charging Handle"
+        }
+    };
+
+    public Build CurrentBuild { get; set; }
+
 
     public void OnGet()
     {
@@ -60,21 +68,21 @@ public class IndexModel : HighSpeedPageModel
             .AppendEach(
                 parts_found, part =>
                     $"""
-            <tr>
-                <th>
-                    <label>
-                        <input type="checkbox" class="checkbox" />
-                    </label>
-                </th>
-                <th class='text-primary'>{part.Name}</th>
-                <td class='text-secondary'>{part.Kind}</td>
-                <td class='text-secondary'>{part.Type}</td>
-                <td class='text-secondary'>{part.WeightInOz}</td>
-                <td class='text-secondary'>{part.ProductCode}</td>
-                <td class='text-accent'>${part.Cost.ToString()}</td>
-                <td class='text-secondary'>{part.Notes}</td>
-            </tr>
-        """).ToString();
+                         <tr>
+                             <th>
+                                 <label>
+                                     <input type="checkbox" class="checkbox" />
+                                 </label>
+                             </th>
+                             <th class='text-primary'>{part.Name}</th>
+                             <td class='text-secondary'>{part.Kind}</td>
+                             <td class='text-secondary'>{part.Type}</td>
+                             <td class='text-secondary'>{part.WeightInOz}</td>
+                             <td class='text-secondary'>{part.ProductCode}</td>
+                             <td class='text-accent'>${part.Cost.ToString()}</td>
+                             <td class='text-secondary'>{part.Notes}</td>
+                         </tr>
+                     """).ToString();
         return Content(html);
     }
 
@@ -98,17 +106,17 @@ public class IndexModel : HighSpeedPageModel
                 builds_found,
                 build =>
                     $"""
-            <tr>
-                <th>
-                    <label>
-                        <input type="checkbox" class="checkbox" />
-                    </label>
-                </th>
-                <th class='text-primary'>{build.Name}</th>
-                <td class='text-accent'>${build.Total_Cost.ToString()}</td>
-                <td class='text-secondary'>{build.Reasoning}</td>
-            </tr>
-        """).ToString();
+                         <tr>
+                             <th>
+                                 <label>
+                                     <input type="checkbox" class="checkbox" />
+                                 </label>
+                             </th>
+                             <th class='text-primary'>{build.Name}</th>
+                             <td class='text-accent'>${build.Total_Cost.ToString()}</td>
+                             <td class='text-secondary'>{build.Reasoning}</td>
+                         </tr>
+                     """).ToString();
         return Content(html);
         // return Partial("_BuildsTable", builds_found);
     }
@@ -136,10 +144,9 @@ public class IndexModel : HighSpeedPageModel
         var records = await SearchNeo4J<Build>(query, new { });
 
         return Content("""
-            <div class='alert alert-success shadow-lg'>
-                <span>Confirmed!</span>
-            </div>
-        """);
+                           <div class='alert alert-success shadow-lg'>
+                               <span>Confirmed!</span>
+                           </div>
+                       """);
     }
-
 }

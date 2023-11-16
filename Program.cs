@@ -1,3 +1,4 @@
+using System.Reflection;
 using CodeMechanic.Embeds;
 using CodeMechanic.RazorHAT.Services;
 using CodeMechanic.Types;
@@ -11,18 +12,23 @@ DotEnv.Load();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddTransient<IEmbeddedResourceQuery, EmbeddedResourceQuery>();
+// builder.Services.AddTransient<IEmbeddedResourceQuery, EmbeddedResourceQuery>();
 builder.Services.AddScoped<IPartService, PartService>();
 builder.Services.AddSingleton<IJsonConfigService, JsonConfigService>();
 builder.Services.AddSingleton<IRazorRoutesService, RazorRoutesService>();
+
+var main_assembly = Assembly.GetExecutingAssembly();
+builder.Services.AddSingleton<IEmbeddedResourceQuery>(new EmbeddedResourceService(
+    new Assembly[] { main_assembly }, debugMode: false
+).CacheAllEmbeddedFileContents());
 
 bool dev_mode = Environment.GetEnvironmentVariable("DEVMODE").ToBoolean();
 bool use_blazor = false;
 
 builder.Services.ConfigureAirtable();
 builder.Services.ConfigureNeo4j();
-if (use_blazor)
-    builder.Services.AddServerSideBlazor();
+
+if (use_blazor) builder.Services.AddServerSideBlazor();
 
 var app = builder.Build();
 

@@ -4,7 +4,7 @@ using CodeMechanic.Reflection;
 using CodeMechanic.Types;
 using Neo4j.Driver;
 
-namespace CodeMechanic.Extensions;
+namespace CodeMechanic.Neo4j.Extensions;
 
 public static class Neo4jRecordExtensions 
 {

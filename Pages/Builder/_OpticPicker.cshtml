@@ -1,6 +1,7 @@
-@using Microsoft.AspNetCore.Mvc.TagHelpers
-@model object
+@using nugsnet6.Models
+@model Optics
 @{
+    var optics = Model;
 }
 
 <div class='flex flex-row' x-data='{
@@ -23,95 +24,66 @@
             }
         
         ]}
-'
-        >
+'>
 
     <div id="optic_picker">
-            
-            <div
-                class="bg-base-100 rounded-box col-span-3 row-span-3 mx-2 flex w-72 flex-shrink-0 flex-col justify-center gap-4 p-4 shadow-xl xl:mx-0 xl:w-full svelte-1n6ue57"
-                >
-                <div class="px-6 pt-6">
-                    <div class="text-xl font-extrabold">Optic Properties</div>
-                    <div class="text-base-content/70 my-4 text-md">
-                        What do you want to see in your optic?
-                    </div>
-                    <div class="dropdown w-full flex-1">
+
+        <div
+            class="bg-base-100 rounded-box col-span-3 row-span-3 mx-2 flex w-72 flex-shrink-0 flex-col justify-center gap-4 p-4 shadow-xl xl:mx-0 xl:w-full svelte-1n6ue57">
+            <div class="px-6 pt-6">
+                <div class="text-xl font-extrabold">Optic Properties</div>
+                <div class="text-base-content/70 my-4 text-md">
+                    What do you want to see in your optic?
+                </div>
+                <div class="dropdown w-full flex-1">
                     <div tabindex="0">
                         <div class="form-control">
                             <ul class="menu bg-base-100 w-56 p-2 rounded-box">
-                                <template x-for="caliber in optic_properties.calibers" >
+                                <template x-for="caliber in optic_properties.types">
                                     <li>
                                         <a>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
-                                            <span x-text="caliber" />
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                                            </svg>
+                                            <span x-text="caliber"/>
                                         </a>
-                                    </li>                                    
+                                    </li>
                                 </template>
                             </ul>
                         </div>
-                        <div class="form-control">
-                            <label class="label cursor-pointer"
-                                ><span class="label-text">Enable teleportation</span>
-                                <input type="checkbox" class="toggle toggle-primary"
-                            /></label>
-                        </div>
-                    
-                        <div class="form-control">
-                            <label class="label cursor-pointer"
-                                ><span class="label-text">Suppressed (Silenced)</span>
-                                <input type="checkbox" class="toggle toggle-accent"
-                            /></label>
-                            </div>
+
+                        @foreach (var suppressor_option in optics.SuppressorOptions)
+                        {
                             <div class="form-control">
-                                <label class="label cursor-pointer"
-                                    ><span class="label-text">Enable immortality</span>
-                                    <input type="checkbox" class="toggle"
-                                /></label>
+                                <label class="label cursor-pointer">
+                                    <span class="label-text">@suppressor_option</span>
+                                    <input type="checkbox" class="toggle toggle-primary"/>
+                                </label>
                             </div>
-                        </div>
-                    
+                        }
                     </div>
+
                 </div>
-                <div class="form-control">
-                    <div tabindex="0">
-                        <button class="btn btn-secondary btn-block space-x-2">
+            </div>
+            <div class="form-control">
+                <div tabindex="0">
+                    <button class="btn btn-secondary btn-block space-x-2">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
-                            class="h-6 w-6 stroke-current"
-                        >
+                            class="h-6 w-6 stroke-current">
                             <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                            ></path>
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z">
+                            </path>
                         </svg>
                         <span>Apply</span>
-                        </button>
-                    </div>
-                    </div>
-                </div>
-            </div>
-    </div>
-
-   
-
-    <div id="optic_picker_hero" >
-        <div class="hero min-h-screen bg-base-200">
-            <div class="hero-content text-center">
-                <div class="max-w-md">
-                <h1 class="text-5xl font-bold">Optic Options</h1>
-                <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-                <button class="btn btn-primary">Get Started</button>
-                
-                <!-- <partial name="_PartsGrid" /> -->
-
-
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-
+</div>

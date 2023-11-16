@@ -1,0 +1,8 @@
+{
+  "Routes": [
+    {
+      "Name": "RSSFeeds",
+      "Enabled": false
+    }
+  ]
+}

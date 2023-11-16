@@ -1,8 +1,9 @@
+@model string
 @using CodeMechanic.RazorHAT.Services
-@using CodeMechanic.Diagnostics
 @inject IRazorRoutesService routes_service
 @{
-    var current_breadcrumbs = routes_service.GetBreadcrumbsForPage("Builder");
+    var page_name = Model;
+    var current_breadcrumbs = routes_service.GetBreadcrumbsForPage(page_name);
 }
 
 <div class="text-sm breadcrumbs">

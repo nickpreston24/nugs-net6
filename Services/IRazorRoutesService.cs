@@ -10,12 +10,13 @@ public interface IRazorRoutesService
 {
     string[] GetAllRoutes();
     string[] GetBreadcrumbsForPage(string builder);
+    string[] AllRoutes { get; set; }
 }
 
 public class RazorRoutesService : IRazorRoutesService
 {
     private readonly bool dev_mode;
-    private readonly IEnumerable<string> razor_page_routes;
+    private static string[] razor_page_routes;
 
     public RazorRoutesService(bool dev_mode = false)
     {
@@ -36,11 +37,14 @@ public class RazorRoutesService : IRazorRoutesService
             Recursive = true,
         };
 
+        var blacklist = new string[] { "/Shared/" };
+
         var is_blacklisted = new Spec<string>(
-            filepath => filepath.Contains("node_modules/")
-                        || filepath.Contains("wwwroot/")
-                        || filepath.Contains("bin/")
-                        || filepath.Contains("obj/")
+            filepath =>
+                filepath.Contains("node_modules/")
+                || filepath.Contains("wwwroot/")
+                || filepath.Contains("bin/")
+                || filepath.Contains("obj/")
         );
 
         RegexOptions options = RegexOptions.Compiled | RegexOptions.Multiline | RegexOptions.IgnorePatternWhitespace |
@@ -52,7 +56,10 @@ public class RazorRoutesService : IRazorRoutesService
         var routes = grepper.GetFileNames()
                 .Where(!is_blacklisted)
                 .Select(p => p.Replace(current_directory, ""))
+                .Where(p => p.StartsWith("/Pages") || p.Equals("/"))
                 .Select(p => p.Extract<RazorRoute>(regex)?.FirstOrDefault()?.subdirectory)
+                .Select(p => p.Replace("/Pages", ""))
+                .Except(blacklist)
                 .Distinct()
             // .Dump("routes")
             ;
@@ -60,14 +67,17 @@ public class RazorRoutesService : IRazorRoutesService
         return routes.ToArray();
     }
 
-    public string[] GetBreadcrumbsForPage(string builder)
+    public string[] GetBreadcrumbsForPage(string page_name)
     {
         var current_breadcrumbs = this.GetAllRoutes()
-            .Where(path => path.Contains("Builder"))
-            .Dump("Current breadcrumbs");
+            .Where(path => path.Contains(page_name))
+            // .Dump("Current breadcrumbs")
+            ;
 
         return current_breadcrumbs.ToArray();
     }
+
+    public string[] AllRoutes { get; set; } = razor_page_routes;
 }
 
 public class RazorRoute

@@ -5,8 +5,10 @@
     -->
 
     <div id="dash1" class="border-red-400 border-2">
-        <slot name="header">Default Header</slot>
-        <div class="sidebar">sidebar</div>
+        <slot name="header" class="header">Default Header</slot>
+        <div class="sidebar">
+            <slot name="sidebar">sidebar</slot>
+        </div>
         <div class="main">
             <div class="card text-orange-500 sm:min-w-36">
                 <slot name="place1">One</slot>
@@ -50,6 +52,7 @@
             /*background-color: #95ff7c;*/
             grid-column: 1/2;
             grid-row: 1/3;
+            border: #49ff18 1px solid;
         }
 
         .main {

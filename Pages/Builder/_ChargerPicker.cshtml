@@ -1,46 +1,40 @@
-@model object
+@model List<Part>
+@{
+    var parts = Model;
+    var chargers = (parts ?? new List<Part>()
+    {
+        new Part()
+        {
+            Name = "Bravo Company 4xl",
+            Type = "ChargingHandle"
+        }
+    })
+        .Where(p => p.Type == "ChargingHandle")
+        ;
+}
 
-@*
-
-    When putting your build together, you’ll need to decide on the following parts:
-
-    Caliber, barrel length, purpose?
-    Brace or stock?
-    Do you want your brace or stock to fold?
-    Ratcheting castle nut or staked castle nut?
-    What upper and lower receiver do you want?
-    Which trigger do you want or require?
-    Is your lower parts kit Mil-Spec or upgraded?
-    BCG.
-    Charging Handle (rear charging or side charging?).
-    Handguard preference?
-    Muzzle device?
-    Optics/Sights?
-    Pistol Grips/Foregrips
-    Barrel Takedown or Breakdown Kits
-    Cerakote choice (optional)
-
-*@
 
 <div x-data='setup()'>
-    <template x-for="post in posts">
-        <div class="card w-96 bg-neutral text-neutral-content">
-            <div class="card-body items-center text-center">
-                <h2 class="card-title">Charger</h2>
-                <p>Pick Your Charger</p>
-                <div class="card-actions justify-end">
-                <button class="btn btn-primary">Side</button>
-                <button class="btn btn-ghost">Rear</button>
-                </div>
+    <div class="card w-96 bg-neutral text-neutral-content">
+        <div class="card-body items-center text-center">
+            <p>What would you like for your Charging Handle?</p>
+            <div class="card-actions justify-end">
+                <span class="join">
+                    <label for="">Type?</label>
+                    <template x-for="charger_type in charger_types">
+                        <button x-text="charger_type" class="btn btn-ghost">Rear</button>
+                    </template>
+                </span>
             </div>
         </div>
-    </template>  
+    </div>
 </div>
 
 <script>
     function setup() {
         return {
-            charger_type: "side"
+            charger_types: ["side", 'rear'],
+            chargers: '@chargers', // TODO: init from db
         }
     }
 </script>

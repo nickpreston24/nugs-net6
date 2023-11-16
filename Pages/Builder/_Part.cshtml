@@ -6,14 +6,14 @@
 <div class="card w-96 bg-base-100 shadow-xl">
     <template x-if="part.image.url">
         <figure>
-            <img :src="part.image.url" alt="Image Not Found" />
+            <img :src="part.image.url" alt="Image Not Found"/>
         </figure>
     </template>
     <div class="card-body">
-        <h2 x-text='part.name' class="card-title"></h2>
+        <h2 x-text='part.name' class="card-title">@part.Name</h2>
         <p x-text='part.notes'></p>
         <div class="card-actions justify-end">
-        <button class="btn btn-primary rounded-badge text-xl">+</button>
+            <button class="btn btn-primary rounded-badge text-xl">+</button>
         </div>
     </div>
 

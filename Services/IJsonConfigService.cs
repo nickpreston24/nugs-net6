@@ -1,3 +1,4 @@
+using CodeMechanic.Diagnostics;
 using CodeMechanic.FileSystem;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -39,7 +40,7 @@ public class JsonConfigService : IJsonConfigService
         var grepper = new Grepper()
         {
             RootPath = current_directory,
-            FileSearchMask = "*.config.json",
+            FileSearchMask = "*.config.json,*.json",
             Recursive = true
         };
 
@@ -92,7 +93,9 @@ public class JsonConfigService : IJsonConfigService
     public T ReadConfigSettings<T>(string filename)
     {
         var config_json = ReadConfig(filename);
+        Console.WriteLine("JSON : >> " + config_json);
         var settings = JsonConvert.DeserializeObject<T>(config_json);
+        settings.Dump("After convert :>> ");
         return settings ?? Activator.CreateInstance<T>();
     }
 

@@ -1,37 +1,101 @@
 @page
 @using CodeMechanic.RazorHAT.Services
+@using nugsnet6.Models
+@using CodeMechanic.Embeds
 @using CodeMechanic.Diagnostics
 @model IndexModel
 @inject IRazorRoutesService routes_service
+@inject IEmbeddedResourceQuery embeds_service
 @{
-    var all_pages = routes_service.GetAllRoutes().Dump("all pages under /Pages :>> ");
+    var all_pages = routes_service.AllRoutes;
+    var parts = Model.Parts;
+    var current_build = Model.CurrentBuild;
+
+    string file_name = "BuildByName.cypher";
+    string query = (embeds_service as EmbeddedResourceService).GetFileContents<IndexModel>(file_name);
+    string query2 = (embeds_service as EmbeddedResourceService).GetFileContents<IndexModel>("BuildsLiked.cypher");
+
+    Console.WriteLine("builds liked: " + query2);
+    Console.WriteLine("builds by name: " + query);
 }
 
-@* // Good sample build: *@
-@* //https://airtable.com/app33DDBeyXEGRflo/tblt4CGuQIRCcpM2W/viwY2d0b9wzFFeLXr/rece53WI4aXu35ndd/fldWJaJwX9hBrUIIs?copyLinkToCellOrRecordOrigin=gridView *@
+<!-- GRID -->
+
+<cm-yt-dashboard>
+
+    <div slot="header" class="flex flex-row gap-8">
+        <partial name="_BreadCrumbs" model="nameof(Builder)"></partial>
+        <partial name="BuildStats"></partial>
+        <partial name="BuildProgress"></partial>
+        @* <partial name="_BuildSteps"></partial> *@
+    </div>
+
+    <div slot="sidebar">
+        <div class="border-accent border-2">
+            <partial name="_Sidebar"></partial>
+        </div>
+    </div>
+
+    <div slot="place1">
+        <partial name="_OpticPicker" model="new Optics()"></partial>
+    </div>
+    <div slot="place2">
+        <partial name="_ChargerPicker" model="new List<Part>()"></partial>
+    </div>
+    <div slot="place3">
+        <partial name="_BarrelPicker"></partial>
+    </div>
+    <div slot="place4">
+        @* <partial name="_BuildSteps"/> *@
+    </div>
+    <div slot="place5">
+        <partial name="_PartsList" model="parts"/>
+
+    </div>
+    <div slot="place6">
+        <partial name="_RecommendationsPanel"></partial>
+    </div>
+
+
+</cm-yt-dashboard>
+
+
+@*
+
+    When putting your build together, you’ll need to decide on the following parts:
+
+    Caliber, barrel length, purpose?
+    Brace or stock?
+    Do you want your brace or stock to fold?
+    Ratcheting castle nut or staked castle nut?
+    What upper and lower receiver do you want?
+    Which trigger do you want or require?
+    Is your lower parts kit Mil-Spec or upgraded?
+    BCG.
+    Charging Handle (rear charging or side charging?).
+    Handguard preference?
+    Muzzle device?
+    Optics/Sights?
+    Pistol Grips/Foregrips
+    Barrel Takedown or Breakdown Kits
+    Cerakote choice (optional)
+
+*@
+
+
+@* <cm-holo-card></cm-holo-card> *@
+
+@* <link href="@Url.Content("~/css/carcapitalcorpcard.css")" rel="stylesheet" type="text/css"/> *@
+@* *@
+@* <partial name="CarCapital/Inventory/CarCapitalCorpCard" model="@car"/> *@
+
+@* <partial x-if='false' name="_BuilderAttempt1"></partial> *@
+@* <partial name="TVGridDashboardSample"></partial> *@
 
 @* <partial x-if="true" name="SearchTable"></partial> *@
 
 @* <partial x-if="true" name="SearchTable2"></partial> *@
 
 
-<!-- GRID -->
-
-
-@* <partial x-if='false' name="_BuilderAttempt1"></partial> *@
-<partial name="_BreadCrumbs"></partial>
-@* <partial name="TVGridDashboardSample"></partial> *@
-<cm-yt-dashboard>
-
-    <h2 slot="header">The following are builds</h2>
-
-    <div slot="place1">I'm a slotted component!</div>
-    <div slot="place2">I'm a slotted component!</div>
-    <div slot="place3">I'm a slotted component!</div>
-    <div slot="place4">
-        <cm-holo-card></cm-holo-card>
-    </div>
-    <div slot="place5">I'm a slotted component!</div>
-    <div slot="place6">I'm a slotted component!</div>
-
-</cm-yt-dashboard>
+@* // Good sample build: *@
+@* //https://airtable.com/app33DDBeyXEGRflo/tblt4CGuQIRCcpM2W/viwY2d0b9wzFFeLXr/rece53WI4aXu35ndd/fldWJaJwX9hBrUIIs?copyLinkToCellOrRecordOrigin=gridView *@
