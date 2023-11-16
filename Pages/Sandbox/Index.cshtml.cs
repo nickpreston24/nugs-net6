@@ -101,7 +101,7 @@ public class IndexModel : HighSpeedPageModel
         }
     }
 
-    public async Task<IActionResult> OnGetSa6mplePostgresSchema()
+    public async Task<IActionResult> OnGetSamplePostgresSchema()
     {
         var database = new SqlConnectionStringBuilder(postgresql_connectionstring);
         // NOTE: when returning cursors, you need to open the query in a transaction (eek)
