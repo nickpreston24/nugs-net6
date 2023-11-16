@@ -1,7 +1,7 @@
 using CodeMechanic.Embeds;
+using CodeMechanic.RazorHAT.Services;
 using CodeMechanic.Types;
 using nugsnet6;
-using nugsnet6.Services;
 using TPOT_Links.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +14,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddTransient<IEmbeddedResourceQuery, EmbeddedResourceQuery>();
 builder.Services.AddScoped<IPartService, PartService>();
 builder.Services.AddSingleton<IJsonConfigService, JsonConfigService>();
+builder.Services.AddSingleton<IRazorRoutesService, RazorRoutesService>();
 
 bool dev_mode = Environment.GetEnvironmentVariable("DEVMODE").ToBoolean();
 bool use_blazor = false;

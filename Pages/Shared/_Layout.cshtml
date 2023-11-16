@@ -27,7 +27,9 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <script type="module" src="~/js/main.js"></script>
+    <script src="~/dist/index.js" type="module"></script>
 
+    @* <script src="./dist/cm-yt-dashboard.js"></script> *@
     <link rel="stylesheet" href="~/css/site.css">
 
 </head>
@@ -48,38 +50,6 @@
 
 <script type="module">
     // Set up Alpine persistence
-</script>
-
-<script type='module'>
-    // Set up Routes via JSON:
-    
-    const routes = await (async () => {
-        let results = await import('./routes.json', {
-            assert: {
-                type: 'json'
-            }
-        })
-
-        return results.default;
-    })()
-
-    localStorage.setItem('routes', JSON.stringify(routes));
-
-</script>
-
-<script>
-    var stored_routes = JSON.parse(localStorage.getItem('routes')) || []
-            // .filter(r=> !r.includes('Index'))  // Exclude Indexes for now.
-    ;
-    // console.log('stored_routes :>> ', stored_routes);
-
-    var non_index_routes = stored_routes?.filter(r=>!r?.path?.includes('Index'))
-
-    function setup_layout() {
-        return {
-            routes: non_index_routes || []
-        }
-    }
 </script>
 
 </html>

@@ -1,10 +1,10 @@
 @using nugsnet6.Extensions
-@using nugsnet6.Services
+@using CodeMechanic.RazorHAT.Services
 @model IndexModel
 
 @functions {
 
-    public record BuyerConfig
+    public record BuyerWelcomeConfig
     {
         public bool show_private_sales_login { get; set; }
         public bool show_config_test_div { get; set; }
@@ -21,7 +21,7 @@
 @{
     string secret_passphrase = Environment.GetEnvironmentVariable("BUYER_PASSPHRASE");
     string config_path = "buyer_settings.config.json";
-    var buyer_settings = configs.ReadConfigSettings<BuyerConfig>(config_path);
+    var buyer_settings = configs.ReadConfigSettings<BuyerWelcomeConfig>(config_path);
     // Console.WriteLine(buyer_settings.show_private_sales_login);
     // Console.WriteLine(buyer_settings.show_config_test_div);
     // Console.WriteLine(DateTimeOffset.UtcNow.ToString());
@@ -115,27 +115,3 @@
             }
     }
 </script>
-@* <div class="hero min-h-screen bg-base-200"> *@
-@*     <div class="hero-content text-center"> *@
-@*         <form class="max-w-md"> *@
-@*             <h1 x-text="hero_title" class="text-5xl font-bold"></h1> *@
-@* *@
-@*             <div class=" flex flex-column gap-2 "> *@
-@* *@
-@*                 <div class="flex flex-row"> *@
-@* *@
-@*                     <label>Buyers, enter your password here:</label> *@
-@* *@
-@*                     <input type="text" x-model="buyer_pwd" :value="buyer_pwd"> *@
-@*                 </div> *@
-@* *@
-@*                 <a class="btn btn-accent" x-show="correct_password" href="/PrivateSales"> *@
-@*                     <button>Go to Listings</button> *@
-@*                 </a> *@
-@*             </div> *@
-@*         </form> *@
-@*     </div> *@
-@* </div> *@
-<style>
-  
-</style>

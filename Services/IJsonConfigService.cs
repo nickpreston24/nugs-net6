@@ -1,10 +1,10 @@
-using CodeMechanic.Diagnostics;
 using CodeMechanic.FileSystem;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using NSpecifications;
 using nugsnet6.Extensions;
 
-namespace nugsnet6.Services;
+namespace CodeMechanic.RazorHAT.Services;
 
 public interface IJsonConfigService
 {
@@ -43,7 +43,7 @@ public class JsonConfigService : IJsonConfigService
             Recursive = true
         };
 
-        var not_blacklisted = new NSpecifications.Spec<string>(
+        var not_blacklisted = new Spec<string>(
             filepath => filepath.Contains("node_modules/")
                         || filepath.Contains("wwwroot/")
                         || filepath.Contains("bin/")

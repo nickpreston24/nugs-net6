@@ -187,7 +187,6 @@ public static class RegexExtensions
         Regex regex,
         bool enforce_exact_match = false,
         bool debug = false
-        // , RegexOptions options = RegexOptions.None
     )
     {
         var collection = new List<T>();
