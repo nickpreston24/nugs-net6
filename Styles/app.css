@@ -11,9 +11,9 @@
 }
 
 
-body {
-    /*border: 1px solid green;*/
-}
+/*body {*/
+/*    !*border: 1px solid green;*!*/
+/*}*/
 
 
 .green-lightsaber {
@@ -23,7 +23,12 @@ body {
 }
 
 .sith-lightsaber {
+    /*@apply*/
     color: #FFFFFF;
     text-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 20px #f11, 0 0 30px #f11, 0 0 40px #f11, 0 0 55px #f11, 0 0 75px #f11;
     color: #FFFFFF;
+}
+
+.btn-tahiti {
+    @apply text-white bg-tahiti-500 hover:bg-green-700;
 }

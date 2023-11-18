@@ -1,31 +1,33 @@
 using System.Net.Http.Headers;
 using CodeMechanic.Diagnostics;
 using CodeMechanic.Types;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using nugsnet6.Extensions;
 
 namespace CodeMechanic.RazorHAT.Services;
 
-public class IAirtableQueryingService
+public interface IAirtableQueryingService
 {
+    Task<List<T>> SearchRecords<T>(AirtableSearchV2 search);
 }
 
 public class AirtableQueryingService : IAirtableQueryingService
 {
-    protected string base_id = string.Empty;
-
-    protected string personal_access_token = string.Empty;
+    // private string base_id = string.Empty;
+    private string personal_access_token = string.Empty;
     private readonly HttpClient http_client;
     private readonly bool debug_mode;
 
     public AirtableQueryingService(
-        HttpClient client
-        , string base_id = ""
+        HttpClient client = null
+        // , string base_id = ""
         , string personal_access_token = ""
         , bool debug_mode = false)
     {
-        this.http_client = client ?? throw new ArgumentNullException(nameof(client));
+        this.http_client = client ?? new HttpClient(); //?? throw new ArgumentNullException(nameof(client));
 
-        this.base_id = base_id;
+        // this.base_id = base_id;
         this.personal_access_token = personal_access_token;
         this.http_client.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue("Bearer", personal_access_token);
@@ -33,57 +35,77 @@ public class AirtableQueryingService : IAirtableQueryingService
         this.debug_mode = debug_mode;
 
         // Show warnings to coders:
+        // if (base_id.IsEmpty())
+        //     Console.WriteLine("WARNING!!! " + nameof(base_id) + " should not be empty!");
 
-        if (base_id.IsEmpty()) Console.WriteLine("WARNING!!! " + nameof(base_id) + " should not be empty!");
         if (this.personal_access_token.IsEmpty())
             Console.WriteLine("WARNING!!! " + nameof(personal_access_token) + " should not be empty!");
+
+        if (debug_mode) Console.WriteLine("Airtable Querying Service is initialized and running! 🥳 ");
     }
 
-    public async Task<List<T>> SearchRecords<T>(AirtableSearch search)
+    public async Task<List<T>> SearchRecords<T>(AirtableSearchV2 search)
     {
-        var (
-            table_name,
-            offset,
-            fields,
-            filterByFormula,
-            maxRecords,
-            pageSize,
-            sort,
-            view,
-            cellFormat,
-            timeZone,
-            userLocale,
-            returnFieldsByFieldId
-            ) = search;
-
-        if (debug_mode) search.Dump("Airtable is searching using the following parameters :>> ");
-
-        if (string.IsNullOrEmpty(table_name))
-        {
-            Console.WriteLine(
-                "WARNING: You did not provide a table name for Airtable to search.  Returning an empty list.");
-            // table_name = typeof(T).Name + "s";
-            return new List<T>();
-        }
-
-        var response = await http_client
-            .GetAsync(search
-                .With(my_search =>
-                {
-                    my_search.base_id = this.base_id;
-                    my_search.table_name = table_name;
-                })
-                .AsQuery()
-            );
+        var response = await http_client.GetAsync(search.AsQuery());
 
         response.EnsureSuccessStatusCode();
 
         var json = await response.Content.ReadAsStringAsync();
-        if (debug_mode) Console.WriteLine("Here's the raw JSON:");
-        if (debug_mode) Console.WriteLine(json);
 
-        // var list = new RecordList<T>(json);
-        var (_, records) = new RecordList<T>(json);
-        return records;
+        try
+        {
+            JObject parsed_object = JObject.Parse(json);
+
+            // get JSON result objects into a list
+            IList<JToken> results = parsed_object["records"]
+                .Children()
+                ["fields"]
+                // .Children()
+                .Dump("Children")
+                .ToList();
+
+            // serialize JSON results into .NET objects
+            IList<T> records = new List<T>();
+            foreach (JToken result in results)
+            {
+                // JToken.ToObject is a helper method that uses JsonSerializer internally
+                T searchResult = result.ToObject<T>();
+                records.Add(searchResult);
+            }
+
+            if (debug_mode) records.Count.Dump("records from airtable search :>> ");
+            return records.ToList();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+
+            if (debug_mode)
+                WriteLogs<T>(nameof(AirtableQueryingService), json);
+
+            return new List<T>();
+        }
+    }
+
+    private FileInfo WriteLogs<T>(string service_name, string json)
+    {
+        var type = typeof(T);
+        string type_name = type.Name;
+        string loggingdir = $"{Environment.CurrentDirectory}/logs/";
+
+        string service_folder = $"{Environment.CurrentDirectory}/logs/{service_name}";
+
+        if (!Directory.Exists(loggingdir))
+            Directory.CreateDirectory(loggingdir);
+
+        if (!Directory.Exists(service_folder))
+            Directory.CreateDirectory(service_folder);
+
+        string timestamp_utc = DateTime.UtcNow.ToFileTimeUtc().ToString();
+        string filename = $"{timestamp_utc}{type_name}.log";
+        string file_path = Path.Combine(loggingdir, service_folder, filename);
+
+        File.WriteAllText(file_path, json);
+        return new FileInfo(file_path);
     }
 }

@@ -1,10 +1,42 @@
+@using CodeMechanic.RazorHAT.Services
+@using CodeMechanic.RazorHAT
+@using CodeMechanic.Diagnostics
+@using CodeMechanic.Async
 @model List<Part>
+@inject IAirtableQueryingService airtable_service
 @{
-    var parts = @Model;
-}
-<ul>
-    @foreach (var part in parts)
+    // var parts = Model ?? Enumerable.Empty<Part>();
+
+    var base_id = Environment.GetEnvironmentVariable("NUGS_BASE_KEY");
+
+    bool debug_mode = true;
+
+    var parts_search = new AirtableSearchV2(base_id, "Parts")
     {
-        <partial name="_Part" model="part"></partial>
-    }
-</ul>
+        maxRecords = 2
+    };
+
+    var builds_search = new AirtableSearchV2(base_id, "Builds")
+    {
+        maxRecords = 2
+    };
+
+    var builds = await airtable_service.SearchRecords<Build>(builds_search);
+    builds.Dump("sample builds search");
+
+    var parts = await airtable_service.SearchRecords<Part>(parts_search);
+    parts.Dump("sample parts search");
+}
+
+@foreach (var part in parts)
+{
+    <partial name="_Part" model="@part"></partial>
+}
+
+<div>
+    <h1>Add Part</h1>
+    <form action="post">
+        <label for="@nameof(Part.Name)"></label>
+        <input name="@nameof(Part.Name)"></input>
+    </form>
+</div>

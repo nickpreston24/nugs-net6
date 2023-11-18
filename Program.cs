@@ -10,6 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Load and inject .env files & values
 DotEnv.Load();
 
+// Read .env values for setting up services
+bool dev_mode = Environment.GetEnvironmentVariable("DEVMODE").ToBoolean();
+bool use_blazor = Environment.GetEnvironmentVariable("USE_BLAZOR").ToBoolean();
+Console.WriteLine("Developer mode (all debugs enabled)? " + dev_mode);
+
 // Add services to the container.
 builder.Services.AddRazorPages();
 // builder.Services.AddTransient<IEmbeddedResourceQuery, EmbeddedResourceQuery>();
@@ -18,12 +23,22 @@ builder.Services.AddSingleton<IJsonConfigService, JsonConfigService>();
 builder.Services.AddSingleton<IRazorRoutesService, RazorRoutesService>();
 
 var main_assembly = Assembly.GetExecutingAssembly();
-builder.Services.AddSingleton<IEmbeddedResourceQuery>(new EmbeddedResourceService(
-    new Assembly[] { main_assembly }, debugMode: false
-).CacheAllEmbeddedFileContents());
+builder.Services
+    .AddSingleton<IEmbeddedResourceQuery>(
+        new EmbeddedResourceService(
+                new Assembly[]
+                {
+                    main_assembly
+                },
+                debugMode: false
+            )
+            .CacheAllEmbeddedFileContents());
 
-bool dev_mode = Environment.GetEnvironmentVariable("DEVMODE").ToBoolean();
-bool use_blazor = false;
+
+builder.Services.AddSingleton<IAirtableQueryingService>(new AirtableQueryingService(
+    personal_access_token: Environment.GetEnvironmentVariable("NUGS_PAT")
+    , debug_mode: dev_mode
+));
 
 builder.Services.ConfigureAirtable();
 builder.Services.ConfigureNeo4j();

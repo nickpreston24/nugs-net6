@@ -25,8 +25,6 @@
 
     <div slot="header" class="flex flex-row gap-8">
         <partial name="_BreadCrumbs" model="nameof(Builder)"></partial>
-        <partial name="BuildStats"></partial>
-        <partial name="BuildProgress"></partial>
         @* <partial name="_BuildSteps"></partial> *@
     </div>
 
@@ -40,10 +38,13 @@
         <partial name="_OpticPicker" model="new Optics()"></partial>
     </div>
     <div slot="place2">
+        <partial name="BuildStats"></partial>
         <partial name="_ChargerPicker" model="new List<Part>()"></partial>
     </div>
     <div slot="place3">
         <partial name="_BarrelPicker"></partial>
+        <partial name="_ChargerPicker" model="new List<Part>()"></partial>
+        <partial name="BuildProgress"></partial>
     </div>
     <div slot="place4">
         @* <partial name="_BuildSteps"/> *@
