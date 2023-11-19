@@ -1,7 +1,9 @@
 using System.Diagnostics;
 using System.Text;
+using CodeMechanic.Diagnostics;
 using CodeMechanic.Embeds;
 using CodeMechanic.RazorHAT;
+using CodeMechanic.RazorHAT.Services;
 using CodeMechanic.Types;
 using Microsoft.AspNetCore.Mvc;
 using Neo4j.Driver;
@@ -15,17 +17,23 @@ public class IndexModel : HighSpeedPageModel
     private static List<Build> builds_found = new List<Build>();
 
     private static List<Part> parts_found = new List<Part>();
+    private readonly IAirtableQueryingService airtable_service;
+    private readonly ICsvService csv_service;
 
     public IndexModel(
         IEmbeddedResourceQuery embeddedResourceQuery
+        , IAirtableQueryingService airtableQueryingService
+        , ICsvService csvService
         , IDriver driver
         , IAirtableRepo repo
     )
         : base(embeddedResourceQuery, driver, repo)
     {
+        this.airtable_service = airtableQueryingService;
+        this.csv_service = csvService;
     }
 
-    public List<Part> Parts { get; set; } = new List<Part>()
+    public List<Part> SampleParts { get; set; } = new List<Part>()
     {
         new Part()
         {
@@ -33,11 +41,70 @@ public class IndexModel : HighSpeedPageModel
         }
     };
 
+
+    public List<Part> PartsFromCsv { get; set; } = new List<Part>()
+    {
+    };
+
     public Build CurrentBuild { get; set; }
 
 
-    public void OnGet()
+    public async Task<IActionResult> OnGetPartsFromCsvFile()
     {
+        Console.WriteLine("HELLO FROM CSV IMPORT");
+        var userDir = new DirectoryInfo(Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile))
+            ?.FullName;
+
+        string filedir = "Downloads";
+        string filename = "Parts-Grid view.csv";
+
+        string filepath = Path.Combine(userDir, filedir, filename);
+        Console.WriteLine(filepath);
+
+        Console.WriteLine(Environment.GetEnvironmentVariable("HOME"));
+
+        return Content("Done!");
+
+
+        string regex_pattern_for_parts = $"""
+            (?<Name>\w+)\,
+        """ ;
+
+        var csv_parts = csv_service.ImportAs<Part>(filepath, regex_pattern_for_parts);
+        csv_parts.Count.Dump($"# of parts from csv '{filepath}'");
+
+        return Partial("_PartsTable", csv_parts);
+    }
+
+    public async Task<IActionResult> OnGetSamplePartsFromAirtable()
+    {
+        Console.WriteLine("Getting sample parts...");
+        // var parts = Model ?? Enumerable.Empty<Part>();
+
+        return Content("Done!");
+
+        var base_id = Environment.GetEnvironmentVariable("NUGS_BASE_KEY");
+
+        bool debug_mode = true;
+
+        var parts_search = new AirtableSearchV2(base_id, "Parts")
+        {
+            maxRecords = 2
+        };
+
+        var builds_search = new AirtableSearchV2(base_id, "Builds")
+        {
+            maxRecords = 2
+        };
+
+        var builds = await airtable_service.SearchRecords<Build>(builds_search);
+        builds.Dump("sample builds search");
+
+        var parts = await airtable_service.SearchRecords<Part>(parts_search);
+        parts.Dump("sample parts search");
+        // return Content($"<b class='alert alert-primary'>Success! <br/> # of parts found: {parts.Count}</b>");
+
+        return Partial("_PartsList", parts);
     }
 
     public void OnPatchSetTableName(string next_table_name = "Loadouts") => table_name = next_table_name;
@@ -64,26 +131,7 @@ public class IndexModel : HighSpeedPageModel
                 , debug: true
             );
 
-        string html = new StringBuilder()
-            .AppendEach(
-                parts_found, part =>
-                    $"""
-                         <tr>
-                             <th>
-                                 <label>
-                                     <input type="checkbox" class="checkbox" />
-                                 </label>
-                             </th>
-                             <th class='text-primary'>{part.Name}</th>
-                             <td class='text-secondary'>{part.Kind}</td>
-                             <td class='text-secondary'>{part.Type}</td>
-                             <td class='text-secondary'>{part.WeightInOz}</td>
-                             <td class='text-secondary'>{part.ProductCode}</td>
-                             <td class='text-accent'>${part.Cost.ToString()}</td>
-                             <td class='text-secondary'>{part.Notes}</td>
-                         </tr>
-                     """).ToString();
-        return Content(html);
+        return Partial("_PartsTable", parts_found);
     }
 
     public async Task<IActionResult> OnGetSearchBuilds(string Name = "")
@@ -112,11 +160,11 @@ public class IndexModel : HighSpeedPageModel
                                      <input type="checkbox" class="checkbox" />
                                  </label>
                              </th>
-                             <th class='text-primary'>{build.Name}</th>
-                             <td class='text-accent'>${build.Total_Cost.ToString()}</td>
-                             <td class='text-secondary'>{build.Reasoning}</td>
+                             <th class='text-primary'>{ build.Name}                          </th>
+                             <td class='text-accent'>${ build.Total_Cost.ToString()}                          </td>
+                             <td class='text-secondary'>{ build.Reasoning}                          </td>
                          </tr>
-                     """).ToString();
+                     """ ).ToString();
         return Content(html);
         // return Partial("_BuildsTable", builds_found);
     }

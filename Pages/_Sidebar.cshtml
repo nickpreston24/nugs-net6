@@ -39,20 +39,20 @@
 }
 
 @* style="background-image: url(https://daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.jpg);" *@
-<div class="min-h-screen">
-    <div class="flex flex-col items-center text-center text-neutral-content">
-        <div class="max-w-md">
-            <ul class="menu p-4 min-h-full text-base-content text-pink-700">
-                <!-- Sidebar content here -->
-                @foreach (var sidebaroption in sidebar_options)
-                {
-                    <li class="text-white border-2 border-secondary">
-                        <a href="@sidebaroption.Href">
-                            @sidebaroption.Name
-                        </a>
-                    </li>
-                }
-            </ul>
-        </div>
+@* <div class="min-h-screen"> *@
+<div class="w-auto flex flex-col gap-4 mx-6 text-center text-neutral-content">
+    <div class="max-w-md">
+        <ul class="menu p-4 min-h-full text-base-content text-pink-700">
+            <!-- Sidebar content here -->
+            @foreach (var sidebaroption in sidebar_options)
+            {
+                <li class="text-white">
+                    <a href="@sidebaroption.Href">
+                        @sidebaroption.Name
+                    </a>
+                </li>
+            }
+        </ul>
     </div>
 </div>
+@* </div> *@

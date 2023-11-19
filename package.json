@@ -8,7 +8,7 @@
     "buildcss:release": "cross-env NODE_ENV=production postcss ./Styles/app.css -o ./wwwroot/css/app.css",
     "buildcss:linux": "npx tailwindcss -i ./Styles/app.css -o ./wwwroot/css/site.css",
     "desktop": "electronize-h5 start /watch",
-    "nuke": "rm -rf node_modules wwwroot/lib wwwroot/css",
+    "nuke": "rm -rf node_modules wwwroot/lib wwwroot/css bin obj",
     "reinstall": "npm run nuke && yarn && npm i && npm run  buildcss:linux",
     "quickstart": "bash quickstart.sh",
     "lego": "lego -w -i bricks/ -o wwwroot/dist/"

@@ -17,22 +17,25 @@ Console.WriteLine("Developer mode (all debugs enabled)? " + dev_mode);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-// builder.Services.AddTransient<IEmbeddedResourceQuery, EmbeddedResourceQuery>();
-builder.Services.AddScoped<IPartService, PartService>();
-builder.Services.AddSingleton<IJsonConfigService, JsonConfigService>();
+// builder.Services.AddScoped<IPartService, PartService>();
+var props_service = new PropertyCache();
+builder.Services.AddScoped<IJsonConfigService, JsonConfigService>();
+builder.Services.AddSingleton<IMarkdownService, MarkdownService>();
+builder.Services.AddSingleton<IImageService, ImageService>();
 builder.Services.AddSingleton<IRazorRoutesService, RazorRoutesService>();
+builder.Services.AddSingleton<IPropertyCache>(props_service);
+builder.Services.AddSingleton<ICsvService>(new CsvService(props_service, dev_mode));
 
 var main_assembly = Assembly.GetExecutingAssembly();
-builder.Services
-    .AddSingleton<IEmbeddedResourceQuery>(
-        new EmbeddedResourceService(
-                new Assembly[]
-                {
-                    main_assembly
-                },
-                debugMode: false
-            )
-            .CacheAllEmbeddedFileContents());
+builder.Services.AddSingleton<IEmbeddedResourceQuery>(
+    new EmbeddedResourceService(
+            new Assembly[]
+            {
+                main_assembly
+            },
+            debugMode: false
+        )
+        .CacheAllEmbeddedFileContents());
 
 
 builder.Services.AddSingleton<IAirtableQueryingService>(new AirtableQueryingService(

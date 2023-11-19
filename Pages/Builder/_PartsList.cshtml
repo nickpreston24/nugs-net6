@@ -3,29 +3,9 @@
 @using CodeMechanic.Diagnostics
 @using CodeMechanic.Async
 @model List<Part>
-@inject IAirtableQueryingService airtable_service
+@* @inject IAirtableQueryingService airtable_service *@
 @{
-    // var parts = Model ?? Enumerable.Empty<Part>();
-
-    var base_id = Environment.GetEnvironmentVariable("NUGS_BASE_KEY");
-
-    bool debug_mode = true;
-
-    var parts_search = new AirtableSearchV2(base_id, "Parts")
-    {
-        maxRecords = 2
-    };
-
-    var builds_search = new AirtableSearchV2(base_id, "Builds")
-    {
-        maxRecords = 2
-    };
-
-    var builds = await airtable_service.SearchRecords<Build>(builds_search);
-    builds.Dump("sample builds search");
-
-    var parts = await airtable_service.SearchRecords<Part>(parts_search);
-    parts.Dump("sample parts search");
+    var parts = Model;
 }
 
 @foreach (var part in parts)

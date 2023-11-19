@@ -1,0 +1,36 @@
+@using CodeMechanic.RazorHAT.Models
+@model IEnumerable<LocalImage>
+
+@{
+    var images = Model.ToArray();
+}
+
+@if (images?.Length == 0)
+{
+    <div class="alert alert-error">
+        <svg xmlns="http://www.w3.org/2000/svg" 
+             class="stroke-current shrink-0 h-6 w-6" 
+             fill="none" 
+             viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <span>Something went wrong! Images could not be loaded!</span>
+    </div>
+}
+<sl-carousel autoplay loop pagination>
+    @foreach (var image in images)
+    {
+        @* <pre x-text="@image.alt"></pre> *@
+        @* <pre x-text="@image.src"></pre> *@
+        <sl-carousel-item class="">
+            @* lg:max-w-xl  *@
+            <img class="rounded-md"
+@*                  style="{ *@
+@*                     height: auto; *@
+@*                     min-width: 128px; *@
+@*                  }" *@
+                 alt="@image.alt"
+                 src="@image.src"/>
+        </sl-carousel-item>
+    }
+</sl-carousel>

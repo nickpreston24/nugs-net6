@@ -18,7 +18,9 @@ public class RazorRoutesService : IRazorRoutesService
     private readonly bool dev_mode;
     private static string[] razor_page_routes;
 
-    public RazorRoutesService(bool dev_mode = false)
+    public RazorRoutesService(
+        // string [] blacklist,
+        bool dev_mode = false)
     {
         razor_page_routes = GetAllRoutes();
         this.dev_mode = dev_mode;
@@ -37,7 +39,14 @@ public class RazorRoutesService : IRazorRoutesService
             Recursive = true,
         };
 
-        var blacklist = new string[] { "/Shared/" };
+        var blacklist = new string[]
+        {
+            "/Shared/"
+            , "/PrivateSales/"
+            , "/RSSFeeds/"
+            , "/PrivateSales/"
+            , "/PrivateSales/"
+        };
 
         var is_blacklisted = new Spec<string>(
             filepath =>
@@ -70,7 +79,7 @@ public class RazorRoutesService : IRazorRoutesService
     public string[] GetBreadcrumbsForPage(string page_name)
     {
         var current_breadcrumbs = this.GetAllRoutes()
-            .Where(path => path.Contains(page_name))
+                .Where(path => path.Contains(page_name))
             // .Dump("Current breadcrumbs")
             ;
 

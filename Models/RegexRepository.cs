@@ -27,15 +27,14 @@ public sealed class RegexRepository
                 : root;
 
         // Yup, you can assign properties to methods as Func<>.
-        MarkdownGenerator = SearchLocalMarkdownTables;
+        MarkdownGenerator = FindRegexDefinitionsInMarkdownTables;
     }
-
 
 
     /// <summary>
     /// If there are any local `.md` files containing tables, extract them according to a specific format.
     /// </summary>
-    public List<MarkdownTableRow> SearchLocalMarkdownTables()
+    public List<MarkdownTableRow> FindRegexDefinitionsInMarkdownTables()
     {
         // https://regex101.com/r/3EkgmM/1
         string pattern = @"^\|(?<name>\s*`?[\s\w]+`?\s*)\|(?<pattern>\s*`{3}.*`{3}\s*)\|(?<description>.*)\|$";

@@ -7,8 +7,8 @@
 @inject IRazorRoutesService routes_service
 @inject IEmbeddedResourceQuery embeds_service
 @{
-    var all_pages = routes_service.AllRoutes;
-    var parts = Model.Parts;
+    var all_pages = routes_service.GetAllRoutes();
+    var parts = Model.PartsFromCsv;
     var current_build = Model.CurrentBuild;
 
     string file_name = "BuildByName.cypher";
@@ -20,46 +20,127 @@
 }
 
 <!-- GRID -->
+<div x-data="setup()">
+    <cm-yt-dashboard :class="my_dashboard_css + 'h-screen'">
 
-<cm-yt-dashboard>
-
-    <div slot="header" class="flex flex-row gap-8">
-        <partial name="_BreadCrumbs" model="nameof(Builder)"></partial>
-        @* <partial name="_BuildSteps"></partial> *@
-    </div>
-
-    <div slot="sidebar">
-        <div class="border-accent border-2">
-            <partial name="_Sidebar"></partial>
+        <div slot="header" class="flex flex-row gap-8">
+            <partial name="_BreadCrumbs" model="nameof(Builder)"></partial>
+            @* <partial name="_BuildSteps"></partial> *@
         </div>
-    </div>
 
-    <div slot="place1">
-        <partial name="_OpticPicker" model="new Optics()"></partial>
-    </div>
-    <div slot="place2">
-        <partial name="BuildStats"></partial>
-        <partial name="_ChargerPicker" model="new List<Part>()"></partial>
-    </div>
-    <div slot="place3">
-        <partial name="_BarrelPicker"></partial>
-        <partial name="_ChargerPicker" model="new List<Part>()"></partial>
-        <partial name="BuildProgress"></partial>
-    </div>
-    <div slot="place4">
-        @* <partial name="_BuildSteps"/> *@
-    </div>
-    <div slot="place5">
-        <partial name="_PartsList" model="parts"/>
+        <div slot="sidebar">
+            @* <div class="border-accent border-2 "> *@
+            <partial class="" name="_Sidebar"></partial>
+            @* </div> *@
+        </div>
 
-    </div>
-    <div slot="place6">
-        <partial name="_RecommendationsPanel"></partial>
-    </div>
+        <div slot="place1">
+            <partial name="_OpticPicker" model="new Optics()"></partial>
+        </div>
+        <div slot="place2">
+            <partial name="BuildStats"></partial>
+            <partial name="_ChargerPicker" model="new List<Part>()"></partial>
+        </div>
+        <div slot="place3">
+            <partial name="_BarrelPicker"></partial>
+            <partial name="_ChargerPicker" model="new List<Part>()"></partial>
+            <partial name="BuildProgress"></partial>
+        </div>
+        @* hx-get="@Url.Page("PartsFromCsvFile")" *@
+        @* hx-trigger="load once, click delay:1s" *@
+        @* hx-page-handler="PartsFromCsvFile"
+        SamplePartsFromAirtable
+         *@
 
 
-</cm-yt-dashboard>
+        <div slot="place4">
+            <span id="parts_table">...</span>
+            <button
+                hx-get
+                hx-swap="outerHTML"
+                hx-page="Index"
+                :hx-page-handler="actual_handler"
+                hx-target="#parts_table"
+                class="btn btn-primary">
+                Load
+            </button>
 
+
+            <template x-cloak x-for="[key, value] of Object.entries(handler_options)">
+                @* :class="{!value ?  'badge-ghost border-2 border-yellow-500':'border-2 border-yellow-500 badge-accent'}" *@
+                <button
+                    x-show="true"
+                    x-on:click="toggle_handler(key, value)"
+                    class="btn btn-primary join-item shadow-md shadow-secondary-400/50"
+                    :class="{'border-2 border-secondary btn-ghost': !value, 'border-2    border-accent': value }">
+                    <label
+                        :data-tippy-content="key"
+                        x-text="key"
+                        class="form-label badge badge-sm"
+                        :asp-for='key'>
+                    </label>
+
+                    <input x-bind:name='key'
+                           x-bind:value='value'
+                           x-bind:checked="value"
+                           type="checkbox"
+                           :asp-for="key"
+                           class="form-control toggle toggle-primary">
+                </button>
+
+            </template>
+
+            @* <partial  name="_PartsTable" model="@parts"></partial> *@
+        </div>
+        <div slot="place5"
+             id="parts_list">
+            <partial name="_PartsList" model="@parts"/>
+            <button
+                class="btn btn-primary"
+                hx-get="@Url.Page("Index", "SamplePartsFromAirtable")"
+                hx-swap="outerHTML"
+                hx-target="#parts_list">
+                Get Parts From Airtable (encoded)
+            </button>
+
+        </div>
+        <div slot="place6">
+            <partial name="_RecommendationsPanel"></partial>
+        </div>
+
+
+    </cm-yt-dashboard>
+
+</div>
+<script type="text/javascript" asp-append-version="true">
+function setup(){
+    // console.log('setup complete')
+    return {
+             show_braden_fix: true,
+             current_handler: {},
+             handler_options: {                 
+                 'Sample Parts From Airtable': false,
+                 'Parts From Csv File' : true
+            },
+            get my_dashboard_css(){ 
+                return this.show_braden_fix ?
+                 'h-screen w-screen flex flex-row overflow-hidden' 
+                 : ''
+            },
+            get actual_handler() {
+                 return; //TODO: FIX MEEEEE!!!!
+                 console.log('current handler: ', this.current_handler)
+                let handler_name = this.current_handler.replace(/([_])/gi,'')
+                console.log('final handler name:', handler_name)
+                return handler_name;
+            },
+            toggle_handler(key, value) {
+                 console.log('toggling handler', key, value)
+                 this.current_handler[key]=!value
+            }
+        }
+}
+</script>
 
 @*
 

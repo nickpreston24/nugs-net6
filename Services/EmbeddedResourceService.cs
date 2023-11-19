@@ -90,13 +90,13 @@ public class EmbeddedResourceService : IEmbeddedResourceQuery
 
         if (debug_mode) Console.WriteLine("subdir:>" + subdirectory);
 
-        cached_contents.Dump("all files on record...");
+        if (debug_mode) cached_contents.Dump("all files on record...");
         string full_path = assembly_name + ".Pages." + subdirectory + file_name;
         if (debug_mode) Console.WriteLine("full path: " + full_path);
         var file_contents = this.cached_contents.TryGetValue(full_path, out var file_text)
                 ? file_text
                 : cached_contents.TryGetValue(this.cached_contents.Keys.FirstOrDefault(x => x.Contains(file_name))
-                    .Dump("closest match"), out file_text)
+                    , out file_text)
                     ? file_text
                     : throw new Exception(
                         $"Could not find embedded resource {file_name} in subdirectory {subdirectory}")

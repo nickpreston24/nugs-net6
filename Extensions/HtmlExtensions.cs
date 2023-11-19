@@ -12,7 +12,6 @@ namespace CodeMechanic.Advanced.Extensions;
 
 public static class HtmlExtensions
 {
-    
     /// <summary>
     /// Quick wrapper for creating safe HTML strings on the backend.
     /// </summary>

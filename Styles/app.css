@@ -32,3 +32,9 @@
 .btn-tahiti {
     @apply text-white bg-tahiti-500 hover:bg-green-700;
 }
+
+.vertical-padding {
+    background-color: rgb(40, 45, 88, 0.5); /*debugging*/
+
+    padding: 1em;
+}

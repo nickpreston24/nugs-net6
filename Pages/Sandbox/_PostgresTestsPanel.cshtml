@@ -1,0 +1,40 @@
+@model dynamic
+
+@{
+    string mode = Environment.GetEnvironmentVariable("MODE") != "production" ? "development" : "production";
+}
+
+<section class="flex flex-col">
+    <h1 class="text-3xl">Postgres Tests</h1>
+
+    <div class="flex flex-row">
+        <button
+            class="btn btn-accent"
+            hx-get="@Url.Page("Index", "SamplePostgresSchema")">
+            Postgres Test
+        </button>
+        <button
+            class="btn btn-accent"
+            hx-get="@Url.Page("Index", "InsertNewUser")"
+            hx-target="#new_user">
+            Insert New User
+        </button>
+        <span id="new_user"></span>
+    </div>
+</section>
+
+
+<script>
+    function setup()
+    {
+        return {
+            title: "Sandbox",
+            devmode: "'@mode'==development",
+            mode: @mode,
+            
+            panels: {
+                
+            }
+        }
+    }
+</script>

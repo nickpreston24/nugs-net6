@@ -31,10 +31,10 @@ public class IndexModel : HighSpeedPageModel
         postgresql_connectionstring =
             $"Host={host};Port={port};Username={username};Password={password};Database={database}";
     }
-
-    public void OnGet()
-    {
-    }
+    
+    // public void OnGet()
+    // {
+    // }
 
 
     public async Task<IActionResult> OnGetRecommendedRifles()

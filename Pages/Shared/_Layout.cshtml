@@ -34,15 +34,10 @@
 
 </head>
 
-<body class="m-2">
-<header>
-
-</header>
-<div class="">
-    <main role="main">
-        @RenderBody()
-    </main>
-</div>
+<body class="flex-1 overflow-y-scroll">
+<main role="main">
+    @RenderBody()
+</main>
 
 @await RenderSectionAsync("Scripts", required: false)
 

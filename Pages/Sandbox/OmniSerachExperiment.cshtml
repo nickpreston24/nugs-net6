@@ -1,11 +1,12 @@
+@using nugsnet6.Pages.Sandbox
 @using nugsnet6.Pages.Shared
+@using Htmx.TagHelpers
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model dynamic
 
-
-@* <h1>blah</h1> *@
 <div class='flex flex-column' x-data='setup()'>
 
-    <partial name="_StatsCard"/>
+    <partial name="_LoadoutStatsCard"/>
     <!-- <div class='grid grid-cols-3 grid-flow-col gap-4'>
         @* <partial name="_StatsCard" /> *@
         @* <partial name="_StatsCard" /> *@

@@ -1825,3 +1825,9 @@ html {
   --tw-bg-opacity: 1;
   background-color: rgb(21 128 61 / var(--tw-bg-opacity));
 }
+
+.vertical-padding {
+  background-color: rgb(40, 45, 88, 0.5);
+  /*debugging*/
+  padding: 1em;
+}

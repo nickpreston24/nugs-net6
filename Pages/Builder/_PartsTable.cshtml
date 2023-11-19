@@ -1,0 +1,38 @@
+@using System.Globalization
+@using CodeMechanic.RazorHAT.Services
+@model List<Part>
+@inject IPropertyCache props_cache
+@{
+    var parts = Model;
+    var col_names = props_cache.GetPropertyNames<Part>();
+}
+
+<table class="table table-zebra">
+    <thead>
+    <tr>
+        <th></th>
+        @foreach (var column_name in col_names)
+        {
+            <th>@column_name</th>
+        }
+    </tr>
+    </thead>
+</table>
+
+@foreach (var part in parts)
+{
+    <tr>
+        <th>
+            <label>
+                <input type="checkbox" class="checkbox"/>
+            </label>
+        </th>
+        <th class='text-primary'> @part.Name </th>
+        <td class='text-secondary'> @part.Kind</td>
+        <td class='text-secondary'> @part.Type</td>
+        <td class='text-secondary'> @part.WeightInOz</td>
+        <td class='text-secondary'> @part.ProductCode</td>
+        <td class='text-accent'> @part.Cost.ToString(CultureInfo.InvariantCulture)</td>
+        <td class='text-secondary'> @part.Notes</td>
+    </tr>
+}
