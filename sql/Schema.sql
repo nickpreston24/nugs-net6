@@ -26,3 +26,12 @@ CREATE TABLE ammoseek_prices
 
 -- drop table Users;
 -- drop table Users2;
+
+drop table parts;
+create table parts (id integer not null, name varchar(250));
+
+insert into parts values (2, 'nug2');
+select * from parts;
+
+
+-- select * from lemmings;

@@ -1,0 +1,111 @@
+@using CodeMechanic.RazorHAT.Services
+@using CodeMechanic.Types
+@using NSpecifications
+@using nugsnet6.Extensions
+@using CodeMechanic.Diagnostics
+@model List<AmmoseekRow>
+@inject IPropertyCache props
+@{
+    var ammoseek_rows = Model;
+    var cols = props.GetPropertyNames<AmmoseekRow>().Take(5);
+
+    var ammo_spec = new Spec<AmmoseekRow>(
+        ammo => ammo.caliber.NotEmpty()
+        );
+
+    var ammo_calc = new StatsCalculator<AmmoseekRow>(ammoseek_rows)
+        .AddValidation(ammo_spec);
+
+    var ammo_stats = ammo_calc.ComputeStats().With(x => x.Title = "Ammo Stats");
+    ammo_stats.Dump("ammo");
+}
+
+<section class="vertical-padding">
+
+    <div class="flex flex-col justify-center">
+
+        <table class="flex-1 table-zebra table-compact">
+            <caption>
+                Current Ammo Prices from Ammoseek.com
+            </caption>
+            <tr>
+                @foreach (var column_name in cols)
+                {
+                    <th>@column_name</th>
+                }
+            </tr>
+
+            <tbody>
+            @foreach (var ammoseek_result in ammoseek_rows)
+            {
+                <tr>
+                    <td data-cell="@nameof(@ammoseek_result.retailer)">@ammoseek_result.retailer</td>
+                    <td data-cell="@nameof(@ammoseek_result.description)">@ammoseek_result.description</td>
+                    <td data-cell="@nameof(@ammoseek_result.brand)">@ammoseek_result.brand</td>
+                    <td data-cell="@nameof(@ammoseek_result.caliber)">@ammoseek_result.caliber</td>
+                    <td data-cell="@nameof(@ammoseek_result.grains)">@ammoseek_result.grains</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+
+
+    @* <div class="flex flex-col items-center justify-center p-4"> *@
+    @*     <partial name="_SandboxStatsCard" model="@ammo_stats"/> *@
+    @* </div> *@
+
+</section>
+<style>
+    .wrapper {
+        width: min(900px, 100% - 3rem);
+        /*margin-inline: auto;*/
+    }
+    table {
+        border-collapse: collapse;
+    }
+    
+    th,td {
+        padding: 1rem;
+        /*background: #002f4a;*/
+    }
+    
+    caption,th {
+        text-align: left;
+    }
+    
+    caption {
+        /*background: hsl(0, 0%, 0%);*/
+        font-size: 1rem;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+    
+     @@media(max-width: 650px) {
+        th {
+            display: none;
+        }
+        td {
+            display: block;
+            padding: 0.75rem 1rem;
+        }
+        
+        td:first-child {
+            padding-top: 2rem;
+        }
+        td:last-child {
+            padding-bottom: 2rem;
+        }
+        
+        td::before {
+            content: attr(data-cell) ": ";
+            font-weight: 700;
+            text-transform: capitalize;
+        }
+        
+        /*td:nth-of-type(1)::before {*/
+        /*    content: "retailer"*/
+        /*}*/
+     }
+        
+</style>

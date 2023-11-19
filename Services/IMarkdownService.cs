@@ -11,9 +11,8 @@ namespace CodeMechanic.RazorHAT.Services;
 public interface IMarkdownService
 {
     string[] AllRoutes { get; set; }
-    string[] GetAllMarkdownFiles(string rootpath, bool devmode);
-    string[] GetAllMarkdownFolders(string rootpath, bool devmode);
-    string[] GetAllEmbeddedMarkdownFiles(string rootpath, bool devmode);
+
+    List<MarkdownFile> GetAllMarkdownFiles(string rootpath = "", bool devmode = false);
 }
 
 public class MarkdownService : IMarkdownService
@@ -21,30 +20,13 @@ public class MarkdownService : IMarkdownService
     private readonly IEmbeddedResourceQuery embeds;
     public string[] AllRoutes { get; set; }
 
-    // public MarkdownService()
-    // {
-    // }
 
-    // public MarkdownService(IEmbeddedResourceQuery embeds)
-    // {
-    //     this.embeds = embeds;
-    // }
-
-    public string[] GetAllEmbeddedMarkdownFiles(string rootpath, bool devmode)
-    {
-        throw new NotImplementedException();
-    }
-
-    /// <summary>
-    /// Use this when we only want to discover folders with markdown files (.md)
-    /// </summary>
-    public string[] GetAllMarkdownFolders(
+    public List<MarkdownFile> GetAllMarkdownFiles(
         string root_folder = ""
         , bool dev_mode = false)
     {
         string current_directory = root_folder.IsEmpty() ? Environment.CurrentDirectory : string.Empty;
         if (dev_mode) Console.WriteLine("cwd :>> " + current_directory);
-
 
         var grepper = new Grepper()
         {
@@ -54,49 +36,52 @@ public class MarkdownService : IMarkdownService
             FileSearchLinePattern = MarkdownHeader.header_pattern
         };
 
-        var blacklist = new string[] { "/Shared/", "" };
-
-        var is_blacklisted = new Spec<string>(
-            filepath =>
-                filepath.Contains("node_modules/")
-                || filepath.Contains("wwwroot/")
-                || filepath.Contains("bin/")
-                || filepath.Contains("obj/")
-        );
+        var is_blacklisted = new Func<string, bool>(filepath =>
+            filepath.Contains("node_modules")
+            || filepath.Contains("wwwroot")
+            || filepath.Contains("bin")
+            || filepath.Contains("obj"));
 
         RegexOptions options = RegexOptions.Compiled
                                | RegexOptions.Multiline
                                | RegexOptions.IgnorePatternWhitespace
                                | RegexOptions.IgnoreCase;
 
-        var regex = new Regex(@"(?<subdirectory>\/?(\w+\/)*)(?<file_name>.*\.(?<extension>cshtml|cs))",
-            options);
+        var matching_files = grepper
+            .GetMatchingFiles()
+            .Where(gr => !is_blacklisted(gr.FilePath))
+            .ToList();
 
-        var routes = grepper
+        var matching_filenames_only = grepper
                 .GetFileNames()
-                .Where(!is_blacklisted)
-                // .Select(p => p.Replace(current_directory, ""))
-                // .Where(p => p.StartsWith("/Pages") || p.Equals("/"))
-                // .Select(p => p.Extract<RazorRoute>(regex)?.FirstOrDefault()?.subdirectory)
-                // .Select(p => p.Replace("/Pages", ""))
-                .Except(blacklist)
-                .Distinct()
+                .Where(path => !is_blacklisted(path))
+                .ToList()
             ;
 
-        if (dev_mode) routes.Dump("routes containing markdown files");
+        var files_containing_markdown = matching_files
+                .Select(grepResult => new MarkdownFile()
+                {
+                    FilePath = grepResult.FilePath,
+                })
+                .ToList()
+            ;
 
-        return routes.ToArray();
-    }
 
-    /// <summary>
-    /// Use this when we want to surgically deep-dive into the Markdown itself and verify it's actually markdown, not just an .md
-    /// </summary>
-    /// <param name="rootpath"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public string[] GetAllMarkdownFiles(string rootpath, bool devmode = false)
-    {
-        throw new NotImplementedException();
+        var markdownFiles = matching_filenames_only
+                .Select(filepath => new MarkdownFile()
+                {
+                    FilePath = filepath,
+                })
+                .ToList()
+            ;
+
+        if (dev_mode) files_containing_markdown.Dump("files containing markdown text :>> ");
+
+        if (dev_mode) matching_filenames_only.Dump("markdown file names (only) :>> ");
+
+        // is_blacklisted("home/wwwroot/blah/123").Dump("blacklist test?");
+
+        return markdownFiles;
     }
 }
 

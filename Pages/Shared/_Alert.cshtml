@@ -1,0 +1,7 @@
+@model nugsnet6.Models.AlertModel
+
+@{
+    var alert = Model;
+}
+
+<div class="alert @alert.Kind">@alert.Message</div>

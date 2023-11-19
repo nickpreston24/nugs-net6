@@ -44,4 +44,6 @@ VALUES ( 'Botach'
        , '5');
 
 select *
-from ammoseek_prices
+from ammoseek_prices;
+
+

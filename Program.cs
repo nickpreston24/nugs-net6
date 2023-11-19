@@ -17,7 +17,7 @@ Console.WriteLine("Developer mode (all debugs enabled)? " + dev_mode);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-// builder.Services.AddScoped<IPartService, PartService>();
+builder.Services.AddScoped<IPartService, PartService>();
 var props_service = new PropertyCache();
 builder.Services.AddScoped<IJsonConfigService, JsonConfigService>();
 builder.Services.AddSingleton<IMarkdownService, MarkdownService>();

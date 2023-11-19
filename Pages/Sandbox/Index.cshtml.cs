@@ -7,6 +7,8 @@ using CodeMechanic.Embeds;
 using Insight.Database;
 using Neo4j.Driver;
 using Npgsql;
+using nugs_seeder.Controllers;
+using nugsnet6.Models;
 
 namespace nugsnet6.Pages.Sandbox;
 
@@ -14,6 +16,7 @@ public class IndexModel : HighSpeedPageModel
 {
     private readonly IEmbeddedResourceQuery embeddedResourceQuery;
     private readonly string postgresql_connectionstring;
+    private bool dev_mode = true;
 
     public IndexModel(
         IEmbeddedResourceQuery embeddedResourceQuery
@@ -31,7 +34,9 @@ public class IndexModel : HighSpeedPageModel
         postgresql_connectionstring =
             $"Host={host};Port={port};Username={username};Password={password};Database={database}";
     }
-    
+
+    public List<AmmoseekRow> AmmoseekRows { get; set; } = new List<AmmoseekRow>();
+
     // public void OnGet()
     // {
     // }
@@ -59,7 +64,7 @@ public class IndexModel : HighSpeedPageModel
         query = await stream.ReadAllLinesFromStreamAsync();
 
 
-// run query
+        // run query
 
         // This can also be a template
         return Content(
@@ -75,29 +80,21 @@ public class IndexModel : HighSpeedPageModel
         //     """);
     }
 
-
-    public async Task<IActionResult> OnGetInsertNewUser()
+    public async Task<IActionResult> OnGetAmmoseekPrices()
     {
+        if (dev_mode) Console.WriteLine("Checking ammo prices...");
         try
         {
-            // var input = new TestData();
-            // var testData = new TestData() { X = 1, Z = 2 };
-            // var user = new User() { Id = 1, JsonData = input, Ebay = "" };
-
             await using var connection = new NpgsqlConnection(postgresql_connectionstring);
 
-            // string query = """
-            //                SELECT 'Ebay' FROM Users
-            //                """;
-            // round-trip the object into JSON
-            // connection.ExecuteSql("INSERT INTO Users (Id, JsonData) VALUES (@Id, @JsonData)", user);
-            var result = connection.QuerySql<User>("select * from ammoseek_prices").First();
+            var results = connection.QuerySql<AmmoseekRow>("select * from ammoseek_prices");
 
-            return Partial("_UserResult", result);
+            if (dev_mode) results.Dump("ammoseek rows");
+            return Partial("_AmmoseekTable", results);
         }
         catch (Exception ex)
         {
-            return Content($"<p>FAIL!: {ex}");
+            return Partial("_Alert", new AlertModel() { Error = ex, Message = "You screwed up." });
         }
     }
 
@@ -131,6 +128,23 @@ public class IndexModel : HighSpeedPageModel
     }
 }
 
+public class AmmoseekRow
+{
+    public string retailer { get; set; }
+    public string description { get; set; }
+    public string brand { get; set; }
+    public string caliber { get; set; }
+    public string grains { get; set; }
+    public string limits { get; set; }
+    public string casing { get; set; }
+    public string is_new { get; set; }
+    public string price { get; set; }
+    public string rounds { get; set; }
+    public string price_per_round { get; set; }
+    public string shipping_rating { get; set; }
+    public string last_update { get; set; }
+}
+
 public class TestData
 {
     public int X { get; set; }
@@ -146,3 +160,14 @@ public class User
 
     public string Ebay { get; set; }
 }
+
+
+// var input = new TestData();
+// var testData = new TestData() { X = 1, Z = 2 };
+// var user = new User() { Id = 1, JsonData = input, Ebay = "" };
+
+// string query = """
+//                SELECT 'Ebay' FROM Users
+//                """;
+// round-trip the object into JSON
+// connection.ExecuteSql("INSERT INTO Users (Id, JsonData) VALUES (@Id, @JsonData)", user);
