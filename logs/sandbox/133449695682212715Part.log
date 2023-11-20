@@ -1,0 +1,26 @@
+Npgsql.PostgresException (0x80004005): 23502: null value in column "id" of relation "parts" violates not-null constraint
+
+DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
+   at Npgsql.Internal.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|234_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult()
+   at Npgsql.NpgsqlCommand.ExecuteReader(CommandBehavior behavior, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(CommandBehavior behavior, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteNonQuery(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteNonQuery()
+   at nugsnet6.Pages.Sandbox.IndexModel.OnPostBulkInsertParts() in /home/nick/Desktop/projects/personal/nugs-net6/Pages/Sandbox/Index.cshtml.cs:line 71
+   at nugsnet6.Pages.Sandbox.IndexModel.OnPostBulkInsertParts() in /home/nick/Desktop/projects/personal/nugs-net6/Pages/Sandbox/Index.cshtml.cs:line 72
+   at nugsnet6.Pages.Sandbox.IndexModel.OnPostBulkInsertParts() in /home/nick/Desktop/projects/personal/nugs-net6/Pages/Sandbox/Index.cshtml.cs:line 72
+  Exception data:
+    Severity: ERROR
+    SqlState: 23502
+    MessageText: null value in column "id" of relation "parts" violates not-null constraint
+    Detail: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
+    SchemaName: public
+    TableName: parts
+    ColumnName: id
+    File: execMain.c
+    Line: 2003
+    Routine: ExecConstraints
+INSERT INTO parts (name, kind, type, notes) VALUES ('80% Arms Billet Lower (Blemished)','','Lower','Reccommended by Pew Pew Tactical as their #6, I believe this one could aircraft grade aluminum.')

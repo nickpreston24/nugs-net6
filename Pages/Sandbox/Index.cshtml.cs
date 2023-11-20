@@ -5,6 +5,7 @@ using CodeMechanic.Diagnostics;
 using CodeMechanic.RazorHAT;
 using CodeMechanic.Embeds;
 using CodeMechanic.Extensions;
+using CodeMechanic.RazorHAT.Services;
 using Insight.Database;
 using Neo4j.Driver;
 using Npgsql;
@@ -19,6 +20,7 @@ public class IndexModel : HighSpeedPageModel
     private readonly IEmbeddedResourceQuery embeddedResourceQuery;
     private readonly string postgresql_connectionstring;
     private bool dev_mode = true;
+    private readonly IFakerService fakes;
 
     public AmmoseekRow Insert { get; set; } = new AmmoseekRow();
     public List<AmmoseekRow> AmmoseekRows { get; set; } = new List<AmmoseekRow>();
@@ -29,10 +31,13 @@ public class IndexModel : HighSpeedPageModel
 
     public IndexModel(
         IEmbeddedResourceQuery embeddedResourceQuery
-        , IDriver driver)
+        , IDriver driver
+        , IFakerService fakes
+    )
         : base(embeddedResourceQuery, driver)
     {
         this.embeddedResourceQuery = embeddedResourceQuery;
+        this.fakes = fakes;
 
         string host = Environment.GetEnvironmentVariable("PGHOST");
         string username = Environment.GetEnvironmentVariable("PGUSER");
@@ -45,8 +50,88 @@ public class IndexModel : HighSpeedPageModel
     }
 
 
-    public void OnGet()
+    public async Task<IActionResult> OnPostBulkInsertParts()
     {
+        string query = string.Empty;
+        try
+        {
+            Console.WriteLine("Running a bulk upsert...");
+            var parts_imported = fakes.ImportPartsFromFile().Take(30);
+            query = "INSERT INTO parts (name, kind, type, notes, productcode, cost) VALUES " +
+                    String.Join(',',
+                        parts_imported.Select(part =>
+                            $"('{part.Name}','{part.Kind}','{part.Type}','{part.Notes}','{part.ProductCode}',{part.Cost})"));
+
+            Console.WriteLine(query);
+
+            await using var connection = new NpgsqlConnection(postgresql_connectionstring);
+            await connection.OpenAsync();
+            await using (var cmd = new NpgsqlCommand(query, connection))
+            {
+                int rows_affected = cmd.ExecuteNonQuery();
+                return Content("Rows bulk inserted : " + rows_affected);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            LocalLogger.WriteLogs<Models.Part>("sandbox", e.ToString() + "\n" + query);
+            return Partial("_Alert", new AlertModel(e));
+        }
+    }
+
+    public async Task<IActionResult> OnPostBulkInsertAmmoseekRows()
+    {
+        try
+        {
+            Console.WriteLine("Running a bulk upsert...");
+            // return Content("Ping!");
+
+            await using var connection = new NpgsqlConnection(postgresql_connectionstring);
+            await connection.OpenAsync();
+
+            var ammo_prices =
+                fakes.GetFakeAmmoPrices(1000) ??
+                new List<AmmoseekRow>()
+                {
+                    new AmmoseekRow()
+                    {
+                        retailer = "Gorilla Ammunitionzzz", description = "8.6 blk zzz ",
+                        brand = "Gorilla Ammunition zzz",
+                        caliber = "8.6 Blackout"
+                    },
+                    new AmmoseekRow()
+                    {
+                        retailer = "American Federalzzz", description = "8.6 blk zzz ", brand = "American Federal zzz",
+                        caliber = "8.6 Blackout"
+                    },
+                    new AmmoseekRow()
+                    {
+                        retailer = "Hornadyzzz", description = "8.6 blk zzz ", brand = "Hornady zzz",
+                        caliber = "8.6 Blackout"
+                    }
+                };
+
+            string query = "INSERT INTO ammoseek_prices (retailer, description, brand, caliber) VALUES " +
+                           String.Join(',',
+                               ammo_prices.Select(t =>
+                                   $"('{t.retailer}','{t.description}','{t.brand}','{t.caliber}')"));
+
+            Console.WriteLine(query);
+
+            await using (var cmd = new NpgsqlCommand(query, connection))
+            {
+                // using raw SQL here as opposed to a parameterized approach because it's faster
+
+                int rows_affected = cmd.ExecuteNonQuery();
+                return Content("Rows bulk inserted : " + rows_affected);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return Partial("_Alert", new AlertModel(e));
+        }
     }
 
     public IActionResult OnPostModal()
@@ -98,17 +183,22 @@ public class IndexModel : HighSpeedPageModel
         // if (dev_mode) Console.WriteLine("Checking ammo prices...");
         try
         {
+            string query = (embeddedResourceQuery as EmbeddedResourceService)
+                .GetFileContents<IndexModel>("SearchAmmoPrices.sql");
+            
+            Console.WriteLine("Running query :>> " + query);
+            
             await using var connection = new NpgsqlConnection(postgresql_connectionstring);
             await connection.OpenAsync(); // needed?
-            var results = connection.QuerySql<AmmoseekRow>("select * from ammoseek_prices");
+            var results = connection.QuerySql<AmmoseekRow>(query);
 
-            // if (dev_mode) results.Dump("ammoseek rows");
+            if (dev_mode) results.Count.Dump("# of ammoseek rows");
             return Partial("_AmmoseekTable", results);
         }
         catch (Exception ex)
         {
             return Partial("_Alert",
-                new AlertModel() { Error = ex, Message = "You screwed up." });
+                new AlertModel() { Error = ex, Message = "We screwed up" });
         }
     }
 
@@ -189,7 +279,7 @@ public class IndexModel : HighSpeedPageModel
         }
         catch (Exception ex)
         {
-            return Partial("_Alert", new AlertModel() { Error = ex, Message = "You screwed up." });
+            return Partial("_Alert", new AlertModel() { Error = ex, Message = "We screwed up" });
         }
     }
 

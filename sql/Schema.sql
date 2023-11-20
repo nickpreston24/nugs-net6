@@ -28,10 +28,17 @@ CREATE TABLE ammoseek_prices
 -- drop table Users2;
 
 drop table parts;
-create table parts (id integer not null, name varchar(250));
+create table parts
+(
+    id          serial primary key,
+    name        varchar(250),
+    kind        varchar(250),
+    type        varchar(250),
+    notes       TEXT,
+    productcode varchar(50),
+    cost        float
+);
 
-insert into parts values (2, 'nug2');
-select * from parts;
+select *
+from parts;
 
-
--- select * from lemmings;

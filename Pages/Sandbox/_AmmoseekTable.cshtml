@@ -27,7 +27,12 @@
 
         <table class="flex-1 table-zebra table-compact">
             <caption>
-                Current Ammo Prices from Ammoseek.com
+                <div class="indicator">
+                    <span class="indicator-item indicator-middle indicator-end  badge badge-secondary">
+                        (@ammoseek_rows.Count)
+                    </span>
+                    Current Ammo Prices from Ammoseek.com
+                </div>
             </caption>
             <tr>
                 @foreach (var column_name in cols)
@@ -48,7 +53,7 @@
                 </tr>
             }
 
-           </tbody>
+            </tbody>
         </table>
     </div>
 

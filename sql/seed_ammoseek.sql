@@ -1,7 +1,3 @@
---         Gordy & Sons
---         3	Fiocchi 300 Blackout Subsonic 220gr Sierra Matchking HP 300BLKMB56178 762344711690	Fiocchi	.300 AAC Blackout	220	2m31s	-	brass		$32.99	20	$1.65
---         6
-
 INSERT INTO ammoseek_prices(retailer,
                             description,
                             brand,
@@ -43,7 +39,30 @@ VALUES ( 'Botach'
        , '$1.50'
        , '5');
 
-select *
+select retailer,
+       description,
+       brand,
+       caliber,
+       grains,
+       last_update,
+       limits,
+       casing,
+       is_new,
+       price,
+       rounds,
+       price_per_round,
+       shipping_rating
 from ammoseek_prices;
+
+-- get all faked data:
+SELECT distinct SUBSTRING(retailer FROM '.*zzz.*') as fake_retailers,
+                SUBSTRING(brand FROM '.*zzz.*')    as fake_brands
+FROM ammoseek_prices;
+
+select *
+from parts
+where cost > 0 && cost is not null
+
+
 
 

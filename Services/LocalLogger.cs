@@ -2,7 +2,7 @@ namespace CodeMechanic.RazorHAT.Services;
 
 public static class LocalLogger
 {
-    public static FileInfo WriteLogs<T>(string service_name, string json)
+    public static FileInfo WriteLogs<T>(string service_name, string content)
     {
         var type = typeof(T);
         string type_name = type.Name;
@@ -20,7 +20,7 @@ public static class LocalLogger
         string filename = $"{timestamp_utc}{type_name}.log";
         string file_path = Path.Combine(loggingdir, service_folder, filename);
 
-        File.WriteAllText(file_path, json);
+        File.WriteAllText(file_path, content);
         return new FileInfo(file_path);
     }
 }

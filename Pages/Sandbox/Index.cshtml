@@ -13,6 +13,7 @@
 @model IndexModel
 @inject IMarkdownService markdownService
 @inject IPartService partsService
+@inject IFakerService fakes
 @{
     var markdown_files = markdownService.GetAllMarkdownFiles(devmode: false);
     var parts = partsService.ReadAll();
@@ -59,7 +60,6 @@
 
 <section class="vertical-padding flex flex-col gap-2">
 
-
     <div class="grid grid-cols-2 grid-rows-auto gap-4 sm:grid-cols-1">
 
         <!-- markdown stats -->
@@ -67,6 +67,21 @@
         <!-- regexes found stats -->
         <partial name="_SandboxStatsCard" model="@parts_stats"></partial>
 
+
+        <form hx-post method="post">
+            <button
+                hx-swap="outerHTML"
+                class="btn btn-primary"
+                asp-page-handler="BulkInsertAmmoseekRows">
+                Bulk Upsert Ammo Prices
+            </button>
+            <button
+                hx-swap="outerHTML"
+                class="btn btn-primary"
+                asp-page-handler="BulkInsertParts">
+                Bulk Upsert Parts
+            </button>
+        </form>
 
     </div>
 
@@ -82,10 +97,10 @@
         <img alt="Result loading..." class="htmx-indicator" width="25" src="/img/bars.svg"/>
 
     </button>
-
-    <partial name="_AmmoseekEdit"
-             model="Model.Insert">
-    </partial>
+    
+    @* <partial name="_AmmoseekEdit" *@
+    @*          model="Model.Insert"> *@
+    @* </partial> *@
 
     <div x-if="true" id="prices">
         <template>
@@ -107,14 +122,12 @@
         </template>
     </div>
 
-
     @* Modal test *@
 
     <a href="/Rounds/HxPostExample">
         <button class="btn btn-ghost">Add new Seek Record</button>
     </a>
 
-    @* *@
     @* <div class="text-center"> *@
     @*     <h1 class="display-4">Welcome</h1> *@
     @*     <button hx-get hx-page="Index" *@

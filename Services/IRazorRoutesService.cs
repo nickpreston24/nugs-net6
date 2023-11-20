@@ -41,11 +41,7 @@ public class RazorRoutesService : IRazorRoutesService
 
         var blacklist = new string[]
         {
-            "/Shared/"
-            , "/PrivateSales/"
-            , "/RSSFeeds/"
-            , "/PrivateSales/"
-            , "/PrivateSales/"
+            "/Shared/", "/PrivateSales/", "/RSSFeeds/", "/PrivateSales/", "/PrivateSales/"
         };
 
         var is_blacklisted = new Spec<string>(
@@ -63,13 +59,14 @@ public class RazorRoutesService : IRazorRoutesService
             options);
 
         var routes = grepper.GetFileNames()
-                .Where(!is_blacklisted)
-                .Select(p => p.Replace(current_directory, ""))
-                .Where(p => p.StartsWith("/Pages") || p.Equals("/"))
-                .Select(p => p.Extract<RazorRoute>(regex)?.FirstOrDefault()?.subdirectory)
-                .Select(p => p.Replace("/Pages", ""))
-                .Except(blacklist)
-                .Distinct()
+                         .Where(!is_blacklisted)
+                         .Select(p => p.Replace(current_directory, ""))
+                         .Where(p => p.StartsWith("/Pages") || p.Equals("/"))
+                         .Select(p => p.Extract<RazorRoute>(regex)?.FirstOrDefault()?.subdirectory)
+                         .Select(p => p.Replace("/Pages", ""))
+                         .Except(blacklist)
+                         .Distinct()
+                     ?? Enumerable.Empty<string>()
             // .Dump("routes")
             ;
 

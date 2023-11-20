@@ -12,13 +12,22 @@
 @{
     string regexp = @"(?<name>[a-zA-Z_-]*)\/$";
 
-    var routes = routes_service.GetAllRoutes() ?? Enumerable.Empty<string>(); /*.Dump("all routes")*/
+    var routes = routes_service.GetAllRoutes()
+        // .Dump("all routes")
+    ;
 
-    var options = RegexOptions.Compiled | RegexOptions.Multiline | RegexOptions.IgnoreCase;
+
+    var options = RegexOptions.Compiled
+                  | RegexOptions.Multiline
+                  | RegexOptions.IgnoreCase
+                  | RegexOptions.IgnorePatternWhitespace;
+
     var settings_text = json_config.ReadConfig("sidebar_settings.json");
+    // Console.WriteLine("settings text :>> " + settings_text);
 
+    // TODO: fix disabling specific routes via config.
     var settings = JsonConvert.DeserializeObject<SidebarSettings>(settings_text);
-    // settings.Dump("sidebar settings 2");
+    var blacklist = new string[] { "Inventory", "Users" };
 
     var sidebar_options = routes
         .SelectMany(route => route
@@ -29,12 +38,13 @@
                 if (route.Equals("/"))
                     current.Name = "Home";
                 current.Href = route;
-
-                // TODO: fix disabling specific routes via config.
-                var is_enabled = settings.Routes.FirstOrDefault(x => x.Name.Equals(current.Name))?.Enabled ?? false;
-                current.Enabled = is_enabled;
+                current.Enabled = true;
             })
-        );
+        )
+        .Where(sb => sb.Enabled && !blacklist.Contains(sb.Name))
+        ;
+
+    // settings.Dump("settings");
 
 }
 
@@ -44,7 +54,7 @@
     <div class="max-w-md">
         <ul class="menu p-4 min-h-full text-base-content text-pink-700">
             <!-- Sidebar content here -->
-            @foreach (var sidebaroption in sidebar_options)
+            @foreach (var sidebaroption in sidebar_options.Where(sb => sb.Enabled))
             {
                 <li class="text-white">
                     <a href="@sidebaroption.Href">

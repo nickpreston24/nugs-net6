@@ -34,7 +34,7 @@
         <td class='text-secondary'> @part.Type</td>
         <td class='text-secondary'> @part.WeightInOz</td>
         <td class='text-secondary'> @part.ProductCode</td>
-        <td class='text-accent'> @part.Cost.ToString(CultureInfo.InvariantCulture)</td>
+        <td class='text-accent'> @part?.Cost.Value.ToString(CultureInfo.InvariantCulture)</td>
         <td class='text-secondary'> @part.Notes</td>
     </tr>
 }
