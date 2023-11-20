@@ -1,10 +1,13 @@
+@using nugsnet6.Models
+
 @using CodeMechanic.Types
 @using CodeMechanic.Diagnostics
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     var kinds = new List<string>() { "AR-10", "AR-15" };
     var survey = new Survey()
     {
-        User = new User()
+        FakeUser = new FakeUser()
         {
             Name = "Nick Preston"
         },

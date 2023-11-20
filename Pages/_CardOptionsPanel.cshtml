@@ -1,9 +1,11 @@
+@using nugsnet6.Models
+
 @model Survey
 
 @{
     var survey = new Survey()
     {
-        User = new User()
+        FakeUser = new FakeUser()
         {
             Name = "Nick Preston"
         },
@@ -12,7 +14,7 @@
 }
 
 <div x-data="{
-     username: '@survey.User.Name',
+     username: '@survey.FakeUser.Name',
      chicken: 'boo',
      count: 0,
      show: true,
@@ -106,7 +108,7 @@
     console.log('loading card panel...')
     // function _options_setup() {
     //     return {
-    //         username: '@survey.User.Name',
+    //         username: '@survey.FakeUser.Name',
     //         chicken: 'boo',
     //         count: 0,
     //         show: true,

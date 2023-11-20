@@ -3,7 +3,9 @@
 @using nugsnet6.Models
 @using CodeMechanic.Embeds
 @using CodeMechanic.Diagnostics
-@model IndexModel
+@using Htmx.TagHelpers
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model nugsnet6.Pages.Builder.IndexModel
 @inject IRazorRoutesService routes_service
 @inject IEmbeddedResourceQuery embeds_service
 @{

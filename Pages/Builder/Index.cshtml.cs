@@ -7,8 +7,9 @@ using CodeMechanic.RazorHAT.Services;
 using CodeMechanic.Types;
 using Microsoft.AspNetCore.Mvc;
 using Neo4j.Driver;
+using nugsnet6.Models;
 
-namespace nugsnet6;
+namespace nugsnet6.Pages.Builder;
 
 public class IndexModel : HighSpeedPageModel
 {
@@ -16,7 +17,7 @@ public class IndexModel : HighSpeedPageModel
     private static AirtableSearch _search = new AirtableSearch();
     private static List<Build> builds_found = new List<Build>();
 
-    private static List<Part> parts_found = new List<Part>();
+    private static List<nugsnet6.Models.Part> parts_found = new List<nugsnet6.Models.Part>();
     private readonly IAirtableQueryingService airtable_service;
     private readonly ICsvService csv_service;
 
@@ -33,16 +34,16 @@ public class IndexModel : HighSpeedPageModel
         this.csv_service = csvService;
     }
 
-    public List<Part> SampleParts { get; set; } = new List<Part>()
+    public List<nugsnet6.Models.Part> SampleParts { get; set; } = new List<nugsnet6.Models.Part>()
     {
-        new Part()
+        new nugsnet6.Models.Part()
         {
             Name = "BCM Charging Handle"
         }
     };
 
 
-    public List<Part> PartsFromCsv { get; set; } = new List<Part>()
+    public List<nugsnet6.Models.Part> PartsFromCsv { get; set; } = new List<nugsnet6.Models.Part>()
     {
     };
 
@@ -70,7 +71,7 @@ public class IndexModel : HighSpeedPageModel
             (?<Name>\w+)\,
         """ ;
 
-        var csv_parts = csv_service.ImportAs<Part>(filepath, regex_pattern_for_parts);
+        var csv_parts = csv_service.ImportAs<nugsnet6.Models.Part>(filepath, regex_pattern_for_parts);
         csv_parts.Count.Dump($"# of parts from csv '{filepath}'");
 
         return Partial("_PartsTable", csv_parts);
@@ -83,34 +84,36 @@ public class IndexModel : HighSpeedPageModel
 
         return Content("Done!");
 
-        var base_id = Environment.GetEnvironmentVariable("NUGS_BASE_KEY");
-
-        bool debug_mode = true;
-
-        var parts_search = new AirtableSearchV2(base_id, "Parts")
-        {
-            maxRecords = 2
-        };
-
-        var builds_search = new AirtableSearchV2(base_id, "Builds")
-        {
-            maxRecords = 2
-        };
-
-        var builds = await airtable_service.SearchRecords<Build>(builds_search);
-        builds.Dump("sample builds search");
-
-        var parts = await airtable_service.SearchRecords<Part>(parts_search);
-        parts.Dump("sample parts search");
-        // return Content($"<b class='alert alert-primary'>Success! <br/> # of parts found: {parts.Count}</b>");
-
-        return Partial("_PartsList", parts);
+        // TODO: need to unencrypt airtable rows.
+        
+        // var base_id = Environment.GetEnvironmentVariable("NUGS_BASE_KEY");
+        //
+        // bool debug_mode = true;
+        //
+        // var parts_search = new AirtableSearchV2(base_id, "Parts")
+        // {
+        //     maxRecords = 2
+        // };
+        //
+        // var builds_search = new AirtableSearchV2(base_id, "Builds")
+        // {
+        //     maxRecords = 2
+        // };
+        //
+        // var builds = await airtable_service.SearchRecords<Build>(builds_search);
+        // builds.Dump("sample builds search");
+        //
+        // var parts = await airtable_service.SearchRecords<Part>(parts_search);
+        // parts.Dump("sample parts search");
+        // // return Content($"<b class='alert alert-primary'>Success! <br/> # of parts found: {parts.Count}</b>");
+        //
+        // return Partial("_PartsList", parts);
     }
 
     public void OnPatchSetTableName(string next_table_name = "Loadouts") => table_name = next_table_name;
 
 
-    public IActionResult OnPatchPatchPart([FromForm] Part request)
+    public IActionResult OnPatchPatchPart([FromForm] nugsnet6.Models.Part request)
     {
         return Content(
             $"<div class='alert alert-primary'>Updated part as {request.Name}!</div>",
@@ -121,7 +124,7 @@ public class IndexModel : HighSpeedPageModel
     public async Task<IActionResult> OnGetSearchParts(string Name = "")
     {
         parts_found = await airtable_repo
-            .SearchRecords<Part>(_search
+            .SearchRecords<nugsnet6.Models.Part>(_search
                     .With(s =>
                     {
                         s.table_name = "Parts";
@@ -160,9 +163,9 @@ public class IndexModel : HighSpeedPageModel
                                      <input type="checkbox" class="checkbox" />
                                  </label>
                              </th>
-                             <th class='text-primary'>{ build.Name}                          </th>
-                             <td class='text-accent'>${ build.Total_Cost.ToString()}                          </td>
-                             <td class='text-secondary'>{ build.Reasoning}                          </td>
+                             <th class='text-primary'>{ build.Name}                           </th>
+                             <td class='text-accent'>${ build.Total_Cost.ToString()}                           </td>
+                             <td class='text-secondary'>{ build.Reasoning}                           </td>
                          </tr>
                      """ ).ToString();
         return Content(html);

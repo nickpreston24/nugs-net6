@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 using CodeMechanic.Diagnostics;
 using CodeMechanic.FileSystem;
 using NSpecifications;
-using nugsnet6.Experimental;
+using nugsnet6.Extensions;
 
 namespace CodeMechanic.RazorHAT.Services;
 

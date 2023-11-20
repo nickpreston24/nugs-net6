@@ -3,7 +3,7 @@ using CodeMechanic.Diagnostics;
 using CodeMechanic.FileSystem;
 using CodeMechanic.Types;
 
-namespace nugsnet6;
+namespace nugsnet6.Models;
 
 /// <summary>
 /// This is a nice to have

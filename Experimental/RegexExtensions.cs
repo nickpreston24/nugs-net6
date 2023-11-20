@@ -9,7 +9,7 @@ using CodeMechanic.Diagnostics;
 using CodeMechanic.Reflection;
 using CodeMechanic.Types;
 
-namespace nugsnet6.Experimental;
+namespace nugsnet6.Extensions;
 
 public static class RegexExtensions
 {

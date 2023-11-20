@@ -7,6 +7,7 @@ using Insight.Database;
 using Microsoft.AspNetCore.Mvc;
 using MySqlConnector;
 using nugsnet6;
+using nugsnet6.Models;
 
 namespace nugs_seeder.Controllers;
 

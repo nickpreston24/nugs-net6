@@ -1,6 +1,6 @@
 using CodeMechanic.Types;
 
-namespace nugsnet6.Experimental;
+namespace nugsnet6.Models;
 
 public class Role : Enumeration
 {

@@ -1,6 +1,7 @@
 using Bogus;
 using Bogus.DataSets;
 using CodeMechanic.Diagnostics;
+using nugsnet6.Models;
 
 namespace CodeMechanic.RazorHAT.Services;
 
@@ -26,26 +27,7 @@ public class FakerService : IFakerService
         this.dev_mode = dev_mode;
     }
 
-    public class User
-    {
-        public User(int i, string replace)
-        {
-        }
-
-        public string FirstName { get; set; }
-
-        public string LastName { get; set; }
-
-        public string UserName { get; set; }
-        public string Avatar { get; set; }
-        public string Email { get; set; }
-        public string SomethingUnique { get; set; }
-        public string FullName { get; set; }
-        public Name.Gender Gender { get; set; }
-        public int Id { get; set; }
-    }
-
-    public User GetFakeUser()
+    public BogusUser GetFakeUser()
     {
         //Set the randomizer seed if you wish to generate repeatable data sets.
         Randomizer.Seed = new Random(8675309);
@@ -53,9 +35,9 @@ public class FakerService : IFakerService
         // var fruit = new[] { "apple", "banana", "orange", "strawberry", "kiwi" };
 
         var userIds = 0;
-        var testUsers = new Faker<User>()
+        var testUsers = new Faker<BogusUser>()
             //Optional: Call for objects that have complex initialization
-            .CustomInstantiator(f => new User(userIds++, f.Random.Replace("###-##-####")))
+            .CustomInstantiator(f => new BogusUser(userIds++, f.Random.Replace("###-##-####")))
 
             //Use an enum outside scope.
             .RuleFor(u => u.Gender, f => f.PickRandom<Name.Gender>())

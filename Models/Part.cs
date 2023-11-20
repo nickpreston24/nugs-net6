@@ -6,9 +6,8 @@
 
 using CodeMechanic.Extensions;
 using NSpecifications;
-using nugsnet6.Experimental;
 
-namespace nugsnet6;
+namespace nugsnet6.Models;
 
 public class Part
 {
@@ -28,10 +27,10 @@ public class Part
     public Uri Url { get; set; }
     public Uri Demo { get; set; }
     public long ComboCost { get; set; }
-    public User CreatedBy { get; set; }
+    public FakeUser CreatedBy { get; set; }
     public DateTimeOffset Created { get; set; }
     public object Combo { get; set; }
-    public User LastModifiedBy { get; set; }
+    public FakeUser LastModifiedBy { get; set; }
     public DateTimeOffset LastModified { get; set; }
 
     public static Maybe<Part> NotFound = new Maybe<Part>(new Part()
@@ -42,41 +41,6 @@ public class Part
     public static ISpecification<Part> IsValid => new Spec<Part>(part => part.Cost > 0
                                                                          && NotFound.IfSome(_ =>
                                                                              part.Equals(NotFound.Value)));
-}
-
-public sealed class User
-{
-    public string Id { get; set; } = string.Empty;
-
-    public string Email { get; set; } = string.Empty;
-
-    public string Name { get; set; } = string.Empty;
-    public Role Role { get; set; } = Role.Basic;
-}
-
-public class Attachment
-{
-    public string Id { get; set; } = string.Empty;
-
-
-    // public long Width { get; set; }
-    //
-    //
-    // public long Height { get; set; }
-    //
-    //
-    // public Uri Url { get; set; }
-    //
-    //
-    // public string Filename { get; set; } = string.Empty;
-    //
-    //
-    // public long Size { get; set; }
-    //
-    //
-    // public string Type { get; set; } = string.Empty;
-    //
-    // public Thumbnails Thumbnails { get; set; }
 }
 
 // public class Thumbnails

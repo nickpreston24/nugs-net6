@@ -1,4 +1,4 @@
-namespace nugsnet6;
+namespace nugsnet6.Models;
 
 public sealed class RegexPatterns
 {
