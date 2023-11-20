@@ -98,8 +98,6 @@ public class IndexModel : HighSpeedPageModel
         // if (dev_mode) Console.WriteLine("Checking ammo prices...");
         try
         {
-            throw new Exception("Upchuck");
-
             await using var connection = new NpgsqlConnection(postgresql_connectionstring);
             await connection.OpenAsync(); // needed?
             var results = connection.QuerySql<AmmoseekRow>("select * from ammoseek_prices");
