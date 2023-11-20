@@ -1,0 +1,44 @@
+@using nugsnet6.Models
+@model nugsnet6.Models.AmmoseekRow
+
+@{
+    var row = Model ?? new AmmoseekRow();
+}
+
+<form
+    hx-post
+    hx-page="Index"
+    hx-page-handler="InsertAmmoseekRow"
+    hx-swap="outerHTML"
+    _="on htmx:beforeSend set #submitButton.disabled to 'disabled'"
+    class="form-horizontal needs-validation">
+    <div class="mb-3">
+        <label class="form-label" asp-for="@row.retailer"></label>
+        <input type="text" class="form-control"
+               value="@row.retailer"
+               asp-for="@row.retailer">
+        <div class="invalid-feedback">
+            <span asp-validation-for="@row.retailer"></span>
+        </div>
+    </div>
+
+    <div class="control">
+        <button id="submitButton" class="btn btn-accent">
+            <span class="htmx-indicator">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                <span class="visually-hidden">Loading...</span>
+            </span>
+            Submit
+        </button>
+
+        @Html.AntiForgeryToken()
+    </div>
+    @* *@
+    @* <button class="btn btn-accent" *@
+    @*         hx-post *@
+    @*         hx-page="Index" *@
+    @*         hx-page-handler="BulkUploadAmmoseekRows" *@
+    @*         id="bulkButton" class="btn btn-primary"> *@
+    @*     Bulk Upload *@
+    @* </button> *@
+</form>

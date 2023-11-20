@@ -18,7 +18,7 @@
         .AddValidation(ammo_spec);
 
     var ammo_stats = ammo_calc.ComputeStats().With(x => x.Title = "Ammo Stats");
-    ammo_stats.Dump("ammo");
+    // ammo_stats.Dump("ammo");
 }
 
 <section class="vertical-padding">
@@ -47,7 +47,8 @@
                     <td data-cell="@nameof(@ammoseek_result.grains)">@ammoseek_result.grains</td>
                 </tr>
             }
-            </tbody>
+
+           </tbody>
         </table>
     </div>
 

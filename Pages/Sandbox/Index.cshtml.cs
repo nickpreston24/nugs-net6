@@ -12,11 +12,18 @@ using nugsnet6.Models;
 
 namespace nugsnet6.Pages.Sandbox;
 
+[BindProperties]
 public class IndexModel : HighSpeedPageModel
 {
     private readonly IEmbeddedResourceQuery embeddedResourceQuery;
     private readonly string postgresql_connectionstring;
     private bool dev_mode = true;
+
+    public AmmoseekRow Insert { get; set; } = new AmmoseekRow();
+
+    [BindProperty] public string Retailer { get; set; } = string.Empty;
+    [BindProperty] public string Message { get; set; } = string.Empty;
+
 
     public IndexModel(
         IEmbeddedResourceQuery embeddedResourceQuery
@@ -37,11 +44,16 @@ public class IndexModel : HighSpeedPageModel
 
     public List<AmmoseekRow> AmmoseekRows { get; set; } = new List<AmmoseekRow>();
 
-    // public void OnGet()
-    // {
-    // }
+    public void OnGet()
+    {
+    }
 
-
+    public IActionResult OnPostModal()
+    {
+        Message.Dump("message submitted");
+        return Partial("Success", this);
+    }
+    
     public async Task<IActionResult> OnGetRecommendedRifles()
     {
         var failure = Content(
@@ -82,12 +94,87 @@ public class IndexModel : HighSpeedPageModel
 
     public async Task<IActionResult> OnGetAmmoseekPrices()
     {
-        if (dev_mode) Console.WriteLine("Checking ammo prices...");
+        // if (dev_mode) Console.WriteLine("Checking ammo prices...");
         try
         {
             await using var connection = new NpgsqlConnection(postgresql_connectionstring);
 
             var results = connection.QuerySql<AmmoseekRow>("select * from ammoseek_prices");
+
+            // if (dev_mode) results.Dump("ammoseek rows");
+            return Partial("_AmmoseekTable", results);
+        }
+        catch (Exception ex)
+        {
+            return Partial("_Alert", new AlertModel() { Error = ex, Message = "You screwed up." });
+        }
+    }
+
+
+    public async Task<IActionResult> OnPostBulkUploadAmmoseekRows()
+    {
+        return Content(" bulk upload submitted <3!");
+    }
+
+    /// <summary>
+    /// Insert a new Ammoseek Row via form
+    /// </summary>
+    /// <returns></returns>
+    public async Task<IActionResult> OnPostInsertAmmoseekRow()
+    {
+        if (dev_mode) Console.WriteLine("Inserting ammo prices...");
+        Insert.Dump("inserted row");
+        return Content("Ping!");
+
+        string query = """
+            
+        INSERT INTO ammoseek_prices(retailer,
+                            description,
+                            brand,
+                            caliber,
+                            grains,
+                            last_update,
+                            limits,
+                            casing,
+                            is_new,
+                            price,
+                            rounds,
+                            price_per_round,
+                            shipping_rating)
+
+        VALUES ( 'Botachzzz'
+               , 'Fiocchi Shooting Dynamics .300 Blackout 150 Grain FMJBT Ammunition 50rds 762345000000zzz'
+               , 'Fiocchizzz'
+               , '.300 AAC Blackoutzzz'
+               , '150'
+               , '-'
+               , '-'
+               , 'brass'
+               , true
+               , '$66.95'
+               , '50'
+               , '$1.34'
+               , '6'),
+               ( 'LeadFeather Guns & Ammo'
+               , 'Fiocchi 150gr FMJBT 300BLK 762344711935'
+               , 'Fiocchi'
+               , '.300 AAC Blackout'
+               , '150'
+               , '2m9s'
+               , '-'
+               , 'brass'
+               , true
+               , '$149.99'
+               , '100'
+               , '$1.50'
+               , '5');
+        """;
+
+        try
+        {
+            await using var connection = new NpgsqlConnection(postgresql_connectionstring);
+
+            var results = connection.QuerySql<AmmoseekRow>(query);
 
             if (dev_mode) results.Dump("ammoseek rows");
             return Partial("_AmmoseekTable", results);
@@ -97,6 +184,7 @@ public class IndexModel : HighSpeedPageModel
             return Partial("_Alert", new AlertModel() { Error = ex, Message = "You screwed up." });
         }
     }
+
 
     public async Task<IActionResult> OnGetSamplePostgresSchema()
     {

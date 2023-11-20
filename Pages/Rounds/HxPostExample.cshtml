@@ -1,0 +1,93 @@
+@page
+@model nugsnet6.Pages.Rounds.HxPostExample
+@{
+
+}
+
+<section class="min-h-screen">
+
+    <div class="hero">
+        <div class="hero-content">
+
+            <partial name="HxPostSampleForm" model="Model"/>
+
+
+
+        </div>
+    </div>
+</section>
+
+
+@* /* OTHER ATTEMPTS'
+
+
+ */ *@
+
+
+
+@* *@
+@* @functions *@
+@* { *@
+@*     public string Message { get; set; } = "Initial Request"; *@
+@* *@
+@*     public void OnPostDelete() *@
+@*     { *@
+@*         Message = "Delete handler fired"; *@
+@*     } *@
+@* *@
+@*     public void OnPostEdit(int id) *@
+@*     { *@
+@*         Message = "Edit handler fired"; *@
+@*     } *@
+@* *@
+@*     public void OnPostView(int id) *@
+@*     { *@
+@*         Message = "View handler fired"; *@
+@*     } *@
+@* } *@
+@* <div hidden x-show="false" class="flex flex-row gap-8"> *@
+@* *@
+@*     <div class="row"> *@
+@*         <div class="col-lg-1"> *@
+@*             $1$ hx-post #1# *@
+@*             $1$                             hx-page-handler="edit" #1# *@
+@*             $1$                             hx-target="edit_result" #1# *@
+@*             $1$                             hx-swap="outerHTML" #1# *@
+@*             <form *@
+@*                 asp-page-handler="edit" *@
+@*                 method="post"> *@
+@*                 <button class="btn btn-default">Edit</button> *@
+@*             </form> *@
+@*             <div id="#edit_result"></div> *@
+@*         </div> *@
+@*         <div class="col-lg-1"> *@
+@*             <form asp-page-handler="delete" method="post"> *@
+@*                 <button class="btn btn-default">Delete</button> *@
+@*             </form> *@
+@*         </div> *@
+@*         <div class="col-lg-1"> *@
+@*             <form asp-page-handler="view" method="post"> *@
+@*                 <button class="btn btn-default">View</button> *@
+@*             </form> *@
+@*         </div> *@
+@*     </div> *@
+@*     <h3 class="clearfix">@Message</h3> *@
+
+@* <button class="btn btn-accent" *@
+@*         hx-get *@
+@*         hx-page="HxPostExample" *@
+@*         hx-page-handler="MyStuff"> *@
+@*     Get my stuff *@
+@* </button> *@
+@* *@
+@* <button class="btn btn-accent" *@
+@*         hx-patch *@
+@*         hx-page="HxPostExample" *@
+@*         hx-page-handler="NiceStuff"> *@
+@*     Patch my stuff *@
+@* </button> *@
+@* *@
+@* *@
+@* hx-delete *@
+@* hx-page="HxPostExample" *@
+@* hx-page-handler="SomeStuff" *@
