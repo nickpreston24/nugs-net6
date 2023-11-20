@@ -3,6 +3,30 @@
     {
       "Name": "RSSFeeds",
       "Enabled": false
+    },
+    {
+      "Name": "Loadouts",
+      "Enabled": false
+    },
+    {
+      "Name": "Clones",
+      "Enabled": false
+    },
+    {
+      "Name": "Part",
+      "Enabled": false
+    },
+    {
+      "Name": "Users",
+      "Enabled": false
+    },
+    {
+      "Name": "Inventory",
+      "Enabled": false
+    },
+    {
+      "Name": "RSSFeeds",
+      "Enabled": false
     }
   ]
 }

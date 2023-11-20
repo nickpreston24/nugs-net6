@@ -8,6 +8,6 @@ public class AlertModel
     public Maybe<Exception> Error { get; set; } = Maybe<Exception>.None;
 
     public string Kind => this.Error
-        .Case(some: (_) => "alert-fail"
+        .Case(some: (_) => "alert-error"
             , none: () => "alert-success");
 }

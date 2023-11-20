@@ -4,6 +4,7 @@ using System.Diagnostics;
 using CodeMechanic.Diagnostics;
 using CodeMechanic.RazorHAT;
 using CodeMechanic.Embeds;
+using CodeMechanic.Extensions;
 using Insight.Database;
 using Neo4j.Driver;
 using Npgsql;
@@ -97,6 +98,8 @@ public class IndexModel : HighSpeedPageModel
         // if (dev_mode) Console.WriteLine("Checking ammo prices...");
         try
         {
+            throw new Exception("Upchuck");
+
             await using var connection = new NpgsqlConnection(postgresql_connectionstring);
             await connection.OpenAsync(); // needed?
             var results = connection.QuerySql<AmmoseekRow>("select * from ammoseek_prices");
@@ -106,7 +109,8 @@ public class IndexModel : HighSpeedPageModel
         }
         catch (Exception ex)
         {
-            return Partial("_Alert", new AlertModel() { Error = ex, Message = "You screwed up." });
+            return Partial("_Alert",
+                new AlertModel() { Error = ex, Message = "You screwed up." });
         }
     }
 
