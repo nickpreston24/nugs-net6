@@ -20,6 +20,7 @@ public class IndexModel : HighSpeedPageModel
     private bool dev_mode = true;
 
     public AmmoseekRow Insert { get; set; } = new AmmoseekRow();
+    public List<AmmoseekRow> AmmoseekRows { get; set; } = new List<AmmoseekRow>();
 
     [BindProperty] public string Retailer { get; set; } = string.Empty;
     [BindProperty] public string Message { get; set; } = string.Empty;
@@ -42,7 +43,6 @@ public class IndexModel : HighSpeedPageModel
             $"Host={host};Port={port};Username={username};Password={password};Database={database}";
     }
 
-    public List<AmmoseekRow> AmmoseekRows { get; set; } = new List<AmmoseekRow>();
 
     public void OnGet()
     {
@@ -53,7 +53,7 @@ public class IndexModel : HighSpeedPageModel
         Message.Dump("message submitted");
         return Partial("Success", this);
     }
-    
+
     public async Task<IActionResult> OnGetRecommendedRifles()
     {
         var failure = Content(
@@ -98,7 +98,7 @@ public class IndexModel : HighSpeedPageModel
         try
         {
             await using var connection = new NpgsqlConnection(postgresql_connectionstring);
-
+            await connection.OpenAsync(); // needed?
             var results = connection.QuerySql<AmmoseekRow>("select * from ammoseek_prices");
 
             // if (dev_mode) results.Dump("ammoseek rows");
@@ -124,7 +124,7 @@ public class IndexModel : HighSpeedPageModel
     {
         if (dev_mode) Console.WriteLine("Inserting ammo prices...");
         Insert.Dump("inserted row");
-        return Content("Ping!");
+        // return Content("Ping!");
 
         string query = """
             
@@ -173,11 +173,17 @@ public class IndexModel : HighSpeedPageModel
         try
         {
             await using var connection = new NpgsqlConnection(postgresql_connectionstring);
+            await connection.OpenAsync();
 
-            var results = connection.QuerySql<AmmoseekRow>(query);
+            await using (var cmd = new NpgsqlCommand(query, connection))
+            {
+                cmd.Parameters.AddWithValue("retailer", "Ziggy Stardust zzz");
 
-            if (dev_mode) results.Dump("ammoseek rows");
-            return Partial("_AmmoseekTable", results);
+                int rows_affected = await cmd.ExecuteNonQueryAsync();
+                if (dev_mode) Console.WriteLine("Rows affected :>> " + rows_affected);
+            }
+
+            return Partial("_AmmoseekTable", AmmoseekRows);
         }
         catch (Exception ex)
         {
