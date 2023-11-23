@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html data-theme="halloween" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@2.50.0/dist/full.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <script src="https://unpkg.com/htmx.org@1.8.5"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.12.0/cdn/themes/light.css"
+    />
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.12.0/cdn/shoelace-autoloader.js"
+    ></script>
+  </head>
+  <body>
+    <div x-data="setup()" class="flex flex-col items-center justify-center">
+      <div class="hero min-h-screen bg-base-200">
+        <div class="hero-content text-center">
+          <div class="max-w-md grid grid-rows-auto grid-cols-1">
+            <div class="bg-primary border-2 border-blue-500">
+              <div class="overflow-x-auto">
+                <table class="table table-zebra">
+                  <thead>
+                    <tr>
+                      <th
+                        x-text="dopes[1].name"
+                        class="text-xl font-bold col-span-5"
+                      ></th>
+                    </tr>
+                    <tr>
+                      <th>Range</th>
+                      <th class="col-span-2">Drop</th>
+                      <th></th>
+                      <th>Wind</th>
+                      <th class="col-span-2"></th>
+                    </tr>
+                    <tr>
+                      <th>(yd)</th>
+                      <th>(MOA)</th>
+                      <th>(mil)</th>
+                      <th>(MOA)</th>
+                      <th>(mil)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <template x-for="row in dope_rows">
+                      <tr>
+                        <td x-text="row.range"></td>
+                        <td x-text="row.moa"></td>
+                        <td x-text="row.mils"></td>
+                        <td x-text="row.wind_moa"></td>
+                        <td x-text="row.wind_mils"></td>
+                      </tr>
+                    </template>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    function setup() {
+      const cartesian = (...all) => {
+        const loop = (t, a, ...more) =>
+          a === undefined ? [t] : a.flatMap((x) => loop([...t, x], ...more));
+        return loop([], ...all);
+      };
+
+      return {
+        get dope_rows() {
+          let dope_table = this.dopes[1];
+          let ranges = dope_table.ranges;
+          let mils = dope_table.drop_mils;
+          let moa = dope_table.drop_moa;
+          let wind_moa = dope_table.wind_moa;
+          let wind_mils = dope_table.wind_mils;
+
+          let rows = [];
+          for (let i = 0; i < ranges.length; i++) {
+            // construct the rows as matrices:
+            let row = {
+              range: ranges[i],
+              mils: mils[i],
+              moa: moa[i],
+              wind_moa: wind_moa[i],
+              wind_mils: wind_mils[i],
+            };
+            rows.push(row);
+          }
+
+          console.log("rows :>> ", rows);
+          return rows;
+        },
+        dopes: [
+          {
+            name: "Mossberg Dope",
+            source:
+              "https://resources.mossberg.com/journal/creating-a-dope-card-for-your-rifle",
+            rifle: "?",
+            caliber: "???",
+            bullet: "??",
+            distances_to_target: [100, 200, 300, 350, 400, 450, 500, 550, 600],
+            adjustments_moa: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            adjustments_mils: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            wind: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            windspeed: "10mph",
+          },
+
+          {
+            name: "308 Winchester 168gr SMK",
+            source: "http://caprc.com/gfx/308card.gif",
+            rifle: "?",
+            caliber: "???",
+            bullet: "??",
+            ranges: [
+              10, 25, 50, 75, 125, 150, 200, 250, 300, 350, 400, 450, 500, 525,
+              550, 575, 600,
+            ],
+            drop_moa: [
+              -14.1, -3.6, -0.5, 0, -0.3, -0.7, -1.8, -3.1, -4.6, -6.2, -7.9,
+              -9.7, -11.6, -12.6, -13.7, -14.8, -15.9,
+            ],
+            drop_mils: [
+              -4.1, -1, -0.2, 0, -0.1, -0.2, -0.5, -0.9, -1.3, -1.8, -2.3, -2.8,
+              -3.4, -3.7, -4, -4.3, -4.6,
+            ],
+            wind_moa: [
+              -0.7, -0.6, -0.4, -0.2, 0.2, 0.4, 0.8, 1.2, 1.6, 2.1, 2.6, 3.1,
+              3.6, 3.8, 4.1, 4.4, 4.7,
+            ],
+            wind_mils: [
+              -0.2, -0.2, -0.1, -0.1, 0.1, 0.1, 0.2, 0.4, 0.5, 0.6, 0.7, 0.9, 1,
+              1.1, 1.2, 1.3, 1.4,
+            ],
+            windspeed: "10mph",
+          },
+        ],
+      };
+    }
+  </script>
+</html>

@@ -26,8 +26,8 @@ var clients = [
     170,
     202
 ];
-var mix = document.getElementById("mixChart").getContext('2d');
-var mixChart = new Chart(mix, {
+var trajectory = document.getElementById("mixChart").getContext('2d');
+var chart = new Chart(trajectory, {
     type: 'bar',
     data: {
         labels: labels,

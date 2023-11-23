@@ -24,34 +24,24 @@
     <div x-data="setup()" class="flex flex-col items-center justify-center">
       <h1 class="text-5xl" x-text="message"></h1>
 
-      <!-- <div class=" chart-container" width="400" height="600"> -->
+      <div class="container border-2 border-yellow-400">
+        <canvas id="trajectoryChart"></canvas>
+      </div>
+
       <div
         class="chart-container"
         style="position: relative; height: 30vh; width: 60vw"
       >
+        <!-- <div class=" chart-container" width="400" height="600"> -->
         <h1>Mix Chart</h1>
         <div class="container">
-          <canvas id="mixChart"></canvas>
+          <!-- <canvas id="mixChart"></canvas> -->
         </div>
       </div>
-      <!-- 
-      <div
-        class="border-2 border-blue-200 chart-container"
-        width="600"
-        height="670"
-      >
-        <h1>Ajax Chart</h1>
-        <button id="renderBtn">Load</button>
-        <br /><br />
-        <div class="container">
-          <div id="loadingMessage"></div>
-          <canvas id="myChart"></canvas>
-        </div>
-      </div> -->
 
       <div x-if="false">
         <template>
-          <div>
+          <div x-show="false">
             <div class="chart-container" width="600" height="670">
               <canvas id="radar_chart"></canvas>
 
@@ -174,7 +164,7 @@
   <script>
     function setup() {
       return {
-        message: "Engagement Distances Chart",
+        message: "460 Weatherby Chart",
         resources: [
           {
             url: "http://ballistics101.com/460_sw.php",
@@ -185,6 +175,7 @@
     }
   </script>
 
+  <!-- <script src="./my-chart.js"></script> -->
   <script src="./mix-chart.js"></script>
-  <script src="./my-chart.js"></script>
+  <script src="./trajectory-chart.js"></script>
 </html>
