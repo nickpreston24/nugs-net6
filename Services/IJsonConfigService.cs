@@ -1,5 +1,6 @@
 using CodeMechanic.Diagnostics;
 using CodeMechanic.FileSystem;
+using CodeMechanic.Types;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NSpecifications;

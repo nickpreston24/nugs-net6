@@ -3,6 +3,7 @@ using CodeMechanic.Diagnostics;
 using CodeMechanic.Embeds;
 using CodeMechanic.FileSystem;
 using CodeMechanic.RazorHAT;
+using CodeMechanic.Types;
 using Htmx;
 using Microsoft.AspNetCore.Mvc;
 using Neo4j.Driver;
