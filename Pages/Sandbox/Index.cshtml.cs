@@ -21,6 +21,7 @@ public class IndexModel : HighSpeedPageModel
     private readonly string postgresql_connectionstring;
     private bool dev_mode = true;
     private readonly IFakerService fakes;
+    private ILocalLogger local_logger;
 
     public AmmoseekRow Insert { get; set; } = new AmmoseekRow();
     public List<AmmoseekRow> AmmoseekRows { get; set; } = new List<AmmoseekRow>();
@@ -33,11 +34,13 @@ public class IndexModel : HighSpeedPageModel
         IEmbeddedResourceQuery embeddedResourceQuery
         , IDriver driver
         , IFakerService fakes
+        , ILocalLogger logger
     )
         : base(embeddedResourceQuery, driver)
     {
         this.embeddedResourceQuery = embeddedResourceQuery;
         this.fakes = fakes;
+        local_logger = logger;
 
         string host = Environment.GetEnvironmentVariable("PGHOST");
         string username = Environment.GetEnvironmentVariable("PGUSER");
@@ -64,6 +67,8 @@ public class IndexModel : HighSpeedPageModel
 
             Console.WriteLine(query);
 
+
+            Console.WriteLine("connection string:>>" + postgresql_connectionstring);
             await using var connection = new NpgsqlConnection(postgresql_connectionstring);
             await connection.OpenAsync();
             await using (var cmd = new NpgsqlCommand(query, connection))
@@ -75,7 +80,7 @@ public class IndexModel : HighSpeedPageModel
         catch (Exception e)
         {
             Console.WriteLine(e);
-            LocalLogger.WriteLogs<Models.Part>("sandbox", e.ToString() + "\n" + query);
+            local_logger.WriteLogs<Models.Part>("sandbox", e.ToString() + "\n" + query);
             return Partial("_Alert", new AlertModel(e));
         }
     }
@@ -185,9 +190,9 @@ public class IndexModel : HighSpeedPageModel
         {
             string query = (embeddedResourceQuery as EmbeddedResourceService)
                 .GetFileContents<IndexModel>("SearchAmmoPrices.sql");
-            
+
             Console.WriteLine("Running query :>> " + query);
-            
+
             await using var connection = new NpgsqlConnection(postgresql_connectionstring);
             await connection.OpenAsync(); // needed?
             var results = connection.QuerySql<AmmoseekRow>(query);

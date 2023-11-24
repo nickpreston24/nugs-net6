@@ -21,6 +21,8 @@ builder.Services.AddScoped<IPartService, PartService>();
 var props_service = new PropertyCache();
 builder.Services.AddScoped<IJsonConfigService, JsonConfigService>();
 builder.Services.AddScoped<IFakerService, FakerService>();
+
+builder.Services.AddSingleton<ILocalLogger, LocalLoggerService>();
 builder.Services.AddSingleton<IMarkdownService, MarkdownService>();
 builder.Services.AddSingleton<IImageService, ImageService>();
 builder.Services.AddSingleton<IRazorRoutesService, RazorRoutesService>();

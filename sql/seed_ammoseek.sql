@@ -54,15 +54,54 @@ select retailer,
        shipping_rating
 from ammoseek_prices;
 
+
+
+ALTER TABLE ammoseek_prices
+    ADD COLUMN is_deleted boolean not null default false;
+
+
 -- get all faked data:
 SELECT distinct SUBSTRING(retailer FROM '.*zzz.*') as fake_retailers,
                 SUBSTRING(brand FROM '.*zzz.*')    as fake_brands
 FROM ammoseek_prices;
 
-select *
-from parts
-where cost > 0 && cost is not null
+-- get all faked data:
+SELECT distinct SUBSTRING(retailer FROM '.*zzz.*') as fake_retailers,
+                SUBSTRING(brand FROM '.*zzz.*')    as fake_brands
+FROM ammoseek_prices;
+
+-- Check distinct ammunition
+
+select distinct *
+from ammoseek_prices;
 
 
+-- Check for incomplete rows
 
+create or replace procedure find_incomplete_ammoseek_rows(
+    caliber varchar(150) = '',
+    retailer varchar(150) = '',
+    grain varchar(150) = ''
+)
+    language plpgsql
+as
+$$
+begin
+
+    select *
+    from ammoseek_prices prices
+    where prices.caliber = ''
+       or grains is null
+       or last_update is null
+       or casing is null;
+
+end;
+$$;
+
+/*
+call find_incomplete_ammoseek_rows();
+*/
+
+
+-- TODO: Check for duplicates
 

@@ -1,0 +1,25 @@
+Npgsql.PostgresException (0x80004005): 42601: syntax error at or near "m"
+
+POSITION: 613
+   at Npgsql.Internal.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|234_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult()
+   at Npgsql.NpgsqlCommand.ExecuteReader(CommandBehavior behavior, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(CommandBehavior behavior, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteNonQuery(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteNonQuery()
+   at nugsnet6.Pages.Sandbox.IndexModel.OnPostBulkInsertParts() in /home/nick/Desktop/projects/personal/nugs-net6/Pages/Sandbox/Index.cshtml.cs:line 73
+   at nugsnet6.Pages.Sandbox.IndexModel.OnPostBulkInsertParts() in /home/nick/Desktop/projects/personal/nugs-net6/Pages/Sandbox/Index.cshtml.cs:line 74
+   at nugsnet6.Pages.Sandbox.IndexModel.OnPostBulkInsertParts() in /home/nick/Desktop/projects/personal/nugs-net6/Pages/Sandbox/Index.cshtml.cs:line 74
+  Exception data:
+    Severity: ERROR
+    SqlState: 42601
+    MessageText: syntax error at or near "m"
+    Position: 613
+    File: scan.l
+    Line: 1241
+    Routine: scanner_yyerror
+INSERT INTO parts (name, kind, type, notes, productcode, cost) VALUES ('80% Arms Billet Lower (Blemished)','','Lower','Reccommended by Pew Pew Tactical as their #6, I believe this one could aircraft grade aluminum.','',79),('FN Barrel (chrome lined)','','Barrel','Chrome lining, full-auto rated; lasts longer','',300),('Mercury Precision 80% Lower','','Lower','Aircraft aluminum, cutouts for weight reduction.','',89),('Vortex Viper PST 1-6x','','Scope','1.  I like the clear lens and zoom, but there is no night sight capability;  however, with the right mount, it can pop off easily for iron sights use.
+
+2. I'm not well-versed on Scopes, but the Recce rifle style requires one that's 1-4x to 1-8x at max for quick target acquisition at 1x zoom, to the max range (400-600) of your light rifle.','',599.99),('CMMG Lower Parts Kit (Full; LPK)','','LPK','CMMG a popular brand.','',68),('Geiselle Lower Parts Kit (No Trigger/FCG)','','LPK','NOTE: Trigger and Fire Control Group (FCG) omitted so you can specify your own.','',49),('Hogue Grip','','Grip','','',23.96),('Geiselle Trigger + PSA Lower Parts Kit','','Trigger','','',299),('PSA MOE Lower Parts Kit','','LPK','Good Starter and on sale.  Could go more budget if one really wanted to.','',129),('Geiselle Trigger','','Trigger','','',216.99),('Calvin Elite Trigger','','Trigger','','',272.99),('Centurion Arms cm4 Upper 16','','Upper','Be sure to get it without the handguard, so you can put your own on.','',895),('Centurion Arms RECCE Upper 16','','Upper','Chrome lined, lightweight','',1265),('Tyrant CNC Skeletonized Grip','','Grip','aaaaaAAAWWWYEEAHHH!!!','',189.9),('Danny D Light Handguard','','Handguard','','',287.99),('Danny D Upper LW','','Upper','','',1120),('Knights Armament Upper','','Upper','Chrome lined','',2000),('Geiselle Super Duty','','Upper','','',1200),('BCM Light 300 BLK 16" Upper','','Upper','Chrome lined','',785),('DD Handguard LW','','Handguard','','',319.99),('DD 18" Upper','','Upper','Shoots soft; Rifle length','',1554),('PSA Valkyrie Upper','','Upper','New caliber','',499),('Triarch Custom Uppers','','Upper','Build a custom upper, including barrel, guard, charging handle and cerakote.','',1170),('Magpul UBR Stock','','Buttstock','','',189.99),('Magpul Basic Milspec Stock','','Buttstock','','',37.95),('Aero Precision Upper Receiver XL','','Upper','Looking for a Piston style gas system that acts like the Sig Rattler, if possible.','',99),('Polymer80 Glock 20/21 80% Frame','','Lower','This should fit 10mm.','',160),('Cerakoted AR45 Lower','','Lower','','',164.99),('Coyote 300 blk','','Upper','','',720),('Coyote 5.56','AR-15','Upper','','',760)

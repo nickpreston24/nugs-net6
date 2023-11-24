@@ -18,6 +18,7 @@ public class AirtableQueryingService : IAirtableQueryingService
     private string personal_access_token = string.Empty;
     private readonly HttpClient http_client;
     private readonly bool debug_mode;
+    private ILocalLogger locallogger;
 
     public AirtableQueryingService(
         HttpClient client = null
@@ -81,7 +82,7 @@ public class AirtableQueryingService : IAirtableQueryingService
             Console.WriteLine(e);
 
             if (debug_mode)
-                LocalLogger.WriteLogs<T>(nameof(AirtableQueryingService), json);
+                locallogger.WriteLogs<T>(nameof(AirtableQueryingService), json);
 
             return new List<T>();
         }
