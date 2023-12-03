@@ -16,7 +16,8 @@ public class LocalLoggerService : ILocalLogger
 
         var grepper = new Grepper()
         {
-            FileSearchMask = "*.log"
+            FileSearchMask = "*.log",
+            RootPath = Environment.CurrentDirectory
         };
 
         var files = grepper

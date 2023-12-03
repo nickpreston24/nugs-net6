@@ -11,10 +11,8 @@
 <input
     hx-get
     hx-page-handler="SearchLoadouts"
-    asp-for="@Model.LoadoutSearch.Name"
-    
-    >
-    
+    asp-for="@Model.LoadoutSearch.Name">
+
 </input>
 <div class="card p-4">
     @await Html.PartialAsync("_Tabs")

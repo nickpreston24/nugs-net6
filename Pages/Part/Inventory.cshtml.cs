@@ -13,8 +13,12 @@ using nugsnet6;
 
 namespace nugsnet6.Pages.Parts;
 
-public class InventoryModel : HighSpeedPageModel
+public class InventoryModel : PageModel
 {
+    private readonly IEmbeddedResourceQuery embeddedResourceQuery;
+    private readonly IDriver driver;
+    private readonly IAirtableRepo repo;
+
     public void OnGetAllParts()
     {
         throw new NotImplementedException();
@@ -83,7 +87,11 @@ public class InventoryModel : HighSpeedPageModel
         IEmbeddedResourceQuery embeddedResourceQuery
         , IDriver driver
         , IAirtableRepo repo
-    ) : base(embeddedResourceQuery, driver, repo, nameof(AirsoftLoadout))
+    ) 
+        // : base(embeddedResourceQuery, driver, repo, nameof(AirsoftLoadout))
     {
+        this.embeddedResourceQuery = embeddedResourceQuery;
+        this.driver = driver;
+        this.repo = repo;
     }
 }

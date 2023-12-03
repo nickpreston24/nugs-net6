@@ -7,6 +7,7 @@ using CodeMechanic.Embeds;
 using CodeMechanic.Extensions;
 using CodeMechanic.RazorHAT.Services;
 using Insight.Database;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Neo4j.Driver;
 using Npgsql;
 using nugs_seeder.Controllers;
@@ -15,9 +16,10 @@ using nugsnet6.Models;
 namespace nugsnet6.Pages.Sandbox;
 
 [BindProperties]
-public class IndexModel : HighSpeedPageModel
+public class IndexModel : PageModel
 {
     private readonly IEmbeddedResourceQuery embeddedResourceQuery;
+    private readonly IDriver driver;
     private readonly string postgresql_connectionstring;
     private bool dev_mode = true;
     private readonly IFakerService fakes;
@@ -36,9 +38,9 @@ public class IndexModel : HighSpeedPageModel
         , IFakerService fakes
         , ILocalLogger logger
     )
-        : base(embeddedResourceQuery, driver)
     {
         this.embeddedResourceQuery = embeddedResourceQuery;
+        this.driver = driver;
         this.fakes = fakes;
         local_logger = logger;
 
@@ -64,6 +66,9 @@ public class IndexModel : HighSpeedPageModel
                     String.Join(',',
                         parts_imported.Select(part =>
                             $"('{part.Name}','{part.Kind}','{part.Type}','{part.Notes}','{part.ProductCode}',{part.Cost})"));
+
+            var sanitized_name = parts_imported.First().Name.Replace("'", "");
+
 
             Console.WriteLine(query);
 

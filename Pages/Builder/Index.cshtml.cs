@@ -6,32 +6,38 @@ using CodeMechanic.RazorHAT;
 using CodeMechanic.RazorHAT.Services;
 using CodeMechanic.Types;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Neo4j.Driver;
 using nugsnet6.Models;
 
 namespace nugsnet6.Pages.Builder;
 
-public class IndexModel : HighSpeedPageModel
+public class IndexModel : PageModel
 {
     private static string table_name = "Builds";
     private static AirtableSearch _search = new AirtableSearch();
     private static List<Build> builds_found = new List<Build>();
 
     private static List<nugsnet6.Models.Part> parts_found = new List<nugsnet6.Models.Part>();
+    private readonly IEmbeddedResourceQuery embeddedResourceQuery;
     private readonly IAirtableQueryingService airtable_service;
     private readonly ICsvService csv_service;
+    private readonly IDriver driver;
+    private readonly IAirtableRepo airtable_repo;
 
     public IndexModel(
         IEmbeddedResourceQuery embeddedResourceQuery
         , IAirtableQueryingService airtableQueryingService
         , ICsvService csvService
         , IDriver driver
-        , IAirtableRepo repo
+        , IAirtableRepo airtableRepo
     )
-        : base(embeddedResourceQuery, driver, repo)
     {
+        this.embeddedResourceQuery = embeddedResourceQuery;
         this.airtable_service = airtableQueryingService;
         this.csv_service = csvService;
+        this.driver = driver;
+        this.airtable_repo = airtableRepo;
     }
 
     public List<nugsnet6.Models.Part> SampleParts { get; set; } = new List<nugsnet6.Models.Part>()
@@ -85,7 +91,7 @@ public class IndexModel : HighSpeedPageModel
         return Content("Done!");
 
         // TODO: need to unencrypt airtable rows.
-        
+
         // var base_id = Environment.GetEnvironmentVariable("NUGS_BASE_KEY");
         //
         // bool debug_mode = true;
@@ -163,9 +169,10 @@ public class IndexModel : HighSpeedPageModel
                                      <input type="checkbox" class="checkbox" />
                                  </label>
                              </th>
-                             <th class='text-primary'>{ build.Name}                           </th>
-                             <td class='text-accent'>${ build.Total_Cost.ToString()}                           </td>
-                             <td class='text-secondary'>{ build.Reasoning}                           </td>
+                             <th class='text-primary'>{ build.Name}                               </th>
+                             <td class='text-accent'>${ build.Total_Cost.ToString()}
+                                                           </td>
+                             <td class='text-secondary'>{ build.Reasoning}                               </td>
                          </tr>
                      """ ).ToString();
         return Content(html);
@@ -177,27 +184,27 @@ public class IndexModel : HighSpeedPageModel
         return Content("<p class='alert alert-primary text-accent'>He's a chicken!</p>");
     }
 
-    public async Task<IActionResult> OnGetRecommendedBarrels()
-    {
-        var failure = Content(
-            $"<div class='alert alert-error'><p class='text-xl text-warning text-sh'>An Error Occurred...  But fret not! Our team of intelligent lab mice are on the job!</p></div>");
-
-        string query = "...";
-
-        string resource = new StackTrace().GetCurrentResourcePath();
-        if (embeddedResourceQuery == null)
-            return failure;
-
-        await using Stream stream = embeddedResourceQuery.Read<IndexModel>(resource);
-
-        query = await stream.ReadAllLinesFromStreamAsync();
-
-        var records = await SearchNeo4J<Build>(query, new { });
-
-        return Content("""
-                           <div class='alert alert-success shadow-lg'>
-                               <span>Confirmed!</span>
-                           </div>
-                       """);
-    }
+    // public async Task<IActionResult> OnGetRecommendedBarrels()
+    // {
+    //     var failure = Content(
+    //         $"<div class='alert alert-error'><p class='text-xl text-warning text-sh'>An Error Occurred...  But fret not! Our team of intelligent lab mice are on the job!</p></div>");
+    //
+    //     string query = "...";
+    //
+    //     string resource = new StackTrace().GetCurrentResourcePath();
+    //     if (embeddedResourceQuery == null)
+    //         return failure;
+    //
+    //     await using Stream stream = embeddedResourceQuery.Read<IndexModel>(resource);
+    //
+    //     query = await stream.ReadAllLinesFromStreamAsync();
+    //
+    //     var records = await SearchNeo4J<Build>(query, new { });
+    //
+    //     return Content("""
+    //                        <div class='alert alert-success shadow-lg'>
+    //                            <span>Confirmed!</span>
+    //                        </div>
+    //                    """);
+    // }
 }

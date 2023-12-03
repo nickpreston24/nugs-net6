@@ -3,14 +3,18 @@ using CodeMechanic.Embeds;
 using CodeMechanic.RazorHAT;
 using CodeMechanic.Types;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Neo4j.Driver;
 
 namespace nugsnet6.Pages.CarCapital.Inventory;
 //Note: to remove all comments, replace this pattern with nothing:  // .*$
 
 [BindProperties]
-public class Index : HighSpeedPageModel
+public class Index : PageModel
 {
+    private readonly IEmbeddedResourceQuery embeddedResourceQuery;
+    private readonly IDriver driver;
+
     // Search fields
     public string Name { get; init; } = string.Empty;
     public double Cost { get; set; } = 0.0;
@@ -31,8 +35,9 @@ public class Index : HighSpeedPageModel
     public Index(
         IEmbeddedResourceQuery embeddedResourceQuery
         , IDriver driver)
-        : base(embeddedResourceQuery, driver)
     {
+        this.embeddedResourceQuery = embeddedResourceQuery;
+        this.driver = driver;
         _cars.Count.Dump("inventory (cached)");
         AllCarInventory.Count.Dump("inventory");
     }

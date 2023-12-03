@@ -1,18 +1,24 @@
 using CodeMechanic.RazorHAT;
 using Neo4j.Driver;
-
-
 using CodeMechanic.Embeds;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace nugsnet6.Pages.FreeTier;
 
-public class IndexModel : HighSpeedPageModel
+public class IndexModel : PageModel
 {
+    private readonly IEmbeddedResourceQuery embeddedResourceQuery;
+    private readonly IDriver driver;
+    private readonly IAirtableRepo repo;
+
     public IndexModel(
         IEmbeddedResourceQuery embeddedResourceQuery
         , IDriver driver
         , IAirtableRepo repo
-    ) : base(embeddedResourceQuery, driver, repo)
+    )
     {
+        this.embeddedResourceQuery = embeddedResourceQuery;
+        this.driver = driver;
+        this.repo = repo;
     }
 }

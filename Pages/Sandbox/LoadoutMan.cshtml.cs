@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace nugsnet6.Pages.Sandbox;
 
-public class LoadoutMan :PageModel //: HighSpeedPageModel
+public class LoadoutMan :PageModel //: PageModel
 {
 
     public LoadoutMan() 

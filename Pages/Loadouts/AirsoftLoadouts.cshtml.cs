@@ -3,20 +3,28 @@ using Neo4j.Driver;
 using CodeMechanic.Embeds;
 using CodeMechanic.RazorHAT;
 using CodeMechanic.Types;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace nugsnet6.Pages.Loadouts
 {
-    public class AirsoftLoadoutModel : HighSpeedPageModel
+    public class AirsoftLoadoutPageModel : PageModel
     {
+        private readonly IEmbeddedResourceQuery embeddedResourceQuery;
+        private readonly IDriver driver;
+        private readonly IAirtableRepo airtable_repo;
         private static AirtableSearch _search = new AirtableSearch();
         public AirtableSearch Search => _search;
+        public string Title { get; set; } = string.Empty;
 
-        public AirsoftLoadoutModel(
-        IEmbeddedResourceQuery embeddedResourceQuery
+        public AirsoftLoadoutPageModel(
+            IEmbeddedResourceQuery embeddedResourceQuery
             , IDriver driver
-            , IAirtableRepo repo
-        ) : base(embeddedResourceQuery, driver, repo, nameof(AirsoftLoadout))
+            , IAirtableRepo airtableRepo
+        )
         {
+            this.embeddedResourceQuery = embeddedResourceQuery;
+            this.driver = driver;
+            this.airtable_repo = airtableRepo;
         }
 
         public async Task<IActionResult> OnGetSearchAirsoftLoadouts(AirsoftLoadout search, string Name = "Snow Owl")
@@ -26,8 +34,8 @@ namespace nugsnet6.Pages.Loadouts
                 // search.Dump("initial search for loadouts");
                 // Name.Dump("Passed in name");
                 var results = await airtable_repo.SearchRecords<AirsoftLoadout>(_search
-                    .With(s=>
-                    {   
+                    .With(s =>
+                    {
                         s.table_name = "Airsoft Loadouts";
                         s.maxRecords = 12;
                         s.filterByFormula = $"(FIND(\"{Name}\", {{Name}}))";
@@ -36,13 +44,14 @@ namespace nugsnet6.Pages.Loadouts
 
                 return Partial("LoadoutsGrid", results);
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 var message = ex.ToString();
                 var title = ex.Message;
 
-                  return Content($"""
-                    <b class='alert alert-error'>{title}</b>
-                """);
+                return Content($"""
+                    <b class='alert alert-error'>{ title}       </b>
+                """ );
             }
         }
     }

@@ -1,6 +1,8 @@
+using System.Text;
 using CodeMechanic.Diagnostics;
 using CodeMechanic.FileSystem;
 using CodeMechanic.Types;
+using Microsoft.Data.SqlClient;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NSpecifications;
@@ -107,4 +109,25 @@ public class JsonConfigService : IJsonConfigService
         string cs_projname = "";
         Console.WriteLine($"WARNING: Could not find 'config.json' files in a <Watch> inside project '{cs_projname}'");
     }
+
+
+    // private void SqlFormatting<Part>(Part part, params string[] values)
+    // {
+    //     var subquery = new StringBuilder();
+    //     subquery.AppendFormat("{0}{1}", values[0], values[1]);
+    //     subquery.AppendFormat($"{values[0]}{values[1]}");
+    //     subquery.AppendFormat($"{part.Name}{part.Cost}");
+    // }
+
+    // private void DoStuff()
+    // {
+    //     // select name, crested from posts where create >= {:from} and 
+    //     var query = SqlFormatting(_, "Magpul 5.56", "$23.00", "1-1-23");
+    //
+    //     
+    //     new SqlParameter(@"name", "blah");
+    //     
+    //
+    //
+    // }
 }

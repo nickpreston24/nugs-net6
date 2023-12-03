@@ -6,12 +6,16 @@ using CodeMechanic.RazorHAT;
 using CodeMechanic.Embeds;
 using CodeMechanic.Types;
 using Htmx;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace nugsnet6.Pages.Loadouts
 {
     [BindProperties]
-    public class IndexModel : HighSpeedPageModel
+    public class IndexModel : PageModel
     {
+        private readonly IEmbeddedResourceQuery embeddedResourceQuery;
+        private readonly IDriver driver;
+        private readonly IAirtableRepo airtable_repo;
         private static AirtableSearch currentAirtableSearch = new AirtableSearch();
         public AirtableSearch CurrentAirtableSearch => currentAirtableSearch;
 
@@ -23,6 +27,8 @@ namespace nugsnet6.Pages.Loadouts
         [BindProperty(Name = "tab", SupportsGet = true)]
         public string? Tab { get; set; }
 
+        public string Title { get; set; } = string.Empty;
+
         public bool IsSelected(string name) =>
             name.Equals(Tab?.Trim(), StringComparison.OrdinalIgnoreCase);
 
@@ -30,9 +36,12 @@ namespace nugsnet6.Pages.Loadouts
         public IndexModel(
             IEmbeddedResourceQuery embeddedResourceQuery
             , IDriver driver
-            , IAirtableRepo repo
-        ) : base(embeddedResourceQuery, driver, repo, nameof(Loadouts))
+            , IAirtableRepo airtableRepo
+        )
         {
+            this.embeddedResourceQuery = embeddedResourceQuery;
+            this.driver = driver;
+            this.airtable_repo = airtableRepo;
         }
 
         public IActionResult OnGet()
@@ -76,8 +85,8 @@ namespace nugsnet6.Pages.Loadouts
                 var title = ex.Message;
 
                 return Content($"""
-                    <b class='alert alert-error'>{title}</b>
-                """);
+                    <b class='alert alert-error'>{ title}     </b>
+                """ );
             }
         }
     }

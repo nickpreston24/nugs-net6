@@ -6,14 +6,19 @@ using CodeMechanic.RazorHAT;
 using CodeMechanic.Types;
 using Htmx;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Neo4j.Driver;
 using nugsnet6.Extensions;
 
 namespace nugsnet6.Pages.PrivateSales
 {
     [BindProperties]
-    public class IndexModel : HighSpeedPageModel
+    public class IndexModel : PageModel
     {
+        private readonly IEmbeddedResourceQuery embeddedResourceQuery;
+        private readonly IDriver driver;
+        private readonly IAirtableRepo airtable_repo;
+
         public List<string> Tabs { get; }
             = new[] { "_MarketPrices", "_PrivateSales" }.ToList();
 
@@ -26,9 +31,12 @@ namespace nugsnet6.Pages.PrivateSales
         public IndexModel(
             IEmbeddedResourceQuery embeddedResourceQuery
             , IDriver driver
-            , IAirtableRepo repo
-        ) : base(embeddedResourceQuery, driver, repo, nameof(Loadouts))
+            , IAirtableRepo airtableRepo
+        )
         {
+            this.embeddedResourceQuery = embeddedResourceQuery;
+            this.driver = driver;
+            this.airtable_repo = airtableRepo;
             var view_names = new Grepper()
                     {
                         RootPath = Directory.GetCurrentDirectory().Dump("current dir"),

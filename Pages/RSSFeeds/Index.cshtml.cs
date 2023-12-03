@@ -6,21 +6,25 @@ using Newtonsoft.Json.Linq;
 using CodeMechanic.RazorHAT;
 using Neo4j.Driver;
 using CodeMechanic.Embeds;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace nugsnet6.Pages.RSSFeeds;
 
-public class IndexModel : HighSpeedPageModel
+public class IndexModel : PageModel
 {
+    private readonly IEmbeddedResourceQuery embeddedResourceQuery;
+    private readonly IDriver driver;
 
     private static int count = 0;
 
-    private string [] feeds = {"https://www.theepochtimes.com/c-us-politics/feed"};
+    private string[] feeds = { "https://www.theepochtimes.com/c-us-politics/feed" };
 
     public IndexModel(
         IEmbeddedResourceQuery embeddedResourceQuery
-        , IDriver driver) 
-    : base(embeddedResourceQuery, driver)
+        , IDriver driver)
     {
+        this.embeddedResourceQuery = embeddedResourceQuery;
+        this.driver = driver;
     }
 
     public void OnGet()
@@ -66,7 +70,7 @@ public class RSSFeedList<T>
                     "Text": ".NET MAUI App Stopped Working -- HELP!"
                 }
             }
-        """) 
+        """)
     {
         this.json = json;
         /// https://www.newtonsoft.com/json/help/html/SerializingJSONFragments.htm
@@ -75,10 +79,10 @@ public class RSSFeedList<T>
 
         // get JSON result objects into a list
         IList<JToken> results = search["records"]
-            .Children()/*.Dump("children")*/["fields"]
+            .Children() /*.Dump("children")*/["fields"]
             /*.Dump("fields children")*/
             .ToList();
-  
+
         // serialize JSON results into .NET objects
         IList<T> records = new List<T>();
         foreach (JToken result in results)
@@ -95,6 +99,6 @@ public class RSSFeedList<T>
     )
     {
         raw_json = this.json;
-        records = this.records/*.Dump("returned records")*/;
+        records = this.records /*.Dump("returned records")*/;
     }
 }
