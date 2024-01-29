@@ -941,6 +941,11 @@ thenby@^1.3.4:
   resolved "https://registry.npmjs.org/thenby/-/thenby-1.3.4.tgz"
   integrity sha512-89Gi5raiWA3QZ4b2ePcEwswC3me9JIg+ToSgtE0JWeCynLnLxNr/f9G+xfo9K+Oj4AFdom8YNJjibIARTJmapQ==
 
+three@^0.159.0:
+  version "0.159.0"
+  resolved "https://registry.npmjs.org/three/-/three-0.159.0.tgz"
+  integrity sha512-eCmhlLGbBgucuo4VEA9IO3Qpc7dh8Bd4VKzr7WfW4+8hMcIfoAVi1ev0pJYN9PTTsCslbcKgBwr2wNZ1EvLInA==
+
 to-regex-range@^5.0.1:
   version "5.0.1"
   resolved "https://registry.npmjs.org/to-regex-range/-/to-regex-range-5.0.1.tgz"

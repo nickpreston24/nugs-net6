@@ -13,12 +13,14 @@
             crossorigin="anonymous">
     </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.umd.min.js"
+            asp-fallback-src="~/lib/chartjs"    
+            ></script>
 
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.47.0/dist/full.css" rel="stylesheet" type="text/css"/>
 
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css"/>
-    
+
     <!-- Alpine Plugins -->
     <script defer src='https://cdn.jsdelivr.net/npm/@@alpinejs/persist@3.x.x/dist/cdn.min.js'></script>
     <script src="https://unpkg.com/htmx.org@latest/dist/ext/alpine-morph.js"></script>

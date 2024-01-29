@@ -1,20 +1,25 @@
 -- Search for any rows that are considered incomplete, based on certain criterion
-create or replace procedure find_incomplete_ammoseek_rows(
-    caliber varchar(150) = '',
-    retailer varchar(150) = '',
-    grain varchar(150) = ''
-)
+-- drop function get_ammo(@caliber varchar, @retailer varchar, @grains varchar)
+create or replace function get_ammo(@caliber varchar = '', @retailer varchar = '', @grains varchar = '')
+    returns table
+            (
+                caliber  varchar(150),
+                retailer varchar(150),
+                grains   varchar(150)
+            )
     language plpgsql
 as
 $$
 begin
 
-    select *
-    from ammoseek_prices prices
-    where prices.caliber = ''
-       or grains is null
-       or last_update is null
-       or casing is null;
-
+    return query
+        select prices.caliber,
+               prices.retailer,
+               prices.grains
+        from ammoseek_prices prices
+        where 1 = 1
+          AND (
+            @caliber <> '' OR prices.caliber = @caliber
+            );
 end;
 $$;
