@@ -1,30 +1,28 @@
- // Lego version 2.0.0-beta.8
-  import { h, Component } from './lego.min.js'
-  
+// Lego version 2.0.0-beta.8
+import {Component, h} from './lego.min.js'
 
-  
 
-  const __template = function({ state }) {
-    return [  
-`
+const __template = function ({state}) {
+    return [
+        `
     
 
 /* from: https://www.youtube.com/watch?v=NnniXasJIpY */
 
 `,
-    h("div", {"id": `dash1`, "class": `border-red-400 border-2`}, [
-      h("div", {"class": `header`}, `header`),
-      h("div", {"class": `sidebar`}, `sidebar`),
-      h("div", {"class": `main`}, [
-        h("div", {"class": `card text-orange-500 sm:min-w-36`}, `One`),
-        h("div", {"class": `card text-orange-500 sm:min-w-36`}, `Two`),
-        h("div", {"class": `card text-orange-500 sm:min-w-36`}, `Three`),
-        h("div", {"class": `card text-orange-500 sm:min-w-36`}, `4`),
-        h("div", {"class": `card text-orange-500 sm:min-w-36`}, `5`),
-        h("div", {"class": `card text-orange-500 sm:min-w-36`}, `6`)
-      ])
-    ]),
-    h("style", {}, `
+        h("div", {"id": `dash1`, "class": `border-red-400 border-2`}, [
+            h("div", {"class": `header`}, `header`),
+            h("div", {"class": `sidebar`}, `sidebar`),
+            h("div", {"class": `main`}, [
+                h("div", {"class": `card text-orange-500 sm:min-w-36`}, `One`),
+                h("div", {"class": `card text-orange-500 sm:min-w-36`}, `Two`),
+                h("div", {"class": `card text-orange-500 sm:min-w-36`}, `Three`),
+                h("div", {"class": `card text-orange-500 sm:min-w-36`}, `4`),
+                h("div", {"class": `card text-orange-500 sm:min-w-36`}, `5`),
+                h("div", {"class": `card text-orange-500 sm:min-w-36`}, `6`)
+            ])
+        ]),
+        h("style", {}, `
 
     #dash1 {
         height: 100vh;
@@ -85,27 +83,33 @@
 
 
 `)
-  ]
-  }
+    ]
+}
 
-  const __style = function({ state }) {
+const __style = function ({state}) {
     return h('style', {}, `
       
       
     `)
-  }
+}
 
-  // -- Lego Core
-  export default class Lego extends Component {
+// -- Lego Core
+export default class Lego extends Component {
     init() {
-      this.useShadowDOM = true
-      if(typeof state === 'object') this.__state = Object.assign({}, state, this.__state)
-      if(typeof connected === 'function') this.connected = connected
-      if(typeof setup === 'function') setup.bind(this)()
+        this.useShadowDOM = true
+        if (typeof state === 'object') this.__state = Object.assign({}, state, this.__state)
+        if (typeof connected === 'function') this.connected = connected
+        if (typeof setup === 'function') setup.bind(this)()
     }
-    get vdom() { return __template }
-    get vstyle() { return __style }
-  }
-  // -- End Lego Core
+
+    get vdom() {
+        return __template
+    }
+
+    get vstyle() {
+        return __style
+    }
+}
+// -- End Lego Core
 
   

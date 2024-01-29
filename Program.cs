@@ -1,8 +1,10 @@
 using System.Reflection;
+using CodeMechanic.Diagnostics;
 using CodeMechanic.Embeds;
 using CodeMechanic.RazorHAT.Services;
 using CodeMechanic.Types;
 using nugsnet6;
+using nugsnet6.Pages;
 using TPOT_Links.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -49,7 +51,11 @@ builder.Services.AddSingleton<IAirtableQueryingService>(new AirtableQueryingServ
 builder.Services.ConfigureAirtable();
 builder.Services.ConfigureNeo4j();
 
-if (use_blazor) builder.Services.AddServerSideBlazor();
+if (use_blazor)
+{
+    builder.Services.AddServerSideBlazor();
+    // builder.RootComponents.RegisterCustomElement<Counter>("my-counter");
+}
 
 var app = builder.Build();
 
@@ -62,12 +68,16 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Blazor
+// app.UseBlazorFrameworkFiles();
+
 app.UseStaticFiles();
 
 app.UseRouting();
 
 app.UseAuthorization();
-if (use_blazor)
+if (use_blazor.Dump("blazor?"))
     app.UseEndpoints(endpoints =>
     {
         endpoints.MapRazorPages(); // existing endpoints

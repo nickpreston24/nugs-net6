@@ -14,8 +14,7 @@
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.umd.min.js"
-            asp-fallback-src="~/lib/chartjs"    
-            ></script>
+            asp-fallback-src="~/lib/chartjs"></script>
 
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.47.0/dist/full.css" rel="stylesheet" type="text/css"/>
 
@@ -32,7 +31,6 @@
     <script type="module" src="~/js/main.js"></script>
     <script src="~/dist/index.js" type="module"></script>
 
-    @* <script src="./dist/cm-yt-dashboard.js"></script> *@
     <link rel="stylesheet" href="~/css/site.css">
 
 </head>
@@ -41,6 +39,10 @@
 <main role="main">
     @RenderBody()
 </main>
+
+<!-- Blazor -->
+<script src="_content/Microsoft.AspNetCore.Components.CustomElements/BlazorCustomElements.js"></script>
+<script src="_framework/blazor.webassembly.js"></script>
 
 @await RenderSectionAsync("Scripts", required: false)
 
@@ -96,8 +98,7 @@
                 </svg
                 >
             </a>
-            <a
-            >
+            <a>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -113,9 +114,4 @@
         </div>
     </div>
 </footer>
-
-<script type="module">
-    // Set up Alpine persistence
-</script>
-
 </html>

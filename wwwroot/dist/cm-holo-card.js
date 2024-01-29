@@ -1,4 +1,4 @@
- // Lego version 2.0.0-beta.8
+ // Lego version 2.0.0-beta.7
   import { h, Component } from './lego.min.js'
   
 

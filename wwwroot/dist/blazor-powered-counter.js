@@ -3,20 +3,21 @@
   
 
   
-    const state = {
-        registered: false,
-        firstName: 'John',
-        lastName: 'Doe',
-        fruits: [{name: 'Apple', icon: '🍎'}, {name: 'Pineapple', icon: '🍍'}]
-    }
-
-    function register() {
-        render({registered: confirm('You are about to register…')})
-    }
+    // const state = {
+    //     registered: false,
+    //     firstName: 'John',
+    //     lastName: 'Doe',
+    //     fruits: [{name: 'Apple', icon: '🍎'}, {name: 'Pineapple', icon: '🍍'}]
+    // }
+    //
+    // function register() {
+    //     render({registered: confirm('You are about to register…')})
+    // }
 
 
   const __template = function({ state }) {
     return [  
+    h("h1", {}, `Blazor Counter Lego2`),
     h("h1", {}, `${ state.firstName } ${ state.lastName }'s profile`),
     h("p", {}, `Welcome ${ state.firstName }!`),
     ((state.fruits.length) ? h("section", {}, [
