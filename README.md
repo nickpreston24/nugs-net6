@@ -3,7 +3,7 @@
 1. Aid the average civilian consumer in making decisions for their Loadouts.
 2. Make sourcing hard to find materials easier by scanning TacSwap, Gunbroker and others
 3. Prevent accidental "violations" to keep civilians safe as possible from tyranny.
-
+4. ...
 
 ## Upgrading the app to a Desktop App
 
