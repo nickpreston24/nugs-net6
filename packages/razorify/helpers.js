@@ -8,7 +8,7 @@ function capitalize(s) {
   return s[0].toUpperCase() + s.slice(1);
 }
 
-const tag = (text = "", tag = "") => {
+const surround_with_tag = (text = "", tag = "") => {
   if (tag === "input")
     return `<input type="text" value="..." placeholder="..." />`;
   return `<${tag}>${text}</${tag}>`;

@@ -19,11 +19,11 @@ console.log("input_filepath :>> ", input_filepath);
 console.log("input_filename :>> ", input_filename);
 
 const html = readFileSync(input_filepath, { encoding: "utf8", flag: "r" });
-const regex = /<body>(?<body>(.|\n)*)<\/body>/gi;
-const body = XRegExp.exec(html, regex).groups.body;
+const body_regex = /<body>(?<body>(.|\n)*)<\/body>/gi;
+const body_found = XRegExp.exec(html, body_regex).groups.body;
 
 const final_body = prepend(
-  body.trim(),
+  body_found.trim(),
   `
 @page
 @model IndexModel
