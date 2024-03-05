@@ -56,7 +56,7 @@
 
 </hydrosection>
 
-@if (Model.CopyUrl.NotEmpty())
+@if (@devmode.ToBoolean() && Model.CopyUrl.NotEmpty())
 {
     @* <button @@click="$clipboard('hello world')">Copy "Hello World"</button> *@
     <span>@Model.CopyUrl</span>
