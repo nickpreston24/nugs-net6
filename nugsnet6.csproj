@@ -19,6 +19,7 @@
         <Watch Include="**\*.config.json" />
         <Watch Include="/Pages/**/*.json" />
         <Watch Include="**\*.sql" />
+        <Watch Include="**\*.env" />
         <Watch Include="**\*.cypher" />
         <!--        <Watch Include="**\*.css" />-->
     </ItemGroup>

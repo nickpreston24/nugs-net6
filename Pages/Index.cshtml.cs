@@ -1,5 +1,6 @@
 ﻿using CodeMechanic.Diagnostics;
 using CodeMechanic.Types;
+using CodeMechanic.UniqueId;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using nugsnet6.Models;
@@ -10,10 +11,33 @@ namespace nugsnet6.Pages;
 public class IndexModel : PageModel
 {
     private readonly ILogger<IndexModel> _logger;
+    public string CopyUrl { get; set; }
 
     public IndexModel(ILogger<IndexModel> logger)
     {
         _logger = logger;
+    }
+
+    public void OnGet(string u, string b)
+    {
+        u.Dump("user id");
+        b.Dump("build id");
+
+        string prod_url_start = "https://lock-n-loadout.up.railway.app/";
+        this.CopyUrl = prod_url_start + $"?u={u}" + $"&b={b}";
+    }
+
+
+    public IActionResult OnGetAnonymousUser()
+    {
+        var uuid = Guid.NewGuid().AsUUID();
+        Console.WriteLine("UuId : >> " + uuid);
+
+        return Partial("_Anonymous", new AnonymousUser()
+            {
+                uuid = uuid
+            }
+        );
     }
 
     public async Task<IActionResult> OnGetPricing()
@@ -23,23 +47,12 @@ public class IndexModel : PageModel
 
     public async Task<IActionResult> OnGetSurvey()
     {
-        // @await Html.PartialAsync("_LoginPartial")
-        // "".AsH
-
         return Partial("_Survey", default);
-//         return Content($"""
-//                         <div>
-//                             <h1>Hang on sloopy!</h1>
-//                             {}
-//                         </div>
-//                         """);
     }
 
     public async Task<IActionResult> OnPostUpdateSurvey([FromBody] Survey survey)
     {
         survey.Dump("survey contents");
-        // return Partial("Survey", default);
-        // return Content("<p>BLARG!!!</p>");
         return Partial("Pricing", default);
     }
 
@@ -67,40 +80,10 @@ public class IndexModel : PageModel
 
         return Partial(section_name, value);
     }
+}
 
-    /*
-     * IDEA: Not possible, but certainly fun
-     */
-    // [Obsolete("Not possible to use async yield returns, yet!")]
-    // public async IAsyncEnumerable<IActionResult> OnGetNextSection(string section_name = "")
-    // {
-        // section_name.Dump();
-        // // if (section_name.IsEmpty()) return Content("<p>No content!</p>");
-        //
-        // await foreach (var content in FetchSectionContents())
-        // {
-        //     // yield return content;
-        //     yield return content;
-        // }
-
-        // return Content("<p>Done!</p>");
-    // }
-
-    // IDEA: yield return Partials.
-    public async IAsyncEnumerable<IActionResult> FetchSectionContents()
-    {
-        // List<string> contents = new List<string>();
-        for (int i = 1; i <= 10; i++)
-        {
-            // await Task.Delay(1000);
-            string html = $"""
-                           <section>
-                               <h3>Section {i}</h3>
-                               <p>lorem</p>
-                           </div>
-                           """;
-            Thread.Sleep(1000);
-            yield return Content(html);
-        }
-    }
+public class AnonymousUser
+{
+    public string uuid { get; set; }
+    public string uri { get; set; }
 }

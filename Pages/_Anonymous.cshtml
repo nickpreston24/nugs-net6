@@ -1,0 +1,30 @@
+@using CodeMechanic.Types
+@model AnonymousUser
+
+@{
+    string args = $"?u={Model.uuid}";
+}
+
+<div
+    x-data="{ message: 'foo' 
+    , push_params() {
+        window.history.replaceState(null, null, '@args');     
+    }    
+}"uuid
+    class="flex flex-col items-center justify-center">
+    <p class="badge-info badge">
+        User
+        <b>@Model.uuid</b>
+    </p>
+    @if (@Model.uri.NotEmpty())
+    {
+        <p class="badge-accent badge">
+            <b>@Model.uri</b>
+        </p>
+    }
+    <span
+        x-init="push_params()"
+        @* x-text="message" *@
+        >
+    </span>
+</div>

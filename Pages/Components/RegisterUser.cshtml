@@ -1,0 +1,58 @@
+@using CodeMechanic.UniqueId
+@using Hydro.TagHelpers
+@using nugsnet6.Extensions
+@model RegisterUser
+
+@{
+    // var get_uuid = () => Guid.NewGuid().AsUUID();
+}
+
+<div class="bg-secondary-200/30 p-2 text-sm shadow-sm">
+
+    <div id="registration_card" class="flex flex-col w-full lg:flex-row">
+        <div class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center">
+
+            <h2>Register / Login here</h2>
+            <input placeholder="First Name" asp-for="FirstName" hydro-bind/>
+            <input placeholder="Last Name" asp-for="LastName" hydro-bind/>
+            @* x-init="$watch('full_name', value => console.log(value))" *@
+            @* :value="full_name" *@
+            <span>
+                @Model.FullName
+            </span>
+
+        </div>
+        <div class="divider lg:divider-horizontal">OR</div>
+        <div class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center">
+            <p>Sign In as an</p>
+            <button
+                hx-get
+                hx-page="Index"
+                hx-page-handler="AnonymousUser"
+                hx-target="#registration_card"
+                hx-swap="outerHTML"
+                class="btn btn-accent btn-lg">
+                Anonymous User
+            </button>
+        </div>
+    </div>
+
+
+    @* <div x-show='false' *@
+    @*      $1$ x-show="show_buttons" #1# *@
+    @*      class="join"> *@
+    @*     <button class="btn join-item">Button</button> *@
+    @*     <button class="btn join-item">Button</button> *@
+    @*     <button class="btn join-item">Button</button> *@
+    @* </div> *@
+    @* <script> *@
+    @*     let existing_user = localStorage.getItem('lnl_id'); *@
+    @*     if(!existing_user) { *@
+    @*         let uuid = @get_uuid(); *@
+    @*         console.log('generated uuid:>> ' + uuid); *@
+    @*         localStorage.setItem('lnl_id', uuid); *@
+    @*     } *@
+    @*     if(!!existing_user) *@
+    @*         console.log('Welcome back, user ' + existing_user) *@
+    @* </script> *@
+</div>
