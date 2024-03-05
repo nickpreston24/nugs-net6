@@ -6,6 +6,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="hydro-config"/>
+
     <script defer src="~/hydro/hydro.js" asp-append-version="true"></script>
     <script defer src="~/hydro/alpine.js" asp-append-version="true"></script>
 
@@ -32,13 +33,17 @@
     <!-- Alpine Core -->
     @* <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script> *@
 
-    <script type="module" src="~/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+
+    <script type="module" src="~/js/main.js" asp-append-version="true"></script>
     <script src="~/dist/index.js" type="module"></script>
 
 
     @*
     TODO: This is screwing up daisyui's default styles somehow, even when I recompile
      <link rel="stylesheet" href="~/css/site.css"> *@
+
+    <view-script append-version="true"/>
 
 </head>
 
@@ -52,7 +57,11 @@
 
 </body>
 
-<locknloadout-footer>
-    
-</locknloadout-footer>
+<locknloadout-footer/>
+@* *@
+@* <script > *@
+@*     console.log('draw_svg_text (wind0w):>> ', window.draw_svg_text); *@
+@*     console.log('draw_svg_text :>> ', draw_svg_text); *@
+@* *@
+@* </script> *@
 </html>

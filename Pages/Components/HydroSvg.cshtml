@@ -1,0 +1,22 @@
+@model HydroSvg
+
+@* @section Scripts { <script src="~/Pages/Components/HydroSvg.cshtml.js"></script> } *@
+
+<div class="container">
+    <svg width="105pt" height="110pt" viewBox="0 0 105 110" preserveAspectRatio="xMidYMid meet">
+        <g transform="translate(0.000000,110.000000) scale(0.100000,-0.100000)">
+            <path
+                class="logo-path"
+                d="M447 1080 c-145 -19 -264 -96 -349 -225 -58 -89 -82 -178 -82 -305 0
+            -128 24 -218 85 -309 100 -149 256 -224 469 -225 130 0 220 25 311 87 98 66
+            99 70 31 154 -31 40 -62 72 -68 72 -6 1 -21 -10 -33 -23 -12 -13 -50 -37 -84
+            -52 -55 -25 -73 -29 -157 -28 -111 0 -170 21 -233 82 -35 34 -73 90 -65 96 4
+            3 752 156 763 156 8 0 -2 94 -17 160 -58 241 -304 396 -571 360z m169 -205
+            c27 -8 64 -25 82 -39 43 -31 90 -96 98 -132 l6 -29 -282 -56 -282 -56 6 55
+            c15 126 96 229 206 263 41 12 113 10 166 -6z"/>
+        </g>
+    </svg>
+
+    <span x-init="draw_svg_text"></span>
+
+</div>

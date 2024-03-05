@@ -6,7 +6,7 @@
     string devmode = Environment.GetEnvironmentVariable("DEVMODE").ToBoolean().AsJS();
     // Console.WriteLine("devmode? " + devmode);
 }
-@* x-on:click="localStorage.setItem('last-count',@Model.Count)" *@
+
 <template
         x-if="@devmode"
     >

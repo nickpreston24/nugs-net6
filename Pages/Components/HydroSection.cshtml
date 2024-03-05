@@ -1,12 +1,13 @@
+@using nugsnet6.Extensions
 @model HydroSection
 
+@* <template x-if="!@Model.Hidden.AsJS()"> *@
 <section class="hydrosection">
-    <template x-if="!@Model.Hidden">
-        <div class="text-3xl text-primary">
-            @Model.Slot("header")
-        </div>
-        <div class="">
-            @Model.Slot()
-        </div>
-    </template>
+    <div class="text-3xl text-primary">
+        @Model.Slot("header")
+    </div>
+    <div class="">
+        @Model.Slot()
+    </div>
 </section>
+@* </template> *@

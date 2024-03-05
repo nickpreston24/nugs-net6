@@ -6,14 +6,11 @@
 }
 
 <div
-    x-data="{ message: 'foo' 
-    , push_params() {
-        window.history.replaceState(null, null, '@args');     
-    }    
+    x-data="{ message: 'foo'
 }"uuid
     class="flex flex-col items-center justify-center">
     <p class="badge-info badge">
-        User
+        User: 
         <b>@Model.uuid</b>
     </p>
     @if (@Model.uri.NotEmpty())
@@ -22,8 +19,9 @@
             <b>@Model.uri</b>
         </p>
     }
+    <img src="~/img/icons/spy.svg" alt="spy">
     <span
-        x-init="push_params()"
+        x-init="append_url_params('@args')"
         @* x-text="message" *@
         >
     </span>

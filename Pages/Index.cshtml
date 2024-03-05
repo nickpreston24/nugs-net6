@@ -47,37 +47,66 @@
 }
 
 
+@section Scripts { <script src="~/Pages/Components/HydroSvg.cshtml.js"></script> }
+
 <div x-data="setup()">
 
-<hydrosection>
-    <slot name="header">
-        Dotnet Watch Configurations
-    </slot>
+@* <hydrosection> *@
+@*     <slot name="header"> *@
+@*         Dotnet Watch Configurations *@
+@*     </slot> *@
+@* </hydrosection> *@
 
-</hydrosection>
-
-@if (@devmode.ToBoolean() && Model.CopyUrl.NotEmpty())
+@if (@devmode.ToBoolean() && Model.AnonUser.CopyUrl.NotEmpty())
 {
     @* <button @@click="$clipboard('hello world')">Copy "Hello World"</button> *@
-    <span>@Model.CopyUrl</span>
+    <span>@Model.AnonUser.CopyUrl</span>
 }
 
 <section>
     <div class="hero min-h-screen bg-base-200">
         <div class="hero-content text-center">
             <div class="max-w-md">
-                <h1 class="text-5xl font-bold">Hello there!</h1>
-                <h1 class="text-3xl font-bold">
+                <h1 class="text-5xl font-bold">
                     Welcome to Lock N Loadout!
                 </h1>
+                
+                
+                <section x-data="{}" class="vertical-padding flex flex-col gap-10">
+                    <partial name="_CarouselCard" model="@recce_card"/>
+                    <partial name="_CarouselCard" model="@pcc_card"/>
+                    <partial name="_CarouselCard" model="@long_rifle_card"/>
+                </section>
+                
                 <span x-text="locknload_uuid"></span>
 
+                
                 <div>
                     @* Hydro tests *@
                     @* <hydro name="HydroCounter"/> *@
                     <hydro name="RegisterUser"></hydro>
+
+
+                    @*                     <div class="container"> *@
+                    @*                         <svg width="105pt" height="110pt" viewBox="0 0 105 110" preserveAspectRatio="xMidYMid meet"> *@
+                    @*                             <g transform="translate(0.000000,110.000000) scale(0.100000,-0.100000)"> *@
+                    @*                                 <path *@
+                    @*                                     class="logo-path" *@
+                    @*                                     d="M447 1080 c-145 -19 -264 -96 -349 -225 -58 -89 -82 -178 -82 -305 0 *@
+                    @*                                 -128 24 -218 85 -309 100 -149 256 -224 469 -225 130 0 220 25 311 87 98 66 *@
+                    @*                                 99 70 31 154 -31 40 -62 72 -68 72 -6 1 -21 -10 -33 -23 -12 -13 -50 -37 -84 *@
+                    @*                                 -52 -55 -25 -73 -29 -157 -28 -111 0 -170 21 -233 82 -35 34 -73 90 -65 96 4 *@
+                    @*                                 3 752 156 763 156 8 0 -2 94 -17 160 -58 241 -304 396 -571 360z m169 -205 *@
+                    @*                                 c27 -8 64 -25 82 -39 43 -31 90 -96 98 -132 l6 -29 -282 -56 -282 -56 6 55 *@
+                    @*                                 c15 126 96 229 206 263 41 12 113 10 166 -6z"/> *@
+                    @*                             </g> *@
+                    @*                         </svg> *@
+
+                    @* <span x-init="draw_svg_text"></span> *@
+
+                    @* </div> *@
+
                 </div>
-                @* <button class="btn btn-primary">Get Started</button> *@
             </div>
         </div>
     </div>
@@ -128,11 +157,7 @@
 @* <img *@
 @*     src="https://unsplash.com/photos/black-rifle-on-snow-covered-ground-aQB_qqJcWhM" *@
 @*     alt="Album"/> *@
-<section x-data="{}" class="vertical-padding flex flex-row gap-10">
-    <partial name="_CarouselCard" model="@recce_card"/>
-    <partial name="_CarouselCard" model="@pcc_card"/>
-    <partial name="_CarouselCard" model="@long_rifle_card"/>
-</section>
+
 
 <!-- Section 2 -->
 <template x-if="false">
@@ -185,7 +210,7 @@
 
             <div class="stat">
                 <div class="stat-figure text-secondary">
-                    <div class="avatar online">
+                    <div clahydrosvgss="avatar online">
                         <div class="w-16 rounded-full">
                             @* <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg"/> *@
                         </div>
@@ -377,4 +402,30 @@
             locknload_uuid: user
         }
     }
+    
+      anime({
+            targets: '.logo-path',
+            strokeDashoffset: [anime.setDashoffset, 0],
+            duration: 3000,
+            endDelay: 1000,
+            easing: 'linear',
+            loop: true,
+        });
 </script>
+@* <style> *@
+@*     .container { *@
+@*       position: relative; *@
+@*       width: fit-content; *@
+@*       display: flex; *@
+@*       flex-direction: row; *@
+@*       justify-content: space-between; *@
+@*       margin-left: auto; *@
+@*       margin-right: auto; *@
+@*       top: 50px; *@
+@*     } *@
+@*     .logo-path { *@
+@*       stroke: #474eed; *@
+@*       stroke-width: 20px; *@
+@*       fill: transparent; *@
+@*     } *@
+@* </style> *@
