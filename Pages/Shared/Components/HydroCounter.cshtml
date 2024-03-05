@@ -1,8 +1,19 @@
 @model HydroCounter
 
-<div>
+<div class="flex flex-row">
     Count: <strong>@Model.Count</strong>
-    <button hydro-on:click="@(() => Model.Add())">
+        @* x-on:click="localStorage.setItem('last-count',@Model.Count)" *@
+    <button
+        hydro-on:click="@(() => Model.Add())">
         Add
     </button>
+
+    <button hydro-on:click="@(() => Model.Reset())">
+        Reset
+    </button>
+
+    <div x-data="{ index: 0 }">
+        <strong x-text="index"></strong>
+        <button x-on:click="index = index + 1">Add</button>
+    </div>
 </div>

@@ -11,4 +11,9 @@ public class HydroCounter : HydroComponent
     {
         Count++;
     }
+
+    public void Reset()
+    {
+        Count = 0;
+    }
 }
