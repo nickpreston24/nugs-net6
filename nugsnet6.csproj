@@ -7,23 +7,21 @@
         <Nullable>enable</Nullable>
         <InvariantGlobalization>true</InvariantGlobalization>
         <LangVersion>preview</LangVersion>
+        <PublishSingleFile>true</PublishSingleFile>
         <EnvironmentName>Production</EnvironmentName>
         <NoWarn>
             CS0414;CS8602;CS1998;CS0168;CS8605;CS8603;CS8625;CS8604;CS8600;CS8601;CS8620;CS8618;CS4014;CS8619;CS8765;CS0105;CS8767;CS0659;CS8619;CS0219;
         </NoWarn>
-        
-        <PublishSingleFile>true</PublishSingleFile>
-
     </PropertyGroup>
 
     <ItemGroup>
-<!--        <Watch Include="**\*.cshtml" />-->
-        <Watch Include="bricks\*.html" />
+        <!--        <Watch Include="**\*.cshtml" />-->
+        <!--        <Watch Include="bricks\*.html" TODO: make these HydroComponents />-->
         <Watch Include="**\*.config.json" />
         <Watch Include="/Pages/**/*.json" />
         <Watch Include="**\*.sql" />
         <Watch Include="**\*.cypher" />
-<!--        <Watch Include="**\*.css" />-->
+        <!--        <Watch Include="**\*.css" />-->
     </ItemGroup>
 
     <ItemGroup>
@@ -54,7 +52,7 @@
         <PackageReference Include="Hydro" Version="0.11.0" />
         <PackageReference Include="HyperTextExpression.AspNetCore" Version="0.0.7" />
         <PackageReference Include="Insight.Database" Version="6.3.11" />
-<!--        <PackageReference Include="JsonDiffPatch.Net" Version="2.3.0" />-->
+        <!--        <PackageReference Include="JsonDiffPatch.Net" Version="2.3.0" />-->
         <PackageReference Include="MySqlConnector" Version="2.3.1" />
         <PackageReference Include="Neo4j.Driver" Version="5.15.0" />
         <PackageReference Include="Npgsql" Version="8.0.0" />
@@ -65,11 +63,16 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="Controllers\scrapes.rest">
-        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      </Content>
+        <Content Include="Controllers\scrapes.rest">
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+<!--      <ProjectReference Include="..\CodeMechanic.UI.Hydro\CodeMechanic.UI.Hydro.csproj" />-->
+<!--      <ProjectReference Include="..\RazorUIClassLib\RazorUIClassLib.csproj" />-->
     </ItemGroup>
 
 

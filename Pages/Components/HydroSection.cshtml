@@ -1,9 +1,12 @@
 @model HydroSection
 
 <section class="hydrosection">
-    @* <template x-if="!@Model.Hidden"> *@
-    <div class="">
-        @Model.Slot("header")
-    </div>
-    @* </template> *@
+    <template x-if="!@Model.Hidden">
+        <div class="text-3xl text-primary">
+            @Model.Slot("header")
+        </div>
+        <div class="">
+            @Model.Slot()
+        </div>
+    </template>
 </section>

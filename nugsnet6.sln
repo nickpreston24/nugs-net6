@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nugsnet6", "nugsnet6.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMechanic.Types", "..\code-mechanic\Extensions\Types\CodeMechanic.Types.csproj", "{9FD12C1A-3ECB-4B81-A53F-5C8282BB12D8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMechanic.UI.Hydro", "..\CodeMechanic.UI.Hydro\CodeMechanic.UI.Hydro.csproj", "{97DC076C-73F0-41FF-8242-F0A0F7C459E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorUIClassLib", "..\RazorUIClassLib\RazorUIClassLib.csproj", "{311FD5FE-30E3-4FDF-855B-226C5373BD6E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +28,13 @@ Global
 		{9FD12C1A-3ECB-4B81-A53F-5C8282BB12D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FD12C1A-3ECB-4B81-A53F-5C8282BB12D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FD12C1A-3ECB-4B81-A53F-5C8282BB12D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97DC076C-73F0-41FF-8242-F0A0F7C459E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97DC076C-73F0-41FF-8242-F0A0F7C459E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97DC076C-73F0-41FF-8242-F0A0F7C459E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97DC076C-73F0-41FF-8242-F0A0F7C459E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{311FD5FE-30E3-4FDF-855B-226C5373BD6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{311FD5FE-30E3-4FDF-855B-226C5373BD6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{311FD5FE-30E3-4FDF-855B-226C5373BD6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{311FD5FE-30E3-4FDF-855B-226C5373BD6E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "dotnet watch run --launch-profile hotreloadprofile --urls http://127.1.1.0:8080",
+    "dev": "dotnet watch run --quiet --no-hot-reload --urls http://127.1.1.0:8080",
     "build": "yarn && npm i && dotnet build -v q && yarn buildcss:linux",
     "restore": "dotnet restore",
     "buildcss:linux": "npx tailwindcss -i ./Styles/app.css -o ./wwwroot/css/site.css",
@@ -8,7 +8,8 @@
     "nuke": "rm -rf node_modules wwwroot/lib wwwroot/css bin obj",
     "reinstall": "npm run nuke && yarn && npm i && npm run  buildcss:linux",
     "quickstart": "bash quickstart.sh",
-    "lego": "lego -w -i bricks/ -o wwwroot/dist/"
+    "lego": "lego -w -i bricks/ -o wwwroot/dist/",
+    "sfa": "dotnet publish -r linux-x64 --self-contained false"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10",
