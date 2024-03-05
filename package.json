@@ -8,8 +8,7 @@
     "nuke": "rm -rf node_modules wwwroot/lib wwwroot/css bin obj",
     "reinstall": "npm run nuke && yarn && npm i && npm run  buildcss:linux",
     "quickstart": "bash quickstart.sh",
-    "lego": "lego -w -i bricks/ -o wwwroot/dist/",
-    "sfa": "dotnet publish -r linux-x64 --self-contained false"
+    "lego": "lego -w -i bricks/ -o wwwroot/dist/"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10",
