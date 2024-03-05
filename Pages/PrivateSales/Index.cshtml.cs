@@ -8,7 +8,6 @@ using Htmx;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Neo4j.Driver;
-using nugsnet6.Extensions;
 
 namespace nugsnet6.Pages.PrivateSales
 {

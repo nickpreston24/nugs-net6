@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using nugsnet6;
 using nugsnet6.Models;
 
 namespace TPOT_Links.Controllers;

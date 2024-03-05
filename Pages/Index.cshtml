@@ -1,7 +1,6 @@
 ﻿@page
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @using CodeMechanic.RazorHAT.Services
-@using CodeMechanic.RazorHAT.Models
 @model IndexModel
 @inject IImageService imageService
 @{
@@ -28,14 +27,14 @@
         Description = "Click the button to start building one.",
         Images = @recce_rifle_images
     };
-    
+
     var pcc_card = new CarouselCardModel()
     {
         Title = "Pistol Caliber Carbines (PCC)",
         Description = "Click the button to start building one.",
         Images = @pcc_images
     };
-    
+
     var long_rifle_card = new CarouselCardModel()
     {
         Title = "Long Rifles",
@@ -45,31 +44,32 @@
 }
 
 
-<base href="/blazor/" />   
-
 <div>
 
 
-<div
-    class="hero min-h-screen"
-    style="
-            background-image: url(https://daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.jpg);
-          ">
-    <div class="hero-overlay bg-opacity-60"></div>
-    <div class="hero-content text-center text-neutral-content">
-        <div class="lg:max-w-md max-w-sm">
-            <h1 class="mb-5 text-5xl font-bold">Welcome to Lock N' Loadout!</h1>
-            <p class="mb-5">
-                Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-                excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-                a id nisi.
-            </p>
-            <a href="/Builder">
-                <button class="btn btn-primary">Start Building</button>
-            </a>
+<section>
+    <div class="hero min-h-screen bg-base-200">
+        <div class="hero-content text-center">
+            <div class="max-w-md">
+                <h1 class="text-5xl font-bold">Hello there</h1>
+
+                <div>
+                    @* Hydro tests *@
+                    <hydro name="HydroCounter"/>
+                    <hydro name="UserIntroduction"></hydro>
+
+                    <hydrosection>
+                        <h1 name="header" class="text-3xl text-primary">
+                            Hydro Section test
+                        </h1>
+                    </hydrosection>
+
+                </div>
+                <button class="btn btn-primary">Get Started</button>
+            </div>
         </div>
     </div>
-</div>
+</section>
 
 <!-- Section 1 -->
 
@@ -119,7 +119,9 @@
 </section>
 
 <!-- Section 2 -->
-<section class="flex flex-row vertical-padding gap-10">
+<section
+    x-if="false"
+    class="flex flex-row vertical-padding gap-10">
     <!-- stats -->
     <div class="stats shadow flex-2">
         <div class="stat">
@@ -166,7 +168,7 @@
             <div class="stat-figure text-secondary">
                 <div class="avatar online">
                     <div class="w-16 rounded-full">
-                        <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg"/>
+                        @* <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg"/> *@
                     </div>
                 </div>
             </div>
@@ -194,7 +196,10 @@
 </section>
 
 <!-- Section 3 -->
-<section class="flex flex-row vertical-padding flex-row flex gap-10">
+<section
+    x-if="false"
+
+    class="flex flex-row vertical-padding flex-row flex gap-10">
     <div class="flex gap-4 flex-1 flex-col">
         <div>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus tempore
@@ -251,7 +256,10 @@
 </section>
 
 <!-- Section 4 -->
-<section class="flex flex-row vertical-padding gap-10">
+<section
+    x-if="false"
+
+    class="flex flex-row vertical-padding gap-10">
     <!-- stats -->
     <div class="stats shadow flex-2">
         <div class="stat">

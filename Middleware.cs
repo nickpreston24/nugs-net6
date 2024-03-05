@@ -48,19 +48,3 @@ public static class Neo4jConfigurations {
     }
 
 }
-
-// public static class BlazorConfigurations {
-
-//     public static void ConfigureBlazor(this IServiceCollection services) 
-//     {
-//         services.AddServerSideBlazor();        
-//     }
-
-//     // public static void UseBlazor(this IApplication app ) {
-//     //     app.UseEndpoints(endpoints =>
-//     //     {	
-//     //         endpoints.MapRazorPages(); // existing endpoints
-//     //         endpoints.MapBlazorHub();                
-//     //     });
-//     // }
-// }

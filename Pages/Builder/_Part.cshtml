@@ -4,9 +4,9 @@
 }
 
 <div class="card w-96 bg-base-100 shadow-xl">
-    <template x-if="part.image.url">
+    <template x-if="part.image.uri">
         <figure>
-            <img :src="part.image.url" alt="Image Not Found"/>
+            <img :src="part.image.uri" alt="Image Not Found"/>
         </figure>
     </template>
     <div class="card-body">

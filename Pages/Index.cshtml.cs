@@ -2,7 +2,6 @@
 using CodeMechanic.Types;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using nugsnet6.Extensions;
 using nugsnet6.Models;
 
 namespace nugsnet6.Pages;

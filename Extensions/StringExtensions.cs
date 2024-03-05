@@ -1,5 +1,3 @@
-using System.Text.RegularExpressions;
-
 namespace nugsnet6.Extensions;
 
 public static class StringExtensions

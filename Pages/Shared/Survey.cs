@@ -1,5 +1,3 @@
-using nugsnet6.Models;
-
 namespace nugsnet6.Models;
 
 public class Survey

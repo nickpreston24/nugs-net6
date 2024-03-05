@@ -1,12 +1,8 @@
 using System.Diagnostics;
-using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
-using Bogus;
-using CodeMechanic.Diagnostics;
+using CodeMechanic.Advanced.Regex;
 using CodeMechanic.Types;
-using CsvHelper;
-using nugsnet6.Experimental;
 using nugsnet6.Extensions;
 
 namespace CodeMechanic.RazorHAT.Services;

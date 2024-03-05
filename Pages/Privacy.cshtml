@@ -1,5 +1,4 @@
 ﻿@page
-@using nugsnet6.Pages.Shared.Components
 @model PrivacyModel
 @{
     ViewData["Title"] = "Privacy Policy";
@@ -7,10 +6,3 @@
 <h1>@ViewData["Title"]</h1>
 
 <p>Use this page to detail your site's privacy policy.</p>
-
-
-<div class="border-4 border-red">
-    <component>@(await Html.RenderComponentAsync<Counter>(RenderMode.Server))</component>
-</div>
-<blazor-powered-counter>hi</blazor-powered-counter>
-@* <user-profile></user-profile> *@

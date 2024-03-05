@@ -37,7 +37,8 @@ public class PartsController : ControllerBase
                 setting.Neo4jPassword = "blarg";
                 setting.MySqlConnectionString = Environment.GetEnvironmentVariable("MYSQL_CONNECTIONSTRING");
             })
-            .Dump("current settings"); // doesn't work on startup.  Who knew?
+            // .Dump("current settings")
+            ; // doesn't work on startup.  Who knew?
     }
 
     [HttpPatch(nameof(ImportRecordsToNeo4jFromCSV))]
@@ -45,19 +46,20 @@ public class PartsController : ControllerBase
         [FromBody] ImportRequest request
     )
     {
-        request.Dump("my request");
-        
+        // request.Dump("my request");
+
         var csv_lines = System.IO.File.ReadAllLines(request.import_file_path);
         var csv_regex = csv_lines[0]
-            .Split(',')
-            .Aggregate(new StringBuilder(), (builder, next_header) =>
-            {
-                builder.Append($"(?<{next_header}>.*),");
-                return builder;
-            })
-            .RemoveFromEnd(1)
-            .ToString()
-            .Dump("generated regex");
+                .Split(',')
+                .Aggregate(new StringBuilder(), (builder, next_header) =>
+                {
+                    builder.Append($"(?<{next_header}>.*),");
+                    return builder;
+                })
+                .RemoveFromEnd(1)
+                .ToString()
+            // .Dump("generated regex")
+            ;
 
         var parts_for_upload = csv_lines
             .SelectMany(csv => csv.Extract<Part>(csv_regex))
@@ -130,7 +132,7 @@ public class PartsController : ControllerBase
     public async Task<IEnumerable<Part>> AddNewParts(
         [FromBody] Part next_part)
     {
-        settings.Dump("current settings");
+        // settings.Dump("current settings");
 
         // var batches = new Part()
         //     .Repeat(19)
@@ -149,7 +151,7 @@ public class PartsController : ControllerBase
 
             var part = new Part() { Name = "Fake Part" };
             connection.Insert("InsertPart", part);
-// var results = connection
+            // var results = connection
             //     .QuerySql<Part>(query)
             //     .ToMaybe(); // I like maybe.  So sue me.
 
@@ -194,7 +196,7 @@ public class PartsController : ControllerBase
     public async Task<object> DownloadAmmoSeek(AmmoseekRequest request)
     {
         string html = await SearchAmmoSeek(request);
-        html.Dump("html");
+        // html.Dump("html");
         var file_info = await SaveFileAS(request, html);
 
         return file_info;
@@ -224,7 +226,8 @@ public class PartsController : ControllerBase
     private static async Task<string> SearchAmmoSeek(AmmoseekRequest request)
     {
         using var client = new HttpClient();
-        var content = await client.GetStringAsync("https://ammoseek.com/ammo/224-valkyrie");
+        var content = await client
+            .GetStringAsync("https://ammoseek.com/ammo/224-valkyrie");
         return content;
 
         // string base_url = @"https://ammoseek.com/ammo/";
@@ -238,30 +241,4 @@ public class PartsController : ControllerBase
         // Console.WriteLine(html);
         // return html;
     }
-}
-
-public record ImportRequest
-{
-    public string import_file_path { get; set; }
-    public string neo4j_user { get; set; } = "neo4j";
-    public string neo4j_password { get; set; } = "neo4j";
-}
-
-public record AmmoseekRequest
-{
-    public string caliber { set; get; } = string.Empty;
-}
-
-
-
-public record DownloadRequestAirtable
-{
-    public string base_name { get; set; } = string.Empty;
-    public int limit { get; set; } = 100;
-}
-
-public record UploadRequestNeo4j<T> //where T : new()
-{
-    public string label_name { get; set; } = string.Empty;
-    public List<T> Payload { get; set; } = new List<T>();
 }

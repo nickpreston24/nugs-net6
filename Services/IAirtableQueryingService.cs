@@ -1,9 +1,7 @@
 using System.Net.Http.Headers;
 using CodeMechanic.Diagnostics;
 using CodeMechanic.Types;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using nugsnet6.Extensions;
 
 namespace CodeMechanic.RazorHAT.Services;
 

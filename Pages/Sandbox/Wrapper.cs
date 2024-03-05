@@ -11,7 +11,7 @@ namespace CodeMechanic;
 public class Wrapper<T>
 {
     public Wrapper(T wrapped) => Wrapped = wrapped;
-    public static Wrapper<T> Create<T>(T wrapped) => new Wrapper<T>(wrapped);
+    public static Wrapper<T> Create(T wrapped) => new Wrapper<T>(wrapped);
 
     public T Wrapped { get; set; }
 }

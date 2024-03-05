@@ -60,8 +60,8 @@
       <pre x-show="debug">
         <span x-text="base_id"></span>
         <span x-text="page_route"></span>
-        <span x-text="fetch_url"></span>
-        <span x-text="patch_url"></span>
+        <span x-text="fetch_uri"></span>
+        <span x-text="patch_uri"></span>
         <span x-text="crud_action"></span>
 
         <span x-text="class_name"></span>
@@ -103,18 +103,18 @@
           page_route: "/Parts",
           crud_action: 'GET',
           parameter_text: `maxRecords=3&view=Grid%20view`,
-          base_url: `https://api.airtable.com/v0/`,
+          base_uri: `https://api.airtable.com/v0/`,
 
           get class_name () {
             return this.debug ? 'swap-on' : 'swap-off'
           },
 
-          get fetch_url() {
-            return `${this.base_url}${this.base_id}${this.page_route}?${this.parameter_text}`;
+          get fetch_uri() {
+            return `${this.base_uri}${this.base_id}${this.page_route}?${this.parameter_text}`;
           },
 
-          get patch_url() {
-            return `${this.base_url}${this.base_id}${this.page_route}?${this.parameter_text}`;
+          get patch_uri() {
+            return `${this.base_uri}${this.base_id}${this.page_route}?${this.parameter_text}`;
           } 
         };
       }
