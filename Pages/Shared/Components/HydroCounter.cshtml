@@ -1,19 +1,30 @@
 @model HydroCounter
 
-<div class="flex flex-row">
+<div class="flex flex-row join join-horizontal">
     Count: <strong>@Model.Count</strong>
-        @* x-on:click="localStorage.setItem('last-count',@Model.Count)" *@
+    @* x-on:click="localStorage.setItem('last-count',@Model.Count)" *@
+
+
     <button
+        class="btn btn-primary join-item"
         hydro-on:click="@(() => Model.Add())">
         Add
     </button>
 
-    <button hydro-on:click="@(() => Model.Reset())">
+    <button
+        class="btn btn-secondary join-item"
+
+        hydro-on:click="@(() => Model.Reset())">
         Reset
     </button>
 
     <div x-data="{ index: 0 }">
         <strong x-text="index"></strong>
-        <button x-on:click="index = index + 1">Add</button>
+        <button
+            class="btn btn-accent join-item"
+
+            x-on:click="index = index + 1">
+            Add
+        </button>
     </div>
 </div>

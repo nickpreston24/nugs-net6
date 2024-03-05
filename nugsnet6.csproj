@@ -61,12 +61,4 @@
         <PackageReference Include="System.ServiceModel.Syndication" Version="8.0.0-preview.3.23174.8" />
     </ItemGroup>
 
-    <ItemGroup>
-        <Content Include="Controllers\scrapes.rest">
-            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        </Content>
-    </ItemGroup>
-
 </Project> 
