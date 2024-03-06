@@ -1,10 +1,13 @@
 {
   "scripts": {
-    "dev": "dotnet watch run --quiet --no-hot-reload --urls http://127.1.1.0:8080",
+    "dev": "dotnet watch run --quiet --urls http://127.1.1.0:8080",
+    "start": "dotnet run --configuration Release --urls http://127.1.1.0:8080",
+    "debug": "dotnet run bin/Debug/net7.0/nugsnet6.dll  --urls http://127.1.1.0:8080",
+    "release": "dotnet run /bin/Release --urls http://127.1.1.0:8080",
     "build": "yarn && npm i && dotnet build -v q && yarn buildcss:linux",
+    "publish": "dotnet publish -c Release",
     "restore": "dotnet restore",
     "buildcss:linux": "npx tailwindcss -i ./Styles/app.css -o ./wwwroot/css/site.css",
-    "desktop": "electronize-h5 start /watch",
     "nuke": "rm -rf node_modules wwwroot/lib wwwroot/css bin obj",
     "reinstall": "npm run nuke && yarn && npm i && npm run  buildcss:linux",
     "quickstart": "bash quickstart.sh",
