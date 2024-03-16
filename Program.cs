@@ -1,12 +1,34 @@
 using System.Reflection;
+using System.Text;
 using CodeMechanic.Diagnostics;
 using CodeMechanic.Embeds;
+using CodeMechanic.Migrations;
 using CodeMechanic.RazorHAT.Services;
+using CodeMechanic.Shargs;
 using CodeMechanic.Types;
 using Hydro.Configuration;
 using nugsnet6;
 using TPOT_Links.Controllers;
 
+
+//
+// if (args.Length > 0)
+// {
+Console.WriteLine("running cli mode");
+var cli_options = new ArgumentsCollection(args);
+cli_options.Dump(nameof(cli_options));
+
+var foo = cli_options.Matching("--foo").Values
+    .Aggregate(new StringBuilder(), (sb, next) =>
+    {
+        sb.AppendLine(next);
+        return sb;
+    }).ToString();
+Console.WriteLine("foo :>> " + foo);
+//
+// }Sharg
+// else if (args.Length == 0)
+// {
 var builder = WebApplication.CreateBuilder(args);
 
 // Load and inject .env files & values
@@ -23,8 +45,9 @@ var props_service = new PropertyCache();
 builder.Services.AddScoped<IJsonConfigService, JsonConfigService>();
 builder.Services.AddScoped<IFakerService, FakerService>();
 
-builder.Services.AddSingleton<ILocalLogger, LocalLoggerService>();
+// builder.Services.AddSingleton<ILocalLogger, LocalLoggerService>();
 builder.Services.AddSingleton<IMarkdownService, MarkdownService>();
+builder.Services.AddSingleton<ICodeSyncService, CodeSyncService>();
 builder.Services.AddSingleton<IImageService, ImageService>();
 builder.Services.AddSingleton<IRazorRoutesService, RazorRoutesService>();
 builder.Services.AddSingleton<IPropertyCache>(props_service);
@@ -77,3 +100,4 @@ app.MapControllerRoute(
 app.UseHydro(builder.Environment);
 
 app.Run();
+// }

@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using CodeMechanic.Diagnostics;
 using Neo4j.Driver;
 using CodeMechanic.Embeds;
+using CodeMechanic.RazorHAT.Services;
+using CodeMechanic.Types;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace nugsnet6.Pages.Admin;
@@ -12,19 +15,42 @@ public class IndexModel : PageModel
     private readonly IDriver driver;
 
     private static int count = 0;
+    private readonly ICsvService csv;
+
+    public List<Models.Part> PartsFromCsv { get; set; } = new();
 
     public IndexModel(
         IEmbeddedResourceQuery embeddedResourceQuery
+        , ICsvService csvService
         , IDriver driver)
     {
         this.embeddedResourceQuery = embeddedResourceQuery;
         this.driver = driver;
+        csv = csvService;
     }
 
     public void OnGet()
     {
         // reset on refresh
         count = 0;
+        PartsFromCsv = csv.Read<Models.Part>("Experimental/Parts-Grid view.csv", (csv) =>
+        {
+            string cost_wo_dollar_sign = csv.GetField("Cost")
+                    .Replace("$", "")
+                // .Dump("after replace")
+                ;
+
+            cost_wo_dollar_sign.Dump("cost field");
+            var record = new Models.Part
+            {
+                Id = csv.GetField<string>("Id"),
+                Name = csv.GetField("Name"),
+                Cost = cost_wo_dollar_sign.ToDouble()
+                // Combo = cost_wo_dollar_sign.ToDouble()
+                // Cost = TypeExtensions.ToDouble(csv.GetField("Cost").ToString())
+            };
+            return record;
+        }).ToList();
     }
 
     public async Task<IActionResult> OnGetStuff()
@@ -52,7 +78,7 @@ public class IndexModel : PageModel
             $"""
             <div class='alert alert-primary'>
                 <p class='text-xl text-secondary text-sh'>
-                { query} 
+                { query}        
                 </p>
             </div>
         """ );

@@ -17,9 +17,9 @@
             <input placeholder="Last Name" asp-for="LastName" hydro-bind/>
             @* x-init="$watch('full_name', value => console.log(value))" *@
             @* :value="full_name" *@
-            <span>
-                @Model.FullName
-            </span>
+            @* <span> *@
+            @*     @Model.FullName *@
+            @* </span> *@
 
         </div>
         <div class="divider lg:divider-horizontal">OR</div>
@@ -33,12 +33,11 @@
                 hx-swap="outerHTML"
                 class="btn btn-accent btn-lg">
                 Anonymous User
-                @* <img src="~/img/icons/spy.svg" alt="spy"> *@
             </button>
+            <img height="1em" width="1em" src="~/img/icons/spy.svg" alt="spy">
             @* <hydro name="HydroSvg"></hydro> *@
         </div>
     </div>
-
 
     @* <div x-show='false' *@
     @*      $1$ x-show="show_buttons" #1# *@

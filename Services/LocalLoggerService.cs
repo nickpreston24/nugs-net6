@@ -1,3 +1,4 @@
+using CodeMechanic.Diagnostics;
 using CodeMechanic.FileSystem;
 
 namespace CodeMechanic.RazorHAT.Services;
@@ -8,7 +9,7 @@ public class LocalLoggerService : ILocalLogger
     private bool dev_mode = false;
 
     public LocalLoggerService(
-        LocalLoggingSettings loggingSettings = null
+        LocalLoggingSettings loggingSettings
         , bool devMode = false)
     {
         logging_settings = loggingSettings;
@@ -25,7 +26,7 @@ public class LocalLoggerService : ILocalLogger
             .Select(fn => new FileInfo(fn));
 
         var now = DateTime.Now;
-        var expiration = now.Add(loggingSettings.ExpiresIn);
+        var expiration = now.Add(loggingSettings.Dump().ExpiresIn);
         var stale_files = files.Where(fi => fi.CreationTime > expiration).ToArray();
 
         foreach (var doomed_file in stale_files)

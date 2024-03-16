@@ -69,16 +69,16 @@ public class IndexModel : PageModel
         Console.WriteLine(Environment.GetEnvironmentVariable("HOME"));
 
         return Content("Done!");
-
-
-        string regex_pattern_for_parts = $"""
-            (?<Name>\w+)\,
-        """ ;
-
-        var csv_parts = csv_service.ImportAs<nugsnet6.Models.Part>(filepath, regex_pattern_for_parts);
-        csv_parts.Count.Dump($"# of parts from csv '{filepath}'");
-
-        return Partial("_PartsTable", csv_parts);
+//
+//
+//         string regex_pattern_for_parts = $"""
+//             (?<Name>\w+)\,
+//         """ ;
+//
+//         var csv_parts = csv_service.ImportAs<nugsnet6.Models.Part>(filepath, regex_pattern_for_parts);
+//         csv_parts.Count.Dump($"# of parts from csv '{filepath}'");
+//
+//         return Partial("_PartsTable", csv_parts);
     }
 
     public async Task<IActionResult> OnGetSamplePartsFromAirtable()

@@ -34,7 +34,8 @@
         <td class='text-secondary'> @part.Type</td>
         <td class='text-secondary'> @part.WeightInOz</td>
         <td class='text-secondary'> @part.ProductCode</td>
-        <td class='text-accent'> @part?.Cost.Value.ToString(CultureInfo.InvariantCulture)</td>
+        @* <td class='text-accent'> @part?.Cost.Value.ToString(CultureInfo.InvariantCulture)</td> *@
+        @* <td class='text-accent'>$zzz</td> <!--TODO: update Cost to non-nullable (i  freaking hate nullable types!) --> *@
         <td class='text-secondary'> @part.Notes</td>
     </tr>
 }

@@ -4,7 +4,10 @@
 //
 //   "Set quicktype target language"
 
-using CodeMechanic.Extensions;
+using System.Globalization;
+using CodeMechanic.Diagnostics;
+using CodeMechanic.Types;
+using CsvHelper;
 using NSpecifications;
 
 namespace nugsnet6.Models;
@@ -12,6 +15,7 @@ namespace nugsnet6.Models;
 public class Part
 {
     public string Id { get; set; } = string.Empty;
+
     // public DateTime createdTime { get; set; }
     public string Name { get; set; } = string.Empty;
     public string Kind { get; set; } = string.Empty;
@@ -19,8 +23,10 @@ public class Part
     public string Notes { get; set; } = string.Empty;
     public string ProductCode { get; set; } = string.Empty;
 
-    public double? Cost { get; set; }
+    public double Cost { get; set; }
+
     public string WeightInOz { get; set; }
+
     // public Attachment[] Attachments { get; set; }
     public string Attachments { get; set; }
     public string Calibers { set; get; }
@@ -34,7 +40,7 @@ public class Part
     public string LastModifiedBy { get; set; }
     public DateTimeOffset LastModified { get; set; }
 
-    public static Maybe<Part> NotFound = new Maybe<Part>(new Part()
+    public static CodeMechanic.Extensions.Maybe<Part> NotFound = new CodeMechanic.Extensions.Maybe<Part>(new Part()
     {
         Id = string.Empty, Name = "Not Available", Cost = -1, ComboCost = -1
     });
@@ -43,3 +49,25 @@ public class Part
                                                                          && NotFound.IfSome(_ =>
                                                                              part.Equals(NotFound.Value)));
 }
+//
+// public static class PartCsvExtensions
+// {
+//     public static Part MapToRecord(this CsvReader csv)
+//     {
+//         string cost_wo_dollar_sign = csv.GetField("Cost")
+//                 .Replace("$", "")
+//             // .Dump("after replace")
+//             ;
+//
+//         cost_wo_dollar_sign.Dump("cost field");
+//         var record = new Part
+//         {
+//             Id = csv.GetField<string>("Id"),
+//             Name = csv.GetField("Name"),
+//             Cost = cost_wo_dollar_sign.ToDouble()
+//             // Combo = cost_wo_dollar_sign.ToDouble()
+//             // Cost = TypeExtensions.ToDouble(csv.GetField("Cost").ToString())
+//         };
+//         return record;
+//     }
+// }

@@ -6,7 +6,6 @@ using System.Text.RegularExpressions;
 using CodeMechanic.Advanced.Regex;
 using CodeMechanic.Diagnostics;
 using Newtonsoft.Json;
-using nugsnet6.Extensions;
 using MemoryCache = System.Runtime.Caching.MemoryCache;
 
 namespace CodeMechanic.Airtable;
