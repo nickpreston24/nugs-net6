@@ -2,6 +2,8 @@ namespace nugsnet6.Extensions;
 
 public static class StringExtensions
 {
+    public static string AsCurrency(this double num, string not_euros = "$") => $"{not_euros}{num}";
+
     // public record StringEdit
     // {
     // }

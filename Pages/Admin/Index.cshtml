@@ -1,17 +1,69 @@
 @page
 @using nugsnet6.Pages.Components
+@using nugsnet6.Models
+@using Htmx.TagHelpers
+@using Hydro.TagHelpers
 @model nugsnet6.Pages.Admin.IndexModel;
 @{
     var parts_from_csv = Model.PartsFromCsv;
+    int parts_above_1k = parts_from_csv.Count(p => p.Cost > 1000.00);
+    int parts_above_2k = parts_from_csv.Count(p => p.Cost > 2000.00);
+    var most_expensive_part = parts_from_csv.FirstOrDefault(p => p.Id == parts_from_csv.MaxBy(p => p.Cost)?.Id);
+
+    string passphrase = Environment.GetEnvironmentVariable("BUYER_PASSPHRASE");
+
 }
 
-<flex>
+<split>
     <section
         id="csv_imports" class="grid grid-rows-auto grid-cols-auto">
         <div class="alert alert-success">Parts found from CSV: @parts_from_csv.Count</div>
+        <div class="alert alert-success">Parts above 1k: @parts_above_1k</div>
+        <div class="alert alert-success">Parts above 2k: @parts_above_2k</div>
+
+        <flex>
+            <h2>Most expensive</h2>
+            <hydro name="PartCard"
+                   params="@(new { CurrentPart = @most_expensive_part })">
+            </hydro>
+        </flex>
+
+
     </section>
     <section>
         <h2 class="text-lg">Section 2</h2>
+
+        @* <stats> *@
+        @*     <div> *@
+        @*         <stat slot="title" class="stat-title">New Users</stat> *@
+        @*         <stat slot="value" class="stat-value">4,200</stat> *@
+        @*         <stat slot="desc" class="stat-desc">↗︎ 400 (22%)</stat> *@
+        @*          *@
+        @*     </div> *@
+        @* </stats> *@
+
+        <button class="btn btn-success"
+                hx-get
+                hx-page="Index"
+                hx-page-handler="Save">
+            Save All to Sqlite DB
+        </button>
+
+        <button
+            hx-get
+            hx-page="Index"
+            hx-page-handler="CreateParts"
+            class="btn btn-accent">
+            Save Fakes to Sqlite DB
+        </button>
+
+        <p>fake parts editor</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi perferendis quam suscipit! Ea est magnam, mollitia nihil nobis odit provident quam quasi repellat, sunt tempore velit. Dolorem maxime nesciunt sint.</p>
+         @* params="@(new { EditedPart = new Part() })" *@
+        <hydro name="FakePartForm"/>
+
+        @* <hydro name="HydroCounter"/> *@
+
         @* <ul> *@
         @*     <flex Orientation="@Flexies.Col"> *@
         @*         @foreach (var part in parts_from_csv) *@
@@ -23,4 +75,4 @@
         @*     </flex> *@
         @* </ul> *@
     </section>
-</flex>
+</split>

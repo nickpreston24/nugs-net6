@@ -1,0 +1,30 @@
+@using nugsnet6.Extensions
+@using nugsnet6.Models
+@using CodeMechanic.Diagnostics
+@using CodeMechanic.Extensions
+@model nugsnet6.Pages.Parts.PartCard
+
+@{
+    Part part = Model.CurrentPart.ToMaybe().IfNone(new Part());
+}
+
+<hydro-card>
+    <slot name="image">
+        <figure>
+            <img src="@part?.ImageUrl" alt="Shoes"/>
+        </figure>
+    </slot>
+    @* <span>modelcount prop: @Model.Count</span> *@
+    <slot name="title">@part?.Name</slot>
+
+    <p class="max-w-full">@part?.Notes</p>
+    <p class="max-w-full">@part?.Type</p>
+    <p class="max-w-full">@part?.Kind</p>
+    <p class="max-w-64 overflow-ellipsis overflow-auto ">
+        <b>Cost:</b> <br>@part?.Cost.AsCurrency()
+    </p>
+
+    <slot name="actions">
+        <button class="btn btn-primary">Buy Now</button>
+    </slot>
+</hydro-card>

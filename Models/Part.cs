@@ -48,26 +48,7 @@ public class Part
     public static ISpecification<Part> IsValid => new Spec<Part>(part => part.Cost > 0
                                                                          && NotFound.IfSome(_ =>
                                                                              part.Equals(NotFound.Value)));
+
+    public string ImageUrl { get; set; } = string.Empty;
+    public string Manufacturer { get; set; } = string.Empty;
 }
-//
-// public static class PartCsvExtensions
-// {
-//     public static Part MapToRecord(this CsvReader csv)
-//     {
-//         string cost_wo_dollar_sign = csv.GetField("Cost")
-//                 .Replace("$", "")
-//             // .Dump("after replace")
-//             ;
-//
-//         cost_wo_dollar_sign.Dump("cost field");
-//         var record = new Part
-//         {
-//             Id = csv.GetField<string>("Id"),
-//             Name = csv.GetField("Name"),
-//             Cost = cost_wo_dollar_sign.ToDouble()
-//             // Combo = cost_wo_dollar_sign.ToDouble()
-//             // Cost = TypeExtensions.ToDouble(csv.GetField("Cost").ToString())
-//         };
-//         return record;
-//     }
-// }

@@ -6,8 +6,8 @@ public class AlertModel
 {
     public AlertModel(Exception ex = null)
     {
-        this.Error = ex ?? Maybe<Exception>.None;
-        this.Message = ex.Message;
+        Error = ex.ToMaybe();
+        Message = ex?.Message ?? string.Empty;
     }
 
     public string Message { get; set; } = string.Empty;

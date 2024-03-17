@@ -8,8 +8,6 @@ using CodeMechanic.Shargs;
 using CodeMechanic.Types;
 using Hydro.Configuration;
 using nugsnet6;
-using TPOT_Links.Controllers;
-
 
 //
 // if (args.Length > 0)
@@ -40,7 +38,7 @@ Console.WriteLine("Developer mode (all debugs enabled)? " + dev_mode);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddScoped<IPartService, PartService>();
+builder.Services.AddScoped<IPartsService, PartsService>();
 var props_service = new PropertyCache();
 builder.Services.AddScoped<IJsonConfigService, JsonConfigService>();
 builder.Services.AddScoped<IFakerService, FakerService>();
@@ -100,4 +98,5 @@ app.MapControllerRoute(
 app.UseHydro(builder.Environment);
 
 app.Run();
+
 // }

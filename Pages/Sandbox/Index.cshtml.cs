@@ -33,13 +33,13 @@ public class IndexModel : PageModel
         IEmbeddedResourceQuery embeddedResourceQuery
         , IDriver driver
         , IFakerService fakes
-        , ILocalLogger logger
+        // , ILocalLogger logger
     )
     {
         this.embeddedResourceQuery = embeddedResourceQuery;
         this.driver = driver;
         this.fakes = fakes;
-        local_logger = logger;
+        // local_logger = logger;
 
         string host = Environment.GetEnvironmentVariable("PGHOST");
         string username = Environment.GetEnvironmentVariable("PGUSER");
@@ -82,7 +82,7 @@ public class IndexModel : PageModel
         catch (Exception e)
         {
             Console.WriteLine(e);
-            local_logger.WriteLogs<Models.Part>("sandbox", e.ToString() + "\n" + query);
+            // local_logger.WriteLogs<Models.Part>("sandbox", e.ToString() + "\n" + query);
             return Partial("_Alert", new AlertModel(e));
         }
     }

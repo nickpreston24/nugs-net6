@@ -1,0 +1,25 @@
+@* @page *@
+@using CodeMechanic.RazorHAT.Services
+@model nugsnet6.Pages.Shared.Components.NugsNav
+
+@* @inject IRazorRoutesService routes *@
+
+@{
+    // var x = routes.GetAllRoutes();
+    var name = @Model.Name;
+}
+
+<hydro-nav>
+    @* <h1>@Model.Name</h1> *@
+    <slot name="links">
+        <li>
+            <a href="/">Homepage</a>
+        </li>
+        <li>
+            <a href="sandbox">Sandbox</a>
+        </li>
+        <li>
+            <a href="about">About</a>
+        </li>
+    </slot>
+</hydro-nav>

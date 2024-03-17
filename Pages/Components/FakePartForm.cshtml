@@ -1,0 +1,76 @@
+@model nugsnet6.Pages.Components.FakePartForm
+
+@{
+    var EditedPart = @Model.EditedPart;
+}
+
+
+
+<template
+        @* x-if="@devmode" *@
+    >
+
+    <div
+        class="flex flex-row join join-horizontal">
+        <div x-data="{ index: 0 }">
+
+            <p class="badge badge-success">
+                @* Hydro Count: <strong>@Model.Count</strong> *@
+            </p>
+            <p class="badge badge-info">
+
+                JS Count: <strong x-text="index"></strong>
+            </p>
+
+
+            <div class="join">
+                <button
+                    @* hydro-on:click="@(() => Model.Add())" *@
+
+                    class="btn btn-primary join-item">
+                    Add
+                </button>
+                <button
+                    @* hydro-on:click="@(() => Model.Reset())" *@
+                    class="btn btn-secondary join-item">
+                    Reset
+                </button>
+                <button
+                    x-on:click="index = index + 1"
+                    class="btn btn-accent join-item">
+                    (Javascript) Add
+                </button>
+            </div>
+        </div>
+
+
+    </div>
+</template>
+@* *@
+@* <h1>Add a Fake Part</h1> *@
+@* <p>This will store a fake part into a local Sqlite DB</p> *@
+@* <form hx-post hx-page="Index" hx-page-handler="UpdatePart" hx-swap="outerHTML" *@
+@*       class="form-horizontal needs-validation" _="on htmx:beforeSend set #submitButton.disabled to 'disabled'"> *@
+@*     <div class="mb-3"> *@
+@*         <label class="form-label" asp-for="EditedPart.Name"></label> *@
+@*         <input type="text" class="form-control" asp-for="EditedPart.Name"> *@
+@*         <div class="invalid-feedback"> *@
+@*             <span asp-validation-for="EditedPart.Name"></span> *@
+@*         </div> *@
+@*     </div> *@
+@* *@
+@*     <div class="mb-3"> *@
+@*         <label class="form-label" asp-for="EditedPart.Cost"></label> *@
+@*         <input type="text" class="form-control" asp-for="EditedPart.Cost"> *@
+@*         <div class="invalid-feedback"> *@
+@*             <span asp-validation-for="EditedPart.Cost"></span> *@
+@*         </div> *@
+@*     </div> *@
+@* *@
+@* *@
+@*     <button *@
+@*         type="submit" *@
+@*         class="btn btn-primary"> *@
+@*         Update Part *@
+@*     </button> *@
+@* </form> *@

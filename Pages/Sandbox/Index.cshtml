@@ -8,11 +8,11 @@
 @using TPOT_Links.Controllers
 @model IndexModel
 @inject IMarkdownService markdownService
-@inject IPartService partsService
+@inject IPartsService partsService
 @inject IFakerService fakes
 @{
     var markdown_files = markdownService.GetAllMarkdownFiles(devmode: false);
-    var parts = partsService.ReadAll();
+    var parts = await partsService.GetAll();
 
     var md_calc = new StatsCalculator<MarkdownFile>(markdown_files)
         .AddValidation(md => md.FilePath.IsNotEmpty());
@@ -93,7 +93,7 @@
         <img alt="Result loading..." class="htmx-indicator" width="25" src="/img/bars.svg"/>
 
     </button>
-    
+
     @* <partial name="_AmmoseekEdit" *@
     @*          model="Model.Insert"> *@
     @* </partial> *@

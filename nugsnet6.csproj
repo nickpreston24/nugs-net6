@@ -78,6 +78,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\code-mechanic\CodeMechanic.Migrations\CodeMechanic.Migrations.csproj" />
+<!--        <ProjectReference Include="..\code-mechanic\Extensions\Types\CodeMechanic.Types.csproj"/>-->
         <ProjectReference Include="..\code-mechanic\Shargs\CodeMechanic.Shargs.csproj" />
     </ItemGroup>
 
