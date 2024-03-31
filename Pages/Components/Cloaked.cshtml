@@ -1,0 +1,8 @@
+@using nugsnet6.Extensions
+@model nugsnet6.Pages.Components.Cloaked
+
+<div x-if="@Model.Hidden.AsJS()">
+    <template x-cloak>
+        @Model.Slot()
+    </template>
+</div>

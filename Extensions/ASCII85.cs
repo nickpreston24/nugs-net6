@@ -1,6 +1,4 @@
-using System;
 using System.Text;
-using System.IO;
 
 /// <summary>
 /// C# implementation of ASCII85 encoding. 

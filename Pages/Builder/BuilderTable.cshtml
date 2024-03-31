@@ -1,0 +1,52 @@
+@using CodeMechanic.Types
+@model nugsnet6.Pages.Builder.BuilderTable
+
+@{
+    var parts = Model.Parts
+        .OrderByDescending(part => part.Cost)
+        .ThenByDescending(part => part.ComboCost);
+}
+
+<table class="border-2 border-info">
+    <thead>
+    <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Cost</th>
+        <th>Shop</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var part in parts)
+    {
+        <tr>
+            <td class="form-control">
+                <input type="checkbox" class="toggle toggle-info">
+            </td>
+            <td class="lg:w-max md:w-96 w-32">
+                @part.Name
+            </td>
+            <td>
+                $@part.Cost
+            </td>
+
+            <td>
+                @if (@part.Url.NotEmpty())
+                {
+                    <a href="@part.Url" target="_blank">
+                        <button class="btn btn-info">View</button>
+                    </a>
+                }
+            </td>
+
+
+            @* <td> *@
+            @*     @if (@part.Attachments.NotEmpty()) *@
+            @*     { *@
+            @*         <img src="@part.Attachments" alt="@part.Name"> *@
+            @*     } *@
+            @* </td> *@
+        </tr>
+    }
+    </tbody>
+</table>

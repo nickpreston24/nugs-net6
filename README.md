@@ -17,13 +17,17 @@ https://github.com/ElectronNET/Electron.NET/issues/704
 
 ## Knowledge Transfer
 
-> This custom web Stack aims to do two things: Maximize the use of HTMX and make UI much easier and more fun to work with in the emerging `dotnet core` Linux era.
+> This custom web Stack aims to do two things: Maximize the use of HTMX and make UI much easier and more fun to work
+> with in the emerging `dotnet core` Linux era.
 
-I.  Essentially, I'm supporting the generation of HTML directly from as many backends or API's as possible, without needing Javascript Framework or complicated squeaky toys like Microsoft's Blazor.
+I. Essentially, I'm supporting the generation of HTML directly from as many backends or API's as possible, without
+needing Javascript Framework or complicated squeaky toys like Microsoft's Blazor.
 
 Just simple, old-school HTML, CSS and the occasional line of Javascript or C#.
 
-II. On the backend side of things, I've added support for `.sql` and `.cypher` files as first class citizens.  They can be easily imported by name, or even mapped to Razor CRUD functions by name.  This makes the following 3 sample codefiles incredibly easy to maintain for all team members of all types:
+II. On the backend side of things, I've added support for `.sql` and `.cypher` files as first class citizens. They can
+be easily imported by name, or even mapped to Razor CRUD functions by name. This makes the following 3 sample codefiles
+incredibly easy to maintain for all team members of all types:
 
 ``` sql
 -- Gets all Parts with Colt as the manufacturer:
@@ -48,3 +52,28 @@ RETURN user1, build1
 https://github.com/chartjs/awesome
 
 ## Issues
+
+## Stack
+
+### Frontend
+[Htmx](htmx.org)
+[Hydro](usehydro.dev)/[Alpine.js](alpinejs.dev)
+[AlpineJS tags](https://github.com/alexzeitler/Alpine.TagHelpers)
+[DaisyUI](https://daisyui.com/)
+[TailwindCSS](https://tailwindcss.com/)
+
+### Server/Backend/HTML generator
+[ASP.NET Razor Pages](https://www.learnrazorpages.com/)
+
+### Backend
+
+Anything, really, but mainly:
+
+[Neo4j]() - For mapping complex relationships that SQL cannot easily model or efficiently query.
+[MySQL]() - For ubiquitousness and ease of use.
+[Sqlite3]() - For local/mobile storage.
+[Pocketbase]() - For private uses.
+
+### Devops
+
+Railway.

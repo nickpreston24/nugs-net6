@@ -4,166 +4,152 @@
 @using CodeMechanic.Embeds
 @using Htmx.TagHelpers
 @using Microsoft.AspNetCore.Mvc.TagHelpers
+@using CodeMechanic.Diagnostics
+@using CodeMechanic.Types
+@using nugsnet6.Services
 @model nugsnet6.Pages.Builder.IndexModel
 @inject IRazorRoutesService routes_service
 @inject IEmbeddedResourceQuery embeds_service
+@inject ICsvService csv_svc
+@inject IBuilderService builder_svc
 @{
-    var all_pages = routes_service.GetAllRoutes();
-    var parts = Model.PartsFromCsv;
-    var current_build = Model.CurrentBuild;
+    string filepath = "Experimental/Parts-Grid view.csv";
+    var parts_from_csv = csv_svc
+        .Read<Part>(filepath
+            , (csv) =>
+            {
+                var record = new Part
+                {
+                    Id = csv.GetField<string>("Id"),
+                    Name = csv.GetField("Name"),
+                    Cost = csv.GetField("Cost")
+                        .Replace("$", "")
+                        .ToDouble(),
+                    Combo = csv.GetField("Combo"),
+                    Type = csv.GetField("Type"),
+                    Attachments = csv.GetField("Attachments"),
+                    Url = csv.GetField("Url"),
+                };
+                return record;
+            }).ToList();
 
-    string file_name = "BuildByName.cypher";
-    string query = (embeds_service as EmbeddedResourceService).GetFileContents<IndexModel>(file_name);
-    string query2 = (embeds_service as EmbeddedResourceService).GetFileContents<IndexModel>("BuildsLiked.cypher");
 
-    // Console.WriteLine("builds liked: " + query2);
-    // Console.WriteLine("builds by name: " + query);
+    var existing_builds = await builder_svc.GetAll();
+    existing_builds.Dump(nameof(existing_builds));
+
+
+    var grouped_by_type = parts_from_csv
+        .GroupBy(part => part.Type)
+        .OrderByDescending(gr => gr.Key)
+        .ThenByDescending(gr => gr.Count())
+        .ToArray();
+
+    // var group_names = grouped_by_type.Select(x => x.Key);
+
+    // var barrels = parts_from_csv.Where(part => part.Type.Equals(UpperPartType.Barrel));
+
+    // var all_pages = routes_service.GetAllRoutes();
+    // var parts = Model.PartsFromCsv;
+    // var current_build = Model.Dump("null?").CurrentBuild.Dump("current build");
 }
 
-<!-- GRID -->
-<div x-data="setup()">
-    <cm-yt-dashboard :class="my_dashboard_css + 'h-screen'">
+@* RECCE Sample : https://www.pewpewtactical.com/ar15-recce-build-aero-precision/ *@
 
-        <div slot="header" class="flex flex-row gap-8">
-            <partial name="_BreadCrumbs" model="nameof(Builder)"></partial>
-            @* <partial name="_BuildSteps"></partial> *@
+<div class="flex flex-row gap-2" x-data="setup()" direction="vertical">
+
+    <section id="left" class="w-1/5">
+        @* <hydro name="BuilderToolbar" params="@(new { MenuOptions = toolbar_options })"></hydro> *@
+        <builder-menu Parts="@parts_from_csv"></builder-menu>
+    </section>
+
+    <section id="right" class="w-4/5 flex flex-col items-center justify-center gap-2">
+
+        <div class="grid grid-rows-auto xl:grid-cols-2 grid-cols-1">
+
+            @foreach (var grouping in grouped_by_type)
+            {
+                <div>
+                    <label class="text-xl text-primary">Choose @(@grouping.Key.IsEmpty() ? "Part" : @grouping.Key)</label>
+                    <hydro name="BuilderTable" params="@(new { Parts = grouping })"></hydro>
+                </div>
+            }
         </div>
 
-        <div slot="sidebar">
-            @* <div class="border-accent border-2 "> *@
-            <partial class="" name="_Sidebar"></partial>
-            @* </div> *@
-        </div>
-
-        <div slot="place1">
-            <partial name="_OpticPicker" model="new Optics()"></partial>
-        </div>
-        <div slot="place2">
-            <partial name="BuildStats"></partial>
-            <partial name="_ChargerPicker" model="new List<Part>()"></partial>
-        </div>
-        <div slot="place3">
-            <partial name="_BarrelPicker"></partial>
-            <partial name="_ChargerPicker" model="new List<Part>()"></partial>
-            <partial name="BuildProgress"></partial>
-        </div>
-        @* hx-get="@Url.Page("PartsFromCsvFile")" *@
-        @* hx-trigger="load once, click delay:1s" *@
-        @* hx-page-handler="PartsFromCsvFile"
-        SamplePartsFromAirtable
-         *@
-
-
-        <div slot="place4">
-            <span id="parts_table">...</span>
-            <button
-                hx-get
-                hx-swap="outerHTML"
-                hx-page="Index"
-                :hx-page-handler="actual_handler"
-                hx-target="#parts_table"
-                class="btn btn-primary">
-                Load
-            </button>
-
-
-            <template x-cloak x-for="[key, value] of Object.entries(handler_options)">
-                @* :class="{!value ?  'badge-ghost border-2 border-yellow-500':'border-2 border-yellow-500 badge-accent'}" *@
-                <button
-                    x-show="true"
-                    x-on:click="toggle_handler(key, value)"
-                    class="btn btn-primary join-item shadow-md shadow-secondary-400/50"
-                    :class="{'border-2 border-secondary btn-ghost': !value, 'border-2    border-accent': value }">
-                    <label
-                        :data-tippy-content="key"
-                        x-text="key"
-                        class="form-label badge badge-sm"
-                        :asp-for='key'>
-                    </label>
-
-                    <input x-bind:name='key'
-                           x-bind:value='value'
-                           x-bind:checked="value"
-                           type="checkbox"
-                           :asp-for="key"
-                           class="form-control toggle toggle-primary">
-                </button>
-
-            </template>
-
-            @* <partial  name="_PartsTable" model="@parts"></partial> *@
-        </div>
-        <div slot="place5"
-             id="parts_list">
-            <partial name="_PartsList" model="@parts"/>
-            <button
-                class="btn btn-primary"
-                hx-get="@Url.Page("Index", "SamplePartsFromAirtable")"
-                hx-swap="outerHTML"
-                hx-target="#parts_list">
-                Get Parts From Airtable (encoded)
-            </button>
-
-        </div>
-        <div slot="place6">
-            <partial name="_RecommendationsPanel"></partial>
-        </div>
-
-
-    </cm-yt-dashboard>
+    </section>
 
 </div>
-<script type="text/javascript" asp-append-version="true">
-function setup(){
-    // console.log('setup complete')
-    return {
-             show_braden_fix: true,
-             current_handler: {},
-             handler_options: {                 
-                 'Sample Parts From Airtable': false,
-                 'Parts From Csv File' : true
-            },
-            get my_dashboard_css(){ 
-                return this.show_braden_fix ?
-                 'h-screen w-screen flex flex-row overflow-hidden' 
-                 : ''
-            },
-            get actual_handler() {
-                 return; //TODO: FIX MEEEEE!!!!
-                 console.log('current handler: ', this.current_handler)
-                let handler_name = this.current_handler.replace(/([_])/gi,'')
-                console.log('final handler name:', handler_name)
-                return handler_name;
-            },
-            toggle_handler(key, value) {
-                 console.log('toggling handler', key, value)
-                 this.current_handler[key]=!value
-            }
-        }
-}
-</script>
 
-@*
 
-    When putting your build together, you’ll need to decide on the following parts:
+@* @foreach (var group_name in group_names) *@
+@* { *@
+@*     <span>@group_name</span> *@
+@* } *@
 
-    Caliber, barrel length, purpose?
-    Brace or stock?
-    Do you want your brace or stock to fold?
-    Ratcheting castle nut or staked castle nut?
-    What upper and lower receiver do you want?
-    Which trigger do you want or require?
-    Is your lower parts kit Mil-Spec or upgraded?
-    BCG.
-    Charging Handle (rear charging or side charging?).
-    Handguard preference?
-    Muzzle device?
-    Optics/Sights?
-    Pistol Grips/Foregrips
-    Barrel Takedown or Breakdown Kits
-    Cerakote choice (optional)
 
-*@
+
+@* <hydro name="PartsStats" params="@(new { Parts = parts_from_csv })"></hydro> *@
+
+@* <bordered> *@
+@*     <label for=""># of parts</label> *@
+@*     <pre>@parts_from_csv.Count</pre> *@
+@*     $1$ <label for="">Barrels ct.</label> #1# *@
+@*     $1$ <pre>@barrels.Count()</pre> #1# *@
+@* </bordered> *@
+
+
+@* <label for="">Pick an upper part:</label> *@
+@* <select multiple class="select select-accent select-xs w-full max-w-xs"> *@
+@*     <option selected disabled>-- Pick One --</option> *@
+@* *@
+@*     @foreach (var item in UpperPartType.GetAll<UpperPartType>()) *@
+@*     { *@
+@*         <option key="@item.Id"> *@
+@*             @item.Name *@
+@*         </option> *@
+@*     } *@
+@* </select> *@
+
+
+
+@* <script type="text/javascript" asp-append-version="true"> *@
+@* // function setup(){ *@
+@* //     console.log('setup init ...') *@
+@* //     return { *@
+@* //         *@
+@* //              show_braden_fix: true, *@
+@* //              current_handler: {}, *@
+@* //              handler_options: {                  *@
+@* //                  'Sample Parts From Airtable': false, *@
+@* //                  'Parts From Csv File' : true *@
+@* //             }, *@
+@* //             get my_dashboard_css(){  *@
+@* //                 return this.show_braden_fix ? *@
+@* //                  'h-screen w-screen flex flex-row overflow-hidden'  *@
+@* //                  : '' *@
+@* //             }, *@
+@* //             get actual_handler() { *@
+@* //                  return; //TODO: FIX MEEEEE!!!! *@
+@* //                  console.log('current handler: ', this.current_handler) *@
+@* //                 let handler_name = this.current_handler.replace(/([_])/gi,'') *@
+@* //                 console.log('final handler name:', handler_name) *@
+@* //                 return handler_name; *@
+@* //             }, *@
+@* //             toggle_handler(key, value) { *@
+@* //                  console.log('toggling handler', key, value) *@
+@* //                  this.current_handler[key]=!value *@
+@* //             } *@
+@* //         } *@
+@* // } *@
+@* </script> *@
+
+@* <div hx-get *@
+@*      hx-trigger="init,load" *@
+@*      hx-action="GetCacheValue" *@
+@*      hx-swap="outerHTML" *@
+@*      hx-controller="Cache"> *@
+@*     test *@
+@* </div> *@
+@* *@
 
 
 @* <cm-holo-card></cm-holo-card> *@
@@ -182,3 +168,90 @@ function setup(){
 
 @* // Good sample build: *@
 @* //https://airtable.com/app33DDBeyXEGRflo/tblt4CGuQIRCcpM2W/viwY2d0b9wzFFeLXr/rece53WI4aXu35ndd/fldWJaJwX9hBrUIIs?copyLinkToCellOrRecordOrigin=gridView *@
+
+
+@* <div x-if="false" x-data="setup()"> *@
+@* *@
+@*     <template x-cloak :class="my_dashboard_css + 'h-screen'"> *@
+@* *@
+@*         <div slot="header" class="flex flex-row gap-8"> *@
+@*         </div> *@
+@* *@
+@*         <div slot="sidebar"> *@
+@*             <div class="border-accent border-2 "> *@
+@*                 <partial class="" name="_Sidebar"></partial> *@
+@*             </div> *@
+@*         </div> *@
+@* *@
+@*         <div slot="place1"> *@
+@*             $1$ <partial name="_OpticPicker" model="new Optics()"></partial> #1# *@
+@*         </div> *@
+@*         <div slot="place2"> *@
+@*             <partial name="BuildStats"></partial> *@
+@*             $1$ <partial name="_ChargerPicker" model="new List<Part>()"></partial> #1# *@
+@*         </div> *@
+@*         <div slot="place3"> *@
+@*             $1$ <partial name="_BarrelPicker"></partial> #1# *@
+@*             $1$ <partial name="_ChargerPicker" model="new List<Part>()"></partial> #1# *@
+@*             <partial name="BuildProgress"></partial> *@
+@*         </div> *@
+@* *@
+@*         <div slot="place4"> *@
+@*             <span id="parts_table">...</span> *@
+@*             <button *@
+@*                 hx-get *@
+@*                 hx-swap="outerHTML" *@
+@*                 hx-page="Index" *@
+@*                 :hx-page-handler="actual_handler" *@
+@*                 hx-target="#parts_table" *@
+@*                 class="btn btn-primary"> *@
+@*                 Load *@
+@*             </button> *@
+@* *@
+@* *@
+@*             <template x-cloak x-for="[key, value] of Object.entries(handler_options)"> *@
+@*                 $1$ :class="{!value ?  'badge-ghost border-2 border-yellow-500':'border-2 border-yellow-500 badge-accent'}" #1# *@
+@*                 <button *@
+@*                     x-show="true" *@
+@*                     x-on:click="toggle_handler(key, value)" *@
+@*                     class="btn btn-primary join-item shadow-md shadow-secondary-400/50" *@
+@*                     :class="{'border-2 border-secondary btn-ghost': !value, 'border-2    border-accent': value }"> *@
+@*                     <label *@
+@*                         :data-tippy-content="key" *@
+@*                         x-text="key" *@
+@*                         class="form-label badge badge-sm" *@
+@*                         :asp-for='key'> *@
+@*                     </label> *@
+@* *@
+@*                     <input x-bind:name='key' *@
+@*                            x-bind:value='value' *@
+@*                            x-bind:checked="value" *@
+@*                            type="checkbox" *@
+@*                            :asp-for="key" *@
+@*                            class="form-control toggle toggle-primary"> *@
+@*                 </button> *@
+@* *@
+@*             </template> *@
+@* *@
+@*             $1$ <partial  name="_PartsTable" model="@parts"></partial> #1# *@
+@*         </div> *@
+@*         <div slot="place5" *@
+@*              id="parts_list"> *@
+@*             $1$ <partial name="_PartsList" model="@parts"/> #1# *@
+@*             <button *@
+@*                 class="btn btn-primary" *@
+@*                 hx-get="@Url.Page("Index", "SamplePartsFromAirtable")" *@
+@*                 hx-swap="outerHTML" *@
+@*                 hx-target="#parts_list"> *@
+@*                 Get Parts From Airtable (encoded) *@
+@*             </button> *@
+@* *@
+@*         </div> *@
+@*         <div slot="place6"> *@
+@*             $1$ <partial name="_RecommendationsPanel"></partial> #1# *@
+@*         </div> *@
+@* *@
+@* *@
+@*     </template> *@
+@* *@
+@* </div> *@

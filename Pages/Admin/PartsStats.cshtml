@@ -1,0 +1,34 @@
+@page
+@using Hydro.TagHelpers
+@model PartsStats
+@{
+    var parts_from_csv = @Model.Parts;
+    int parts_above_1k = parts_from_csv.Count(p => p.Cost > 1000.00);
+    int parts_above_2k = parts_from_csv.Count(p => p.Cost > 2000.00);
+    var most_expensive_part = parts_from_csv.FirstOrDefault(p => p.Id == parts_from_csv.MaxBy(p => p.Cost)?.Id);
+    
+    
+
+}
+
+<section
+    x-show="true"
+    id="csv_imports" class="grid grid-rows-auto grid-cols-auto">
+
+    <stats>
+        <div class="stat-title">
+            Parts found from CSV:
+        </div>
+        <span class="stat-value">
+            @parts_from_csv.Count
+        </span>
+    </stats>
+
+    <flex>
+        <h2>Most expensive</h2>
+        <hydro name="PartCard"
+               params="@(new { CurrentPart = @most_expensive_part })">
+        </hydro>
+    </flex>
+
+</section>

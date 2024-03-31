@@ -1,0 +1,148 @@
+@using nugsnet6.Services
+@using CodeMechanic.Diagnostics
+@model nugsnet6.Pages.Builder.BuilderMenu
+@{
+    var upper_types = UpperPartType.GetAll<UpperPartType>().ToArray();
+    var lower_types = LowerPartType.GetAll<LowerPartType>().ToArray();
+    var accessory_types = PartAccessoryType.GetAll<PartAccessoryType>().ToArray();
+
+    var joined_lower_types = @Model.Parts
+        .Join(lower_types
+            , part => part.Type
+            , upper => upper.Name
+            , (part, upper) => new
+            {
+                type = part.Type,
+                count = @Model.Parts.Count(p => p.Type.Equals(part.Type, StringComparison.OrdinalIgnoreCase))
+            })
+        .DistinctBy(x => x.type)
+        .ToDictionary(x => x.type, y => y.count);
+
+    var joined_upper_types = @Model.Parts
+        .Join(upper_types
+            , part => part.Type
+            , upper => upper.Name
+            , (part, upper) => new
+            {
+                type = part.Type,
+                count = @Model.Parts.Count(p => p.Type.Equals(part.Type, StringComparison.OrdinalIgnoreCase))
+            })
+        .DistinctBy(x => x.type)
+        .ToDictionary(x => x.type, y => y.count);
+
+    var joined_accessory_types = @Model.Parts
+        .Join(accessory_types
+            , part => part.Type
+            , upper => upper.Name
+            , (part, upper) => new
+            {
+                type = part.Type,
+                count = @Model.Parts.Count(p => p.Type.Equals(part.Type, StringComparison.OrdinalIgnoreCase))
+            })
+        .DistinctBy(x => x.type)
+        .ToDictionary(x => x.type, y => y.count);
+
+}
+
+<div>
+
+    <ul class="menu w-256 bg-base-200 lg:menu-horizontal rounded-box">
+
+        <li>
+            <details open x-transition>
+                <summary>Parts 🔧</summary>
+                <ul>
+                    <li>
+                        <details open x-transition>
+                            <summary>Lower Parts 🔫</summary>
+                            <ul>
+                                @foreach (var item in lower_types)
+                                {
+                                    bool found = @joined_lower_types.TryGetValue(item.Name, out int count);
+                                    <menu-item>
+                                        @item
+                                        @if (@count >= 99)
+                                        {
+                                            <slot name="badge">99+</slot>
+                                        }
+                                        else
+                                        {
+                                            <slot name="badge">@count</slot>
+                                        }
+                                    </menu-item>
+                                }
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details open x-transition>
+                            <summary>Upper Parts 🎱</summary>
+                            <ul>
+                                @foreach (var item in upper_types)
+                                {
+                                    bool found = @joined_upper_types.TryGetValue(item.Name, out int count);
+                                    <menu-item>
+                                        @item
+                                        @if (@count >= 99)
+                                        {
+                                            <slot name="badge">99+</slot>
+                                        }
+                                        else
+                                        {
+                                            <slot name="badge">@count</slot>
+                                        }
+                                    </menu-item>
+                                }
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details open x-transition>
+                            <summary>Accessories 🪄</summary>
+                            <ul>
+                                @foreach (var item in accessory_types)
+                                {
+                                    bool found = @joined_accessory_types.TryGetValue(item.Name, out int count);
+                                    <menu-item>
+                                        @item
+                                        @if (@count >= 99)
+                                        {
+                                            <slot name="badge">99+</slot>
+                                        }
+                                        else
+                                        {
+                                            <slot name="badge">@count</slot>
+                                        }
+                                    </menu-item>
+                                }
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </details>
+        </li>
+
+    </ul>
+
+</div>
+
+
+@* // PartAccessoryType scope = "Scope"; *@
+@* // var first_scope = @Model.Parts.FirstOrDefault(x => x.Type.Equals("Scope", StringComparison.OrdinalIgnoreCase)); *@
+@* // first_scope.Dump(nameof(first_scope)); *@
+@* // *@
+@* // var joined_lower_types = @Model.Parts *@
+@* //     .SelectMany(part => lower_types *@
+@* //         .Where(lt => lt.Name *@
+@* //             .Equals(part.Type, StringComparison.InvariantCultureIgnoreCase) || lt.aliases *@
+@* //                 .Contains(part.Type, StringComparer.InvariantCultureIgnoreCase))) *@
+@* //     .Select(lpt => new *@
+@* //     { *@
+@* //         type = lpt.Name, *@
+@* //         count = @Model.Parts *@
+@* //             .Count(part => part.Type *@
+@* //                 .Equals(lpt.Name, StringComparison.OrdinalIgnoreCase) || lpt.aliases *@
+@* //                     .Contains(lpt.Name)) *@
+@* //     }) *@
+@* //     .DistinctBy(x => x.type) *@
+@* //     .ToDictionary(x => x.type, y => y.count); *@

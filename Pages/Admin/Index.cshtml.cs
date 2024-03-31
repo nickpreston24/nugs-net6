@@ -7,7 +7,6 @@ using CodeMechanic.RazorHAT.Services;
 using CodeMechanic.Types;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using nugsnet6.Models;
-using TPOT_Links.Controllers;
 
 namespace nugsnet6.Pages.Admin;
 
@@ -20,7 +19,7 @@ public class IndexModel : PageModel
     private readonly ICsvService csv;
     private readonly IPartsService partService;
 
-    public List<Models.Part> PartsFromCsv { get; set; } = new();
+    public List<Part> PartsFromCsv { get; set; } = new();
 
     public IndexModel(
         IEmbeddedResourceQuery embeddedResourceQuery
@@ -48,13 +47,13 @@ public class IndexModel : PageModel
         return Partial("Alert", new AlertModel() { Message = "Success!" });
     }
 
-    private List<Part> GetPartsFromCsvFile(string fp)
+    private List<Part> GetPartsFromCsvFile(string filepath)
     {
         return csv
-            .Read<Models.Part>(fp
+            .Read<Part>(filepath
                 , (csv) =>
                 {
-                    var record = new Models.Part
+                    var record = new Part
                     {
                         Id = csv.GetField<string>("Id"),
                         Name = csv.GetField("Name"),
@@ -92,7 +91,7 @@ public class IndexModel : PageModel
             $"""
             <div class='alert alert-primary'>
                 <p class='text-xl text-secondary text-sh'>
-                { query}                  
+                { query}                   
                 </p>
             </div>
         """ );

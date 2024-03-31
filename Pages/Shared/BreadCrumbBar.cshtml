@@ -1,8 +1,9 @@
-@model string
 @using CodeMechanic.RazorHAT.Services
+@model nugsnet6.Pages.Shared.BreadCrumbBar2
+
 @inject IRazorRoutesService routes_service
 @{
-    var page_name = Model;
+    var page_name = Model.CurrentPage;
     var current_breadcrumbs = routes_service.GetBreadcrumbsForPage(page_name);
 }
 

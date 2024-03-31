@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Neo4j.Driver;
 using NSpecifications;
 using nugsnet6.Extensions;
+using nugsnet6.Models;
 
 namespace nugsnet6.Pages.Parts;
 
@@ -24,11 +25,11 @@ public class InventoryModel : PageModel
 
     public async Task<IActionResult> OnGetAllPartsFromCSV()
     {
-        var valid_part = new Spec<Models.Part>(p => p.Name.NotEmpty()
-                                                    || p.Cost > 0.00
-                                                    || p.Notes.NotEmpty()
+        var valid_part = new Spec<Part>(p => p.Name.NotEmpty()
+                                             || p.Cost > 0.00
+                                             || p.Notes.NotEmpty()
         );
-        
+
         var text = ReadFromCsv("Parts-Grid view.csv");
         var lines = text.Split('\n');
         // lines.Length.Dump("# of lines");
@@ -37,7 +38,7 @@ public class InventoryModel : PageModel
                 .Split('\n')
                 .FirstOrDefault()
                 .Split(',')
-                .Select(header => header.Replace(" ",""))
+                .Select(header => header.Replace(" ", ""))
                 .ToArray()
             ;
         headers.Dump("headers");
@@ -46,7 +47,7 @@ public class InventoryModel : PageModel
             .Take(1)
             // .Dump("first lines")
             .SelectMany(line => line
-                .ExtractFromCsv<Models.Part>(headers))
+                .ExtractFromCsv<Part>(headers))
             .ToList();
 
         // parts.Where(valid_part).Dump("parts from csv");
@@ -82,10 +83,10 @@ public class InventoryModel : PageModel
     }
 
     public InventoryModel(
-        IEmbeddedResourceQuery embeddedResourceQuery
-        , IDriver driver
-        , IAirtableRepo repo
-    ) 
+            IEmbeddedResourceQuery embeddedResourceQuery
+            , IDriver driver
+            , IAirtableRepo repo
+        )
         // : base(embeddedResourceQuery, driver, repo, nameof(AirsoftLoadout))
     {
         this.embeddedResourceQuery = embeddedResourceQuery;

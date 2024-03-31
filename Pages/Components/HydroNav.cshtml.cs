@@ -7,5 +7,5 @@ namespace nugsnet6.Pages.Components;
 [HtmlTargetElement("hydro-nav")]
 public class HydroNav : HydroView
 {
-    public object [] Links { get; set; }
+    // public object [] Links { get; set; }
 }

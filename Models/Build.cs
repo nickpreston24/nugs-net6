@@ -4,7 +4,7 @@
 //
 //   "Set quicktype target language"
 
-namespace nugsnet6;
+namespace nugsnet6.Models;
 
 using System;
 

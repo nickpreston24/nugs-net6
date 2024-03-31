@@ -1,0 +1,19 @@
+@model HydroAccordion
+
+<section>
+    @* // collapse-open *@
+    @* <hydro-collapse></hydro-collapse> *@
+    @* <hydro name="HydroCollapse"></hydro> *@
+
+    @foreach (var (item, index) in @Model.Children.AsUniqueCollection().WithIndex())
+    {
+        string title = @item.Item1.Title;
+        string text = @item.Item1.Text;
+
+        <hydro name="HydroCollapse"
+               params="@(new { Props = new HydroCollapseProps() { Title = @title, Text = @text } })">
+        </hydro>
+    }
+    @* <hydro name="HydroCollapse" key="@index" model="@item"></hydro> *@
+
+</section>

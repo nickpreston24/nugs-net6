@@ -1,0 +1,15 @@
+@model nugsnet6.Pages.Components.HydroCollapse
+
+@* hydro-on:focus="@(() => @Model.SetFocus(true))" *@
+<div
+    tabindex="0" class="@Model.classname">
+
+    <div class="collapse-title text-xl font-medium">
+        @Model.Props.Title
+    </div>
+
+    <div class="collapse-content">
+        @* <p>@Model.Props.Text</p> *@
+        <hydro name="HydroCounter"></hydro>
+    </div>
+</div>

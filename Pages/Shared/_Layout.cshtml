@@ -49,7 +49,7 @@
 
 <body class="flex-1 overflow-y-scroll">
 
-<header>
+<header class="">
     @* <hydro name="NugsNav" params="@(new { Name = "Barbara" })"/> *@
 
     <hydro-nav>
@@ -79,13 +79,11 @@
     @RenderBody()
 </main>
 
-
 @await RenderSectionAsync("Scripts", required: false)
 
 </body>
 
 <locknloadout-footer/>
-@* *@
 @* <script > *@
 @*     console.log('draw_svg_text (wind0w):>> ', window.draw_svg_text); *@
 @*     console.log('draw_svg_text :>> ', draw_svg_text); *@

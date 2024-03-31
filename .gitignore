@@ -1,3 +1,5 @@
+**/*.rest
+**/*.http
 Nugs.db
 nugs-net6.sln
 logs

@@ -1,0 +1,23 @@
+@model nugsnet6.Pages.Builder.BuilderToolbar
+
+@{
+    var menu = Model.MenuOptions;
+}
+
+<div class="w-auto flex flex-col gap-4 mx-6 text-center text-neutral-content border-2">
+    <bordered>
+        <div class="max-w-sm">
+            <ul class="menu p-4 min-h-full text-base-content text-pink-700">
+                @foreach (var option in menu.Where(sb => sb.Enabled))
+                {
+                    <li class="text-white">
+                        @* <a href="@option.Link"> *@
+                        @* Todo: dynamically add htmx attributes, maybe check to see if hyperscript does this for you *@
+                        @option.Name
+                        @* </a> *@
+                    </li>
+                }
+            </ul>
+        </div>
+    </bordered>
+</div>

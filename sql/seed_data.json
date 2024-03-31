@@ -1,0 +1,29 @@
+{
+  "parts": [
+    {
+      "url": "https://danieldefense.com/ddm4-pdw-sbr.html",
+      "kind": "ar-15",
+      "imageurl": "https://danieldefense.com/media/catalog/product/cache/57787b00c9d0d809fcf82071201be77f/p/d/pdw_sbr_fde0144.png",
+      "name": "",
+      "cost": "2,396.00"
+    },
+    {
+      "name": "MCMR-15 BCM 300 BLK Upper",
+      "cost": 850.00
+    }
+  ],
+  "builds": [
+    {
+    }
+  ],
+  "sellers": [
+    {
+      "url": "https://www.sportsmans.com/shooting-gear-gun-supplies/handguns/fn-510-tactical-10mm-auto-47in-black-pistol-221-rounds/p/1794044",
+      "cost": {
+        "css_selectors": "p.price",
+        "regex": "(?<currency>\\$)\\s*?(?<raw_number>\\d+\\.?\\d+)",
+        "value": ""
+      }
+    }
+  ]
+}

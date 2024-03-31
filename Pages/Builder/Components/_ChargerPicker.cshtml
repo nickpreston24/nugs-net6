@@ -2,18 +2,9 @@
 @model List<Part>
 @{
     var parts = Model;
-    var chargers = (parts ?? new List<Part>()
-    {
-        new Part()
-        {
-            Name = "Bravo Company 4xl",
-            Type = "ChargingHandle"
-        }
-    })
-        .Where(p => p.Type == "ChargingHandle")
-        ;
+    var chargers = parts
+        .Where(p => p.Type == "ChargingHandle");
 }
-
 
 <div x-data='setup()'>
     <div class="card w-96 bg-neutral text-neutral-content">

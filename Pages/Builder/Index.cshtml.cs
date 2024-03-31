@@ -1,5 +1,4 @@
 using System.Text;
-using CodeMechanic.Diagnostics;
 using CodeMechanic.Embeds;
 using CodeMechanic.RazorHAT;
 using CodeMechanic.RazorHAT.Services;
@@ -7,21 +6,24 @@ using CodeMechanic.Types;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Neo4j.Driver;
+using nugsnet6.Models;
+using nugsnet6.Services;
 
 namespace nugsnet6.Pages.Builder;
 
 public class IndexModel : PageModel
 {
     private static string table_name = "Builds";
-    private static AirtableSearch _search = new AirtableSearch();
-    private static List<Build> builds_found = new List<Build>();
+    private static AirtableSearch _search = new();
+    private static List<Build> builds_found = new();
 
-    private static List<nugsnet6.Models.Part> parts_found = new List<nugsnet6.Models.Part>();
+    private static List<Part> parts_found = new();
     private readonly IEmbeddedResourceQuery embeddedResourceQuery;
     private readonly IAirtableQueryingService airtable_service;
     private readonly ICsvService csv_service;
     private readonly IDriver driver;
     private readonly IAirtableRepo airtable_repo;
+    private readonly IBuilderService builder_svc;
 
     public IndexModel(
         IEmbeddedResourceQuery embeddedResourceQuery
@@ -29,35 +31,35 @@ public class IndexModel : PageModel
         , ICsvService csvService
         , IDriver driver
         , IAirtableRepo airtableRepo
+        , IBuilderService builderService
     )
     {
+        this.builder_svc = builderService;
         this.embeddedResourceQuery = embeddedResourceQuery;
-        this.airtable_service = airtableQueryingService;
-        this.csv_service = csvService;
+        airtable_service = airtableQueryingService;
+        csv_service = csvService;
         this.driver = driver;
-        this.airtable_repo = airtableRepo;
+        airtable_repo = airtableRepo;
     }
 
-    public List<nugsnet6.Models.Part> SampleParts { get; set; } = new List<nugsnet6.Models.Part>()
+    public List<Part> SampleParts { get; set; } = new()
     {
-        new nugsnet6.Models.Part()
+        new Part()
         {
             Name = "BCM Charging Handle"
         }
     };
 
 
-    public List<nugsnet6.Models.Part> PartsFromCsv { get; set; } = new List<nugsnet6.Models.Part>()
-    {
-    };
+    public List<Part> PartsFromCsv { get; set; } = new();
 
-    public Build CurrentBuild { get; set; }
+    public Build CurrentBuild { get; set; } = new();
 
 
     public async Task<IActionResult> OnGetPartsFromCsvFile()
     {
         Console.WriteLine("HELLO FROM CSV IMPORT");
-        var userDir = new DirectoryInfo(Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile))
+        var userDir = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile))
             ?.FullName;
 
         string filedir = "Downloads";
@@ -117,7 +119,7 @@ public class IndexModel : PageModel
     public void OnPatchSetTableName(string next_table_name = "Loadouts") => table_name = next_table_name;
 
 
-    public IActionResult OnPatchPatchPart([FromForm] nugsnet6.Models.Part request)
+    public IActionResult OnPatchPatchPart([FromForm] Part request)
     {
         return Content(
             $"<div class='alert alert-primary'>Updated part as {request.Name}!</div>",
@@ -128,7 +130,7 @@ public class IndexModel : PageModel
     public async Task<IActionResult> OnGetSearchParts(string Name = "")
     {
         parts_found = await airtable_repo
-            .SearchRecords<nugsnet6.Models.Part>(_search
+            .SearchRecords<Part>(_search
                     .With(s =>
                     {
                         s.table_name = "Parts";
@@ -167,10 +169,10 @@ public class IndexModel : PageModel
                                      <input type="checkbox" class="checkbox" />
                                  </label>
                              </th>
-                             <th class='text-primary'>{ build.Name}                               </th>
-                             <td class='text-accent'>${ build.Total_Cost.ToString()}
+                             <th class='text-primary'>{ build.Name}                                    </th>
+                             <td class='text-accent'>${ build.Total_Cost.ToString()}     
                                                            </td>
-                             <td class='text-secondary'>{ build.Reasoning}                               </td>
+                             <td class='text-secondary'>{ build.Reasoning}                                    </td>
                          </tr>
                      """ ).ToString();
         return Content(html);

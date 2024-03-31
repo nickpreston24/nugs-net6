@@ -1,13 +1,19 @@
+@using CodeMechanic.Types
 @model nugsnet6.Pages.Components.HydroCard
 
-<div class="card w-96 bg-base-100 shadow-xl">
-    @Model.Slot("image")
+<div class="card bg-base-100 shadow-xl">
+    <figure>
+        @Model.Slot("image")
+    </figure>
 
     <div class="card-body">
-        <h2 class="card-title">
-            @Model.Slot("title")
-        </h2>
-        <p>@Model.Slot()</p>
+        @if (@Model.Title.NotEmpty())
+        {
+            <h2 class="card-title">
+                @Model.Title
+            </h2>
+        }
+        <div class="">@Model.Slot()</div>
         <div class="card-actions justify-end">
             @Model.Slot("actions")
         </div>

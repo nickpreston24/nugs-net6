@@ -1,0 +1,37 @@
+@using CodeMechanic.RazorHAT.Services
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model WebClipper
+@inject IJsonConfigService json_svc
+@{
+    // var cost = JsonConvert.DeserializeObject<Cost>(json);
+}
+
+<section class="flex flex-row flex-md-wrap gap-4">
+
+    <form>
+
+        @* <p class="text-sm text-primary">Clip new @Model.title</p> *@
+        <div class="join">
+            <div class="flex flex-col">
+                <input class="input input-bordered join-item" placeholder="Url" value="@Model.seller.url"/>
+                <input class="input input-bordered join-item" placeholder="CSS selector, e.g.: '@Model.seller.cost.css_selectors'"/>
+                @* <input type="text" asp-for="Clipper.part.Name"> *@
+            </div>
+            <select class="select select-bordered join-item">
+                <option disabled selected>Filter</option>
+                <option>Sci-fi</option>
+                <option>Drama</option>
+                <option>Action</option>
+            </select>
+            <div class="indicator">
+                <span class="indicator-item badge badge-secondary">new</span>
+                @* <button @@click="@Model.Save()" class="btn join-item">Search</button> *@
+            </div>
+        </div>
+    </form>
+
+    <div class="flex flex-col gap-2">
+        <h1 class="text-md text-info">Preview</h1>
+        <p>@Model.cost</p>
+    </div>
+</section>

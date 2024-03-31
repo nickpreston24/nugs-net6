@@ -2,7 +2,8 @@
 
     <PropertyGroup>
         <!--        <TargetFrameworks>net7.0;net8.0</TargetFrameworks>-->
-        <TargetFramework>net7.0</TargetFramework>
+        <!--        <TargetFramework>net7.0</TargetFramework>-->
+        <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <RootNamespace>nugsnet6</RootNamespace>
         <Nullable>enable</Nullable>
@@ -13,7 +14,6 @@
             CS0414;CS8602;CS1998;CS0168;CS8605;CS8603;CS8625;CS8604;CS8600;CS8601;CS8620;CS8618;CS4014;CS8619;CS8765;CS0105;CS8767;CS0659;CS8619;CS0219;
         </NoWarn>
 
-        <AccelerateBuildsInVisualStudio>True</AccelerateBuildsInVisualStudio>
     </PropertyGroup>
 
     <ItemGroup>
@@ -39,6 +39,7 @@
 
     <ItemGroup>
         <PackageReference Include="Airtable" Version="1.4.0" />
+        <PackageReference Include="Alpine.TagHelpers" Version="0.2.0" />
         <PackageReference Include="Bogus" Version="34.0.2" />
         <PackageReference Include="CodeMechanic.Async" Version="1.0.1" />
         <PackageReference Include="CodeMechanic.Diagnostics" Version="1.0.3" />
@@ -78,8 +79,17 @@
 
     <ItemGroup>
         <ProjectReference Include="..\code-mechanic\CodeMechanic.Migrations\CodeMechanic.Migrations.csproj" />
-<!--        <ProjectReference Include="..\code-mechanic\Extensions\Types\CodeMechanic.Types.csproj"/>-->
+        <!--        <ProjectReference Include="..\code-mechanic\Extensions\Types\CodeMechanic.Types.csproj"/>-->
         <ProjectReference Include="..\code-mechanic\Shargs\CodeMechanic.Shargs.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Pages\Admin\Components" />
+      <Folder Include="Pages\Admin\Models" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Pages\Contribute\Index.cshtml" />
     </ItemGroup>
 
 </Project> 

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html data-theme="halloween" lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.50.0/dist/full.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="https://unpkg.com/htmx.org@1.8.5"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <title>Glock Lobster Recipe</title>
+</head>
+
+<body>
+    <div x-data="setup()" class="flex flex-col items-center justify-center bg-accent-content">
+        <section class="flex flex-col items-center justify-center gap-2">
+
+            <h1 x-text="build.name" class="text-5xl"></h1>
+
+            <div id="parts_grid" class="grid grid-rows-auto md:grid-cols-2">
+
+                <template x-for="part in build_parts">
+
+                    <!-- <div class="flex flex-center hero min-h-screen bg-base-200">
+                    <div class="hero-content flex-col lg:flex-row-reverse"> -->
+                    <div class="card w-96 bg-base-100 shadow-xl">
+
+                        <figure>
+
+                            <img x-show="!!part.image_url" width="256" height="auto" :src="part.image_url"
+                                :title="part.name" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen></img>
+                        </figure>
+
+                        <div class="card-actions justify-end">
+                            <h1 x-text="part.name" class="text-xl font-bold"></h1>
+                            <p x-text="part.description" class="py-6"></p>
+
+                            <p x-show="!!part.role" class="badge badge-ghost badge-outline" x-text="part.role"></p>
+
+                            <a x-show="!!part.url" :href="part.url">
+                                <button class="btn btn-primary">🥔 Go</button>
+                            </a>
+                        </div>
+                    </div>
+                </template>
+
+            </div>
+
+    </div>
+</body>
+<script>
+    function setup() {
+        return {
+            build: {
+                id: 1,
+                name: "Glock Lobster",
+                get parts() {
+                    return this.build_parts;
+                },
+                get total_cost() {
+                    return this.build_parts.sum((a, b) => a + b);
+                }
+            },
+            build_parts: [{
+                    name: 'Recover Tactical® 20/21 Stabilizer Kit for 10mm/45ACP Large Frame Glocks',
+                    cost: 99.95,
+                    url: 'https://recovertactical.com/product/recover-tactical-20-21-stabilizer-kit-for-10mm-45acp-large-frame-glocks/',
+                    image_url: 'https://recovertactical.com/wp-content/uploads/2023/04/2021-Stock-Tan-MG-1024x576.jpg',
+                    description: ""
+                },
+                {
+                    name: 'Banish 45',
+                    cost: 949.00,
+                    url: 'https://www.silencercentral.com/products/banish-45/',
+                    description: "Designed for calibers ranging from .45 ACP down to rimfire, the Banish 45 is a modular handgun/pistol suppressor compatible with many different pistons.",
+                    image_url: 'https://www.silencercentral.com/wp-content/uploads/2020/01/Banish45_8.6_Vertical_1-1150x1150.png',
+                    role: "suppression"
+                },
+                {
+                    name: 'xyz',
+                    cost: 0.00,
+                    url: '',
+                    description: "",
+                    image_url: ''
+                },
+                {
+                    name: 'xyz',
+                    cost: 0.00,
+                    url: '',
+                    description: "",
+                    image_url: ''
+                },
+                {
+                    name: 'xyz',
+                    cost: 0.00,
+                    url: '',
+                    description: "",
+                    image_url: ''
+                },
+                {
+                    name: 'xyz',
+                    cost: 0.00,
+                    url: '',
+                    description: "",
+                    image_url: ''
+                }
+            ]
+        };
+    }
+</script>
+
+</html>

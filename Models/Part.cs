@@ -4,10 +4,6 @@
 //
 //   "Set quicktype target language"
 
-using System.Globalization;
-using CodeMechanic.Diagnostics;
-using CodeMechanic.Types;
-using CsvHelper;
 using NSpecifications;
 
 namespace nugsnet6.Models;
@@ -15,32 +11,28 @@ namespace nugsnet6.Models;
 public class Part
 {
     public string Id { get; set; } = string.Empty;
-
-    // public DateTime createdTime { get; set; }
     public string Name { get; set; } = string.Empty;
     public string Kind { get; set; } = string.Empty;
     public string Type { get; set; } = string.Empty;
     public string Notes { get; set; } = string.Empty;
     public string ProductCode { get; set; } = string.Empty;
-
     public double Cost { get; set; }
-
     public string WeightInOz { get; set; }
-
-    // public Attachment[] Attachments { get; set; }
     public string Attachments { get; set; }
     public string Calibers { set; get; }
     public string Builds { set; get; }
-    public Uri Url { get; set; }
-    public Uri Demo { get; set; }
+    public string Url { get; set; } = string.Empty;
+    public string Demo { get; set; } = string.Empty;
     public long ComboCost { get; set; }
     public object Combo { get; set; }
     public string CreatedBy { get; set; }
-    public DateTimeOffset Created { get; set; }
+    public DateTime Created { get; set; }
     public string LastModifiedBy { get; set; }
-    public DateTimeOffset LastModified { get; set; }
+    public DateTime LastModified { get; set; }
+    public string ImageUrl { get; set; } = string.Empty;
+    public string Manufacturer { get; set; } = string.Empty;
 
-    public static CodeMechanic.Extensions.Maybe<Part> NotFound = new CodeMechanic.Extensions.Maybe<Part>(new Part()
+    public static CodeMechanic.Extensions.Maybe<Part> NotFound = new(new Part()
     {
         Id = string.Empty, Name = "Not Available", Cost = -1, ComboCost = -1
     });
@@ -49,6 +41,9 @@ public class Part
                                                                          && NotFound.IfSome(_ =>
                                                                              part.Equals(NotFound.Value)));
 
-    public string ImageUrl { get; set; } = string.Empty;
-    public string Manufacturer { get; set; } = string.Empty;
+
+    // public Attachment[] Attachments { get; set; }
+    // public DateTime createdTime { get; set; }
+    // public DateTimeOffset LastModified { get; set; }
+    // public DateTimeOffset Created { get; set; }
 }
