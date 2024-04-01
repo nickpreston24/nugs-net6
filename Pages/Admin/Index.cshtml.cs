@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using CodeMechanic.Diagnostics;
 using Neo4j.Driver;
 using CodeMechanic.Embeds;
 using CodeMechanic.RazorHAT.Services;
@@ -18,6 +17,8 @@ public class IndexModel : PageModel
     private static int count = 0;
     private readonly ICsvService csv;
     private readonly IPartsService partService;
+    public Env env { get; init; }
+
 
     public List<Part> PartsFromCsv { get; set; } = new();
 
@@ -26,12 +27,14 @@ public class IndexModel : PageModel
         , ICsvService csvService
         , IPartsService part
         , IDriver driver
+        , Env env
     )
     {
         this.embeddedResourceQuery = embeddedResourceQuery;
         this.driver = driver;
         csv = csvService;
         this.partService = part;
+        this.env = env;
     }
 
     public void OnGet()
@@ -91,7 +94,7 @@ public class IndexModel : PageModel
             $"""
             <div class='alert alert-primary'>
                 <p class='text-xl text-secondary text-sh'>
-                { query}                   
+                { query}                       
                 </p>
             </div>
         """ );

@@ -47,9 +47,20 @@ MERGE (user1)-[:LIKES]->(build1)
 RETURN user1, build1
 ```
 
-## TODOS / Ideas
+## TODOS
 
 https://github.com/chartjs/awesome
+
+- [x] Update DotEnv for easy keying and mapping to T.
+- [x] Find or write a good Modal that can be called up anytime.
+- [ ] Write update query for scraped images to nugs db.
+- [ ] Save your CSV Parts to a Neo4j db instance.
+
+
+## Ideas
+
+- [ ] Idea: Write a bootstrap method for local neo4j Docker image.
+- [ ] Idea: Write a Sqlite3 Insights service for displaying table counts, stats, etc.
 
 ## Issues
 

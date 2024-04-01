@@ -27,7 +27,7 @@ using nugsnet6.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Load and inject .env files & values
-DotEnv.Load();
+Env env = DotEnv.Load();
 
 // Read .env values for setting up services
 bool dev_mode = Environment.GetEnvironmentVariable("DEVMODE").ToBoolean();
@@ -47,6 +47,7 @@ builder.Services.AddSingleton<IPropertyCache>(props_service);
 builder.Services.AddSingleton<ICsvService>(new CsvService(props_service, dev_mode));
 builder.Services.AddSingleton<IBuilderService, BuilderService>();
 
+builder.Services.AddSingleton(env);
 
 
 //
@@ -102,7 +103,7 @@ app.UseRouting();
 
 app.UseAuthorization();
 app.MapRazorPages();
-// app.UseExceptionHandler();
+app.UseExceptionHandler();
 
 app.MapControllerRoute(
     name: "default",
