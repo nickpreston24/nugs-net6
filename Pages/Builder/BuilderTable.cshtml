@@ -19,7 +19,7 @@
     <tbody>
     @foreach (var part in parts)
     {
-        <tr>
+        <tr hx-params="*">
             <td class="form-control">
                 <input type="checkbox" class="toggle toggle-info">
             </td>
@@ -39,13 +39,25 @@
                 }
             </td>
 
+            <td>
+                <button
+                    hx-get="@Url.Page("Index", "Clip", new { @part.Url,  UpdatePart = @part, CSS_Selector = "trash" })"
+                    hx-indicator="#spinner"
+                    class="btn btn-info">
 
-            @* <td> *@
-            @*     @if (@part.Attachments.NotEmpty()) *@
-            @*     { *@
-            @*         <img src="@part.Attachments" alt="@part.Name"> *@
-            @*     } *@
-            @* </td> *@
+                    <span class="spinner-border htmx-indicator" id="spinner" role="status"></span>
+
+                    Clip
+
+                </button>
+            </td>
+
+            @if (@part.ImageUrl.NotEmpty())
+            {
+                <td>
+                    <img src="@part.ImageUrl" alt="@part.Name">
+                </td>
+            }
         </tr>
     }
     </tbody>

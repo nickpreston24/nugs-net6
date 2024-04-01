@@ -1,4 +1,9 @@
+using System.Diagnostics;
+using System.Reflection;
+using CodeMechanic.Diagnostics;
 using CodeMechanic.Neo4j;
+using CodeMechanic.Reflection;
+using CodeMechanic.Types;
 using Neo4j.Driver;
 using nugsnet6.Models;
 
@@ -33,13 +38,33 @@ public class BuilderService : IBuilderService
         return 0;
     }
 
-    public async Task<List<Build>> GetAll(
-        int limit = 1000
-        , Func<IRecord, Build> mapper = null
+    public async Task<List<T>> GetAll<T>(
+        string query
+        , object parameters
+        , Func<IRecord, T> mapper = null
+        , bool debug_mode = false
     )
+        where T : class, new()
     {
-        string query = $"match (b:Build) return b limit {limit}";
-        var parameters = new object() { };
+        if (mapper == null)
+            mapper = delegate(IRecord record)
+            {
+                if (debug_mode)
+                {
+                    record.Values.Dump("record values");
+                }
+
+                return record.MapToV2<T>(label: typeof(T).Name);
+            };
+
+        var collection = new List<T>();
+
+        if (debug_mode)
+            parameters.Dump(nameof(parameters));
+
+        // if (parameters == null || string.IsNullOrWhiteSpace(query))
+        //     return collection;
+
         await using var session = driver.AsyncSession();
 
         try
@@ -47,8 +72,11 @@ public class BuilderService : IBuilderService
             var results = await session.ExecuteReadAsync(async tx =>
             {
                 var result = await tx.RunAsync(query, parameters);
-                return await result.ToListAsync<Build>(mapper);
+                return await result.ToListAsync(mapper);
             });
+
+            // if (debug_mode)
+            //     results.Dump("search results");
 
             return results;
         }
@@ -56,14 +84,50 @@ public class BuilderService : IBuilderService
         // Capture any errors along with the query and data for traceability
         catch (Neo4jException ex)
         {
-            Console.WriteLine(ex);
-            Console.WriteLine("query :>> " + query);
+            Console.WriteLine($"{query} - {ex}");
             throw;
         }
         finally
         {
             session.CloseAsync();
         }
+
+
+        // Console.WriteLine(nameof(GetAll));
+        // if (mapper == null)
+        //     mapper = delegate(IRecord record) { return record.MapTo<T>(); };
+        //
+        // var collection = new List<T>();
+        //
+        // if (query.IsEmpty())
+        //     throw new ArgumentNullException(nameof(query) + " cannot be empty!");
+        //
+        // await using var session = driver.AsyncSession();
+        //
+        // try
+        // {
+        //     Console.WriteLine("reading ...");
+        //     var results = await session.ExecuteReadAsync(async tx =>
+        //     {
+        //         var result = await tx.RunAsync(query, parameters);
+        //         result.Dump("results");
+        //         return await result.ToListAsync<T>(mapper);
+        //     });
+        //
+        //     return results;
+        // }
+        //
+        // // Capture any errors along with the query and data for traceability
+        // catch (Neo4jException ex)
+        // {
+        //     Console.WriteLine($"{query} - {ex}");
+        //     throw;
+        //     // return collection;
+        // }
+        // finally
+        // {
+        //     session.CloseAsync();
+        // }
     }
 
     public Task<List<Build>> Search(Build search)
@@ -188,3 +252,72 @@ public class BuilderService : IBuilderService
 //     private Build dbBuild;
 //     private List<Part> dbParts;
 // }
+
+public static class UpdatedNeo4JExtensions
+{
+    /// <summary>
+    /// PropertyCache stores the properties we wish to use again so we only have to run Reflection once per property.
+    /// </summary>
+    private static readonly IDictionary<Type, ICollection<PropertyInfo>> _propertyCache =
+        new Dictionary<Type, ICollection<PropertyInfo>>();
+
+    public static T MapToV2<T>(
+        this IRecord record
+        , string label = ""
+        , List<PropertyInfo> props = null
+    )
+        where T : class, new()
+    {
+        if (props == null) props = new List<PropertyInfo>();
+
+        var type = typeof(T);
+
+        // if no label provided, use the type's lowercased name
+        label = string.IsNullOrEmpty(label)
+            ? type.Name.ToLowerInvariant()
+            : label;
+
+        // if no props passed as an override, get them from the cache
+        var properties = props.Count > 0
+            ? props
+            : _propertyCache.TryGetProperties<T>(true);
+
+        // Neo4j nodes require labels
+        if (!record.Keys.Contains(label))
+            return new T();
+
+        var node = record[label].As<INode>();
+
+        if (properties.Count == 0)
+        {
+            return new T();
+        }
+
+        var obj = new T();
+
+        foreach (var prop in properties ?? Enumerable.Empty<PropertyInfo>())
+        {
+            string name = prop.Name /*.Dump("key")*/;
+            // var value = node.Properties[name].Dump("value");
+            node.Properties.TryGetValue(name, out var value);
+
+            var next_value = CreateSafeValue(value, prop);
+
+            prop.SetValue(obj, next_value /*.Dump("value")*/, null);
+        }
+
+        return obj;
+    }
+
+    private static object CreateSafeValue(object value, PropertyInfo prop)
+    {
+        Type propType = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
+
+        object safeValue =
+            value == null
+                ? null
+                : Convert.ChangeType(value, propType);
+
+        return safeValue;
+    }
+}

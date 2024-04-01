@@ -1,0 +1,11 @@
+{
+  "statements": [
+    {
+      "statement": "MATCH (d:Decision) WHERE id(d) = {decisionId} MATCH (c:Criterion) WHERE id(c) = {criterionId} WITH d, c MATCH (d)<-[:VOTED_FOR]-(vg:VoteGroup)-[:VOTED_ON]->(c) RETURN vg",
+      "parameters": {
+        "decisionId": "1",
+        "criterionId": "1"
+      }
+    }
+  ]
+}

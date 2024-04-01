@@ -17,8 +17,15 @@ public interface IBuilderService
     Task<int> GetCount();
     Task<List<string>> FindTables();
 
-    Task<List<Build>> GetAll(
-        int limit = 1000
-        , Func<IRecord, Build> mapper = null
-    );
+    // Task<List<Build>> GetAll(
+    //     int limit = 1000
+    //     , Func<IRecord, Build> mapper = null
+    // );
+    Task<List<T>> GetAll<T>(
+        string query
+        , object parameters = null
+        , Func<IRecord, T> mapper = null
+        , bool debug_mode = false
+    )
+        where T : class, new();
 }

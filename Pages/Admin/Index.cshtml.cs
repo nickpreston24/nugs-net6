@@ -97,21 +97,21 @@ public class IndexModel : PageModel
         """ );
     }
 
-    public async Task<IActionResult> OnGetCreateParts()
-    {
-        Console.WriteLine(nameof(OnGetCreateParts));
-
-        var fakeparts = CreateFakeParts(2);
-
-        // fakeparts.Dump();
-        // Parts.Dump("all parts");
-        fakeparts.Length.Dump("number of parts to create (pre sql)");
-        int count =
-                await partService.Create(fakeparts)
-            // fakeparts.Length
-            ;
-        return Content($"<b>Created '{count}' parts</b>");
-    }
+    // public async Task<IActionResult> OnGetCreateParts()
+    // {
+    //     Console.WriteLine(nameof(OnGetCreateParts));
+    //
+    //     var fakeparts = CreateFakeParts(2);
+    //
+    //     // fakeparts.Dump();
+    //     // Parts.Dump("all parts");
+    //     fakeparts.Length.Dump("number of parts to create (pre sql)");
+    //     int count =
+    //             await partService.Create(fakeparts)
+    //         // fakeparts.Length
+    //         ;
+    //     return Content($"<b>Created '{count}' parts</b>");
+    // }
 
     private static readonly string[] part_names = new string[]
     {

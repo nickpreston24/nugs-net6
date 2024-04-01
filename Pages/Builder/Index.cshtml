@@ -13,32 +13,7 @@
 @inject ICsvService csv_svc
 @inject IBuilderService builder_svc
 @{
-    string filepath = "Experimental/Parts-Grid view.csv";
-    var parts_from_csv = csv_svc
-        .Read<Part>(filepath
-            , (csv) =>
-            {
-                var record = new Part
-                {
-                    Id = csv.GetField<string>("Id"),
-                    Name = csv.GetField("Name"),
-                    Cost = csv.GetField("Cost")
-                        .Replace("$", "")
-                        .ToDouble(),
-                    Combo = csv.GetField("Combo"),
-                    Type = csv.GetField("Type"),
-                    Attachments = csv.GetField("Attachments"),
-                    Url = csv.GetField("Url"),
-                };
-                return record;
-            }).ToList();
-
-
-    var existing_builds = await builder_svc.GetAll();
-    existing_builds.Dump(nameof(existing_builds));
-
-
-    var grouped_by_type = parts_from_csv
+    var grouped_by_type = @Model.PartsFromCsv
         .GroupBy(part => part.Type)
         .OrderByDescending(gr => gr.Key)
         .ThenByDescending(gr => gr.Count())
@@ -49,7 +24,6 @@
     // var barrels = parts_from_csv.Where(part => part.Type.Equals(UpperPartType.Barrel));
 
     // var all_pages = routes_service.GetAllRoutes();
-    // var parts = Model.PartsFromCsv;
     // var current_build = Model.Dump("null?").CurrentBuild.Dump("current build");
 }
 
@@ -59,11 +33,18 @@
 
     <section id="left" class="w-1/5">
         @* <hydro name="BuilderToolbar" params="@(new { MenuOptions = toolbar_options })"></hydro> *@
-        <builder-menu Parts="@parts_from_csv"></builder-menu>
+        <builder-menu Parts="@Model.PartsFromCsv"></builder-menu>
     </section>
 
     <section id="right" class="w-4/5 flex flex-col items-center justify-center gap-2">
 
+        @* <div hx-get *@
+        @*      hx-trigger="load,init" *@
+        @*      hx-swap="outerHTML" *@
+        @*      hx-page="Index" *@
+        @*      hx-page-handler="ExistingBuilds"> *@
+        @*     .... existing builds.... *@
+        @* </div> *@
         <div class="grid grid-rows-auto xl:grid-cols-2 grid-cols-1">
 
             @foreach (var grouping in grouped_by_type)
@@ -78,6 +59,13 @@
     </section>
 
 </div>
+
+<script >
+    function setup()
+    {
+        return {}   
+    }
+</script>
 
 
 @* @foreach (var group_name in group_names) *@

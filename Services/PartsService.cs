@@ -1,6 +1,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using Bogus;
+using CodeMechanic.Advanced.Regex;
 using CodeMechanic.Diagnostics;
 using CodeMechanic.Embeds;
 using CodeMechanic.RazorHAT.Services;
@@ -79,29 +80,44 @@ public class PartsService : IPartsService
         Console.WriteLine($"without values clause : >> {updated_sql}");
 
         string bulk_sql = records
-            .ToList()
-            .Aggregate(new StringBuilder("values ")
-                    .Prepend(updated_sql)
-                    .Prepend("begin transaction; \n")
-                , (builder, part) =>
-                {
-                    builder.Append("(");
-                    builder.Append($"'{part.Name}', ");
-                    builder.Append($"{part.Cost}, ");
-                    builder.Append($"'{part.Kind}', ");
-                    builder.Append($"'{part.Manufacturer}'");
-                    builder.AppendLine("),");
-                    return builder; //.RemoveFromEnd(2);
-                })
-            .RemoveFromEnd(2)
-            .AppendLine("\n commit;")
-            .ToString();
+                .ToList()
+                .Aggregate(new StringBuilder("values ")
+                        .Prepend(updated_sql)
+                    // .Prepend("begin transaction; \n")
+                    , (builder, part) =>
+                    {
+                        builder.Append("(");
+                        builder.Append($"'{part.Name.EscapeSingleQuotes()}', ");
+                        builder.Append($"{part.Cost}, ");
+                        builder.Append($"'{part.Kind}', ");
+                        builder.Append($"'{part.ImageCssSelector}', ");
+                        builder.Append($"'{part.Manufacturer.EscapeSingleQuotes()}'");
+                        builder.AppendLine("),");
+                        return builder; //.RemoveFromEnd(2);
+                    })
+                .RemoveFromEnd(2)
+                // .AppendLine(";\n commit;")
+                .ToString()
+            // .EscapeSingleQuotes()
+            ;
+        int record_count = 0;
+        string message = $"-- bulk sql for {records.Length} records :>> \n" + bulk_sql;
+        new LocalLoggerService(new()).WriteLogs<PartsService>("Parts service", message);
+        Console.WriteLine(message);
 
-        Console.WriteLine($"bulk sql for {records.Length} records :>> " + bulk_sql);
-
-        using var connection = CreateConnection();
-
-        var record_count = connection.Execute(bulk_sql, records);
+        await using (var connection = CreateConnection())
+        {
+            connection.Open();
+            await using (var transaction = connection.BeginTransaction())
+            {
+                var command = connection.CreateCommand();
+                command.CommandText = bulk_sql;
+                record_count = await command.ExecuteNonQueryAsync();
+                transaction.Commit();
+            }
+        }
+ 
+        // var record_count = await connection.ExecuteAsync(bulk_sql, records);
         Console.WriteLine("RECORDS CREATED : " + record_count);
         return record_count;
     }
@@ -136,5 +152,18 @@ public class PartsService : IPartsService
             ;
         var items = calendar_faker.Generate(count);
         return items;
+    }
+}
+
+public static class Sqlite3Extensions
+{
+    public static string EscapeSingleQuotes(this string value)
+    {
+        var replacementMap = new Dictionary<string, string>()
+        {
+            { @"(?<!['\(])'{1}(?![\)',])", "''" } // https://regex101.com/r/K3O4ap/1
+        };
+
+        return value.AsArray().ReplaceAll(replacementMap).FlattenText();
     }
 }

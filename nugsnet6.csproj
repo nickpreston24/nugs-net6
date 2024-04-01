@@ -52,6 +52,8 @@
         <PackageReference Include="CodeMechanic.Types" Version="1.0.7" />
         <PackageReference Include="CsvHelper" Version="30.0.1" />
         <PackageReference Include="Dapper" Version="2.1.24" />
+        <PackageReference Include="HtmlAgilityPack" Version="1.11.60" />
+        <PackageReference Include="HtmlAgilityPack.CssSelectors" Version="1.0.2" />
         <PackageReference Include="Htmx" Version="1.6.1" />
         <PackageReference Include="Htmx.TagHelpers" Version="1.6.1" />
         <PackageReference Include="Hydro" Version="0.11.0" />

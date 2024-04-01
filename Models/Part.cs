@@ -31,15 +31,21 @@ public class Part
     public DateTime LastModified { get; set; }
     public string ImageUrl { get; set; } = string.Empty;
     public string Manufacturer { get; set; } = string.Empty;
+    
+    // Scraping Props
+
+    public string ImageCssSelector { get; set; } = string.Empty;
+    
 
     public static CodeMechanic.Extensions.Maybe<Part> NotFound = new(new Part()
     {
         Id = string.Empty, Name = "Not Available", Cost = -1, ComboCost = -1
     });
 
-    public static ISpecification<Part> IsValid => new Spec<Part>(part => part.Cost > 0
-                                                                         && NotFound.IfSome(_ =>
-                                                                             part.Equals(NotFound.Value)));
+    // TODO: move to extensions - conflicts w/ Dapper's automapper >:(
+    // public static ISpecification<Part> IsValid => new Spec<Part>(part => part.Cost > 0
+                                                                         // && NotFound.IfSome(_ =>
+                                                                         //     part.Equals(NotFound.Value)));
 
 
     // public Attachment[] Attachments { get; set; }

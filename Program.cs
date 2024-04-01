@@ -5,6 +5,7 @@ using CodeMechanic.RazorHAT.Services;
 using CodeMechanic.Types;
 using Hydro.Configuration;
 using nugsnet6;
+using nugsnet6.Pages.Builder;
 using nugsnet6.Services;
 
 //
@@ -46,6 +47,16 @@ builder.Services.AddSingleton<IPropertyCache>(props_service);
 builder.Services.AddSingleton<ICsvService>(new CsvService(props_service, dev_mode));
 builder.Services.AddSingleton<IBuilderService, BuilderService>();
 
+
+
+//
+// builder.Services.AddHttpClient<IndexModel>(client =>
+// {
+//     client.BaseAddress = new Uri(builder.Configuration["BaseUrl"]);
+// });
+// .AddPolicyHandler(GetRetryPolicy())
+// .AddPolicyHandler(GetCircuitBreakerPolicy());
+
 var main_assembly = Assembly.GetExecutingAssembly();
 builder.Services.AddSingleton<IEmbeddedResourceQuery>(
     new EmbeddedResourceService(
@@ -66,6 +77,12 @@ builder.Services.AddSingleton<IAirtableQueryingService>(new AirtableQueryingServ
 builder.Services.ConfigureAirtable();
 builder.Services.ConfigureNeo4j();
 builder.Services.AddHydro();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
+
+
+builder.Services.AddHttpClient();
+
 
 var app = builder.Build();
 
@@ -85,6 +102,7 @@ app.UseRouting();
 
 app.UseAuthorization();
 app.MapRazorPages();
+// app.UseExceptionHandler();
 
 app.MapControllerRoute(
     name: "default",
