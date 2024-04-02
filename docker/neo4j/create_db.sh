@@ -24,28 +24,24 @@ prompt_read_ip() {
   
   docker run \
       --restart always \
+      --env=NEO4J_AUTH=none \
       --publish=7474:7474 --publish=7687:7687 \
+      --volume=$HOME/neo4j/data:/data \
 #      --env NEO4J_AUTH=neo4j/${NEW_PASSWORD} \
-#      --env NEO4J_AUTH=none \
-#      --volume=/home/neo4j/volumes \
       neo4j:5.18.0
-    
-#  URL="${DBNAME}/${PASSWORD}/${NEW_PASSWORD}${FIELDS}"
-#  GET_DATA=$(curl "$URL" --silent)
 }
 
 read_inline() {
   NEW_PASSWORD=${1}
+  
   docker run \
         --restart always \
         --publish=7474:7474 --publish=7687:7687 \
-        --env NEO4J_AUTH=neo4j/${NEW_PASSWORD} \
-#        --env NEO4J_AUTH=none \
-#        --volume=/home/neo4j/volumes \
+#        --env NEO4J_AUTH=neo4j/${NEW_PASSWORD} \
+        --env=NEO4J_AUTH=none \
+        --volume=$HOME/neo4j/data:/data \
         neo4j:5.18.0
-      
-#  URL="${DBNAME}/${PASSWORD}/${NEW_PASSWORD}${FIELDS}"
-#  GET_DATA=$(curl "$URL" --silent)
+    
 }
 
 case "$1" in

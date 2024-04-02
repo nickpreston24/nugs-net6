@@ -1,10 +1,10 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using Bogus;
-using CodeMechanic.Advanced.Regex;
 using CodeMechanic.Diagnostics;
 using CodeMechanic.Embeds;
 using CodeMechanic.RazorHAT.Services;
+using CodeMechanic.Sqlite;
 using CodeMechanic.Types;
 using Dapper;
 using Microsoft.Data.Sqlite;
@@ -102,7 +102,7 @@ public class PartsService : IPartsService
             ;
         int record_count = 0;
         string message = $"-- bulk sql for {records.Length} records :>> \n" + bulk_sql;
-        new LocalLoggerService(new()).WriteLogs<PartsService>("Parts service", message);
+        new LocalLoggerService().WriteToFile<PartsService>("Parts service", message);
         Console.WriteLine(message);
 
         await using (var connection = CreateConnection())
@@ -116,7 +116,7 @@ public class PartsService : IPartsService
                 transaction.Commit();
             }
         }
- 
+
         // var record_count = await connection.ExecuteAsync(bulk_sql, records);
         Console.WriteLine("RECORDS CREATED : " + record_count);
         return record_count;
@@ -152,18 +152,5 @@ public class PartsService : IPartsService
             ;
         var items = calendar_faker.Generate(count);
         return items;
-    }
-}
-
-public static class Sqlite3Extensions
-{
-    public static string EscapeSingleQuotes(this string value)
-    {
-        var replacementMap = new Dictionary<string, string>()
-        {
-            { @"(?<!['\(])'{1}(?![\)',])", "''" } // https://regex101.com/r/K3O4ap/1
-        };
-
-        return value.AsArray().ReplaceAll(replacementMap).FlattenText();
     }
 }

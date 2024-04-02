@@ -19,8 +19,8 @@ public class IndexModel : PageModel
     private readonly IPartsService partService;
     public Env env { get; init; }
 
-
     public List<Part> PartsFromCsv { get; set; } = new();
+    public List<Build> BuildsFromCsv { get; set; } = new();
 
     public IndexModel(
         IEmbeddedResourceQuery embeddedResourceQuery
@@ -42,7 +42,28 @@ public class IndexModel : PageModel
         // reset on refresh
         count = 0;
         PartsFromCsv = GetPartsFromCsvFile("Experimental/Parts-Grid view.csv");
+        BuildsFromCsv = GetBuildsFromCsvFile("Experimental/Builds-Grid view.csv");
     }
+
+    private List<Build> GetBuildsFromCsvFile(string filepath)
+    {
+        return csv
+            .Read<Build>(filepath
+                , (csv) =>
+                {
+                    var record = new Build
+                    {
+                        Id = csv.GetField<string>("Id"),
+                        Name = csv.GetField("Name"),
+                        // Cost = csv.GetField("Cost")
+                        //     .Replace("$", "").ToDouble(),
+                        // Combo = csv.GetField("Combo")
+                        // Cost = TypeExtensions.ToDouble(csv.GetField("Cost").ToString())
+                    };
+                    return record;
+                }).ToList();
+    }
+
 
     public IActionResult OnGetSave()
     {
@@ -94,7 +115,7 @@ public class IndexModel : PageModel
             $"""
             <div class='alert alert-primary'>
                 <p class='text-xl text-secondary text-sh'>
-                { query}                       
+                { query}                           
                 </p>
             </div>
         """ );

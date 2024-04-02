@@ -14,7 +14,7 @@
 using Microsoft.Data.SqlClient;
 namespace CodeMechanic.Models;
 
-sealed class LogRow
+public sealed class LogRow
 {
 
     public int Id { get; set; } = -1;

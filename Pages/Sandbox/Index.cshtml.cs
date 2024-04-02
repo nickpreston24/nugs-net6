@@ -82,7 +82,7 @@ public class IndexModel : PageModel
         catch (Exception e)
         {
             Console.WriteLine(e);
-            // local_logger.WriteLogs<Models.Part>("sandbox", e.ToString() + "\n" + query);
+            // local_logger.WriteToFile<Models.Part>("sandbox", e.ToString() + "\n" + query);
             return Partial("_Alert", new AlertModel(e));
         }
     }

@@ -5,13 +5,6 @@ using NSpecifications;
 
 namespace CodeMechanic.RazorHAT.Services;
 
-public interface IRazorRoutesService
-{
-    string[] GetAllRoutes();
-    string[] GetBreadcrumbsForPage(string builder);
-    string[] AllRoutes { get; set; }
-}
-
 public class RazorRoutesService : IRazorRoutesService
 {
     private readonly bool dev_mode;
@@ -83,11 +76,4 @@ public class RazorRoutesService : IRazorRoutesService
     }
 
     public string[] AllRoutes { get; set; } = razor_page_routes;
-}
-
-public class RazorRoute
-{
-    public string subdirectory { get; set; }
-    public string file_name { get; set; }
-    public string extension { get; set; }
 }

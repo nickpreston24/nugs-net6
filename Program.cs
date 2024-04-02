@@ -7,6 +7,7 @@ using Hydro.Configuration;
 using nugsnet6;
 using nugsnet6.Pages.Builder;
 using nugsnet6.Services;
+using nugsnet6.Services.Sqlite;
 
 //
 // if (args.Length > 0)
@@ -46,6 +47,7 @@ builder.Services.AddSingleton<IRazorRoutesService, RazorRoutesService>();
 builder.Services.AddSingleton<IPropertyCache>(props_service);
 builder.Services.AddSingleton<ICsvService>(new CsvService(props_service, dev_mode));
 builder.Services.AddSingleton<IBuilderService, BuilderService>();
+builder.Services.AddSingleton<ISqliteInsightsService, SqliteInsightsService>();
 
 builder.Services.AddSingleton(env);
 

@@ -3,12 +3,6 @@ using CodeMechanic.Reflection;
 
 namespace CodeMechanic.RazorHAT.Services;
 
-public interface IPropertyCache
-{
-    PropertyInfo[] GetProperties<T>(params PropertyInfo[] props);
-    string[] GetPropertyNames<T>();
-}
-
 public class PropertyCache : IPropertyCache
 {
     private static readonly IDictionary<Type, ICollection<PropertyInfo>> property_cache =

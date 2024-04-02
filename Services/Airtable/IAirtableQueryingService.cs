@@ -81,7 +81,7 @@ public class AirtableQueryingService : IAirtableQueryingService
             Console.WriteLine(e);
 
             if (debug_mode)
-                locallogger.WriteLogs<T>(nameof(AirtableQueryingService), json);
+                locallogger.WriteToFile<T>(json);
 
             return new List<T>();
         }

@@ -53,14 +53,20 @@ https://github.com/chartjs/awesome
 
 - [x] Update DotEnv for easy keying and mapping to T.
 - [x] Find or write a good Modal that can be called up anytime.
+- [ ] Import Builds from csv, and save to nugs.db (sqlite)
+- [ ] Have the globalexceptionhandler log locally.
+- [ ] Have the globalexceptionhandler log to Nugs.db.
 - [ ] Write update query for scraped images to nugs db.
 - [ ] Save your CSV Parts to a Neo4j db instance.
-
+- [ ] implement and Test the logs bulk insert.
+- [ ] Trigger the modal when an exception occurs.
 
 ## Ideas
 
 - [ ] Idea: Write a bootstrap method for local neo4j Docker image.
 - [ ] Idea: Write a Sqlite3 Insights service for displaying table counts, stats, etc.
+- [ ] Scrape any url and find tables; Break down the tables by headers, and suggest/create models from them?  Maybe preview them in a daisyui table? :)
+- [ ] 
 
 ## Issues
 
