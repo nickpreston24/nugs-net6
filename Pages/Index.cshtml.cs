@@ -51,3 +51,14 @@ public class IndexModel : PageModel
         ? Partial("_MissingSection", section_name)
         : Partial(section_name, value);
 }
+
+public record BuyerWelcomeConfig
+{
+    public bool show_private_sales_login { get; set; }
+    public bool show_config_test_div { get; set; }
+    public DateTimeOffset some_date { get; set; }
+    public double some_double { get; set; }
+    public float some_float { get; set; }
+    public int some_int { get; set; }
+    public bool enable_lightsabers { get; set; }
+}

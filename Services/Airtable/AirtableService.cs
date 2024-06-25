@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Runtime.Caching;
 using System.Text;
 using System.Text.RegularExpressions;
-using CodeMechanic.Advanced.Regex;
+using CodeMechanic.RegularExpressions;
 using CodeMechanic.Diagnostics;
 using Newtonsoft.Json;
 using MemoryCache = System.Runtime.Caching.MemoryCache;

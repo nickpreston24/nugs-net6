@@ -1,11 +1,10 @@
 using System.Reflection;
 using CodeMechanic.Embeds;
-using CodeMechanic.Migrations;
+// using CodeMechanic.Migrations;
 using CodeMechanic.RazorHAT.Services;
 using CodeMechanic.Types;
 using Hydro.Configuration;
 using nugsnet6;
-using nugsnet6.Pages.Builder;
 using nugsnet6.Services;
 using nugsnet6.Services.Sqlite;
 
@@ -36,23 +35,26 @@ Console.WriteLine("Developer mode (all debugs enabled)? " + dev_mode);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddScoped<IPartsService, PartsService>();
+
 var props_service = new PropertyCache();
-builder.Services.AddScoped<IJsonConfigService, JsonConfigService>();
-builder.Services.AddScoped<IFakerService, FakerService>();
-builder.Services.AddSingleton<IMarkdownService, MarkdownService>();
-builder.Services.AddSingleton<ICodeSyncService, CodeSyncService>();
-builder.Services.AddSingleton<IImageService, ImageService>();
-builder.Services.AddSingleton<IRazorRoutesService, RazorRoutesService>();
+builder.Services.AddSingleton<ILocalLogger, LocalLoggerService>();
 builder.Services.AddSingleton<IPropertyCache>(props_service);
+builder.Services.AddSingleton<IRazorRoutesService, RazorRoutesService>();
+builder.Services.AddSingleton<IJsonConfigService, JsonConfigService>();
+// builder.Services.AddSingleton<ICodeSyncService, CodeSyncService>();
+builder.Services.AddSingleton<IMarkdownService, MarkdownService>();
 builder.Services.AddSingleton<ICsvService>(new CsvService(props_service, dev_mode));
-builder.Services.AddSingleton<IBuilderService, BuilderService>();
 builder.Services.AddSingleton<ISqliteInsightsService, SqliteInsightsService>();
+
+builder.Services.AddScoped<IFakerService, FakerService>();
+builder.Services.AddScoped<IImageService, ImageService>();
+builder.Services.AddScoped<IPartsService, PartsService>();
+builder.Services.AddScoped<IBuilderService, BuilderService>();
 
 builder.Services.AddSingleton(env);
 
 
-//
+//  TODO: Fix the httpclient factory
 // builder.Services.AddHttpClient<IndexModel>(client =>
 // {
 //     client.BaseAddress = new Uri(builder.Configuration["BaseUrl"]);

@@ -1,6 +1,6 @@
 using System.Reflection;
 using System.Text;
-using CodeMechanic.Advanced.Regex;
+using CodeMechanic.RegularExpressions;
 using CodeMechanic.Diagnostics;
 using CodeMechanic.Types;
 using Insight.Database;

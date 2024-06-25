@@ -1,5 +1,5 @@
 using System.Text.RegularExpressions;
-using CodeMechanic.Advanced.Regex;
+using CodeMechanic.RegularExpressions;
 using CodeMechanic.RazorHAT.Services;
 using Hydro;
 using Newtonsoft.Json;
@@ -24,7 +24,7 @@ public class WebClipper : HydroComponent
 
 
         string regex = seller.cost.regex;
-        var regexp = new Regex(regex, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        var regexp = new System.Text.RegularExpressions.Regex(regex, RegexOptions.Compiled | RegexOptions.IgnoreCase);
         string cost_text = " $ 999.99";
         cost = cost_text.Extract<ExtractedCost>(regexp).FirstOrDefault();
 

@@ -4,8 +4,6 @@
 //
 //   "Set quicktype target language"
 
-using NSpecifications;
-
 namespace nugsnet6.Models;
 
 public class Part

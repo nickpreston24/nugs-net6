@@ -2,21 +2,6 @@
 @using CodeMechanic.RazorHAT.Services
 @model IndexModel
 
-@functions {
-
-    public record BuyerWelcomeConfig
-    {
-        public bool show_private_sales_login { get; set; }
-        public bool show_config_test_div { get; set; }
-        public DateTimeOffset some_date { get; set; }
-        public double some_double { get; set; }
-        public float some_float { get; set; }
-        public int some_int { get; set; }
-        public bool enable_lightsabers { get; set; }
-    }
-
-}
-
 @inject IJsonConfigService configs
 @{
     string secret_passphrase = Environment.GetEnvironmentVariable("BUYER_PASSPHRASE");

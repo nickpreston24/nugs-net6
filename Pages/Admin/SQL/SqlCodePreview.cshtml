@@ -1,0 +1,24 @@
+@using CodeMechanic.Types
+@model nugsnet6.Pages.Admin.SqlCodePreview
+@{
+    string[] code_lines = @Model.Lines;
+}
+
+<div class="mockup-code">
+
+    <script>
+        Alpine.magic('clipboard', () => {
+            return subject => navigator.clipboard.writeText(subject)
+        })
+    </script>
+    <pre data-prefix="$"><code>npm i daisyui</code></pre>
+    <pre data-prefix=">" class="text-warning"><code>installing...</code></pre>
+    <pre data-prefix=">" class="text-success"><code>Done!</code></pre>
+
+    @foreach (string line in code_lines)
+    {
+        <pre data-prefix=">" class="text-success"><code>@line</code></pre>
+    }
+
+    <button @@click="$clipboard('@code_lines.FlattenText().ToString()')">Copy Code</button>
+</div>

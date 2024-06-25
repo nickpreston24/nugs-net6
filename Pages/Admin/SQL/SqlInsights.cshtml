@@ -1,0 +1,54 @@
+@page
+@using nugsnet6.Pages.Components
+@model nugsnet6.Pages.Admin.SqlInsights
+
+@{
+    var all_tables = @Model.AllTables;
+}
+
+<split>
+
+    <div class="overflow-x-auto">
+        <table class="table table-sm table-pin-cols">
+            <thead>
+            <th>Table Name</th>
+            <th>Name</th>
+            @* <th>Root</th> *@
+            @* <th>Type</th> *@
+            <th>Sql (len)</th>
+            </thead>
+            @foreach (var table in @all_tables)
+            {
+                <tr>
+
+                    <td>@table.tbl_name</td>
+                    <td>@table.name</td>
+                    @* <td>@table.sql.Length</td> *@
+                    @* <td>@table.rootpage</td> *@
+                    @* <td>@table.type</td> *@
+                    <td>
+                        <button
+                            hx-get
+                            hx-page="SQL/SqlInsights"
+                            hx-page-handler="SqlPreview"
+                            hx-swap="outerHTML"
+                            class="btn btn-info">
+                            View
+                        </button>
+                        @* <details x-transition> *@
+                        @*     <summary>Details</summary> *@
+                        @*     @table.sql *@
+                        @* </details> *@
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    <hero>
+        <slot name="header">Sql View</slot>
+        <hydro name="SqlCodePreview" params="@(new { Lines = new string[] { "test line" } })"></hydro>
+    </hero>
+
+
+</split>

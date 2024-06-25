@@ -1,5 +1,5 @@
 using System.Text.RegularExpressions;
-using CodeMechanic.Advanced.Regex;
+using CodeMechanic.RegularExpressions;
 using CodeMechanic.FileSystem;
 using NSpecifications;
 

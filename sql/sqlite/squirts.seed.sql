@@ -2,11 +2,16 @@ drop table if exists squirts;
 
 create table if not exists squirts
 (
-    id              INTEGER PRIMARY KEY AUTOINCREMENT not null,
-    name            text default '',
-    url             text default '',
-    featured_image  text default '',
-    thumbnail_image text default ''
+    id              int NOT NULL AUTO_INCREMENT, -- not very critical, but nice for tracking how many rows and what we've removed.
+    name            text,
+    url             text,
+    featured_image  text,
+    thumbnail_image text,
+
+    # PK's
+    PRIMARY KEY (id),
+    # full-text search
+    FULLTEXT (name, url)
 );
 
 insert into squirts (name, url)

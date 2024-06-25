@@ -1,0 +1,9 @@
+@page
+@model nugsnet6.Pages.Admin.Logs
+
+@{
+    var log_rows = @Model.CurrentLogs;
+}
+
+
+<pre>Rows: @log_rows.Count</pre>

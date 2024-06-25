@@ -1,8 +1,7 @@
 using System.Collections.Concurrent;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using CodeMechanic.Advanced.Regex;
-using CodeMechanic.Diagnostics;
+using CodeMechanic.RegularExpressions;
 using CodeMechanic.Types;
 
 public static class DotEnv

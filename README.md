@@ -5,6 +5,25 @@
 3. Prevent accidental "violations" to keep civilians safe as possible from tyranny.
 4. ...
 
+
+When putting your build together, you’ll need to decide on the following parts:
+
+    Caliber, barrel length, purpose?
+    Brace or stock?
+    Do you want your brace or stock to fold?
+    Ratcheting castle nut or staked castle nut?
+    What upper and lower receiver do you want?
+    Which trigger do you want or require?
+    Is your lower parts kit Mil-Spec or upgraded?
+    BCG.
+    Charging Handle (rear charging or side charging?).
+    Handguard preference?
+    Muzzle device?
+    Optics/Sights?
+    Pistol Grips/Foregrips
+    Barrel Takedown or Breakdown Kits
+    Cerakote choice (optional)
+
 ## Upgrading the app to a Desktop App
 
 For Issues with SDKs or Runtimes not running, try this:

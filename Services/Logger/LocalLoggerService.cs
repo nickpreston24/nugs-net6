@@ -1,23 +1,19 @@
 using System.Runtime.CompilerServices;
-using CodeMechanic.Diagnostics;
 using CodeMechanic.FileSystem;
 using CodeMechanic.Models;
 using Dapper;
 using Microsoft.Data.Sqlite;
-using nugsnet6.Models;
 
 namespace CodeMechanic.RazorHAT.Services;
 
 public class LocalLoggerService : ILocalLogger
 {
-    private readonly LocalLoggingSettings logging_settings;
+    public LocalLoggingSettings Settings = new();
     private bool dev_mode = false;
 
     public LocalLoggerService(
-        LocalLoggingSettings loggingSettings = null
-        , bool devMode = false)
+        bool devMode = false)
     {
-        logging_settings = loggingSettings ?? new LocalLoggingSettings();
         dev_mode = devMode;
 
         var grepper = new Grepper()
@@ -31,7 +27,7 @@ public class LocalLoggerService : ILocalLogger
             .Select(fn => new FileInfo(fn));
 
         var now = DateTime.Now;
-        var expiration = now.Add(loggingSettings.ExpiresIn);
+        var expiration = now.Add(Settings.ExpiresIn);
         var stale_files = files.Where(fi => fi.CreationTime > expiration).ToArray();
 
         foreach (var doomed_file in stale_files)
@@ -65,9 +61,15 @@ public class LocalLoggerService : ILocalLogger
         throw new NotImplementedException();
     }
 
-    public Task<LogRow> GetById(int id)
+    public async Task<LogRow> GetById(int id)
     {
-        throw new NotImplementedException();
+        string sql = """SELECT * FROM logs where id = @id""";
+        using var connection = CreateConnection();
+        var records = await connection.QueryAsync<LogRow>(sql, param: new
+        {
+            id = id
+        });
+        return records.SingleOrDefault();
     }
 
     public Task<int> Create(params LogRow[] model)

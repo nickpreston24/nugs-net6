@@ -1,5 +1,5 @@
 using System.Text;
-using CodeMechanic.Advanced.Regex;
+using CodeMechanic.RegularExpressions;
 
 namespace CodeMechanic.Airtable;
 

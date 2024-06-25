@@ -1,7 +1,7 @@
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-using CodeMechanic.Advanced.Regex;
+using CodeMechanic.RegularExpressions;
 using CodeMechanic.Diagnostics;
 using CodeMechanic.Reflection;
 using CodeMechanic.Types;

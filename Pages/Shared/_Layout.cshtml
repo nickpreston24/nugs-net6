@@ -85,6 +85,23 @@
 
 <locknloadout-footer/>
 <hydro name="HydroModal"/>
+<script>
+document.addEventListener('alpine:init', () => {
+    Alpine.magic('post', function () {
+        return function (url, data = {}) {
+            return fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                redirect: 'follow',
+                body: JSON.stringify(data)
+            });
+        }
+    });
+})
+</script>
+
 
 @* <script > *@
 @*     console.log('draw_svg_text (wind0w):>> ', window.draw_svg_text); *@

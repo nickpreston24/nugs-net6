@@ -1,8 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <!--        <TargetFrameworks>net7.0;net8.0</TargetFrameworks>-->
-        <!--        <TargetFramework>net7.0</TargetFramework>-->
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <RootNamespace>nugsnet6</RootNamespace>
@@ -44,12 +42,13 @@
         <PackageReference Include="CodeMechanic.Async" Version="1.0.1" />
         <PackageReference Include="CodeMechanic.Diagnostics" Version="1.0.3" />
         <PackageReference Include="CodeMechanic.Embeds" Version="1.0.0" />
-        <PackageReference Include="CodeMechanic.FileSystem" Version="1.0.7" />
+        <PackageReference Include="CodeMechanic.FileSystem" Version="1.0.12" />
+        <PackageReference Include="CodeMechanic.Migrations" Version="1.0.0" />
         <PackageReference Include="CodeMechanic.Neo4j" Version="1.0.3" />
         <PackageReference Include="CodeMechanic.RazorHAT" Version="1.0.6" />
         <PackageReference Include="CodeMechanic.Reflection" Version="1.0.4" />
-        <PackageReference Include="CodeMechanic.Regex" Version="1.0.2" />
-        <PackageReference Include="CodeMechanic.Types" Version="1.0.7" />
+        <PackageReference Include="CodeMechanic.Regex" Version="1.0.6" />
+        <PackageReference Include="CodeMechanic.Types" Version="1.0.9" />
         <PackageReference Include="CsvHelper" Version="30.0.1" />
         <PackageReference Include="Dapper" Version="2.1.24" />
         <PackageReference Include="HtmlAgilityPack" Version="1.11.60" />
@@ -63,7 +62,7 @@
         <!--        <PackageReference Include="JsonDiffPatch.Net" Version="2.3.0" />-->
         <PackageReference Include="MySqlConnector" Version="2.3.1" />
         <PackageReference Include="Neo4j.Driver" Version="5.15.0" />
-        <PackageReference Include="Npgsql" Version="8.0.0" />
+        <PackageReference Include="Npgsql" Version="8.0.3" />
         <PackageReference Include="NSpecification" Version="1.3.0" />
         <PackageReference Include="RestSharp" Version="110.2.1-alpha.0.2" />
         <PackageReference Include="System.Runtime.Caching" Version="8.0.0" />
@@ -80,13 +79,12 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\code-mechanic\CodeMechanic.Migrations\CodeMechanic.Migrations.csproj" />
+<!--        <ProjectReference Include="..\code-mechanic\CodeMechanic.Migrations\CodeMechanic.Migrations.csproj" />-->
         <!--        <ProjectReference Include="..\code-mechanic\Extensions\Types\CodeMechanic.Types.csproj"/>-->
-        <ProjectReference Include="..\code-mechanic\Shargs\CodeMechanic.Shargs.csproj" />
+<!--        <ProjectReference Include="..\code-mechanic\Shargs\CodeMechanic.Shargs.csproj" />-->
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Pages\Admin\Components" />
       <Folder Include="Pages\Admin\Models" />
     </ItemGroup>
 
