@@ -1,0 +1,27 @@
+<div class="flex flex-col gap-2">
+    <p class="alert alert-success text-white">Thanks for signing up! We'll keep you notified.</p>
+
+    <i class="text-white">
+        Btw, here's how many users have signed up so far:
+    </i>
+
+    <div id="thanks">
+        <span id="thanks_indicator" class="htmx-indicator">
+            <label>loading ...</label>
+            <img class="w-8" alt="bars" src="~/img/loaders/circle_bars.svg"/>
+        </span>
+    </div>
+
+    <section id="users_so_far">
+        <div hx-trigger="load"
+             hx-get
+             hx-indicator="#thanks_indicator"
+             hx-target="#thanks"
+             hx-page="Index"
+             hx-page-handler="CountUsers">
+        </div>
+
+    </section>
+
+    @* <b>(Peer pressure is fun!)</b> *@
+</div>

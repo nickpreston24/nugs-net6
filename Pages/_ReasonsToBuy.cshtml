@@ -1,0 +1,73 @@
+<div
+    class="hero min-h-screen">
+    <div class="hero-overlay bg-transparent"></div>
+    <div class="hero-content text-neutral-content text-center">
+        <div class="max-w-md">
+
+            <div class="">
+
+                <div class="avatar placeholder mb-8">
+                    @* <div class="bg-neutral text-neutral-content w-12"> *@
+                    <div class="ring-primary bg-primary/25 ring-offset-base-100 w-12 rounded-full ring ring-offset-2">
+                        <span class="text-primary">1</span>
+                    </div>
+                </div>
+
+                <div class="card-body flex flex-col items-center">
+                    <h2 class="card-title text-primary font-semibold">
+                        "Buy Once, Cry Once"
+                    </h2>
+
+                    <p class="text-white text-3xl font-bold">
+                        Start your Build Right
+                    </p>
+
+                    <div class="divider divider-primary"></div>
+
+                    <p class="text-white">Lock-N-Loadout builds a complete defensive loadout for gun enthusiasts based on use-case and budget. Never buy something you won't use again!</p>
+
+                    @* TODO: FEATURE GRID HERE *@
+
+                    <div id="feature_1_grid" class="grid grid-cols-1 grid-rows-auto grid-18">
+
+                        <bento-card>
+                            <slot name="image">
+                                <img src="~/img/long-rifles/stngr-llc-qDWiLMxCKCI-unsplash.jpg" alt="">
+                            </slot>
+                            <slot name="title">
+                                <h3 class="text-yellow-500 font-bold">Plan your Builds in Advance!</h3>
+                            </slot>
+                            <p>Lock-N-Loadout will suggest builds based on your favorite caliber, manufacturer, rifle type, and much more!</p>
+                        </bento-card>
+
+                        <bento-card>
+                            <slot name="image">
+                                <img src="~/img/recces/bcm-recce-rifle-1024x683.webp" alt="">
+                            </slot>
+                            <slot name="title">
+                                <h3 class="text-yellow-500 font-bold">Budget Perfectly</h3>
+                            </slot>
+                            <p>
+                                We'll only show builds within your budget. Or go full flex on your friends (we won't judge)!
+                            </p>
+                        </bento-card>
+
+                        <bento-card>
+                            <slot name="image">
+                                <img src="~/img/pccs/PSA-AKV-Mag-Catch-1024x635.jpg"></img>
+                            </slot>
+                            <slot name="title">
+                                <h3 class="text-yellow-500 font-bold">Curated Building Tips</h3>
+                            </slot>
+                            <p class="">
+                                Tired of rampant censorship 🤬 from Big Tech? We gather the best rifle and pistol building tips from the most popular GunTubers for your builds.
+                                @* TODO:  This may be a great opportunity to use AI on Youtube, so if you figure it out, load a GIF here *@
+                            </p>
+                        </bento-card>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

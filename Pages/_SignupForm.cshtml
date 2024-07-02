@@ -1,0 +1,39 @@
+@model nugsnet6.Pages.IndexModel
+
+<div x-data="{submitted:false}" class="card w-full max-w-sm shrink-0 shadow-2xl">
+    @* <div class="card-title"> *@
+    @* </div> *@
+
+    <div>
+        <form
+            hx-indicator="#signup_indicator"
+            asp-action="post"
+            hx-post="@Url.Page("Index", "Signup")"
+            class="card-body">
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Email</span>
+                </label>
+                <input asp-for="Email" type="email" placeholder="email" class="input input-bordered bg-transparent" required/>
+            </div>
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Credit Card <i>(optional)</i></span>
+                </label>
+                <input asp-for="CC" type="text" placeholder="1234-56-7890" class="input input-bordered bg-transparent"/>
+            </div>
+
+            <span x-show="submitted" id="signup_indicator" class="htmx-indicator">
+                <label>signing up ...</label>
+                <img class="w-8" alt="bars" src="~/img/loaders/circle_bars.svg"/>
+            </span>
+            <div class="form-control mt-6">
+                <button
+                    x-on:click="submitted=true"
+                    class="btn btn-primary">
+                    Let's GO!
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

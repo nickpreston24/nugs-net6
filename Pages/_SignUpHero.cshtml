@@ -1,0 +1,22 @@
+<div id="signup_section" x-data="{show_signup: false, show_survey: false}" class="hero min-h-screen glass rounded-3xl">
+    <div class="hero-content flex-col lg:flex-row-reverse">
+        <div class="text-center lg:text-left">
+
+            <div x-show="!show_signup" x-transition>
+                <h1 class="text-5xl font-bold text-white">Sign up now for updates!</h1>
+                <i class="py-6 text-warning">
+                    We'll email you anytime there's updates on the project, so you'll be the first to know!
+                </i>
+            </div>
+
+        </div>
+
+        @* todo: signup form modal here *@
+        <partial name="_SignupForm"></partial>
+
+        <div x-show="show_survey" x-transition>
+            <partial name="_NextFeatureSurvey"></partial>
+        </div>
+    </div>
+
+</div>

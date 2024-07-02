@@ -1,5 +1,47 @@
-@model dynamic
+<div class="navbar">
+    <div class="navbar-start m-2">
+        <a href="/">
+            <span class="text-xl text-white font-bold">lock n loadout</span>
+        </a>
+    </div>
+    @* <div class="navbar-center hidden lg:flex"> *@
+    @* <ul class="menu menu-horizontal px-1"> *@
+    @* <li> *@
+    @*     <a>item 1</a> *@
+    @* </li> *@
+    @* <li> *@
+    @*     <a>item 2</a> *@
+    @* </li> *@
+    @* </ul> *@
+    @* </div> *@
 
-<div class="navbar bg-neutral text-neutral-content">
-    <button class="btn btn-ghost text-xl">daisyUI</button>
+    @*         <li> *@
+    @*             <a href="/">Homepage</a> *@
+    @*         </li> *@
+    @*         <li> *@
+    @*             <a href="/builder"> *@
+    @*                 <button disabled>Build</button> *@
+    @*             </a> *@
+    @*         </li> *@
+    @*         <li> *@
+    @*             <a href="sandbox">Sandbox</a> *@
+    @*         </li> *@
+    @*         <li> *@
+    @*             <a href="admin">Admin</a> *@
+    @*         </li> *@
+    @*         <li> *@
+    @*             <a href="about">About</a> *@
+    @*         </li> *@
+    <div class="navbar-end flex flex-row gap-4">
+        <div class="tooltip tooltip-bottom" data-tip="Coming soon!">
+            <span disabled class="btn btn-ghost">
+                <a href="/Pricing" class="">Pricing</a>
+            </span>
+        </div>
+        <div class="tooltip tooltip-bottom" data-tip="Coming soon!">
+            <span disabled class="btn btn-ghost">
+                <a href="/Login" class="">Login</a>
+            </span>
+        </div>
+    </div>
 </div>

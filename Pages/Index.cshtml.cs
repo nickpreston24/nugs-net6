@@ -1,64 +1,71 @@
-﻿using CodeMechanic.Diagnostics;
-using CodeMechanic.Types;
-using CodeMechanic.UniqueId;
+using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using nugsnet6.Models;
+using MySql.Data.MySqlClient;
 
 namespace nugsnet6.Pages;
 
 [BindProperties]
 public class IndexModel : PageModel
 {
-    private readonly ILogger<IndexModel> _logger;
-    // public string CopyUrl { get; set; }
+    public string Email { get; set; } = string.Empty;
+    public string CC { get; set; } = string.Empty;
 
-    public AnonymousUser AnonUser { get; set; } = new AnonymousUser();
+    private static int total_users = 0;
+    public int TotalUsers = total_users;
+
+    private readonly ILogger<IndexModel> _logger;
 
     public IndexModel(ILogger<IndexModel> logger)
     {
         _logger = logger;
     }
 
-    public void OnGet(string u, string b)
+    public void OnGet()
     {
-        u.Dump("user id");
-        b.Dump("build id");
-
-        string prod_url_start = "https://lock-n-loadout.up.railway.app/";
-        AnonUser.CopyUrl = prod_url_start + $"?u={u}" + $"&b={b}";
     }
 
-
-    public IActionResult OnGetAnonymousUser()
+    public async Task<IActionResult> OnGetCountUsers()
     {
-        return Partial("_Anonymous", new AnonymousUser()
-            {
-                uuid = Guid.NewGuid().AsUUID()
-            }.With(au => AnonUser = au)
-        );
+        var connectionString = SQLConnections.GetMySQLConnectionString();
+
+        using var connection = new MySqlConnection(connectionString);
+
+        string query = @"
+select distinct email, credit_card
+from signups;";
+
+        var rows = await connection.QueryAsync(query);
+        Console.WriteLine(rows);
+
+        return Partial("_UserCount", rows.ToList().Count);
     }
 
-    public async Task<IActionResult> OnGetPricing() => Partial("Pricing", default);
+    public async Task<IActionResult> OnPostSignup()
+    {
+        // Console.WriteLine(nameof(OnPostSignup));
+        // Console.WriteLine("email: " + Email);
+        // Console.WriteLine("credit: " + CC);
 
-    public async Task<IActionResult> OnGetSurvey() => Partial("_Survey", default);
+        var connectionString = SQLConnections.GetMySQLConnectionString();
 
-    public async Task<IActionResult> OnPostUpdateSurvey([FromBody] Survey survey) => Partial("_Survey", survey);
+        using var connection = new MySqlConnection(connectionString);
 
-    public async Task<IActionResult> OnGetSwap() => Partial("AlpineMorphSample", default);
+        string insert_query =
+            @"insert into signups (email, credit_card) values (@email, @credit_card)";
 
-    public async Task<IActionResult> OnGetRenderSection(string section_name, object value) => section_name.IsEmpty()
-        ? Partial("_MissingSection", section_name)
-        : Partial(section_name, value);
-}
+        var results = await Dapper.SqlMapper
+            .QueryAsync(connection, insert_query,
+                new
+                {
+                    email = Email,
+                    credit_card = CC,
+                });
 
-public record BuyerWelcomeConfig
-{
-    public bool show_private_sales_login { get; set; }
-    public bool show_config_test_div { get; set; }
-    public DateTimeOffset some_date { get; set; }
-    public double some_double { get; set; }
-    public float some_float { get; set; }
-    public int some_int { get; set; }
-    public bool enable_lightsabers { get; set; }
+        int affected = results.ToList().Count;
+
+        Console.WriteLine($"logged {affected} log records.");
+
+        return Partial("_SignupThankYou");
+    }
 }

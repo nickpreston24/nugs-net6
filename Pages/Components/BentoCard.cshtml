@@ -1,0 +1,35 @@
+<div class="bento bento-shadow-blue image-full rounded-lg card w-128 p-4 bg-transparent shadow-xl">
+    <figure>
+        @Model.Slot("image")
+    </figure>
+    <div class="card-body">
+        <h2 class="card-title">
+            @Model.Slot("title")
+        </h2>
+        @Model.Slot()
+        <div class="card-actions justify-end">
+            @Model.Slot("actions")
+        </div>
+    </div>
+</div>
+
+<style>
+    .bento {
+        /*Src: https://tailwindcss.com/docs/border-radius*/
+        border-radius: 1.5rem;
+        border-color: #444444;
+        box-shadow: #49ff18;
+    }
+    
+    .bento-shadow-blue {
+        box-shadow: 0 .05rem .075rem #00caff;
+    }
+    
+    .bento-shadow-green {
+        box-shadow: 0 .05rem .075rem #00ffca;
+    }
+    
+    .bento-shadow-red {
+        box-shadow: 0 .05rem .075rem #ff00ca;
+    }
+</style>

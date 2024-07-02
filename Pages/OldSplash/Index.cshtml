@@ -1,0 +1,431 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using CodeMechanic.RazorHAT.Services
+@using CodeMechanic.Types
+@model IndexModel
+@inject IImageService imageService
+@{
+    var model = @Model;
+
+    var all_images = imageService.GetAllImages();
+
+    var pcc_images = all_images
+        .Where(i => i.FilePath.Contains("/pccs/"))
+        .ToList();
+
+    var long_rifle_images = all_images
+        .Where(local_image => local_image.FilePath.Contains("/long-rifles/"))
+        .ToList();
+
+    var recce_rifle_images = all_images
+        .Where(image => image.FilePath.Contains("/recces/"))
+        .ToList();
+
+
+    var recce_card = new CarouselCardModel()
+    {
+        Title = "Recce Rifles",
+        Description = "Click the button to start building one.",
+        Images = @recce_rifle_images
+    };
+
+    var pcc_card = new CarouselCardModel()
+    {
+        Title = "Pistol Caliber Carbines (PCC)",
+        Description = "Click the button to start building one.",
+        Images = @pcc_images
+    };
+
+    var long_rifle_card = new CarouselCardModel()
+    {
+        Title = "Long Rifles",
+        Description = "Click the button to start building one.",
+        Images = @long_rifle_images
+    };
+
+    var devmode = Environment.GetEnvironmentVariable("DEVMODE");
+}
+
+
+@section Scripts { <script src="~/Pages/Components/HydroSvg.cshtml.js"></script> }
+
+<div x-data="setup()">
+
+@* <hydrosection> *@
+@*     <slot name="header"> *@
+@*         Dotnet Watch Configurations *@
+@*     </slot> *@
+@* </hydrosection> *@
+
+@if (@devmode.ToBoolean() && Model.AnonUser.CopyUrl.NotEmpty())
+{
+    @* <button @@click="$clipboard('hello world')">Copy "Hello World"</button> *@
+    <span>@Model.AnonUser.CopyUrl</span>
+}
+
+<section>
+    <div class="hero min-h-screen bg-base-200">
+        <div class="hero-content text-center">
+            <div class="max-w-md">
+                <h1 class="text-5xl font-bold">
+                    Welcome to Lock N Loadout!
+                </h1>
+                
+                
+                <section x-data="{}" class="vertical-padding grid grid-cols-2 grid-rows-auto gap-10">
+                    <partial name="_CarouselCard" model="@recce_card"/>
+                    <partial name="_CarouselCard" model="@pcc_card"/>
+                    <partial name="_CarouselCard" model="@long_rifle_card"/>
+                </section>
+                
+                <span x-text="locknload_uuid"></span>
+
+                
+                <div>
+                    @* Hydro tests *@
+                    @* <hydro name="HydroCounter"/> *@
+                    <hydro name="RegisterUser"></hydro>
+
+
+                    @*                     <div class="container"> *@
+                    @*                         <svg width="105pt" height="110pt" viewBox="0 0 105 110" preserveAspectRatio="xMidYMid meet"> *@
+                    @*                             <g transform="translate(0.000000,110.000000) scale(0.100000,-0.100000)"> *@
+                    @*                                 <path *@
+                    @*                                     class="logo-path" *@
+                    @*                                     d="M447 1080 c-145 -19 -264 -96 -349 -225 -58 -89 -82 -178 -82 -305 0 *@
+                    @*                                 -128 24 -218 85 -309 100 -149 256 -224 469 -225 130 0 220 25 311 87 98 66 *@
+                    @*                                 99 70 31 154 -31 40 -62 72 -68 72 -6 1 -21 -10 -33 -23 -12 -13 -50 -37 -84 *@
+                    @*                                 -52 -55 -25 -73 -29 -157 -28 -111 0 -170 21 -233 82 -35 34 -73 90 -65 96 4 *@
+                    @*                                 3 752 156 763 156 8 0 -2 94 -17 160 -58 241 -304 396 -571 360z m169 -205 *@
+                    @*                                 c27 -8 64 -25 82 -39 43 -31 90 -96 98 -132 l6 -29 -282 -56 -282 -56 6 55 *@
+                    @*                                 c15 126 96 229 206 263 41 12 113 10 166 -6z"/> *@
+                    @*                             </g> *@
+                    @*                         </svg> *@
+
+                    @* <span x-init="draw_svg_text"></span> *@
+
+                    @* </div> *@
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section 1 -->
+
+
+<template x-if="false">
+
+    <section class="vertical-padding flex flex-row gap-10">
+        <!-- hero -->
+        <div class="hero w-auto flex-1 bg-base-200">
+            <div class="hero-content flex-col lg:flex-row-reverse">
+                <img
+                    src="https://daisyui.com/images/stock/photo-1635805737707-575885ab0820.jpg"
+                    class="max-w-sm rounded-lg shadow-2xl"/>
+                <div>
+                    <h1 class="text-5xl font-bold">Welcome to the Builds Dash!</h1>
+                    <p class="py-6">
+                        Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
+                        excepturi exercitationem quasi. In deleniti eaque aut repudiandae
+                        et a id nisi.
+                    </p>
+                    <button class="btn btn-primary">Get Started</button>
+                </div>
+            </div>
+        </div>
+        <!-- lorem -->
+        <div class="flex gap-10 flex-1 flex-col">
+            <div>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste
+                doloremque minus rem recusandae nihil expedita ad illo ab! Corporis
+                eius, dolore ducimus laudantium voluptates commodi perferendis veniam
+                ut cum ratione!
+            </div>
+            <div>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit itaque
+                odit magni quod molestias saepe aperiam non dignissimos sunt hic
+                atque, adipisci error voluptas modi consectetur nam? Eum, doloribus
+                animi.
+            </div>
+        </div>
+    </section>
+</template>
+
+@* <figure> *@
+@* <img *@
+@*     src="https://unsplash.com/photos/black-rifle-on-snow-covered-ground-aQB_qqJcWhM" *@
+@*     alt="Album"/> *@
+
+
+<!-- Section 2 -->
+<template x-if="false">
+
+
+    <section
+        x-if="false"
+        class="flex flex-row vertical-padding gap-10">
+        <!-- stats -->
+        <div class="stats shadow flex-2">
+            <div class="stat">
+                <div class="stat-figure text-primary">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        class="inline-block w-8 h-8 stroke-current">
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">
+                        </path>
+                    </svg>
+                </div>
+                <div class="stat-title">Total Likes</div>
+                <div class="stat-value text-primary">25.6K</div>
+                <div class="stat-desc">21% more than last month</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-figure text-secondary">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        class="inline-block w-8 h-8 stroke-current">
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M13 10V3L4 14h7v7l9-11h-7z">
+                        </path>
+                    </svg>
+                </div>
+                <div class="stat-title">Page Views</div>
+                <div class="stat-value text-secondary">2.6M</div>
+                <div class="stat-desc">21% more than last month</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-figure text-secondary">
+                    <div clahydrosvgss="avatar online">
+                        <div class="w-16 rounded-full">
+                            @* <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg"/> *@
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-value">86%</div>
+                <div class="stat-title">Tasks done</div>
+                <div class="stat-desc text-secondary">31 tasks remaining</div>
+            </div>
+        </div>
+
+        <!-- lorem text -->
+        <div class="flex gap-10 flex-1 flex-col">
+            <div>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste
+                doloremque minus rem recusandae nihil expedita ad illo ab! Corporis
+                eius, dolore ducimus laudantium voluptates commodi perferendis veniam
+                ut cum ratione!
+            </div>
+            <div>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit itaque
+                odit magni quod molestias saepe aperiam non dignissimos sunt hic
+                atque, adipisci error voluptas modi consectetur nam? Eum, doloribus
+                animi.
+            </div>
+        </div>
+    </section>
+</template>
+
+
+<!-- Section 3 -->
+<template x-if="false">
+
+
+    <section
+        x-if="false"
+
+        class="flex flex-row vertical-padding flex-row flex gap-10">
+        <div class="flex gap-4 flex-1 flex-col">
+            <div>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus tempore
+                vitae, velit maiores illo non corrupti fugit dolorum debitis eum
+                dignissimos excepturi nulla culpa fugiat quisquam dolore in
+                repudiandae maxime.
+            </div>
+            <div>
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque
+                facere iure, optio consequatur nobis soluta illum odit aliquid tenetur
+                suscipit amet cum quidem sed ab commodi perspiciatis saepe dolore.
+                Optio.
+            </div>
+        </div>
+
+        <!-- sample table -->
+
+        <div class="overflow-x-auto">
+            <table class="table">
+                <!-- head -->
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Job</th>
+                    <th>Favorite Color</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- row 1 -->
+                <tr class="bg-base-200">
+                    <th>1</th>
+                    <td>Cy Ganderton</td>
+                    <td>Quality Control Specialist</td>
+                    <td>Blue</td>
+                </tr>
+                <!-- row 2 -->
+                <tr>
+                    <th>2</th>
+                    <td>Hart Hagerty</td>
+                    <td>Desktop Support Technician</td>
+                    <td>Purple</td>
+                </tr>
+                <!-- row 3 -->
+                <tr>
+                    <th>3</th>
+                    <td>Brice Swyre</td>
+                    <td>Tax Accountant</td>
+                    <td>Red</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+</template>
+
+<!-- Section 4 -->
+<template x-if="false">
+
+
+    <section
+        x-if="false"
+
+        class="flex flex-row vertical-padding gap-10">
+        <!-- stats -->
+        <div class="stats shadow flex-2">
+            <div class="stat">
+                <div class="stat-figure text-primary">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        class="inline-block w-8 h-8 stroke-current">
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">
+                        </path>
+                    </svg>
+                </div>
+                <div class="stat-title">Total Likes</div>
+                <div class="stat-value text-primary">25.6K</div>
+                <div class="stat-desc">21% more than last month</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-figure text-secondary">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        class="inline-block w-8 h-8 stroke-current">
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M13 10V3L4 14h7v7l9-11h-7z">
+                        </path>
+                    </svg>
+                </div>
+                <div class="stat-title">Page Views</div>
+                <div class="stat-value text-secondary">2.6M</div>
+                <div class="stat-desc">21% more than last month</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-figure text-secondary">
+                    <div class="avatar online">
+                        <div class="w-16 rounded-full">
+                            <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-value">86%</div>
+                <div class="stat-title">Tasks done</div>
+                <div class="stat-desc text-secondary">31 tasks remaining</div>
+            </div>
+        </div>
+
+        <!-- lorem text -->
+        <div class="flex gap-10 flex-1 flex-col">
+            <div>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste
+                doloremque minus rem recusandae nihil expedita ad illo ab! Corporis
+                eius, dolore ducimus laudantium voluptates commodi perferendis veniam
+                ut cum ratione!
+            </div>
+            <div>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit itaque
+                odit magni quod molestias saepe aperiam non dignissimos sunt hic
+                atque, adipisci error voluptas modi consectetur nam? Eum, doloribus
+                animi.
+            </div>
+        </div>
+    </section>
+</template>
+
+</div>
+
+<script>
+    // Alpine.magic('clipboard', () => {
+    //     return subject => navigator.clipboard.writeText(subject)
+    // })
+    let user = localStorage.getItem('lnl_id');
+    if(!!user)
+        console.log('Welcome back, user ' + user)
+    function setup() {
+        return {
+            locknload_uuid: user
+        }
+    }
+    
+      anime({
+            targets: '.logo-path',
+            strokeDashoffset: [anime.setDashoffset, 0],
+            duration: 3000,
+            endDelay: 1000,
+            easing: 'linear',
+            loop: true,
+        });
+</script>
+@* <style> *@
+@*     .container { *@
+@*       position: relative; *@
+@*       width: fit-content; *@
+@*       display: flex; *@
+@*       flex-direction: row; *@
+@*       justify-content: space-between; *@
+@*       margin-left: auto; *@
+@*       margin-right: auto; *@
+@*       top: 50px; *@
+@*     } *@
+@*     .logo-path { *@
+@*       stroke: #474eed; *@
+@*       stroke-width: 20px; *@
+@*       fill: transparent; *@
+@*     } *@
+@* </style> *@
