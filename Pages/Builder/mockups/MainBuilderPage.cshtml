@@ -50,9 +50,10 @@
                     <div class="grid">
 
 
-
                         <div class="card w-96 bg-base-100 shadow-xl">
-                            <figure><img :src="" alt="Shoes" /></figure>
+                            <figure>
+                                <img :src="" alt="Shoes"/>
+                            </figure>
                             <div class="card-body">
                                 <h2 class="card-title">
                                     Shoes!
@@ -86,31 +87,31 @@
 
                     <table class="table table-compact w-full">
                         <thead>
-                            <tr>
-                                <th class=''>
-                                    <input type="text" name="Name" class="input input-bordered input-sm max-w-xs"
-                                        autocomplete="off" hx-trigger="keyup changed delay:250ms"
-                                        hx-get='@Url.Page("", "SearchBuilds")' hx-indicator="#loading"
-                                        hx-target='#search_results' hx-swap='innerHTML' placeholder="e.g., Glock"
-                                        aria-label="Name" aria-describedby="search-addon" />
-                                </th>
-                            </tr>
-                            <tr>
-                                <th>
-                                    <label>
-                                        <input type="checkbox" class="checkbox" />
-                                    </label>
-                                </th>
-                                <th>Name</th>
-                                <th>Total Cost</th>
-                                <th>Reasoning</th>
-                                <th>Id</th>
-                                <th>???</th>
-                                <th>???</th>
-                            </tr>
+                        <tr>
+                            <th class=''>
+                                <input type="text" name="Name" class="input input-bordered input-sm max-w-xs"
+                                       autocomplete="off" hx-trigger="keyup changed delay:250ms"
+                                       hx-get='@Url.Page("", "SearchBuilds")' hx-indicator="#loading"
+                                       hx-target='#search_results' hx-swap='innerHTML' placeholder="e.g., Glock"
+                                       aria-label="Name" aria-describedby="search-addon"/>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <label>
+                                    <input type="checkbox" class="checkbox"/>
+                                </label>
+                            </th>
+                            <th>Name</th>
+                            <th>Total Cost</th>
+                            <th>Reasoning</th>
+                            <th>Id</th>
+                            <th>???</th>
+                            <th>???</th>
+                        </tr>
                         </thead>
                         <tbody id='search_results'>
-                            <div class="htmx-indicator" id='loading'>loading...</div>
+                        <div class="htmx-indicator" id='loading'>loading...</div>
                         </tbody>
                     </table>
                 </figure>
@@ -119,8 +120,6 @@
 
     </div>
 </div>
-
-
 
 
 <!-- GRID -->
@@ -182,11 +181,11 @@
     <div
         class='flex flex-col items-center h-screen'
         x-data='setup()'>
-        <partial name="_BuildSteps" />
+        <partial name="Builder/Components/_BuildSteps" />
         
         <div class="border-ghost border-l-4 border-r-2">
             <div class='grid grid-cols-2 grid-rows-auto'>
-                <partial name="_BarrelPicker" />
+                <partial name="Builder/Components/_BarrelPicker" />
                 <section id='recommendations' > </section>
 
             </div>
