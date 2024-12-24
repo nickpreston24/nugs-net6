@@ -1,7 +1,4 @@
-using CodeMechanic.Diagnostics;
 using CodeMechanic.Embeds;
-using CodeMechanic.RazorHAT;
-using CodeMechanic.Types;
 using Htmx;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;

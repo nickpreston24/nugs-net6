@@ -1,6 +1,5 @@
 using CodeMechanic.Diagnostics;
 using CodeMechanic.Embeds;
-using CodeMechanic.RazorHAT.Services;
 using Dapper;
 using Microsoft.Data.Sqlite;
 

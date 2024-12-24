@@ -1,6 +1,5 @@
 using CodeMechanic.Diagnostics;
 using CodeMechanic.Embeds;
-using CodeMechanic.RazorHAT;
 using CodeMechanic.RazorHAT.Services;
 using CodeMechanic.Types;
 using HtmlAgilityPack;
