@@ -25,29 +25,26 @@ public class InventoryModel : PageModel
 
     public async Task<IActionResult> OnGetAllPartsFromCSV()
     {
-        var valid_part = new Spec<Part>(p => p.Name.NotEmpty()
-                                             || p.Cost > 0.00
-                                             || p.Notes.NotEmpty()
+        var valid_part = new Spec<Part>(p =>
+            p.Name.NotEmpty() || p.Cost > 0.00 || p.Notes.NotEmpty()
         );
 
         var text = ReadFromCsv("Parts-Grid view.csv");
         var lines = text.Split('\n');
         // lines.Length.Dump("# of lines");
-        if (text.IsEmpty()) throw new Exception("no text found!");
-        var headers = text
-                .Split('\n')
-                .FirstOrDefault()
-                .Split(',')
-                .Select(header => header.Replace(" ", ""))
-                .ToArray()
-            ;
+        if (text.IsEmpty())
+            throw new Exception("no text found!");
+        var headers = text.Split('\n')
+            .FirstOrDefault()
+            .Split(',')
+            .Select(header => header.Replace(" ", ""))
+            .ToArray();
         headers.Dump("headers");
         var parts = text.Split('\n')
             .Skip(1)
             .Take(1)
             // .Dump("first lines")
-            .SelectMany(line => line
-                .ExtractFromCsv<Part>(headers))
+            .SelectMany(line => line.ExtractFromCsv<Part>(headers))
             .ToList();
 
         // parts.Where(valid_part).Dump("parts from csv");
@@ -56,24 +53,19 @@ public class InventoryModel : PageModel
         return Partial("PartsList", parts.Where(valid_part).Take(10).ToList());
     }
 
-
     // TODO: temporary, until I can perfect the EmbeddedResources.cs
     private string ReadFromCsv(string file_name)
     {
         string cwd = Directory.GetCurrentDirectory();
         // cwd.Dump("current dir");
 
-        var grep = new Grepper()
-        {
-            RootPath = cwd,
-            FileSearchMask = "*.*"
-        };
+        var grep = new Grepper() { RootPath = cwd, FileSearchMask = "*.*" };
 
-        string found_file = grep
-            .GetFileNames()
+        string found_file = grep.GetFileNames()
             // .Dump("all found")
-            .FirstOrDefault(filename => filename
-                .Contains(file_name, StringComparison.OrdinalIgnoreCase));
+            .FirstOrDefault(filename =>
+                filename.Contains(file_name, StringComparison.OrdinalIgnoreCase)
+            );
 
         // found_file.Dump("file found ");
 
@@ -83,11 +75,11 @@ public class InventoryModel : PageModel
     }
 
     public InventoryModel(
-            IEmbeddedResourceQuery embeddedResourceQuery
-            , IDriver driver
-            , IAirtableRepo repo
-        )
-        // : base(embeddedResourceQuery, driver, repo, nameof(AirsoftLoadout))
+        IEmbeddedResourceQuery embeddedResourceQuery,
+        IDriver driver,
+        IAirtableRepo repo
+    )
+    // : base(embeddedResourceQuery, driver, repo, nameof(AirsoftLoadout))
     {
         this.embeddedResourceQuery = embeddedResourceQuery;
         this.driver = driver;

@@ -4,9 +4,7 @@ namespace nugsnet6.Models;
 
 public class BogusUser
 {
-    public BogusUser(int i, string replace)
-    {
-    }
+    public BogusUser(int i, string replace) { }
 
     public string FirstName { get; set; }
 

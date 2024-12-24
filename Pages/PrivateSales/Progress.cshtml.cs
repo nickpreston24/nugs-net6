@@ -14,12 +14,8 @@ public class Progress : PageModel
     public void OnGet()
     {
         Listings = new Listing().Repeat(5).ToList();
-        Filters.Add(new ListingFilter
-        {
-            SortDirection = "ASC"
-        });
+        Filters.Add(new ListingFilter { SortDirection = "ASC" });
     }
-
 
     public IActionResult GetAllListings()
     {
@@ -43,7 +39,7 @@ public class Progress : PageModel
                 Image_Url =
                     "https://images.unsplash.com/flagged/photo-1553505192-acca7d4509be?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDIwfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=700&q=60",
                 Name = "BMW Vista",
-            }
+            },
         };
 
         return Request.IsHtmx().Dump("is htmx?")

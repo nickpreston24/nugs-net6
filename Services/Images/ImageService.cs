@@ -1,9 +1,9 @@
 using System.Text;
 using System.Text.RegularExpressions;
-using CodeMechanic.RegularExpressions;
 using CodeMechanic.Diagnostics;
 using CodeMechanic.FileSystem;
 using CodeMechanic.RazorHAT.Models;
+using CodeMechanic.RegularExpressions;
 using CodeMechanic.Types;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
@@ -22,7 +22,8 @@ public class ImageService : IImageService
     {
         string wwwroot_folder = Environment.WebRootPath;
 
-        if (dev_mode) Console.WriteLine("wwwroot path :>> " + wwwroot_folder);
+        if (dev_mode)
+            Console.WriteLine("wwwroot path :>> " + wwwroot_folder);
 
         // TODO: Work on supporting more of these
         string[] supported_file_types = new[] { ".png", ".jpg", ".webp" };
@@ -30,8 +31,8 @@ public class ImageService : IImageService
             .AppendEach(supported_file_types, ft => "**" + ft, delimiter: ",")
             .ToString();
 
-        
-        if (dev_mode) Console.WriteLine("full mask :>> " + full_mask);
+        if (dev_mode)
+            Console.WriteLine("full mask :>> " + full_mask);
 
         var grepper = new Grepper()
         {
@@ -43,32 +44,30 @@ public class ImageService : IImageService
         // var blacklist = new string[] { "lib/" };
 
         var results = grepper
-                .GetFileNames()
-                // .Except(blacklist)
-                .Select(file_path => new LocalImage()
-                    {
-                        FilePath = file_path
-                    }
-                    .With(updates =>
-                    {
-                        var opts = RegexOptions.IgnoreCase
-                                   | RegexOptions.IgnorePatternWhitespace
-                                   | RegexOptions.Multiline;
+            .GetFileNames()
+            // .Except(blacklist)
+            .Select(file_path =>
+                new LocalImage() { FilePath = file_path }.With(updates =>
+                {
+                    var opts =
+                        RegexOptions.IgnoreCase
+                        | RegexOptions.IgnorePatternWhitespace
+                        | RegexOptions.Multiline;
 
-                        var pattern = """
-                            (?<front>.*)\b\/wwwroot\b(?<back>.*)   
-                        """;
+                    var pattern = """
+                        (?<front>.*)\b\/wwwroot\b(?<back>.*)   
+                    """;
 
-                        var split_path = updates.FilePath
-                            .Extract<PathSplit>(pattern, options: opts)
-                            .SingleOrDefault();
+                    var split_path = updates
+                        .FilePath.Extract<PathSplit>(pattern, options: opts)
+                        .SingleOrDefault();
 
-                        updates.src = updates.RelativePath = split_path?.back;
-                    })
-                )
-                .ToArray()
-            ;
-        if (dev_mode) results.Dump("local images found");
+                    updates.src = updates.RelativePath = split_path?.back;
+                })
+            )
+            .ToArray();
+        if (dev_mode)
+            results.Dump("local images found");
 
         return results;
     }

@@ -19,7 +19,9 @@ public class FilePathBuilder
 
     public FilePathBuilder(string root)
     {
-        this.root_directory = root.IsEmpty() ? Environment.CurrentDirectory : throw new ArgumentNullException(root);
+        this.root_directory = root.IsEmpty()
+            ? Environment.CurrentDirectory
+            : throw new ArgumentNullException(root);
 
         if (!Directory.Exists(this.root_directory))
             Directory.CreateDirectory(this.root_directory);

@@ -11,8 +11,16 @@ public class UpperPartType : Enumeration
     public static UpperPartType BarrelNut = new UpperPartType(5, "Barrel Nut");
     public static UpperPartType Handguard = new UpperPartType(6, nameof(Handguard));
     public static UpperPartType Foregrip = new UpperPartType(7, nameof(Foregrip));
-    public static UpperPartType BCG = new UpperPartType(8, nameof(BCG), aliases: new[] { "Bolt Carrier Group" });
-    public static UpperPartType ChargingHandle = new UpperPartType(9, "Charging Handle", aliases: new[] { "Charger" });
+    public static UpperPartType BCG = new UpperPartType(
+        8,
+        nameof(BCG),
+        aliases: new[] { "Bolt Carrier Group" }
+    );
+    public static UpperPartType ChargingHandle = new UpperPartType(
+        9,
+        "Charging Handle",
+        aliases: new[] { "Charger" }
+    );
     public static UpperPartType Rail = new UpperPartType(10, nameof(Rail));
 
     public readonly string[] aliases;
@@ -35,7 +43,8 @@ public class UpperPartType : Enumeration
         return false;
     }
 
-    public UpperPartType(int id, string name, string[] aliases = null) : base(id, name)
+    public UpperPartType(int id, string name, string[] aliases = null)
+        : base(id, name)
     {
         this.aliases = aliases ?? Enumerable.Empty<string>().ToArray();
     }

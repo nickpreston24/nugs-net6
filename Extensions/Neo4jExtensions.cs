@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace CodeMechanic.Neo4j.Extensions;
 
-public static class Neo4jExtensions 
+public static class Neo4jExtensions
 {
     /// <summary>
     /// PropertyCache stores the properties we wish to use again so we only have to run Reflection once per property.
@@ -14,38 +14,35 @@ public static class Neo4jExtensions
     private static readonly IDictionary<Type, ICollection<PropertyInfo>> _propertyCache =
         new Dictionary<Type, ICollection<PropertyInfo>>();
 
-    public static async Task<IResultSummary> RunAndConsumeAsync(this IAsyncSession session, string query, object parameters)
+    public static async Task<IResultSummary> RunAndConsumeAsync(
+        this IAsyncSession session,
+        string query,
+        object parameters
+    )
     {
-        var cursor = await session
-            .RunAsync(query, parameters)
-            .ConfigureAwait(false);
+        var cursor = await session.RunAsync(query, parameters).ConfigureAwait(false);
 
         List<string> titles = await cursor.ToListAsync(record => record["Title"].As<string>());
         titles.Dump("titles");
 
-        return await cursor
-            .ConsumeAsync()
-            .ConfigureAwait(false);
+        return await cursor.ConsumeAsync().ConfigureAwait(false);
     }
 
-    public static async Task<IResultSummary> RunAndConsumeAsync(this IAsyncSession session, string query, IDictionary<string, object> parameters)
+    public static async Task<IResultSummary> RunAndConsumeAsync(
+        this IAsyncSession session,
+        string query,
+        IDictionary<string, object> parameters
+    )
     {
-        var cursor = await session
-            .RunAsync(query, parameters)
-            .ConfigureAwait(false);
+        var cursor = await session.RunAsync(query, parameters).ConfigureAwait(false);
 
-         List<string> titles = await cursor.ToListAsync(record => record["Title"].As<string>());
+        List<string> titles = await cursor.ToListAsync(record => record["Title"].As<string>());
         titles.Dump("titles");
 
-        return await cursor
-            .ConsumeAsync()
-            .ConfigureAwait(false);
+        return await cursor.ConsumeAsync().ConfigureAwait(false);
     }
 
-    public static string Hydrate(
-        this string cypher_query
-    , Dictionary<string, string> neo_params
-    )
+    public static string Hydrate(this string cypher_query, Dictionary<string, string> neo_params)
     {
         var lines = new StringBuilder(cypher_query).ToString();
 
@@ -54,9 +51,9 @@ public static class Neo4jExtensions
             var name = neo_parameter.Key;
             var value = neo_parameter.Value;
             string replace_value = "${" + name + "}";
-        
+
             // lines.Split('\n').ReplaceAll(new Dictionary<string,string>()
-            // {[replace_value], value} 
+            // {[replace_value], value}
             // );
         }
 
@@ -68,21 +65,20 @@ public static class ParameterSerializer
 {
     public static IList<Dictionary<string, object>> ToDictionary<T>(IList<T> source)
     {
-        var settings = new JsonSerializerSettings
-        {
-            NullValueHandling = NullValueHandling.Ignore
-        };
+        var settings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
 
         string json = JsonConvert.SerializeObject(source, settings);
 
-        return JsonConvert.DeserializeObject<IList<Dictionary<string, object>>>(json, new CustomDictionaryConverter());
+        return JsonConvert.DeserializeObject<IList<Dictionary<string, object>>>(
+            json,
+            new CustomDictionaryConverter()
+        );
     }
 }
 
-
 /// <summary>
-/// This Converter is only a slightly modified converter from the JSON Extension library. 
-/// 
+/// This Converter is only a slightly modified converter from the JSON Extension library.
+///
 /// All Credit goes to Oskar Gewalli (https://github.com/wallymathieu) and the Makrill Project (https://github.com/NewtonsoftJsonExt/makrill).
 /// </summary>
 public class CustomDictionaryConverter : JsonConverter
@@ -92,7 +88,12 @@ public class CustomDictionaryConverter : JsonConverter
         serializer.Serialize(writer, value);
     }
 
-    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    public override object ReadJson(
+        JsonReader reader,
+        Type objectType,
+        object existingValue,
+        JsonSerializer serializer
+    )
     {
         return ExpectObject(reader);
     }

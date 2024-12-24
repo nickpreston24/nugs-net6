@@ -4,7 +4,6 @@ public class Attachment
 {
     public string Id { get; set; } = string.Empty;
 
-
     // public long Width { get; set; }
     //
     //

@@ -13,13 +13,17 @@ public class ViewScriptTagHelper : TagHelper
     private readonly IFileVersionProvider fileVersionProvider;
     private const string AppendVersionAttributeName = "append-version";
 
-    public ViewScriptTagHelper(IWebHostEnvironment environment, IFileVersionProvider fileVersionProvider)
+    public ViewScriptTagHelper(
+        IWebHostEnvironment environment,
+        IFileVersionProvider fileVersionProvider
+    )
     {
         this.environment = environment;
         this.fileVersionProvider = fileVersionProvider;
     }
 
-    [ViewContext] public ViewContext? ViewContext { get; set; }
+    [ViewContext]
+    public ViewContext? ViewContext { get; set; }
 
     /// <summary>
     /// Value indicating if file version should be appended to src urls.
@@ -41,8 +45,9 @@ public class ViewScriptTagHelper : TagHelper
 
         /* When the app is published, the framework automatically moves the script to the web root.
            So we should check both places, with the content root first for development */
-        var fileInfo = environment.ContentRootFileProvider.GetFileInfo(src) ??
-                       environment.WebRootFileProvider.GetFileInfo(src);
+        var fileInfo =
+            environment.ContentRootFileProvider.GetFileInfo(src)
+            ?? environment.WebRootFileProvider.GetFileInfo(src);
 
         if (fileInfo is { Exists: true })
         {

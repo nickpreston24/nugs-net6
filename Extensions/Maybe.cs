@@ -25,13 +25,17 @@ namespace CodeMechanic.Extensions
         // Only usable in C# 7.3 or higher... :'(
         //public static implicit operator Maybe<T?>(T? value) => value.ToMaybe();
 
-        public static Maybe<T> Some(T value) => value == null
-             ? throw new ArgumentNullException($"Cannot add a null value for a reference type like {typeof(T).Name}")
-             : new Maybe<T>(new[] { value });
+        public static Maybe<T> Some(T value) =>
+            value == null
+                ? throw new ArgumentNullException(
+                    $"Cannot add a null value for a reference type like {typeof(T).Name}"
+                )
+                : new Maybe<T>(new[] { value });
 
         public static Maybe<T> None => new Maybe<T>(new T[0]);
 
-        public T Value => HasValue
+        public T Value =>
+            HasValue
                 ? values.Single()
                 : throw new Exception($"Maybe of type {typeof(T).Name} does not have a value");
 
@@ -45,13 +49,9 @@ namespace CodeMechanic.Extensions
         //private Maybe(IEnumerable<T> values) => this.values = values;
         private Maybe(params T[] values) => this.values = values;
 
-        public T ValueOrDefault(T fallback_value) => !HasValue
-                ? fallback_value
-                : values.Single();
+        public T ValueOrDefault(T fallback_value) => !HasValue ? fallback_value : values.Single();
 
-        public T ValueOrThrow(Exception ex) => HasValue
-                ? Value
-                : throw ex;
+        public T ValueOrThrow(Exception ex) => HasValue ? Value : throw ex;
 
         /// <summary>
         /// Handle the cases where there is some value or there is none:
@@ -60,9 +60,7 @@ namespace CodeMechanic.Extensions
         /// <param name="some"></param>
         /// <param name="none"></param>
         /// <returns></returns>
-        public U Case<U>(Func<T, U> some, Func<U> none) => HasValue
-                ? some(Value)
-                : none();
+        public U Case<U>(Func<T, U> some, Func<U> none) => HasValue ? some(Value) : none();
 
         /// <summary>
         /// Handle the cases where there is some value or there is none:
@@ -107,10 +105,9 @@ namespace CodeMechanic.Extensions
         /// </summary>
         public U IfSome<U>(Func<T, U> if_some_value)
         {
-            return HasValue && if_some_value != null
-               ? if_some_value(Value)
-               : default;
+            return HasValue && if_some_value != null ? if_some_value(Value) : default;
         }
+
         /// <summary>
         /// Alters the return value type if some value is found
         ///
@@ -126,10 +123,9 @@ namespace CodeMechanic.Extensions
         /// </summary>
         public T IfSome(Func<T, T> if_some_value)
         {
-            return HasValue && if_some_value != null
-                ? if_some_value(Value)
-                : Value;
+            return HasValue && if_some_value != null ? if_some_value(Value) : Value;
         }
+
         /// <summary>
         /// Usage:
         /// public static string GetUserCulture2(int userId)
@@ -144,10 +140,9 @@ namespace CodeMechanic.Extensions
         /// <returns></returns>
         public T IfNone(Func<T> if_no_value_fn)
         {
-            return !HasValue && if_no_value_fn != null
-                ? if_no_value_fn()
-                : Value;
+            return !HasValue && if_no_value_fn != null ? if_no_value_fn() : Value;
         }
+
         /// <summary>
         /// If Null, fallback to default of T
         ///
@@ -156,10 +151,7 @@ namespace CodeMechanic.Extensions
         /// This is one of those times where we can tell the caller what to do with the value without throwing up and logging, necessarily.
         ///
         /// </summary>
-        public T IfNone(T fallback_value = default(T)) =>
-            !HasValue
-                ? fallback_value
-                : Value;
+        public T IfNone(T fallback_value = default(T)) => !HasValue ? fallback_value : Value;
 
         /// <summary>
         /// Sample Usage:
@@ -171,7 +163,7 @@ namespace CodeMechanic.Extensions
         ///     .Bind(lo => repo.GetOrder(lo.Id))
         ///     .Bind(o => o.Shipper);
         /// </summary>
-        public Maybe<U> Bind<U>(Func<T, Maybe<U>> func)// where U : class
+        public Maybe<U> Bind<U>(Func<T, Maybe<U>> func) // where U : class
         {
             var value = values.SingleOrDefault();
             return value != null ? func(value) : new Maybe<U>();
@@ -186,9 +178,8 @@ namespace CodeMechanic.Extensions
         ///     some: ()=> {... do work... },
         ///     none: ()=> {... handle any null or empty cases here }
         /// </summary>
-        public Maybe<U> Map<U>(Func<T, Maybe<U>> map_to) => HasValue
-                ? map_to(Value)
-                : Maybe<U>.None;
+        public Maybe<U> Map<U>(Func<T, Maybe<U>> map_to) =>
+            HasValue ? map_to(Value) : Maybe<U>.None;
 
         /// <summary>
         /// Map a maybe to another type:
@@ -199,9 +190,8 @@ namespace CodeMechanic.Extensions
         ///     some: ()=> {... do work... },
         ///     none: ()=> {... handle any null or empty cases here }
         /// </summary>
-        public Maybe<U> Map<U>(Func<T, U> map_to) => HasValue
-                ? Maybe.Some(map_to(Value))
-                : Maybe<U>.None;
+        public Maybe<U> Map<U>(Func<T, U> map_to) =>
+            HasValue ? Maybe.Some(map_to(Value)) : Maybe<U>.None;
     }
 
     public static class Maybe
@@ -214,16 +204,12 @@ namespace CodeMechanic.Extensions
         public static Maybe<T> ToMaybe<T>(this T instance_of_class)
         //where T : class
         {
-            return instance_of_class != null
-                ? Maybe.Some(instance_of_class)
-                : Maybe<T>.None;
+            return instance_of_class != null ? Maybe.Some(instance_of_class) : Maybe<T>.None;
         }
 
         public static Maybe<string[]> ToMaybe(this string[] text)
         {
-            return !text.IsNullOrEmpty()
-                ? Maybe.Some(text)
-                : Maybe<string[]>.None;
+            return !text.IsNullOrEmpty() ? Maybe.Some(text) : Maybe<string[]>.None;
         }
 
         public static Maybe<IEnumerable<T>> ToMaybe<T>(this IEnumerable<T> array_of_instances)
@@ -237,16 +223,12 @@ namespace CodeMechanic.Extensions
         public static Maybe<T> ToMaybe<T>(this T? nullable_object)
             where T : struct
         {
-            return nullable_object.HasValue
-                ? Maybe.Some(nullable_object.Value)
-                : Maybe<T>.None;
+            return nullable_object.HasValue ? Maybe.Some(nullable_object.Value) : Maybe<T>.None;
         }
 
         public static Maybe<string> NoneIfEmpty(this string text)
         {
-            return string.IsNullOrEmpty(text)
-                ? Maybe<string>.None
-                : Maybe.Some(text);
+            return string.IsNullOrEmpty(text) ? Maybe<string>.None : Maybe.Some(text);
         }
 
         public static Maybe<T> FirstOrNone<T>(this IEnumerable<T> collection)
@@ -261,7 +243,8 @@ namespace CodeMechanic.Extensions
             return collection.FirstOrDefault().ToMaybe();
         }
 
-        public static IEnumerator<T> GetEnumerator<T>(this Maybe<T> maybe) => ((IEnumerable<T>)maybe.Value).GetEnumerator();
+        public static IEnumerator<T> GetEnumerator<T>(this Maybe<T> maybe) =>
+            ((IEnumerable<T>)maybe.Value).GetEnumerator();
     }
 
     /* Uncomment when tuples are the new legacy:

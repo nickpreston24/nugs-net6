@@ -2,8 +2,8 @@ namespace nugs_seeder.Controllers;
 
 public static class IEnumerableExtensions
 {
-    public static IEnumerable<T> Repeat<T>(this T item, int count = 1)
-        => Enumerable.Repeat(item, count);
+    public static IEnumerable<T> Repeat<T>(this T item, int count = 1) =>
+        Enumerable.Repeat(item, count);
 
     public static IEnumerable<IEnumerable<T>> Batch<T>(this IEnumerable<T> enumerator, int size)
     {

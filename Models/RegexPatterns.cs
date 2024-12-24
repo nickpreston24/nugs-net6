@@ -1,6 +1,3 @@
 namespace nugsnet6.Models;
 
-public sealed class RegexPattern
-{
-    
-}
+public sealed class RegexPattern { }

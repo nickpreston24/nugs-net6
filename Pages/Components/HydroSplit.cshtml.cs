@@ -21,14 +21,14 @@ public class SplitOrientation : Enumeration
 {
     public static implicit operator SplitOrientation(string name)
     {
-        var matching = GetAll<SplitOrientation>().Single(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+        var matching = GetAll<SplitOrientation>()
+            .Single(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
         return matching;
     }
 
     public static SplitOrientation Vertical = new SplitOrientation(1, nameof(Vertical));
     public static SplitOrientation Horizontal = new SplitOrientation(2, nameof(Horizontal));
 
-    public SplitOrientation(int id, string name) : base(id, name)
-    {
-    }
+    public SplitOrientation(int id, string name)
+        : base(id, name) { }
 }

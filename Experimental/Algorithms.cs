@@ -13,23 +13,22 @@ public static class Algorithms
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
     public static IEnumerable<T> Greedy<T, TKey>(
-        this List<T> items
-        , Func<T, TKey> goal = null
+        this List<T> items,
+        Func<T, TKey> goal = null
         // , Func<T, TKey> order_by = null
         // , T max = default
         // , T min = default
         // , int limit = 100
         // , int bagCapacity = 100
-        , params Func<T, bool>[] ordered_conditions
+        ,
+        params Func<T, bool>[] ordered_conditions
     )
     {
         var count = items.Count;
         // if (goal == null)
         //     goal = x => string.Empty;
 
-        for (int index = 0; index < ordered_conditions.Length; index++)
-        {
-        }
+        for (int index = 0; index < ordered_conditions.Length; index++) { }
 
         // if ((origAmount % 0.25) < origAmount)
         // {
@@ -41,7 +40,7 @@ public static class Algorithms
 
         // int[,] matrix = new int[itemCount + 1, bagCapacity + 1];
 
-        //Go through each item. 
+        //Go through each item.
         for (int index = 0; index <= count; index++)
         {
             // for (int weight = 0; weight <= bagCapacity; weight++)
@@ -88,10 +87,14 @@ public static class Algorithms
             {
                 table_of_options[i, j] = table_of_options[i - 1, j];
 
-                if (j >= weights[i - 1] &&
-                    table_of_options[i, j] < table_of_options[i - 1, j - weights[i - 1]] + values[i - 1])
+                if (
+                    j >= weights[i - 1]
+                    && table_of_options[i, j]
+                        < table_of_options[i - 1, j - weights[i - 1]] + values[i - 1]
+                )
                 {
-                    table_of_options[i, j] = table_of_options[i - 1, j - weights[i - 1]] + values[i - 1];
+                    table_of_options[i, j] =
+                        table_of_options[i - 1, j - weights[i - 1]] + values[i - 1];
                 }
 
                 Console.WriteLine(table_of_options[i, j] + " ");
@@ -108,7 +111,14 @@ public static class Algorithms
         {
             if (table_of_options[n, maximum_weight] != table_of_options[n - 1, maximum_weight])
             {
-                Console.WriteLine("\tPackage " + n + " with W = " + weights[n - 1] + " and Value = " + values[n - 1]);
+                Console.WriteLine(
+                    "\tPackage "
+                        + n
+                        + " with W = "
+                        + weights[n - 1]
+                        + " and Value = "
+                        + values[n - 1]
+                );
 
                 maximum_weight -= weights[n - 1];
             }

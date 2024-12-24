@@ -21,9 +21,7 @@ public class IndexModel : PageModel
         _logger = logger;
     }
 
-    public void OnGet()
-    {
-    }
+    public void OnGet() { }
 
     public async Task<IActionResult> OnGetCountUsers()
     {
@@ -31,7 +29,8 @@ public class IndexModel : PageModel
 
         using var connection = new MySqlConnection(connectionString);
 
-        string query = @"
+        string query =
+            @"
 select distinct email, credit_card
 from signups;";
 
@@ -54,13 +53,11 @@ from signups;";
         string insert_query =
             @"insert into signups (email, credit_card) values (@email, @credit_card)";
 
-        var results = await Dapper.SqlMapper
-            .QueryAsync(connection, insert_query,
-                new
-                {
-                    email = Email,
-                    credit_card = CC,
-                });
+        var results = await Dapper.SqlMapper.QueryAsync(
+            connection,
+            insert_query,
+            new { email = Email, credit_card = CC }
+        );
 
         int affected = results.ToList().Count;
 

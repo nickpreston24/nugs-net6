@@ -1,22 +1,17 @@
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace nugsnet6.Pages.Sandbox;
 
-public class LoadoutMan :PageModel //: PageModel
+public class LoadoutMan : PageModel //: PageModel
 {
+    public LoadoutMan() { }
 
-    public LoadoutMan() 
+    public void OnGet() { }
+
+    public async Task<IActionResult> OnGetStuff()
     {
- 
-    }
-
-    public void OnGet()
-    {
-    }
-
-    public async Task<IActionResult> OnGetStuff() {
-            Console.WriteLine("Hello there! ");
+        Console.WriteLine("Hello there! ");
         return Content("<b>stuff aqcuired</b>");
     }
 }

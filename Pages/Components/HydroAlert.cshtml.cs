@@ -17,9 +17,11 @@ public class HydroAlert : HydroView
     public string Message { get; set; } = string.Empty;
     public Maybe<Exception> Error { get; set; } = Maybe<Exception>.None;
 
-    public string Kind => Error
-        .Case(some: (_) => AlertType.Error.ToString()
-            , none: () => AlertType.Success.ToString());
+    public string Kind =>
+        Error.Case(
+            some: (_) => AlertType.Error.ToString(),
+            none: () => AlertType.Success.ToString()
+        );
 }
 
 public class AlertType : Enumeration
@@ -29,7 +31,8 @@ public class AlertType : Enumeration
     public static AlertType Warning = new AlertType(3, nameof(Error), "alert-warn");
     public static AlertType Info = new AlertType(4, nameof(Error), "alert-info");
 
-    public AlertType(int id, string name, string value) : base(id, name)
+    public AlertType(int id, string name, string value)
+        : base(id, name)
     {
         Value = value;
     }

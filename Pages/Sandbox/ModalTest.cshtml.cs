@@ -8,9 +8,7 @@ public class ModalTest : PageModel
 {
     public string Message { get; set; } = string.Empty;
 
-    public void OnGet()
-    {
-    }
+    public void OnGet() { }
 
     public IActionResult OnPostModal()
     {

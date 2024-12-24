@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Neo4j.Driver;
 
 namespace nugsnet6.Pages.CarCapital.Inventory;
+
 //Note: to remove all comments, replace this pattern with nothing:  // .*$
 
 [BindProperties]
@@ -30,10 +31,7 @@ public class Index : PageModel
 
     public List<Car> AllCarInventory => _cars;
 
-
-    public Index(
-        IEmbeddedResourceQuery embeddedResourceQuery
-        , IDriver driver)
+    public Index(IEmbeddedResourceQuery embeddedResourceQuery, IDriver driver)
     {
         this.embeddedResourceQuery = embeddedResourceQuery;
         this.driver = driver;
@@ -50,28 +48,25 @@ public class Index : PageModel
                 Image_Url =
                     "https://tesla-cdn.thron.com/delivery/public/image/tesla/03c34975-991c-45ee-a340-2b700bf7de01/bvlatuR/std/960x540/meet-your-tesla_model-s",
                 Name = "Model S",
-                Make = "Tesla"
+                Make = "Tesla",
             },
             new Car
             {
                 Image_Url =
                     "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/2011_Chevrolet_Volt_--_NHTSA_1.jpg/1200px-2011_Chevrolet_Volt_--_NHTSA_1.jpg",
                 Name = "Chevy Volt",
-                Make = "Chevy"
+                Make = "Chevy",
             },
             new Car()
             {
                 Image_Url =
                     "https://images.unsplash.com/flagged/photo-1553505192-acca7d4509be?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDIwfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=700&q=60",
                 Name = "BMW Vista",
-                Make = "BMW"
-            }
+                Make = "BMW",
+            },
         };
 
-        return Partial("CarCapitalCorpCard",
-            cars_from_db
-                .TakeFirstRandom()
-                .Dump("requested car"));
+        return Partial("CarCapitalCorpCard", cars_from_db.TakeFirstRandom().Dump("requested car"));
     }
 }
 

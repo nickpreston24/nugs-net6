@@ -1,7 +1,7 @@
-using CodeMechanic.RazorHAT;
-using Neo4j.Driver;
 using CodeMechanic.Embeds;
+using CodeMechanic.RazorHAT;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Neo4j.Driver;
 
 namespace nugsnet6.Pages.FreeTier;
 
@@ -12,9 +12,9 @@ public class IndexModel : PageModel
     private readonly IAirtableRepo repo;
 
     public IndexModel(
-        IEmbeddedResourceQuery embeddedResourceQuery
-        , IDriver driver
-        , IAirtableRepo repo
+        IEmbeddedResourceQuery embeddedResourceQuery,
+        IDriver driver,
+        IAirtableRepo repo
     )
     {
         this.embeddedResourceQuery = embeddedResourceQuery;

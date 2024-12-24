@@ -7,11 +7,18 @@ namespace nugs_seeder.Controllers;
 public class ScrapesController : Controller
 {
     // private static string pattern = @"((&#36;)|$)(?<price>\d+\.\d+)"\s*\/>"
-    public async Task<string> GetContentAsync(string uri, string bearer_token = "", bool debug = false)
+    public async Task<string> GetContentAsync(
+        string uri,
+        string bearer_token = "",
+        bool debug = false
+    )
     {
         using HttpClient http = new HttpClient();
         if (bearer_token.NotEmpty())
-            http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearer_token);
+            http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+                "Bearer",
+                bearer_token
+            );
         var response = await http.GetAsync(uri);
         response.EnsureSuccessStatusCode();
         var content = await response.Content.ReadAsStringAsync();
@@ -21,23 +28,23 @@ public class ScrapesController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> Welcome(
-        string greeting = "Hello there!"
-    )
+    public async Task<IActionResult> Welcome(string greeting = "Hello there!")
     {
         return Ok(greeting);
     }
 
     [HttpGet]
-    public async Task<IActionResult> Search(
-        int limit = 5
-    )
+    public async Task<IActionResult> Search(int limit = 5)
     {
         string underwood_uri =
             @"https://www.powdervalley.com/product/underwood-300-blackout-125-grain-ballistic-tip-20/";
-        string rounds_uri = @"https://api.airtable.com/v0/app33DDBeyXEGRflo/Rounds?maxRecords=10&view=Grid%20view";
-        string builds = await GetContentAsync(rounds_uri, Environment.GetEnvironmentVariable("NUGS_PAT") ?? "",
-            debug: false);
+        string rounds_uri =
+            @"https://api.airtable.com/v0/app33DDBeyXEGRflo/Rounds?maxRecords=10&view=Grid%20view";
+        string builds = await GetContentAsync(
+            rounds_uri,
+            Environment.GetEnvironmentVariable("NUGS_PAT") ?? "",
+            debug: false
+        );
 
         // var content = await GetContentAsync(uri);
         // var rounds_pattern = new Regex();
@@ -45,16 +52,16 @@ public class ScrapesController : Controller
 
         return Ok(
             builds
-            // content
-            // new
-            // {
-            //     // round
-            //     // content,
-            //     // Limit = limit,
-            //     // term,
-            //     // category,
-            //     // findupdates
-            // }
+        // content
+        // new
+        // {
+        //     // round
+        //     // content,
+        //     // Limit = limit,
+        //     // term,
+        //     // category,
+        //     // findupdates
+        // }
         );
     }
 }

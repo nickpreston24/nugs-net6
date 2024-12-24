@@ -1,5 +1,3 @@
 namespace CodeMechanic.Airtable;
 
-public record CurlHeader
-{
-}
+public record CurlHeader { }

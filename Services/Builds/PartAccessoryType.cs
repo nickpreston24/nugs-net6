@@ -14,8 +14,10 @@ public class PartAccessoryType : Enumeration
 
     public static implicit operator PartAccessoryType(string name)
     {
-        if (name.IsEmpty()) throw new ArgumentNullException(nameof(name));
-        var matching = PartAccessoryType.GetAll<PartAccessoryType>()
+        if (name.IsEmpty())
+            throw new ArgumentNullException(nameof(name));
+        var matching = PartAccessoryType
+            .GetAll<PartAccessoryType>()
             .Single(upt =>
                 upt.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
                 || upt.aliases.Contains(name, StringComparer.OrdinalIgnoreCase)
@@ -24,7 +26,8 @@ public class PartAccessoryType : Enumeration
         return matching;
     }
 
-    public PartAccessoryType(int id, string name, string[] aliases = null) : base(id, name)
+    public PartAccessoryType(int id, string name, string[] aliases = null)
+        : base(id, name)
     {
         this.aliases = aliases ?? Enumerable.Empty<string>().ToArray();
     }

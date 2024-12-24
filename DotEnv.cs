@@ -22,7 +22,7 @@ public static class DotEnv
 
         var raw_settings = raw_text.Extract<DotEnvSetting>(
             DotEnvSetting.settings_pattern
-            // options: regex_options
+        // options: regex_options
         );
 
         // raw_settings.Dump();
@@ -40,7 +40,6 @@ public static class DotEnv
 public record Env
 {
     public DotEnvSetting[] Settings { get; init; } = new DotEnvSetting[] { };
-
 
     public string Get(string key)
     {
@@ -73,38 +72,36 @@ public record DotEnvSetting
 
     // https://regex101.com/r/pCJtks/1
     public const string regex_pattern = $"""
-         (?<!\#)(?<Left>\w+) # Match alphas and underscore
-         =                  # Match only the first equals sign
-         (?<Right>.*) 
-    """ ;
+             (?<!\#)(?<Left>\w+) # Match alphas and underscore
+             =                  # Match only the first equals sign
+             (?<Right>.*) 
+        """;
 
-    public static Regex settings_pattern = new Regex(regex_pattern,
-        RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace | RegexOptions.IgnoreCase);
+    public static Regex settings_pattern = new Regex(
+        regex_pattern,
+        RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace | RegexOptions.IgnoreCase
+    );
 }
 
 public static class DotEnvSettingExtensions
 {
-    public static void Deconstruct<T>(
-        this T? setting,
-        out string left,
-        out string right) where T : DotEnvSetting
+    public static void Deconstruct<T>(this T? setting, out string left, out string right)
+        where T : DotEnvSetting
     {
         left = setting.Left;
         right = setting.Right;
     }
 }
 
-
-/// Factory    
-public static class Singleton<T> where T : class, ISingleton
+/// Factory
+public static class Singleton<T>
+    where T : class, ISingleton
 {
     static volatile T instance;
     static readonly object @lock = new object();
     const BindingFlags FLAGS = BindingFlags.Instance | BindingFlags.NonPublic;
 
-    static Singleton()
-    {
-    }
+    static Singleton() { }
 
     public static T Instance
     {
@@ -134,9 +131,13 @@ public static class Singleton<T> where T : class, ISingleton
                     if (constructor == null || constructor.IsAssembly)
                     {
                         // Also exclude internal constructors.
-                        throw new SingletonException(string.Format("A private or " +
-                                                                   "protected empty parameterless constructor is missing for '{0}'.",
-                            typeof(T).Name));
+                        throw new SingletonException(
+                            string.Format(
+                                "A private or "
+                                    + "protected empty parameterless constructor is missing for '{0}'.",
+                                typeof(T).Name
+                            )
+                        );
                     }
 
                     instance = (T)constructor.Invoke(null);
@@ -164,7 +165,8 @@ public class SingletonException : Exception
 
 public interface ISingleton
 {
-    public ISingleton GetInstance<T>() where T : class, ISingleton => Multiton.GetInstance<T>();
+    public ISingleton GetInstance<T>()
+        where T : class, ISingleton => Multiton.GetInstance<T>();
 
     // ISelector Selector { get; set; }  //Todo: Replace with Selector's implementation when C# 8.0 comes out.
 }
@@ -174,11 +176,10 @@ public class Multiton
     private static readonly ConcurrentDictionary<Type, ISingleton> instances =
         new ConcurrentDictionary<Type, ISingleton>();
 
-    private Multiton()
-    {
-    }
+    private Multiton() { }
 
-    public static T GetInstance<T>() where T : class, ISingleton
+    public static T GetInstance<T>()
+        where T : class, ISingleton
     {
         lock (instances)
         {

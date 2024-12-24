@@ -4,9 +4,9 @@ namespace nugsnet6.Pages.Components;
 
 public class HydroAccordion : HydroComponent
 {
-    public HydroCollapseProps[]
-        Children { get; set; }
-        = Enumerable.Empty<HydroCollapseProps>().ToArray();
+    public HydroCollapseProps[] Children { get; set; } =
+        Enumerable.Empty<HydroCollapseProps>().ToArray();
+
     // = Enumerable.Repeat<HydroCollapse>(new HydroCollapse(), 1).ToArray();
 
     public override async Task MountAsync()
@@ -40,12 +40,7 @@ public static class Dotnet9Extensions
     // Gives previously unidentified collection a set of unique identifiers.
     public static List<(T, Guid)> AsUniqueCollection<T>(this IEnumerable<T> collection)
     {
-        List<(T, Guid)> result = collection
-                .Select(obj =>
-                    (obj, Guid.NewGuid())
-                )
-                .ToList()
-            ;
+        List<(T, Guid)> result = collection.Select(obj => (obj, Guid.NewGuid())).ToList();
         return result;
     }
 }

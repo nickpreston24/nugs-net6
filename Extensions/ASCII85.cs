@@ -1,7 +1,7 @@
 using System.Text;
 
 /// <summary>
-/// C# implementation of ASCII85 encoding. 
+/// C# implementation of ASCII85 encoding.
 /// Based on C code from http://www.stillhq.com/cgi-bin/cvsweb/ascii85/
 /// </summary>
 /// <remarks>
@@ -21,7 +21,7 @@ public sealed class Ascii85
     public string SuffixMark = "~>";
 
     /// <summary>
-    /// Maximum line length for encoded ASCII85 string; 
+    /// Maximum line length for encoded ASCII85 string;
     /// set to zero for one unbroken line.
     /// </summary>
     public int LineLength = 75;
@@ -50,8 +50,13 @@ public sealed class Ascii85
         {
             if (!s.StartsWith(PrefixMark) | !s.EndsWith(SuffixMark))
             {
-                throw new Exception("ASCII85 encoded data should begin with '" + PrefixMark +
-                                    "' and end with '" + SuffixMark + "'");
+                throw new Exception(
+                    "ASCII85 encoded data should begin with '"
+                        + PrefixMark
+                        + "' and end with '"
+                        + SuffixMark
+                        + "'"
+                );
             }
         }
 
@@ -77,7 +82,9 @@ public sealed class Ascii85
                 case 'z':
                     if (count != 0)
                     {
-                        throw new Exception("The character 'z' is invalid inside an ASCII85 block.");
+                        throw new Exception(
+                            "The character 'z' is invalid inside an ASCII85 block."
+                        );
                     }
 
                     _decodedBlock[0] = 0;
@@ -98,8 +105,11 @@ public sealed class Ascii85
                 default:
                     if (c < '!' || c > 'u')
                     {
-                        throw new Exception("Bad character '" + c +
-                                            "' found. ASCII85 only allows characters '!' to 'u'.");
+                        throw new Exception(
+                            "Bad character '"
+                                + c
+                                + "' found. ASCII85 only allows characters '!' to 'u'."
+                        );
                     }
 
                     processChar = true;
@@ -147,7 +157,9 @@ public sealed class Ascii85
     /// <returns>ASCII85 encoded string</returns>
     public string Encode(byte[] ba)
     {
-        StringBuilder sb = new StringBuilder((int)(ba.Length * (_encodedBlock.Length / _decodedBlock.Length)));
+        StringBuilder sb = new StringBuilder(
+            (int)(ba.Length * (_encodedBlock.Length / _decodedBlock.Length))
+        );
         _linePos = 0;
 
         if (EnforceMarks)

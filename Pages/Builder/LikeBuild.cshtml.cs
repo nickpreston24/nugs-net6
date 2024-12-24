@@ -18,14 +18,11 @@ public class LikeBuild : PageModel
         // string likes_query = await embeds.Read<Program>("BuildsLiked.cypher").ReadAllLinesFromStreamAsync();
 
         string likes_query = """
-            MERGE (p1:User { id: $userName })
-            MERGE (p2:Build { name: $buildName })
-            MERGE (p1)-[:LIKES]->(p2)
-            RETURN p1, p2
-        """;
+                MERGE (p1:User { id: $userName })
+                MERGE (p2:Build { name: $buildName })
+                MERGE (p1)-[:LIKES]->(p2)
+                RETURN p1, p2
+            """;
         Console.WriteLine("query :>> " + likes_query);
-        
-        
-        
     }
 }

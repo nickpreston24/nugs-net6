@@ -1,10 +1,10 @@
 using System.Data.SqlClient;
-using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using CodeMechanic.Diagnostics;
 using CodeMechanic.Embeds;
 using CodeMechanic.RazorHAT.Services;
 using Insight.Database;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Neo4j.Driver;
 using Npgsql;
@@ -25,15 +25,17 @@ public class IndexModel : PageModel
     public AmmoseekRow Insert { get; set; } = new AmmoseekRow();
     public List<AmmoseekRow> AmmoseekRows { get; set; } = new List<AmmoseekRow>();
 
-    [BindProperty] public string Retailer { get; set; } = string.Empty;
-    [BindProperty] public string Message { get; set; } = string.Empty;
+    [BindProperty]
+    public string Retailer { get; set; } = string.Empty;
 
+    [BindProperty]
+    public string Message { get; set; } = string.Empty;
 
     public IndexModel(
-        IEmbeddedResourceQuery embeddedResourceQuery
-        , IDriver driver
-        , IFakerService fakes
-        // , ILocalLogger logger
+        IEmbeddedResourceQuery embeddedResourceQuery,
+        // IDriver driver,
+        IFakerService fakes
+    // , ILocalLogger logger
     )
     {
         this.embeddedResourceQuery = embeddedResourceQuery;
@@ -51,7 +53,6 @@ public class IndexModel : PageModel
             $"Host={host};Port={port};Username={username};Password={password};Database={database}";
     }
 
-
     public async Task<IActionResult> OnPostBulkInsertParts()
     {
         string query = string.Empty;
@@ -59,16 +60,18 @@ public class IndexModel : PageModel
         {
             Console.WriteLine("Running a bulk upsert...");
             var parts_imported = fakes.ImportPartsFromFile().Take(30);
-            query = "INSERT INTO parts (name, kind, type, notes, productcode, cost) VALUES " +
-                    String.Join(',',
-                        parts_imported.Select(part =>
-                            $"('{part.Name}','{part.Kind}','{part.Type}','{part.Notes}','{part.ProductCode}',{part.Cost})"));
+            query =
+                "INSERT INTO parts (name, kind, type, notes, productcode, cost) VALUES "
+                + String.Join(
+                    ',',
+                    parts_imported.Select(part =>
+                        $"('{part.Name}','{part.Kind}','{part.Type}','{part.Notes}','{part.ProductCode}',{part.Cost})"
+                    )
+                );
 
             var sanitized_name = parts_imported.First().Name.Replace("'", "");
 
-
             Console.WriteLine(query);
-
 
             Console.WriteLine("connection string:>>" + postgresql_connectionstring);
             await using var connection = new NpgsqlConnection(postgresql_connectionstring);
@@ -98,31 +101,40 @@ public class IndexModel : PageModel
             await connection.OpenAsync();
 
             var ammo_prices =
-                fakes.GetFakeAmmoPrices(1000) ??
-                new List<AmmoseekRow>()
+                fakes.GetFakeAmmoPrices(1000)
+                ?? new List<AmmoseekRow>()
                 {
                     new AmmoseekRow()
                     {
-                        retailer = "Gorilla Ammunitionzzz", description = "8.6 blk zzz ",
+                        retailer = "Gorilla Ammunitionzzz",
+                        description = "8.6 blk zzz ",
                         brand = "Gorilla Ammunition zzz",
-                        caliber = "8.6 Blackout"
+                        caliber = "8.6 Blackout",
                     },
                     new AmmoseekRow()
                     {
-                        retailer = "American Federalzzz", description = "8.6 blk zzz ", brand = "American Federal zzz",
-                        caliber = "8.6 Blackout"
+                        retailer = "American Federalzzz",
+                        description = "8.6 blk zzz ",
+                        brand = "American Federal zzz",
+                        caliber = "8.6 Blackout",
                     },
                     new AmmoseekRow()
                     {
-                        retailer = "Hornadyzzz", description = "8.6 blk zzz ", brand = "Hornady zzz",
-                        caliber = "8.6 Blackout"
-                    }
+                        retailer = "Hornadyzzz",
+                        description = "8.6 blk zzz ",
+                        brand = "Hornady zzz",
+                        caliber = "8.6 Blackout",
+                    },
                 };
 
-            string query = "INSERT INTO ammoseek_prices (retailer, description, brand, caliber) VALUES " +
-                           String.Join(',',
-                               ammo_prices.Select(t =>
-                                   $"('{t.retailer}','{t.description}','{t.brand}','{t.caliber}')"));
+            string query =
+                "INSERT INTO ammoseek_prices (retailer, description, brand, caliber) VALUES "
+                + String.Join(
+                    ',',
+                    ammo_prices.Select(t =>
+                        $"('{t.retailer}','{t.description}','{t.brand}','{t.caliber}')"
+                    )
+                );
 
             Console.WriteLine(query);
 
@@ -150,7 +162,8 @@ public class IndexModel : PageModel
     public async Task<IActionResult> OnGetRecommendedRifles()
     {
         var failure = Content(
-            $"<div class='alert alert-error'><p class='text-xl text-warning text-sh'>An Error Occurred...  But fret not! Our team of intelligent lab mice are on the job!</p></div>");
+            $"<div class='alert alert-error'><p class='text-xl text-warning text-sh'>An Error Occurred...  But fret not! Our team of intelligent lab mice are on the job!</p></div>"
+        );
 
         string query = "...";
 
@@ -168,12 +181,12 @@ public class IndexModel : PageModel
         // Reads the any file I tell it to as a query.
         query = await stream.ReadAllLinesFromStreamAsync();
 
-
         // run query
 
         // This can also be a template
         return Content(
-            $"<div class='alert alert-primary'><p class='text-xl text-secondary text-sh'>{query}</p></div>");
+            $"<div class='alert alert-primary'><p class='text-xl text-secondary text-sh'>{query}</p></div>"
+        );
 
         // return JsonResult(records); // mustache
 
@@ -190,8 +203,9 @@ public class IndexModel : PageModel
         // if (dev_mode) Console.WriteLine("Checking ammo prices...");
         try
         {
-            string query = (embeddedResourceQuery as EmbeddedResourceService)
-                .GetFileContents<IndexModel>("SearchAmmoPrices.sql");
+            string query = (
+                embeddedResourceQuery as EmbeddedResourceService
+            ).GetFileContents<IndexModel>("SearchAmmoPrices.sql");
 
             Console.WriteLine("Running query :>> " + query);
 
@@ -199,16 +213,15 @@ public class IndexModel : PageModel
             await connection.OpenAsync(); // needed?
             var results = connection.QuerySql<AmmoseekRow>(query);
 
-            if (dev_mode) results.Count.Dump("# of ammoseek rows");
+            if (dev_mode)
+                results.Count.Dump("# of ammoseek rows");
             return Partial("_AmmoseekTable", results);
         }
         catch (Exception ex)
         {
-            return Partial("_Alert",
-                new AlertModel() { Error = ex, Message = "We screwed up" });
+            return Partial("_Alert", new AlertModel() { Error = ex, Message = "We screwed up" });
         }
     }
-
 
     public async Task<IActionResult> OnPostBulkUploadAmmoseekRows()
     {
@@ -221,53 +234,54 @@ public class IndexModel : PageModel
     /// <returns></returns>
     public async Task<IActionResult> OnPostInsertAmmoseekRow()
     {
-        if (dev_mode) Console.WriteLine("Inserting ammo prices...");
+        if (dev_mode)
+            Console.WriteLine("Inserting ammo prices...");
         Insert.Dump("inserted row");
         // return Content("Ping!");
 
         string query = """
-            
-        INSERT INTO ammoseek_prices(retailer,
-                            description,
-                            brand,
-                            caliber,
-                            grains,
-                            last_update,
-                            limits,
-                            casing,
-                            is_new,
-                            price,
-                            rounds,
-                            price_per_round,
-                            shipping_rating)
+                
+            INSERT INTO ammoseek_prices(retailer,
+                                description,
+                                brand,
+                                caliber,
+                                grains,
+                                last_update,
+                                limits,
+                                casing,
+                                is_new,
+                                price,
+                                rounds,
+                                price_per_round,
+                                shipping_rating)
 
-        VALUES ( 'Botachzzz'
-               , 'Fiocchi Shooting Dynamics .300 Blackout 150 Grain FMJBT Ammunition 50rds 762345000000zzz'
-               , 'Fiocchizzz'
-               , '.300 AAC Blackoutzzz'
-               , '150'
-               , '-'
-               , '-'
-               , 'brass'
-               , true
-               , '$66.95'
-               , '50'
-               , '$1.34'
-               , '6'),
-               ( 'LeadFeather Guns & Ammo'
-               , 'Fiocchi 150gr FMJBT 300BLK 762344711935'
-               , 'Fiocchi'
-               , '.300 AAC Blackout'
-               , '150'
-               , '2m9s'
-               , '-'
-               , 'brass'
-               , true
-               , '$149.99'
-               , '100'
-               , '$1.50'
-               , '5');
-        """;
+            VALUES ( 'Botachzzz'
+                   , 'Fiocchi Shooting Dynamics .300 Blackout 150 Grain FMJBT Ammunition 50rds 762345000000zzz'
+                   , 'Fiocchizzz'
+                   , '.300 AAC Blackoutzzz'
+                   , '150'
+                   , '-'
+                   , '-'
+                   , 'brass'
+                   , true
+                   , '$66.95'
+                   , '50'
+                   , '$1.34'
+                   , '6'),
+                   ( 'LeadFeather Guns & Ammo'
+                   , 'Fiocchi 150gr FMJBT 300BLK 762344711935'
+                   , 'Fiocchi'
+                   , '.300 AAC Blackout'
+                   , '150'
+                   , '2m9s'
+                   , '-'
+                   , 'brass'
+                   , true
+                   , '$149.99'
+                   , '100'
+                   , '$1.50'
+                   , '5');
+            """;
 
         try
         {
@@ -279,7 +293,8 @@ public class IndexModel : PageModel
                 cmd.Parameters.AddWithValue("retailer", "Ziggy Stardust zzz");
 
                 int rows_affected = await cmd.ExecuteNonQueryAsync();
-                if (dev_mode) Console.WriteLine("Rows affected :>> " + rows_affected);
+                if (dev_mode)
+                    Console.WriteLine("Rows affected :>> " + rows_affected);
             }
 
             return Partial("_AmmoseekTable", AmmoseekRows);
@@ -290,7 +305,6 @@ public class IndexModel : PageModel
         }
     }
 
-
     public async Task<IActionResult> OnGetSamplePostgresSchema()
     {
         var database = new SqlConnectionStringBuilder(postgresql_connectionstring);
@@ -299,7 +313,8 @@ public class IndexModel : PageModel
         using (var connection = database.OpenWithTransaction())
         {
             connection.ExecuteSql("CREATE TABLE PostgreSQLTestTable (p int)");
-            connection.ExecuteSql(@"
+            connection.ExecuteSql(
+                @"
 					CREATE OR REPLACE FUNCTION PostgreSQLTestProc (i int) 
 					RETURNS SETOF refcursor
 					AS $$
@@ -310,7 +325,8 @@ public class IndexModel : PageModel
 						OPEN rs FOR SELECT * FROM PostgreSQLTestTable;
 						RETURN NEXT rs;
 					END;
-					$$ LANGUAGE plpgsql;");
+					$$ LANGUAGE plpgsql;"
+            );
 
             var results = connection.Query<int>("PostgreSQLTestProc", new { i = 5 });
             // Assert.AreEqual(1, result.Count);

@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
-using CodeMechanic.RegularExpressions;
 using CodeMechanic.RazorHAT.Services;
+using CodeMechanic.RegularExpressions;
 using Hydro;
 using Newtonsoft.Json;
 using nugsnet6.Models;
@@ -22,9 +22,11 @@ public class WebClipper : HydroComponent
         string json = json_svc.ReadConfig("seed_data.json");
         seller = JsonConvert.DeserializeObject<Seller>(json);
 
-
         string regex = seller.cost.regex;
-        var regexp = new System.Text.RegularExpressions.Regex(regex, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        var regexp = new System.Text.RegularExpressions.Regex(
+            regex,
+            RegexOptions.Compiled | RegexOptions.IgnoreCase
+        );
         string cost_text = " $ 999.99";
         cost = cost_text.Extract<ExtractedCost>(regexp).FirstOrDefault();
 
@@ -72,8 +74,7 @@ public record Cost
 {
     public string css_selectors { get; set; } = "p.price";
 
-    public string regex { get; set; } =
-        @"(?<currency>\$)\s*?(?<raw_number>\d+\.?\d+)"; // https://regex101.com/r/KaxyoL/1
+    public string regex { get; set; } = @"(?<currency>\$)\s*?(?<raw_number>\d+\.?\d+)"; // https://regex101.com/r/KaxyoL/1
 
     public double Value { get; set; } = 0.00;
 }

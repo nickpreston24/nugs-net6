@@ -23,9 +23,9 @@ public sealed class MarkdownBuilder
             .ToString();
 
         string markdown_table = $"""
-            {front}
-            {markdown_rows}
-        """.Trim();
+                {front}
+                {markdown_rows}
+            """.Trim();
 
         return markdown_table;
     }

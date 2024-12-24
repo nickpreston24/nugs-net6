@@ -13,7 +13,5 @@ public class AlertModel
     public string Message { get; set; } = string.Empty;
     public Maybe<Exception> Error { get; set; } = Maybe<Exception>.None;
 
-    public string Kind => this.Error
-        .Case(some: (_) => "alert-error"
-            , none: () => "alert-success");
+    public string Kind => this.Error.Case(some: (_) => "alert-error", none: () => "alert-success");
 }

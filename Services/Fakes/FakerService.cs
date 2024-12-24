@@ -11,8 +11,9 @@ namespace CodeMechanic.RazorHAT.Services;
 public class FakerService : IFakerService
 {
     private readonly bool dev_mode;
+
     // private readonly IEnumerable<string> razor_page_routes;
-    // private readonly 
+    // private readonly
 
     public FakerService(bool dev_mode = false)
     {
@@ -36,10 +37,8 @@ public class FakerService : IFakerService
         var testUsers = new Faker<BogusUser>()
             //Optional: Call for objects that have complex initialization
             .CustomInstantiator(f => new BogusUser(userIds++, f.Random.Replace("###-##-####")))
-
             //Use an enum outside scope.
             .RuleFor(u => u.Gender, f => f.PickRandom<Name.Gender>())
-
             //Basic rules using built-in generators
             .RuleFor(u => u.FirstName, (f, u) => f.Name.FirstName(u.Gender))
             .RuleFor(u => u.LastName, (f, u) => f.Name.LastName(u.Gender))
@@ -47,7 +46,6 @@ public class FakerService : IFakerService
             .RuleFor(u => u.UserName, (f, u) => f.Internet.UserName(u.FirstName, u.LastName))
             .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.FirstName, u.LastName))
             .RuleFor(u => u.SomethingUnique, f => $"Value {f.UniqueIndex}")
-
             //Use a method outside scope.
             // .RuleFor(u => u.CartId, f => Guid.NewGuid())
             //Compound property with context, use the first/last name properties
@@ -55,7 +53,12 @@ public class FakerService : IFakerService
             //And composability of a complex collection.
             // .RuleFor(u => u.Orders, f => testOrders.Generate(3).ToList())
             //Optional: After all rules are applied finish with the following action
-            .FinishWith((f, u) => { Console.WriteLine("User Created! Id={0}", u.Id); });
+            .FinishWith(
+                (f, u) =>
+                {
+                    Console.WriteLine("User Created! Id={0}", u.Id);
+                }
+            );
 
         var user = testUsers.Generate();
         Console.WriteLine(user.Dump());
@@ -65,20 +68,49 @@ public class FakerService : IFakerService
 
     public List<AmmoseekRow> GetFakeAmmoPrices(int limit = 1000)
     {
-        var retailers = new[] { "Gorilla", "Hornady", "American Federal", "Sellier & Bellot", "Blastechzzz" };
+        var retailers = new[]
+        {
+            "Gorilla",
+            "Hornady",
+            "American Federal",
+            "Sellier & Bellot",
+            "Blastechzzz",
+        };
 
         var calibers = new[]
         {
-            "300 AAC Blackout", "5.56 NATO", "7.62x39", ".308 Winchester", "6.5 Creedmoor", "6mm ARC", ".224 Valkyrie"
+            "300 AAC Blackout",
+            "5.56 NATO",
+            "7.62x39",
+            ".308 Winchester",
+            "6.5 Creedmoor",
+            "6mm ARC",
+            ".224 Valkyrie",
         };
-        var grains = new[] { "110", "120", "125", "140", "160", "150", "200", "180", "210", "250", "300" };
+        var grains = new[]
+        {
+            "110",
+            "120",
+            "125",
+            "140",
+            "160",
+            "150",
+            "200",
+            "180",
+            "210",
+            "250",
+            "300",
+        };
 
-        var rows = Enumerable.Range(1, limit).Select(index => new AmmoseekRow()
+        var rows = Enumerable
+            .Range(1, limit)
+            .Select(index =>
+                new AmmoseekRow()
                 {
                     retailer = retailers.TakeFirstRandom(),
                     price_per_round = (Bogus.Randomizer.Seed.NextDouble() * 7.50).ToString(),
                     created_by = "Nicholas Preston",
-                    grains = grains.TakeFirstRandom()
+                    grains = grains.TakeFirstRandom(),
                 }.With(x => x.brand = x.retailer)
             )
             .ToList();
@@ -89,14 +121,19 @@ public class FakerService : IFakerService
 
     public List<Part> ImportPartsFromFile()
     {
-        string filepath = Path.Combine(Environment.CurrentDirectory, "Experimental", "parts-from-csv.json");
+        string filepath = Path.Combine(
+            Environment.CurrentDirectory,
+            "Experimental",
+            "parts-from-csv.json"
+        );
 
         Console.WriteLine("parts json :>> " + filepath);
 
         string json = File.ReadAllText(filepath);
 
         var parts = JsonConvert.DeserializeObject<List<Part>>(json) ?? new List<Part>();
-        if (dev_mode) parts.TakeFirstRandom().Dump("first part");
+        if (dev_mode)
+            parts.TakeFirstRandom().Dump("first part");
 
         return parts;
 
@@ -114,14 +151,20 @@ public class FakerService : IFakerService
             return objectType == typeof(double) || objectType == typeof(double); // Assuming it's a struct
         }
 
-        public override object ReadJson(JsonReader reader, System.Type objectType, object existingValue,
-            JsonSerializer serializer)
+        public override object ReadJson(
+            JsonReader reader,
+            System.Type objectType,
+            object existingValue,
+            JsonSerializer serializer
+        )
         {
             if (reader.TokenType != JsonToken.Null)
             {
-                if (reader.TokenType == JsonToken.String
+                if (
+                    reader.TokenType == JsonToken.String
                     || reader.TokenType == JsonToken.Integer
-                    || reader.TokenType == JsonToken.Float)
+                    || reader.TokenType == JsonToken.Float
+                )
                 {
                     try
                     {
@@ -132,17 +175,25 @@ public class FakerService : IFakerService
                     catch (Exception ex)
                     {
                         throw new JsonSerializationException(
-                            string.Format("Error converting value '{0}' to double.", reader.Value), ex);
+                            string.Format("Error converting value '{0}' to double.", reader.Value),
+                            ex
+                        );
                     }
                 }
 
-                throw new JsonSerializationException(string.Format("Unexpected token when parsing double. Got {0}.",
-                    reader.TokenType));
+                throw new JsonSerializationException(
+                    string.Format(
+                        "Unexpected token when parsing double. Got {0}.",
+                        reader.TokenType
+                    )
+                );
             }
 
             if (objectType != typeof(double))
             {
-                throw new JsonSerializationException(string.Format("Cannot convert null value to double"));
+                throw new JsonSerializationException(
+                    string.Format("Cannot convert null value to double")
+                );
             }
 
             return null;

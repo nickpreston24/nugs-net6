@@ -5,11 +5,9 @@ namespace nugsnet6.Pages.Guides
 {
     public class GuideGrid : PageModel
     {
-        public void OnGet()
-        {
-        }
+        public void OnGet() { }
 
-        public IActionResult OnGetStuff() 
+        public IActionResult OnGetStuff()
         {
             string message = "Guides Grabbed!";
             Thread.Sleep(3000);

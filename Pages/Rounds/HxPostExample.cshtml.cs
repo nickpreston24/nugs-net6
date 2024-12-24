@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace nugsnet6.Pages.Rounds;
+
 //Note: to remove all comments, replace this pattern with nothing:  // .*$
 
 [BindProperties]
@@ -10,19 +11,14 @@ public class HxPostExample : PageModel
     public string Name { get; init; } = string.Empty;
     public int Age { get; init; } = -1;
 
-    public HxPostExample()
-    {
-    }
+    public HxPostExample() { }
 
-    public void OnGet()
-    {
-    }
+    public void OnGet() { }
 
     public async Task<IActionResult> OnPostValidate()
     {
         return Content($"<b>Name: {Name}, Age: {Age}</b>");
     }
-
 
     public async Task<IActionResult> OnPostRegisterAsync()
     {
@@ -30,7 +26,7 @@ public class HxPostExample : PageModel
         // return RedirectToPage();
         return Content("Got records!");
     }
-    
+
     public async Task<IActionResult> OnDeleteUnRegisterAsync()
     {
         Console.WriteLine(nameof(OnDeleteUnRegisterAsync));
@@ -44,7 +40,6 @@ public class HxPostExample : PageModel
         // return RedirectToPage();
         return Content("Got records!");
     }
-
 
     public async Task<IActionResult> OnPostOtherStuff()
     {

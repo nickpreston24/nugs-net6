@@ -7,6 +7,7 @@ public sealed class NugsSettings
     public string Neo4jPassword { get; set; }
     public string MySqlConnectionString { get; set; } = string.Empty;
 
-    public string ASPNET_ENV = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "development";
+    public string ASPNET_ENV =
+        Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "development";
     // public string DevMode = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == Environments.Development;
 }

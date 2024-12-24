@@ -1,5 +1,6 @@
 using CodeMechanic.Diagnostics;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+
 // using Chart.Js;
 
 namespace nugsnet6.Pages.Rounds
@@ -19,6 +20,6 @@ namespace nugsnet6.Pages.Rounds
             // {
             //     NullValueHandling = NullValueHandling.Ignore,
             // });
-        }        
+        }
     }
 }

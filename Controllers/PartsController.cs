@@ -1,7 +1,7 @@
 using System.Reflection;
 using System.Text;
-using CodeMechanic.RegularExpressions;
 using CodeMechanic.Diagnostics;
+using CodeMechanic.RegularExpressions;
 using CodeMechanic.Types;
 using Insight.Database;
 using Microsoft.AspNetCore.Mvc;
@@ -22,23 +22,22 @@ public class PartsController : ControllerBase
     private readonly IWebHostEnvironment env;
     private readonly NugsSettings settings;
 
-    public PartsController(
-        ILogger<PartsController> logs
-        , IWebHostEnvironment environment_vars)
+    public PartsController(ILogger<PartsController> logs, IWebHostEnvironment environment_vars)
     {
         logger = logs;
         env = environment_vars;
 
-        settings = new NugsSettings()
-            .With(setting =>
-            {
-                setting.Neo4jUri = "blarg";
-                setting.Neo4jUser = "blarg";
-                setting.Neo4jPassword = "blarg";
-                setting.MySqlConnectionString = Environment.GetEnvironmentVariable("MYSQL_CONNECTIONSTRING");
-            })
-            // .Dump("current settings")
-            ; // doesn't work on startup.  Who knew?
+        settings = new NugsSettings().With(setting =>
+        {
+            setting.Neo4jUri = "blarg";
+            setting.Neo4jUser = "blarg";
+            setting.Neo4jPassword = "blarg";
+            setting.MySqlConnectionString = Environment.GetEnvironmentVariable(
+                "MYSQL_CONNECTIONSTRING"
+            );
+        })
+        // .Dump("current settings")
+        ; // doesn't work on startup.  Who knew?
     }
 
     [HttpPatch(nameof(ImportRecordsToNeo4jFromCSV))]
@@ -50,20 +49,21 @@ public class PartsController : ControllerBase
 
         var csv_lines = System.IO.File.ReadAllLines(request.import_file_path);
         var csv_regex = csv_lines[0]
-                .Split(',')
-                .Aggregate(new StringBuilder(), (builder, next_header) =>
+            .Split(',')
+            .Aggregate(
+                new StringBuilder(),
+                (builder, next_header) =>
                 {
                     builder.Append($"(?<{next_header}>.*),");
                     return builder;
-                })
-                .RemoveFromEnd(1)
-                .ToString()
-            // .Dump("generated regex")
-            ;
+                }
+            )
+            .RemoveFromEnd(1)
+            .ToString()
+        // .Dump("generated regex")
+        ;
 
-        var parts_for_upload = csv_lines
-            .SelectMany(csv => csv.Extract<Part>(csv_regex))
-            .ToList();
+        var parts_for_upload = csv_lines.SelectMany(csv => csv.Extract<Part>(csv_regex)).ToList();
 
         return parts_for_upload;
     }
@@ -82,9 +82,7 @@ public class PartsController : ControllerBase
             .Repeat(10)
             .ToList();
 
-
         return parts_for_upload;
-
 
         // var diffObj = new JsonDiffPatch();
         //
@@ -118,9 +116,7 @@ public class PartsController : ControllerBase
     }
 
     [HttpPost(nameof(AddNewRounds))]
-    public async Task<IEnumerable<Round>> AddNewRounds(
-        [FromBody] Round next_round
-    )
+    public async Task<IEnumerable<Round>> AddNewRounds([FromBody] Round next_round)
     {
         // https://www.midwayusa.com/s?searchTerm=proof%20research%20barrel
         string url = "https://ammoseek.com/ammo/224-valkyrie";
@@ -129,8 +125,7 @@ public class PartsController : ControllerBase
     }
 
     [HttpPost(nameof(AddNewParts))]
-    public async Task<IEnumerable<Part>> AddNewParts(
-        [FromBody] Part next_part)
+    public async Task<IEnumerable<Part>> AddNewParts([FromBody] Part next_part)
     {
         // settings.Dump("current settings");
 
@@ -144,10 +139,10 @@ public class PartsController : ControllerBase
         using (MySqlConnection connection = new MySqlConnection(connection_string))
         {
             string query = """
-                INSERT INTO Part (Name)
-                OUTPUT Inserted.ID
-                VALUES (@Name)
-            """;
+                    INSERT INTO Part (Name)
+                    OUTPUT Inserted.ID
+                    VALUES (@Name)
+                """;
 
             var part = new Part() { Name = "Fake Part" };
             connection.Insert("InsertPart", part);
@@ -181,7 +176,6 @@ public class PartsController : ControllerBase
             return part.AsList();
         }
     }
-
 
     // [HttpGet(nameof(FillRegexRepo))]
     // public async Task<IEnumerable<MarkdownTableRow>> FillRegexRepo()
@@ -226,14 +220,13 @@ public class PartsController : ControllerBase
     private static async Task<string> SearchAmmoSeek(AmmoseekRequest request)
     {
         using var client = new HttpClient();
-        var content = await client
-            .GetStringAsync("https://ammoseek.com/ammo/224-valkyrie");
+        var content = await client.GetStringAsync("https://ammoseek.com/ammo/224-valkyrie");
         return content;
 
         // string base_url = @"https://ammoseek.com/ammo/";
         // using var client = new HttpClient();
         // string? full_url =
-        //     @"https://www.scrapingbee.com/blog/web-scraping-csharp/";  
+        //     @"https://www.scrapingbee.com/blog/web-scraping-csharp/";
         // //    @"https://ammoseek.com/ammo/224-valkyrie";
         // //$"{base_url}/{request.caliber}";
         // Console.WriteLine(full_url.Dump("full url"));

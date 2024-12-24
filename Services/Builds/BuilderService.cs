@@ -19,8 +19,8 @@ public class BuilderService : IBuilderService
     public async Task<int> StartBuild()
     {
         string query = """
-        
-        """;
+
+            """;
 
         return 0;
     }
@@ -29,18 +29,18 @@ public class BuilderService : IBuilderService
     {
         var all_types = LowerPartType.GetAll<LowerPartType>();
         string query = """
-            MERGE ...
-        """;
+                MERGE ...
+            """;
         // TODO: run query.
 
         return 0;
     }
 
     public async Task<List<T>> GetAll<T>(
-        string query
-        , object parameters
-        , Func<IRecord, T> mapper = null
-        , bool debug_mode = false
+        string query,
+        object parameters,
+        Func<IRecord, T> mapper = null,
+        bool debug_mode = false
     )
         where T : class, new()
     {
@@ -78,7 +78,6 @@ public class BuilderService : IBuilderService
 
             return results;
         }
-
         // Capture any errors along with the query and data for traceability
         catch (Neo4jException ex)
         {
@@ -89,7 +88,6 @@ public class BuilderService : IBuilderService
         {
             session.CloseAsync();
         }
-
 
         // Console.WriteLine(nameof(GetAll));
         // if (mapper == null)
@@ -164,13 +162,14 @@ public class BuilderService : IBuilderService
     }
 
     private async Task<IList<T>> BulkCreateNodes<T>(
-        string query = ""
-        , object parameters = null
-        , Func<IRecord, T> mapper = null
+        string query = "",
+        object parameters = null,
+        Func<IRecord, T> mapper = null
     )
         where T : class, new()
     {
-        if (parameters == null) throw new ArgumentNullException(nameof(parameters));
+        if (parameters == null)
+            throw new ArgumentNullException(nameof(parameters));
 
         await using var session = driver.AsyncSession();
 
@@ -185,7 +184,6 @@ public class BuilderService : IBuilderService
 
             return results;
         }
-
         // Capture any errors along with the query and data for traceability
         catch (Neo4jException ex)
         {
@@ -260,25 +258,22 @@ public static class UpdatedNeo4JExtensions
         new Dictionary<Type, ICollection<PropertyInfo>>();
 
     public static T MapToV2<T>(
-        this IRecord record
-        , string label = ""
-        , List<PropertyInfo> props = null
+        this IRecord record,
+        string label = "",
+        List<PropertyInfo> props = null
     )
         where T : class, new()
     {
-        if (props == null) props = new List<PropertyInfo>();
+        if (props == null)
+            props = new List<PropertyInfo>();
 
         var type = typeof(T);
 
         // if no label provided, use the type's lowercased name
-        label = string.IsNullOrEmpty(label)
-            ? type.Name.ToLowerInvariant()
-            : label;
+        label = string.IsNullOrEmpty(label) ? type.Name.ToLowerInvariant() : label;
 
         // if no props passed as an override, get them from the cache
-        var properties = props.Count > 0
-            ? props
-            : _propertyCache.TryGetProperties<T>(true);
+        var properties = props.Count > 0 ? props : _propertyCache.TryGetProperties<T>(true);
 
         // Neo4j nodes require labels
         if (!record.Keys.Contains(label))
@@ -295,13 +290,20 @@ public static class UpdatedNeo4JExtensions
 
         foreach (var prop in properties ?? Enumerable.Empty<PropertyInfo>())
         {
-            string name = prop.Name /*.Dump("key")*/;
+            string name =
+                prop.Name /*.Dump("key")*/
+            ;
             // var value = node.Properties[name].Dump("value");
             node.Properties.TryGetValue(name, out var value);
 
             var next_value = CreateSafeValue(value, prop);
 
-            prop.SetValue(obj, next_value /*.Dump("value")*/, null);
+            prop.SetValue(
+                obj,
+                next_value /*.Dump("value")*/
+                ,
+                null
+            );
         }
 
         return obj;
@@ -311,10 +313,7 @@ public static class UpdatedNeo4JExtensions
     {
         Type propType = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
 
-        object safeValue =
-            value == null
-                ? null
-                : Convert.ChangeType(value, propType);
+        object safeValue = value == null ? null : Convert.ChangeType(value, propType);
 
         return safeValue;
     }

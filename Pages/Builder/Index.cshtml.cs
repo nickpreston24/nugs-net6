@@ -16,12 +16,15 @@ namespace nugsnet6.Pages.Builder;
 public class IndexModel : PageModel
 {
     private static string table_name = "Builds";
-    private static AirtableSearch _search = new();
+
+    // private static AirtableSearch _search = new();
     private static List<Build> builds_found = new();
 
     private static List<Part> parts_found = new();
+
     private readonly IEmbeddedResourceQuery embeddedResourceQuery;
-    private readonly IAirtableQueryingService airtable_service;
+
+    // private readonly IAirtableQueryingService airtable_service;
     private readonly ICsvService csv_service;
     private readonly IDriver driver;
     private readonly IAirtableRepo airtable_repo;
@@ -30,34 +33,28 @@ public class IndexModel : PageModel
     private readonly IPartsService parts_svc;
 
     public IndexModel(
-        IEmbeddedResourceQuery embeddedResourceQuery
-        , IAirtableQueryingService airtableQueryingService
-        , ICsvService csvService
-        , IDriver driver
-        , IAirtableRepo airtableRepo
-        , IBuilderService builderService
-        , IHttpClientFactory httpClientFactory
-        , IPartsService partsService
+        IEmbeddedResourceQuery embeddedResourceQuery,
+        // IAirtableQueryingService airtableQueryingService,
+        ICsvService csvService,
+        IDriver driver,
+        IAirtableRepo airtableRepo,
+        IBuilderService builderService,
+        IHttpClientFactory httpClientFactory,
+        IPartsService partsService
     )
     {
         _httpClientFactory = httpClientFactory;
         parts_svc = partsService;
         this.builder_svc = builderService;
         this.embeddedResourceQuery = embeddedResourceQuery;
-        airtable_service = airtableQueryingService;
+        // airtable_service = airtableQueryingService;
         csv_service = csvService;
         this.driver = driver;
         airtable_repo = airtableRepo;
     }
 
-    public List<Part> SampleParts { get; set; } = new()
-    {
-        new Part()
-        {
-            Name = "BCM Charging Handle"
-        }
-    };
-
+    public List<Part> SampleParts { get; set; } =
+        new() { new Part() { Name = "BCM Charging Handle" } };
 
     public List<Part> PartsFromCsv { get; set; } = new();
 
@@ -67,30 +64,29 @@ public class IndexModel : PageModel
     public string Url { get; set; } = string.Empty;
     public string CSS_Selector { get; set; } = string.Empty;
 
-
     public async void OnGet()
     {
         string filepath = "Experimental/Parts-Grid view.csv";
 
         var parts_from_csv = csv_service
-            .Read<Part>(filepath
-                , (csv) =>
+            .Read<Part>(
+                filepath,
+                (csv) =>
                 {
                     var record = new Part
                     {
                         Id = csv.GetField<string>("Id"),
                         Name = csv.GetField("Name"),
-                        Cost = csv.GetField("Cost")
-                            .Replace("$", "")
-                            .ToDouble(),
+                        Cost = csv.GetField("Cost").Replace("$", "").ToDouble(),
                         Combo = csv.GetField("Combo"),
                         Type = csv.GetField("Type"),
                         Attachments = csv.GetField("Attachments"),
                         Url = csv.GetField("Url"),
                     };
                     return record;
-                }).ToList();
-
+                }
+            )
+            .ToList();
 
         var parts_from_sqlite = await parts_svc.GetAll();
 
@@ -106,11 +102,9 @@ public class IndexModel : PageModel
         PartsFromCsv = parts_from_csv;
 
         var query = "match (b:Build) return b limit 10";
-        var existing_builds = 
+        var existing_builds =
             // await driver.SearchNeo4J<Build>(query, null, debug_mode: true);
-            await builder_svc.GetAll<Build>(
-            query
-        );
+            await builder_svc.GetAll<Build>(query);
 
         Console.WriteLine("existing builds :>> " + existing_builds.Count);
     }
@@ -129,13 +123,15 @@ public class IndexModel : PageModel
         {
             var web = new HtmlWeb();
             var document = web.Load(Url);
-            var selectors = "gallery-image".AsArray().Concat(new[] { UpdatePart.ImageCssSelector }).ToArray();
+            var selectors = "gallery-image"
+                .AsArray()
+                .Concat(new[] { UpdatePart.ImageCssSelector })
+                .ToArray();
             selectors.Dump("looking for selectors");
             clipped_images = GetImages(document)
                 // .Dump("all")
-                .HavingSelectors(
-                    selectors
-                ).ToList();
+                .HavingSelectors(selectors)
+                .ToList();
 
             // Console.WriteLine(response);
             clipped_images?.Dump(nameof(clipped_images));
@@ -153,14 +149,13 @@ public class IndexModel : PageModel
 
     private List<ScrapedImage> GetImages(HtmlDocument document)
     {
-        var urls = document.DocumentNode.Descendants("img")
-            .Select(e =>
-                new ScrapedImage()
-                {
-                    src = e.GetAttributeValue("src", null),
-                    css_selector = e.GetAttributeValue("class", null)
-                }
-            )
+        var urls = document
+            .DocumentNode.Descendants("img")
+            .Select(e => new ScrapedImage()
+            {
+                src = e.GetAttributeValue("src", null),
+                css_selector = e.GetAttributeValue("class", null),
+            })
             .Where(s => s.src.NotEmpty())
             .ToList();
 
@@ -180,8 +175,9 @@ public class IndexModel : PageModel
     public async Task<IActionResult> OnGetPartsFromCsvFile()
     {
         Console.WriteLine("HELLO FROM CSV IMPORT");
-        var userDir = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile))
-            ?.FullName;
+        var userDir = new DirectoryInfo(
+            Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
+        )?.FullName;
 
         string filedir = "Downloads";
         string filename = "Parts-Grid view.csv";
@@ -192,16 +188,16 @@ public class IndexModel : PageModel
         Console.WriteLine(Environment.GetEnvironmentVariable("HOME"));
 
         return Content("Done!");
-//
-//
-//         string regex_pattern_for_parts = $"""
-//             (?<Name>\w+)\,
-//         """ ;
-//
-//         var csv_parts = csv_service.ImportAs<nugsnet6.Models.Part>(filepath, regex_pattern_for_parts);
-//         csv_parts.Count.Dump($"# of parts from csv '{filepath}'");
-//
-//         return Partial("_PartsTable", csv_parts);
+        //
+        //
+        //         string regex_pattern_for_parts = $"""
+        //             (?<Name>\w+)\,
+        //         """ ;
+        //
+        //         var csv_parts = csv_service.ImportAs<nugsnet6.Models.Part>(filepath, regex_pattern_for_parts);
+        //         csv_parts.Count.Dump($"# of parts from csv '{filepath}'");
+        //
+        //         return Partial("_PartsTable", csv_parts);
     }
 
     public async Task<IActionResult> OnGetSamplePartsFromAirtable()
@@ -237,8 +233,8 @@ public class IndexModel : PageModel
         // return Partial("_PartsList", parts);
     }
 
-    public void OnPatchSetTableName(string next_table_name = "Loadouts") => table_name = next_table_name;
-
+    public void OnPatchSetTableName(string next_table_name = "Loadouts") =>
+        table_name = next_table_name;
 
     public IActionResult OnPatchPatchPart([FromForm] Part request)
     {
@@ -250,57 +246,55 @@ public class IndexModel : PageModel
 
     public async Task<IActionResult> OnGetSearchParts(string Name = "")
     {
-        parts_found = await airtable_repo
-            .SearchRecords<Part>(_search
-                    .With(s =>
-                    {
-                        s.table_name = "Parts";
-                        s.maxRecords = 3;
-                        s.filterByFormula = $"(FIND(\"{Name}\", {{Name}}))";
-                    })
-                , debug: true
-            );
+        // parts_found = await airtable_repo.SearchRecords<Part>(
+        //     _search.With(s =>
+        //     {
+        //         s.table_name = "Parts";
+        //         s.maxRecords = 3;
+        //         s.filterByFormula = $"(FIND(\"{Name}\", {{Name}}))";
+        //     }),
+        //     debug: true
+        // );
 
-        return Partial("_PartsTable", parts_found);
+        return Partial("_PartsTable", default);
     }
 
     public async Task<IActionResult> OnGetSearchBuilds(string Name = "")
     {
-        builds_found = await airtable_repo
-            .SearchRecords<Build>(_search
-                    .With(s =>
-                    {
-                        s.table_name = "Builds";
-                        s.maxRecords = 3;
-                        // s.pageSize = 20;
-                        // s.offset = "30";
-                        s.filterByFormula = $"(FIND(\"{Name}\", {{Name}}))";
-                    })
-                , debug: true
-            );
+        // builds_found = await airtable_repo.SearchRecords<Build>(
+        //     _search.With(s =>
+        //     {
+        //         s.table_name = "Builds";
+        //         s.maxRecords = 3;
+        //         // s.pageSize = 20;
+        //         // s.offset = "30";
+        //         s.filterByFormula = $"(FIND(\"{Name}\", {{Name}}))";
+        //     }),
+        //     debug: true
+        // );
 
-//         string html = new StringBuilder()
-//             .AppendEach(
-//                 builds_found,
-//                 build =>
-//                     $"""
-//                          <tr>
-//                              <th>
-//                                  <label>
-//                                      <input type="checkbox" class="checkbox" />
-//                                  </label>
-//                              </th>
-//                              <th class='text-primary'>{ build.Name}                                         
-//                                                                             </th>
-//                              <td class='text-accent'>${ build.Total_Cost.ToString()}                      
-//                                                                 
-//                                                            </td>
-//                              <td class='text-secondary'>{ build.Reasoning}  
-//                                                                           
-//                                                                      </td>
-//                          </tr>
-//                      """ ).ToString();
-//         return Content(html);
+        //         string html = new StringBuilder()
+        //             .AppendEach(
+        //                 builds_found,
+        //                 build =>
+        //                     $"""
+        //                          <tr>
+        //                              <th>
+        //                                  <label>
+        //                                      <input type="checkbox" class="checkbox" />
+        //                                  </label>
+        //                              </th>
+        //                              <th class='text-primary'>{ build.Name}
+        //                                                                             </th>
+        //                              <td class='text-accent'>${ build.Total_Cost.ToString()}
+        //
+        //                                                            </td>
+        //                              <td class='text-secondary'>{ build.Reasoning}
+        //
+        //                                                                      </td>
+        //                          </tr>
+        //                      """ ).ToString();
+        //         return Content(html);
         return Partial("_BuildsTable", builds_found);
     }
 
@@ -337,8 +331,9 @@ public class IndexModel : PageModel
 public static class ScrapedImageExtensions
 {
     public static IEnumerable<ScrapedImage> HavingSelectors(
-        this IEnumerable<ScrapedImage> images, params string[] cssselectors) =>
-        images.Where(img => cssselectors.Contains(img.css_selector));
+        this IEnumerable<ScrapedImage> images,
+        params string[] cssselectors
+    ) => images.Where(img => cssselectors.Contains(img.css_selector));
 }
 
 public record ScrapedImage
@@ -350,11 +345,11 @@ public record ScrapedImage
 //     var nodes = document.DocumentNode.QuerySelectorAll("div.product-image-gallery");
 //
 //     /*
-//      * // scraping the interesting data from the current HTML element 
-// var url = HtmlEntity.DeEntitize(productHTMLElement.QuerySelector("a").Attributes["href"].Value); 
+//      * // scraping the interesting data from the current HTML element
+// var url = HtmlEntity.DeEntitize(productHTMLElement.QuerySelector("a").Attributes["href"].Value);
 //
-// var name = HtmlEntity.DeEntitize(productHTMLElement.QuerySelector("h2").InnerText); 
-// var price = HtmlEntity.DeEntitize(productHTMLElement.QuerySelector(".price").InnerText); 
+// var name = HtmlEntity.DeEntitize(productHTMLElement.QuerySelector("h2").InnerText);
+// var price = HtmlEntity.DeEntitize(productHTMLElement.QuerySelector(".price").InnerText);
 //      */
 //
 //     if (nodes?.Count == 0)

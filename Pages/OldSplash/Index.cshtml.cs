@@ -13,7 +13,7 @@ public class IndexModel : PageModel
     private readonly ILogger<IndexModel> _logger;
 
     // public string CopyUrl { get; set; }
-  
+
 
     public AnonymousUser AnonUser { get; set; } = new AnonymousUser();
 
@@ -31,13 +31,11 @@ public class IndexModel : PageModel
         AnonUser.CopyUrl = prod_url_start + $"?u={u}" + $"&b={b}";
     }
 
-
     public IActionResult OnGetAnonymousUser()
     {
-        return Partial("_Anonymous", new AnonymousUser()
-            {
-                uuid = Guid.NewGuid().AsUUID()
-            }.With(au => AnonUser = au)
+        return Partial(
+            "_Anonymous",
+            new AnonymousUser() { uuid = Guid.NewGuid().AsUUID() }.With(au => AnonUser = au)
         );
     }
 
@@ -45,13 +43,15 @@ public class IndexModel : PageModel
 
     public async Task<IActionResult> OnGetSurvey() => Partial("_Survey", default);
 
-    public async Task<IActionResult> OnPostUpdateSurvey([FromBody] Survey survey) => Partial("_Survey", survey);
+    public async Task<IActionResult> OnPostUpdateSurvey([FromBody] Survey survey) =>
+        Partial("_Survey", survey);
 
     public async Task<IActionResult> OnGetSwap() => Partial("AlpineMorphSample", default);
 
-    public async Task<IActionResult> OnGetRenderSection(string section_name, object value) => section_name.IsEmpty()
-        ? Partial("_MissingSection", section_name)
-        : Partial(section_name, value);
+    public async Task<IActionResult> OnGetRenderSection(string section_name, object value) =>
+        section_name.IsEmpty()
+            ? Partial("_MissingSection", section_name)
+            : Partial(section_name, value);
 }
 
 public record BuyerWelcomeConfig

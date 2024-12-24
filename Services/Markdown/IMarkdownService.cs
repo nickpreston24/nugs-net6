@@ -18,32 +18,34 @@ public class MarkdownService : IMarkdownService
     private readonly IEmbeddedResourceQuery embeds;
     public string[] AllRoutes { get; set; }
 
-
-    public List<MarkdownFile> GetAllMarkdownFiles(
-        string root_folder = ""
-        , bool dev_mode = false)
+    public List<MarkdownFile> GetAllMarkdownFiles(string root_folder = "", bool dev_mode = false)
     {
-        string current_directory = root_folder.IsEmpty() ? Environment.CurrentDirectory : string.Empty;
-        if (dev_mode) Console.WriteLine("cwd :>> " + current_directory);
+        string current_directory = root_folder.IsEmpty()
+            ? Environment.CurrentDirectory
+            : string.Empty;
+        if (dev_mode)
+            Console.WriteLine("cwd :>> " + current_directory);
 
         var grepper = new Grepper()
         {
             RootPath = current_directory,
             FileSearchMask = "**.md",
             Recursive = true,
-            FileSearchLinePattern = MarkdownHeader.header_pattern
+            FileSearchLinePattern = MarkdownHeader.header_pattern,
         };
 
         var is_blacklisted = new Func<string, bool>(filepath =>
             filepath.Contains("node_modules")
             || filepath.Contains("wwwroot")
             || filepath.Contains("bin")
-            || filepath.Contains("obj"));
+            || filepath.Contains("obj")
+        );
 
-        RegexOptions options = RegexOptions.Compiled
-                               | RegexOptions.Multiline
-                               | RegexOptions.IgnorePatternWhitespace
-                               | RegexOptions.IgnoreCase;
+        RegexOptions options =
+            RegexOptions.Compiled
+            | RegexOptions.Multiline
+            | RegexOptions.IgnorePatternWhitespace
+            | RegexOptions.IgnoreCase;
 
         var matching_files = grepper
             .GetMatchingFiles()
@@ -51,31 +53,23 @@ public class MarkdownService : IMarkdownService
             .ToList();
 
         var matching_filenames_only = grepper
-                .GetFileNames()
-                .Where(path => !is_blacklisted(path))
-                .ToList()
-            ;
+            .GetFileNames()
+            .Where(path => !is_blacklisted(path))
+            .ToList();
 
         var files_containing_markdown = matching_files
-                .Select(grepResult => new MarkdownFile()
-                {
-                    FilePath = grepResult.FilePath,
-                })
-                .ToList()
-            ;
-
+            .Select(grepResult => new MarkdownFile() { FilePath = grepResult.FilePath })
+            .ToList();
 
         var markdownFiles = matching_filenames_only
-                .Select(filepath => new MarkdownFile()
-                {
-                    FilePath = filepath,
-                })
-                .ToList()
-            ;
+            .Select(filepath => new MarkdownFile() { FilePath = filepath })
+            .ToList();
 
-        if (dev_mode) files_containing_markdown.Dump("files containing markdown text :>> ");
+        if (dev_mode)
+            files_containing_markdown.Dump("files containing markdown text :>> ");
 
-        if (dev_mode) matching_filenames_only.Dump("markdown file names (only) :>> ");
+        if (dev_mode)
+            matching_filenames_only.Dump("markdown file names (only) :>> ");
 
         // is_blacklisted("home/wwwroot/blah/123").Dump("blacklist test?");
 
@@ -94,9 +88,9 @@ public class MarkdownFile
 public class MarkdownTable
 {
     public static string table_pattern = """
-        # TODO: Untested
-        /((\r?\n){2}|^)([^\r\n]*\|[^\r\n]*(\r?\n)?)+(?=(\r?\n){2}|$)/  # https://regex101.com/r/8pNnaG/1/codegen?language=csharp
-    """;
+            # TODO: Untested
+            /((\r?\n){2}|^)([^\r\n]*\|[^\r\n]*(\r?\n)?)+(?=(\r?\n){2}|$)/  # https://regex101.com/r/8pNnaG/1/codegen?language=csharp
+        """;
 }
 
 public class MarkdownHeader

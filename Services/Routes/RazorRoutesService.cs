@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
-using CodeMechanic.RegularExpressions;
 using CodeMechanic.FileSystem;
+using CodeMechanic.RegularExpressions;
 using NSpecifications;
 
 namespace CodeMechanic.RazorHAT.Services;
@@ -12,7 +12,8 @@ public class RazorRoutesService : IRazorRoutesService
 
     public RazorRoutesService(
         // string [] blacklist,
-        bool dev_mode = false)
+        bool dev_mode = false
+    )
     {
         razor_page_routes = GetAllRoutes();
         this.dev_mode = dev_mode;
@@ -22,7 +23,8 @@ public class RazorRoutesService : IRazorRoutesService
     {
         string current_directory = Environment.CurrentDirectory;
 
-        if (dev_mode) Console.WriteLine("cwd :>> " + current_directory);
+        if (dev_mode)
+            Console.WriteLine("cwd :>> " + current_directory);
 
         var grepper = new Grepper()
         {
@@ -33,44 +35,52 @@ public class RazorRoutesService : IRazorRoutesService
 
         var blacklist = new string[]
         {
-            "/Shared/", "/PrivateSales/", "/RSSFeeds/", "/PrivateSales/", "/PrivateSales/"
+            "/Shared/",
+            "/PrivateSales/",
+            "/RSSFeeds/",
+            "/PrivateSales/",
+            "/PrivateSales/",
         };
 
-        var is_blacklisted = new Spec<string>(
-            filepath =>
-                filepath.Contains("node_modules/")
-                || filepath.Contains("wwwroot/")
-                || filepath.Contains("bin/")
-                || filepath.Contains("obj/")
+        var is_blacklisted = new Spec<string>(filepath =>
+            filepath.Contains("node_modules/")
+            || filepath.Contains("wwwroot/")
+            || filepath.Contains("bin/")
+            || filepath.Contains("obj/")
         );
 
-        RegexOptions options = RegexOptions.Compiled | RegexOptions.Multiline | RegexOptions.IgnorePatternWhitespace |
-                               RegexOptions.IgnoreCase;
+        RegexOptions options =
+            RegexOptions.Compiled
+            | RegexOptions.Multiline
+            | RegexOptions.IgnorePatternWhitespace
+            | RegexOptions.IgnoreCase;
 
-        var regex = new Regex(@"(?<subdirectory>\/?(\w+\/)*)(?<file_name>.*\.(?<extension>cshtml|cs))",
-            options);
+        var regex = new Regex(
+            @"(?<subdirectory>\/?(\w+\/)*)(?<file_name>.*\.(?<extension>cshtml|cs))",
+            options
+        );
 
-        var routes = grepper.GetFileNames()
-                         .Where(!is_blacklisted)
-                         .Select(p => p.Replace(current_directory, ""))
-                         .Where(p => p.StartsWith("/Pages") || p.Equals("/"))
-                         .Select(p => p.Extract<RazorRoute>(regex)?.FirstOrDefault()?.subdirectory)
-                         .Select(p => p.Replace("/Pages", ""))
-                         .Except(blacklist)
-                         .Distinct()
-                     ?? Enumerable.Empty<string>()
-            // .Dump("routes")
-            ;
+        var routes =
+            grepper
+                .GetFileNames()
+                .Where(!is_blacklisted)
+                .Select(p => p.Replace(current_directory, ""))
+                .Where(p => p.StartsWith("/Pages") || p.Equals("/"))
+                .Select(p => p.Extract<RazorRoute>(regex)?.FirstOrDefault()?.subdirectory)
+                .Select(p => p.Replace("/Pages", ""))
+                .Except(blacklist)
+                .Distinct() ?? Enumerable.Empty<string>()
+        // .Dump("routes")
+        ;
 
         return routes.ToArray();
     }
 
     public string[] GetBreadcrumbsForPage(string page_name)
     {
-        var current_breadcrumbs = this.GetAllRoutes()
-                .Where(path => path.Contains(page_name))
-            // .Dump("Current breadcrumbs")
-            ;
+        var current_breadcrumbs = this.GetAllRoutes().Where(path => path.Contains(page_name))
+        // .Dump("Current breadcrumbs")
+        ;
 
         return current_breadcrumbs.ToArray();
     }

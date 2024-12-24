@@ -8,19 +8,18 @@ public class PropertyCache : IPropertyCache
     private static readonly IDictionary<Type, ICollection<PropertyInfo>> property_cache =
         new Dictionary<Type, ICollection<PropertyInfo>>();
 
-    private static readonly IDictionary<Type, string> property_names = new Dictionary<Type, string>();
+    private static readonly IDictionary<Type, string> property_names =
+        new Dictionary<Type, string>();
 
     public PropertyInfo[] GetProperties<T>(params PropertyInfo[] props)
     {
-        var properties = props?.Length > 0
-            ? property_cache
-                .TryGetProperties<T>(true)
-                .ToArray()
-            : Enumerable.Empty<PropertyInfo>();
+        var properties =
+            props?.Length > 0
+                ? property_cache.TryGetProperties<T>(true).ToArray()
+                : Enumerable.Empty<PropertyInfo>();
 
         return properties.ToArray();
     }
-
 
     public string[] GetPropertyNames<T>()
     {
@@ -29,10 +28,7 @@ public class PropertyCache : IPropertyCache
 
         lock (property_cache)
         {
-            var names = property_cache
-                .TryGetProperties<T>()
-                .Select(x => x.Name)
-                .ToArray();
+            var names = property_cache.TryGetProperties<T>().Select(x => x.Name).ToArray();
 
             return names;
 

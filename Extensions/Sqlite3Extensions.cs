@@ -9,7 +9,11 @@ public static class Sqlite3Extensions
     {
         var replacementMap = new Dictionary<string, string>()
         {
-            { @"(?<!['\(])'{1}(?![\)',])", "''" } // https://regex101.com/r/K3O4ap/1
+            {
+                @"(?<!['\(])'{1}(?![\)',])",
+                "''"
+            } // https://regex101.com/r/K3O4ap/1
+            ,
         };
 
         return value.AsArray().ReplaceAll(replacementMap).FlattenText();

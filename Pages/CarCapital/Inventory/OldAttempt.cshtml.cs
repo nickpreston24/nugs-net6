@@ -12,23 +12,24 @@ public class OldAttempt : PageModel
     public Car CarSearch => car_search; // This exposes the search to our Model, for normal use.
 
     // Controller sample data:
-    public static List<Car> cars = new()
-    {
-        new Car
+    public static List<Car> cars =
+        new()
         {
-            Image_Url =
-                "https://tesla-cdn.thron.com/delivery/public/image/tesla/03c34975-991c-45ee-a340-2b700bf7de01/bvlatuR/std/960x540/meet-your-tesla_model-s",
-            Name = "Model S",
-            Make = "Tesla"
-        },
-        new Car
-        {
-            Image_Url =
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/2011_Chevrolet_Volt_--_NHTSA_1.jpg/1200px-2011_Chevrolet_Volt_--_NHTSA_1.jpg",
-            Name = "Chevy Volt",
-            Make = "Chevy"
-        }
-    };
+            new Car
+            {
+                Image_Url =
+                    "https://tesla-cdn.thron.com/delivery/public/image/tesla/03c34975-991c-45ee-a340-2b700bf7de01/bvlatuR/std/960x540/meet-your-tesla_model-s",
+                Name = "Model S",
+                Make = "Tesla",
+            },
+            new Car
+            {
+                Image_Url =
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/2011_Chevrolet_Volt_--_NHTSA_1.jpg/1200px-2011_Chevrolet_Volt_--_NHTSA_1.jpg",
+                Name = "Chevy Volt",
+                Make = "Chevy",
+            },
+        };
 
     public List<Car> AllCarInventory => cars;
 
@@ -47,17 +48,19 @@ public class OldAttempt : PageModel
         car_search = cars.FirstOrDefault();
         car_search.Dump("current search");
 
-        return Content($"""
-                            <div class="card lg:card-side bg-base-100 shadow-xl">
-                                <figure><img src="{car_search.Image_Url}" /></figure>
-                                <div class="card-body">
-                                    <h2 class="card-title">Searching for, {car_search.Name}!</h2>
-                                    <p>You entered {car_search.Cost} for the cost, is this correct?</p>
-                                    <div class="card-actions justify-end">
-                                        <button class="btn btn-primary">Confirm</button>
-                                    </div>
-                                </div>
-                            </div>
-                        """);
+        return Content(
+            $"""
+                <div class="card lg:card-side bg-base-100 shadow-xl">
+                    <figure><img src="{car_search.Image_Url}" /></figure>
+                    <div class="card-body">
+                        <h2 class="card-title">Searching for, {car_search.Name}!</h2>
+                        <p>You entered {car_search.Cost} for the cost, is this correct?</p>
+                        <div class="card-actions justify-end">
+                            <button class="btn btn-primary">Confirm</button>
+                        </div>
+                    </div>
+                </div>
+            """
+        );
     }
 }

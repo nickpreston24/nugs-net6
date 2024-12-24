@@ -13,7 +13,8 @@ public class SqliteInsightsService : ISqliteInsightsService
 
     public SqliteInsightsService(
         IEmbeddedResourceQuery embeddedResourceQuery,
-        string connection_string = null)
+        string connection_string = null
+    )
     {
         string env_connection = Environment.GetEnvironmentVariable("SQLITE_CONNECTIONSTRING");
         connectionstring = connection_string ?? env_connection ?? "Data Source=Nugs.db";
@@ -25,7 +26,9 @@ public class SqliteInsightsService : ISqliteInsightsService
     {
         using var connection = CreateConnection();
 
-        var tables = await connection.QueryAsync<SQLiteTableInfo>("SELECT * FROM sqlite_master WHERE type='table'");
+        var tables = await connection.QueryAsync<SQLiteTableInfo>(
+            "SELECT * FROM sqlite_master WHERE type='table'"
+        );
         var tableNames = tables.Dump("tables found");
         return tableNames.ToList();
     }
@@ -42,7 +45,6 @@ public class SqliteInsightsService : ISqliteInsightsService
         return generated_query;
     }
 
-
     // Scripts a table from a C# model
     public async Task<String> ScriptTableAs<T>(T model)
     {
@@ -50,7 +52,6 @@ public class SqliteInsightsService : ISqliteInsightsService
 
         return generated_query;
     }
-
 
     // Gets all SQL files that are called in the source code, but don't have a matching file.
     public async Task<string[]> FindMismatchedEmbeds()

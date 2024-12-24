@@ -22,10 +22,10 @@ public interface IBuilderService
     //     , Func<IRecord, Build> mapper = null
     // );
     Task<List<T>> GetAll<T>(
-        string query
-        , object parameters = null
-        , Func<IRecord, T> mapper = null
-        , bool debug_mode = false
+        string query,
+        object parameters = null,
+        Func<IRecord, T> mapper = null,
+        bool debug_mode = false
     )
         where T : class, new();
 }

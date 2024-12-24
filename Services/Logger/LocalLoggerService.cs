@@ -11,20 +11,17 @@ public class LocalLoggerService : ILocalLogger
     public LocalLoggingSettings Settings = new();
     private bool dev_mode = false;
 
-    public LocalLoggerService(
-        bool devMode = false)
+    public LocalLoggerService(bool devMode = false)
     {
         dev_mode = devMode;
 
         var grepper = new Grepper()
         {
             FileSearchMask = "*.log",
-            RootPath = Environment.CurrentDirectory
+            RootPath = Environment.CurrentDirectory,
         };
 
-        var files = grepper
-            .GetFileNames()
-            .Select(fn => new FileInfo(fn));
+        var files = grepper.GetFileNames().Select(fn => new FileInfo(fn));
 
         var now = DateTime.Now;
         var expiration = now.Add(Settings.ExpiresIn);
@@ -43,10 +40,9 @@ public class LocalLoggerService : ILocalLogger
     {
         using var connection = CreateConnection();
         string file_path = "create_log.sql";
-        // ... 
+        // ...
         return default;
     }
-
 
     public async Task<List<LogRow>> GetAll()
     {
@@ -65,10 +61,7 @@ public class LocalLoggerService : ILocalLogger
     {
         string sql = """SELECT * FROM logs where id = @id""";
         using var connection = CreateConnection();
-        var records = await connection.QueryAsync<LogRow>(sql, param: new
-        {
-            id = id
-        });
+        var records = await connection.QueryAsync<LogRow>(sql, param: new { id = id });
         return records.SingleOrDefault();
     }
 
@@ -118,7 +111,6 @@ public class LocalLoggerService : ILocalLogger
         File.WriteAllText(file_path, content);
         return new FileInfo(file_path);
     }
-
 
     private SqliteConnection CreateConnection()
     {

@@ -13,7 +13,8 @@ public class CurlOptions
     // public List<string> headers { get; set; }
     public string raw_headers { get; set; } = string.Empty;
 
-    public CurlHeader[] Headers => raw_headers.Extract<CurlHeader>(CurlRegex.Find(CurlRegex.HEADERS)).ToArray();
+    public CurlHeader[] Headers =>
+        raw_headers.Extract<CurlHeader>(CurlRegex.Find(CurlRegex.HEADERS)).ToArray();
 
     public string uri { get; set; } = string.Empty;
 
